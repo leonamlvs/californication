@@ -8,6 +8,7 @@ signal candidate_rejected(pattern_id: StringName, reason: String)
 @export var segment_definitions: Array[SegmentDefinition] = []
 @export var capability_profile: MovementCapabilityProfile
 @export var obstacle_library: ObstacleSceneLibrary
+@export var collectible_layout_library: CollectibleLayoutLibrary
 @export var fallback_pattern: PatternDefinition
 @export_range(30.0, 250.0, 1.0, "suffix:m") var ahead_distance := 90.0
 @export_range(0.0, 50.0, 1.0, "suffix:m") var behind_distance := 15.0
@@ -19,8 +20,10 @@ signal candidate_rejected(pattern_id: StringName, reason: String)
 
 @onready var segment_root: Node3D = %Segments
 @onready var obstacle_root: Node3D = %Obstacles
+@onready var collectible_root: Node3D = %Collectibles
 @onready var inactive_root: Node3D = %Pooled
 @onready var pool: TrackPool = %TrackPool
+@onready var run_stats: RunStats = %RunStats
 
 var active_segments: Array[TrackSegment] = []
 var generation_history: Array[StringName] = []
@@ -37,7 +40,7 @@ var _validator := PatternValidator.new()
 
 
 func _ready() -> void:
-	pool.configure(obstacle_library, segment_root, obstacle_root, inactive_root)
+	pool.configure(obstacle_library, segment_root, obstacle_root, collectible_root, inactive_root)
 	_validator.absolute_minimum_reaction_time = absolute_minimum_reaction_time
 	_validator.validation_window_seconds = validation_window_seconds
 	if auto_start and configuration_is_valid():
@@ -50,7 +53,7 @@ func _physics_process(delta: float) -> void:
 
 
 func configuration_is_valid() -> bool:
-	if capability_profile == null or not capability_profile.is_valid_profile() or obstacle_library == null or not obstacle_library.is_valid_library():
+	if capability_profile == null or not capability_profile.is_valid_profile() or obstacle_library == null or not obstacle_library.is_valid_library() or collectible_layout_library == null or not collectible_layout_library.is_valid_library(capability_profile.lane_count):
 		return false
 	if fallback_pattern == null or not fallback_pattern.safe_fallback:
 		return false
@@ -78,6 +81,7 @@ func reset_generator(seed_value: int = deterministic_seed, start_distance: float
 	current_speed = speed
 	_cursor_distance = start_distance
 	tail_legal_state_mask = initial_state_mask if initial_state_mask != 0 else capability_profile.initial_state_mask()
+	run_stats.reset_for_fresh_run(start_distance)
 	_rng.seed = seed_value
 	_fill_ahead()
 
@@ -90,6 +94,13 @@ func step_simulation(logical_distance: float, speed: float, delta: float = 0.0) 
 		if _runner != null:
 			for obstacle: ObstacleBase in segment.active_obstacles:
 				obstacle.step_simulation(_runner, delta)
+			for collectible: CollectibleBase in segment.active_collectibles.duplicate():
+				collectible.step_simulation(_runner)
+				if collectible.is_resolved():
+					pool.release_collectible(collectible)
+					segment.active_collectibles.erase(collectible)
+	if _runner != null:
+		run_stats.step_simulation(delta, _runner.logical_forward_distance, GameFlow.run_timer_enabled or _runner.development_simulation_enabled)
 	_recycle_passed()
 	_fill_ahead()
 
@@ -173,12 +184,50 @@ func _append_next_segment() -> bool:
 		obstacle.rotation_degrees = placement.rotation_degrees
 		obstacle.reset_for_spawn(_cursor_distance + placement.forward_offset, placement.lane, _cursor_distance)
 		segment.active_obstacles.append(obstacle)
+	_spawn_weighted_collectible_layout(segment)
 	active_segments.append(segment)
 	generation_history.append(pattern.id)
 	tail_legal_state_mask = result.exit_state_mask
 	_cursor_distance = segment.end_distance
 	segment_spawned.emit(segment)
 	return true
+
+
+func spawn_collectible_layout(layout: CollectibleLayout, segment: TrackSegment = null) -> bool:
+	if layout == null or not layout.is_mode_supported(capability_profile.movement_mode):
+		return false
+	var target_segment: TrackSegment = segment
+	if target_segment == null and not active_segments.is_empty():
+		target_segment = active_segments.back()
+	if target_segment == null or not is_equal_approx(layout.length, target_segment.definition.length):
+		return false
+	for point: CollectibleLayoutPoint in layout.points:
+		var collectible := pool.acquire_collectible()
+		collectible.reset_for_spawn(target_segment.start_distance + point.forward_offset, point.lane, point.runner_height, _runner)
+		if not collectible.collected.is_connected(_on_collectible_collected):
+			collectible.collected.connect(_on_collectible_collected)
+		target_segment.active_collectibles.append(collectible)
+	return true
+
+
+func _spawn_weighted_collectible_layout(segment: TrackSegment) -> void:
+	var choices := collectible_layout_library.compatible_layouts(capability_profile.movement_mode)
+	if choices.is_empty():
+		return
+	var total_weight := 0.0
+	for layout: CollectibleLayout in choices:
+		total_weight += layout.weight
+	var roll := _rng.randf_range(0.0, total_weight)
+	for layout: CollectibleLayout in choices:
+		roll -= layout.weight
+		if roll <= 0.0:
+			spawn_collectible_layout(layout, segment)
+			return
+	spawn_collectible_layout(choices.back(), segment)
+
+
+func _on_collectible_collected(_collectible: CollectibleBase) -> void:
+	run_stats.award_normal_pickup()
 
 
 func _weighted_choice(candidates: Array[Dictionary]) -> Dictionary:

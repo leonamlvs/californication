@@ -9,7 +9,7 @@ Update only after acceptance criteria are verified.
 - [x] 04 — RUN Movement
 - [x] 05 — Seven Obstacle Primitives
 - [x] 06 — Segment and Pattern Generator
-- [ ] 07 — Collectibles and Score
+- [x] 07 — Collectibles and Score
 - [ ] 08 — Scenario Transition Framework + DevHarness Base
 - [ ] 09 — Boulevard
 - [ ] 10 — Sierra Nevada

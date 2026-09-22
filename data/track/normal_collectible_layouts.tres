@@ -1,0 +1,170 @@
+[gd_resource type="Resource" script_class="CollectibleLayoutLibrary" load_steps=43 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/CollectibleLayoutLibrary.gd" id="1_library"]
+[ext_resource type="Script" path="res://data/definitions/CollectibleLayout.gd" id="2_layout"]
+[ext_resource type="Script" path="res://data/definitions/CollectibleLayoutPoint.gd" id="3_point"]
+
+[sub_resource type="Resource" id="Straight1"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 12.0
+[sub_resource type="Resource" id="Straight2"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 15.0
+[sub_resource type="Resource" id="Straight3"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 18.0
+[sub_resource type="Resource" id="Straight"]
+script = ExtResource("2_layout")
+id = &"straight"
+layout_type = 0
+points = Array[CollectibleLayoutPoint]([SubResource("Straight1"), SubResource("Straight2"), SubResource("Straight3")])
+
+[sub_resource type="Resource" id="ArcUp1"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 12.0
+runner_height = 0.45
+[sub_resource type="Resource" id="ArcUp2"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 15.0
+runner_height = 0.9
+[sub_resource type="Resource" id="ArcUp3"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 18.0
+runner_height = 1.35
+[sub_resource type="Resource" id="ArcUp"]
+script = ExtResource("2_layout")
+id = &"arc_up"
+layout_type = 1
+points = Array[CollectibleLayoutPoint]([SubResource("ArcUp1"), SubResource("ArcUp2"), SubResource("ArcUp3")])
+
+[sub_resource type="Resource" id="ArcDown1"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 12.0
+runner_height = 1.35
+[sub_resource type="Resource" id="ArcDown2"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 15.0
+runner_height = 0.9
+[sub_resource type="Resource" id="ArcDown3"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 18.0
+runner_height = 0.45
+[sub_resource type="Resource" id="ArcDown"]
+script = ExtResource("2_layout")
+id = &"arc_down"
+layout_type = 2
+points = Array[CollectibleLayoutPoint]([SubResource("ArcDown1"), SubResource("ArcDown2"), SubResource("ArcDown3")])
+
+[sub_resource type="Resource" id="LeftRight1"]
+script = ExtResource("3_point")
+lane = 0
+forward_offset = 12.0
+[sub_resource type="Resource" id="LeftRight2"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 15.0
+[sub_resource type="Resource" id="LeftRight3"]
+script = ExtResource("3_point")
+lane = 2
+forward_offset = 18.0
+[sub_resource type="Resource" id="LeftRight"]
+script = ExtResource("2_layout")
+id = &"left_to_right"
+layout_type = 3
+points = Array[CollectibleLayoutPoint]([SubResource("LeftRight1"), SubResource("LeftRight2"), SubResource("LeftRight3")])
+
+[sub_resource type="Resource" id="RightLeft1"]
+script = ExtResource("3_point")
+lane = 2
+forward_offset = 12.0
+[sub_resource type="Resource" id="RightLeft2"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 15.0
+[sub_resource type="Resource" id="RightLeft3"]
+script = ExtResource("3_point")
+lane = 0
+forward_offset = 18.0
+[sub_resource type="Resource" id="RightLeft"]
+script = ExtResource("2_layout")
+id = &"right_to_left"
+layout_type = 4
+points = Array[CollectibleLayoutPoint]([SubResource("RightLeft1"), SubResource("RightLeft2"), SubResource("RightLeft3")])
+
+[sub_resource type="Resource" id="Zigzag1"]
+script = ExtResource("3_point")
+lane = 0
+forward_offset = 12.0
+[sub_resource type="Resource" id="Zigzag2"]
+script = ExtResource("3_point")
+lane = 2
+forward_offset = 14.5
+[sub_resource type="Resource" id="Zigzag3"]
+script = ExtResource("3_point")
+lane = 0
+forward_offset = 17.0
+[sub_resource type="Resource" id="Zigzag4"]
+script = ExtResource("3_point")
+lane = 2
+forward_offset = 19.5
+[sub_resource type="Resource" id="Zigzag"]
+script = ExtResource("2_layout")
+id = &"zigzag"
+layout_type = 5
+points = Array[CollectibleLayoutPoint]([SubResource("Zigzag1"), SubResource("Zigzag2"), SubResource("Zigzag3"), SubResource("Zigzag4")])
+
+[sub_resource type="Resource" id="JumpArc1"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 12.0
+runner_height = 0.9
+[sub_resource type="Resource" id="JumpArc2"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 15.6
+runner_height = 1.4
+[sub_resource type="Resource" id="JumpArc3"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 19.2
+runner_height = 0.9
+[sub_resource type="Resource" id="JumpArc"]
+script = ExtResource("2_layout")
+id = &"jump_arc"
+layout_type = 6
+points = Array[CollectibleLayoutPoint]([SubResource("JumpArc1"), SubResource("JumpArc2"), SubResource("JumpArc3")])
+
+[sub_resource type="Resource" id="LaneGuide1"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 10.0
+[sub_resource type="Resource" id="LaneGuide2"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 13.0
+[sub_resource type="Resource" id="LaneGuide3"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 16.0
+[sub_resource type="Resource" id="LaneGuide4"]
+script = ExtResource("3_point")
+lane = 1
+forward_offset = 19.0
+[sub_resource type="Resource" id="LaneGuide"]
+script = ExtResource("2_layout")
+id = &"lane_guide"
+layout_type = 7
+points = Array[CollectibleLayoutPoint]([SubResource("LaneGuide1"), SubResource("LaneGuide2"), SubResource("LaneGuide3"), SubResource("LaneGuide4")])
+
+[resource]
+script = ExtResource("1_library")
+layouts = Array[CollectibleLayout]([SubResource("Straight"), SubResource("ArcUp"), SubResource("ArcDown"), SubResource("LeftRight"), SubResource("RightLeft"), SubResource("Zigzag"), SubResource("JumpArc"), SubResource("LaneGuide")])

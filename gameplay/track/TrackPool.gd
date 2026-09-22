@@ -2,22 +2,27 @@ class_name TrackPool
 extends Node
 
 const DEFAULT_SEGMENT_SCENE := preload("res://gameplay/track/TrackSegment.tscn")
+const COLLECTIBLE_SCENE := preload("res://gameplay/collectibles/CollectibleBase.tscn")
 
 var obstacle_library: ObstacleSceneLibrary
 var segment_root: Node3D
 var obstacle_root: Node3D
+var collectible_root: Node3D
 var inactive_root: Node3D
 var created_segment_count := 0
 var created_obstacle_count := 0
+var created_collectible_count := 0
 
 var _available_segments: Array[TrackSegment] = []
 var _available_obstacles: Dictionary = {}
+var _available_collectibles: Array[CollectibleBase] = []
 
 
-func configure(library: ObstacleSceneLibrary, active_segment_root: Node3D, active_obstacle_root: Node3D, pooled_root: Node3D) -> void:
+func configure(library: ObstacleSceneLibrary, active_segment_root: Node3D, active_obstacle_root: Node3D, active_collectible_root: Node3D, pooled_root: Node3D) -> void:
 	obstacle_library = library
 	segment_root = active_segment_root
 	obstacle_root = active_obstacle_root
+	collectible_root = active_collectible_root
 	inactive_root = pooled_root
 
 
@@ -40,6 +45,8 @@ func release_segment(segment: TrackSegment) -> void:
 		return
 	for obstacle: ObstacleBase in segment.active_obstacles.duplicate():
 		release_obstacle(obstacle)
+	for collectible: CollectibleBase in segment.active_collectibles.duplicate():
+		release_collectible(collectible)
 	segment.reset_for_pool()
 	segment.reparent(inactive_root)
 	_available_segments.append(segment)
@@ -77,6 +84,27 @@ func release_obstacle(obstacle: ObstacleBase) -> void:
 	_available_obstacles[obstacle_id] = bucket
 
 
+func acquire_collectible() -> CollectibleBase:
+	var collectible: CollectibleBase
+	if not _available_collectibles.is_empty():
+		collectible = _available_collectibles.pop_back()
+		collectible.reparent(collectible_root)
+	else:
+		collectible = COLLECTIBLE_SCENE.instantiate() as CollectibleBase
+		collectible_root.add_child(collectible)
+		created_collectible_count += 1
+	collectible.visible = true
+	return collectible
+
+
+func release_collectible(collectible: CollectibleBase) -> void:
+	if collectible == null:
+		return
+	collectible.prepare_for_pool()
+	collectible.reparent(inactive_root)
+	_available_collectibles.append(collectible)
+
+
 func available_segment_count() -> int:
 	return _available_segments.size()
 
@@ -86,3 +114,7 @@ func available_obstacle_count() -> int:
 	for bucket: Array in _available_obstacles.values():
 		total += bucket.size()
 	return total
+
+
+func available_collectible_count() -> int:
+	return _available_collectibles.size()

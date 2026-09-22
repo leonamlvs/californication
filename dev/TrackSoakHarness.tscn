@@ -28,7 +28,7 @@ unique_name_in_owner = true
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 360.0
-offset_bottom = 330.0
+offset_bottom = 370.0
 
 [node name="Rows" type="VBoxContainer" parent="Interface/Panel"]
 layout_mode = 2
@@ -68,9 +68,15 @@ layout_mode = 2
 text = "SIMULATE 10 MINUTES"
 script = ExtResource("4_button")
 
+[node name="Layout" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "SPAWN NEXT COLLECTIBLE LAYOUT"
+script = ExtResource("4_button")
+
 [connection signal="pressed" from="Interface/Panel/Rows/Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Right" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Jump" to="." method="_on_jump_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Slide" to="." method="_on_slide_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Reset" to="." method="_on_reset_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Soak" to="." method="_on_soak_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Layout" to="." method="_on_layout_pressed"]

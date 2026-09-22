@@ -5,6 +5,7 @@ extends Node3D
 @onready var status_label: Label = %StatusLabel
 
 var _message := "Seeded graybox stream ready."
+var _layout_index := 0
 
 
 func _ready() -> void:
@@ -14,12 +15,13 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	status_label.text = "Distance: %.1f m  Speed: %.1f m/s\nActive segments: %d  Created: %d  Pooled: %d\nLegal states: %d  Fallbacks: %d\n%s" % [
+	status_label.text = "Score: %d  Time: %s  Distance: %.1f m\nActive segments: %d  Segment pool: %d  Collectible pool: %d\nLegal states: %d  Fallbacks: %d\n%s" % [
+		generator.run_stats.score,
+		generator.run_stats.formatted_time(),
 		runner.logical_forward_distance,
-		runner.current_speed,
 		generator.active_segments.size(),
-		generator.pool.created_segment_count,
 		generator.pool.available_segment_count(),
+		generator.pool.available_collectible_count(),
 		RunnerStateSpace.count_states(generator.tail_legal_state_mask),
 		generator.fallback_selection_count,
 		_message,
@@ -54,3 +56,12 @@ func _on_soak_pressed() -> void:
 		distance += 16.0
 		generator.step_simulation(distance, 16.0)
 	_message = "10-minute / 9.6 km soak: %s, %d segments created." % ["no holes" if generator.active_track_has_no_holes() else "HOLE DETECTED", generator.pool.created_segment_count]
+
+
+func _on_layout_pressed() -> void:
+	var layouts := generator.collectible_layout_library.layouts
+	if layouts.is_empty():
+		return
+	var layout: CollectibleLayout = layouts[_layout_index % layouts.size()]
+	_layout_index += 1
+	_message = "%s %s." % [layout.id, "spawned" if generator.spawn_collectible_layout(layout) else "could not spawn"]

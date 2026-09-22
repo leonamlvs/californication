@@ -7,6 +7,7 @@ var start_distance := 0.0
 var end_distance := 0.0
 var legal_exit_state_mask := 0
 var active_obstacles: Array[ObstacleBase] = []
+var active_collectibles: Array[CollectibleBase] = []
 
 @onready var floor_mesh: MeshInstance3D = %FloorMesh
 
@@ -35,5 +36,6 @@ func reset_for_pool() -> void:
 	end_distance = 0.0
 	legal_exit_state_mask = 0
 	active_obstacles.clear()
+	active_collectibles.clear()
 	position = Vector3.ZERO
 	visible = false
