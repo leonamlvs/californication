@@ -35,6 +35,7 @@ var is_invulnerable := false
 var movement_suspended := false
 var current_movement_mode: StringName = &""
 var swim_depth_state: RunnerStateSpace.Posture = RunnerStateSpace.Posture.GROUND
+var _character_cosmetic_active := false
 
 var _active_mode: MovementMode
 var _lane_from_x := 0.0
@@ -103,7 +104,7 @@ func set_movement_mode(mode: StringName) -> bool:
 			return false
 	_active_mode.enter(self, movement_profile)
 	current_movement_mode = mode
-	placeholder_body.visible = mode != MODE_CAR
+	placeholder_body.visible = mode != MODE_CAR and not _character_cosmetic_active
 	car_cosmetic.visible = mode == MODE_CAR
 	movement_mode_changed.emit(mode)
 	return true
@@ -142,6 +143,11 @@ func set_invulnerable(enabled: bool) -> void:
 func set_movement_suspended(suspended: bool) -> void:
 	movement_suspended = suspended
 	velocity = Vector3.ZERO
+
+
+func set_character_cosmetic_active(active: bool) -> void:
+	_character_cosmetic_active = active
+	placeholder_body.visible = not active and current_movement_mode != MODE_CAR
 
 
 ## Obstacles report typed data events here; GameFlow remains the only global

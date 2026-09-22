@@ -1,0 +1,82 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="PackedScene" path="res://scenarios/characters/Character01.tscn" id="1_character"]
+[ext_resource type="PackedScene" path="res://scenarios/characters/Character02.tscn" id="2_character"]
+[ext_resource type="PackedScene" path="res://scenarios/characters/Character03.tscn" id="3_character"]
+[ext_resource type="PackedScene" path="res://scenarios/characters/Character04.tscn" id="4_character"]
+[ext_resource type="Texture2D" path="res://art/placeholders/characters/portrait_01.svg" id="5_portrait"]
+[ext_resource type="Texture2D" path="res://art/placeholders/characters/portrait_02.svg" id="6_portrait"]
+[ext_resource type="Texture2D" path="res://art/placeholders/characters/portrait_03.svg" id="7_portrait"]
+[ext_resource type="Texture2D" path="res://art/placeholders/characters/portrait_04.svg" id="8_portrait"]
+
+[sub_resource type="Environment" id="Environment_preview"]
+background_mode = 1
+background_color = Color(0.025, 0.045, 0.075, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.55, 0.62, 0.72, 1)
+ambient_light_energy = 0.8
+
+[node name="CharacterHarness" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_preview")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+position = Vector3(0, 0.5, 8)
+projection = 1
+size = 7.0
+current = true
+
+[node name="KeyLight" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-35, -25, 0)
+light_energy = 1.4
+
+[node name="Character01" parent="." instance=ExtResource("1_character")]
+position = Vector3(-3, 0, 0)
+
+[node name="Character02" parent="." instance=ExtResource("2_character")]
+position = Vector3(-1, 0, 0)
+
+[node name="Character03" parent="." instance=ExtResource("3_character")]
+position = Vector3(1, 0, 0)
+
+[node name="Character04" parent="." instance=ExtResource("4_character")]
+position = Vector3(3, 0, 0)
+
+[node name="Portraits" type="CanvasLayer" parent="."]
+
+[node name="Title" type="Label" parent="Portraits"]
+offset_left = 24.0
+offset_top = 18.0
+offset_right = 500.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 24
+text = "TASK 19 CHARACTER PRESENTATION"
+
+[node name="Portrait01" type="TextureRect" parent="Portraits"]
+offset_left = 184.0
+offset_top = 570.0
+offset_right = 280.0
+offset_bottom = 666.0
+texture = ExtResource("5_portrait")
+
+[node name="Portrait02" type="TextureRect" parent="Portraits"]
+offset_left = 350.0
+offset_top = 570.0
+offset_right = 446.0
+offset_bottom = 666.0
+texture = ExtResource("6_portrait")
+
+[node name="Portrait03" type="TextureRect" parent="Portraits"]
+offset_left = 516.0
+offset_top = 570.0
+offset_right = 612.0
+offset_bottom = 666.0
+texture = ExtResource("7_portrait")
+
+[node name="Portrait04" type="TextureRect" parent="Portraits"]
+offset_left = 682.0
+offset_top = 570.0
+offset_right = 778.0
+offset_bottom = 666.0
+texture = ExtResource("8_portrait")

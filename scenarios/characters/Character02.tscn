@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://gameplay/characters/CharacterVisual.gd" id="1_visual"]
+
+[sub_resource type="StandardMaterial3D" id="Material_primary"]
+albedo_color = Color(0.12, 0.52, 0.88, 1)
+
+[sub_resource type="CapsuleMesh" id="Capsule_body"]
+material = SubResource("Material_primary")
+radius = 0.36
+height = 1.45
+
+[sub_resource type="SphereMesh" id="Sphere_head"]
+material = SubResource("Material_primary")
+radius = 0.29
+height = 0.58
+
+[sub_resource type="BoxMesh" id="Box_bass"]
+material = SubResource("Material_primary")
+size = Vector3(0.82, 0.14, 0.2)
+
+[node name="Character02" type="Node3D"]
+script = ExtResource("1_visual")
+character_id = &"placeholder_02"
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("Capsule_body")
+
+[node name="Head" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.88, 0)
+mesh = SubResource("Sphere_head")
+
+[node name="Bass" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.02, -0.39)
+rotation_degrees = Vector3(0, 0, 14)
+mesh = SubResource("Box_bass")

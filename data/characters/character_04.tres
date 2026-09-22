@@ -1,13 +1,14 @@
 [gd_resource type="Resource" script_class="CharacterDefinition" load_steps=4 format=3]
 [ext_resource type="Script" path="res://data/definitions/CharacterDefinition.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenarios/characters/CharacterCosmetic.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://scenarios/characters/CharacterPresentation.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenarios/characters/Character04.tscn" id="2"]
+[ext_resource type="Texture2D" path="res://art/placeholders/characters/portrait_04.svg" id="3"]
 [resource]
 script=ExtResource("1")
 id=&"placeholder_04"
 display_name="Character Four"
 category_label="INSTRUMENT"
 category_value="VOCALS"
-decorative_stats={"STRENGTH": 70, "STAMINA": 70, "AGILITY": 50, "CHARISMA": 70, "RHYTHM": 50}
+decorative_stats={&"STRENGTH": 70.0, &"STAMINA": 70.0, &"AGILITY": 50.0, &"CHARISMA": 70.0, &"RHYTHM": 50.0}
 gameplay_cosmetic_scene=ExtResource("2")
-frontend_presentation_scene=ExtResource("3")
+frontend_presentation_scene=ExtResource("2")
+pause_portrait=ExtResource("3")

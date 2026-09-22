@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://gameplay/characters/CharacterVisual.gd" id="1_visual"]
+
+[sub_resource type="StandardMaterial3D" id="Material_primary"]
+albedo_color = Color(0.48, 0.2, 0.72, 1)
+
+[sub_resource type="CapsuleMesh" id="Capsule_body"]
+material = SubResource("Material_primary")
+radius = 0.36
+height = 1.45
+
+[sub_resource type="SphereMesh" id="Sphere_head"]
+material = SubResource("Material_primary")
+radius = 0.29
+height = 0.58
+
+[sub_resource type="CylinderMesh" id="Cylinder_microphone"]
+material = SubResource("Material_primary")
+top_radius = 0.08
+bottom_radius = 0.05
+height = 0.6
+
+[node name="Character04" type="Node3D"]
+script = ExtResource("1_visual")
+character_id = &"placeholder_04"
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("Capsule_body")
+
+[node name="Head" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.88, 0)
+mesh = SubResource("Sphere_head")
+
+[node name="Microphone" type="MeshInstance3D" parent="."]
+position = Vector3(0.34, 0.3, -0.32)
+rotation_degrees = Vector3(0, 0, -22)
+mesh = SubResource("Cylinder_microphone")
