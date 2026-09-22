@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MovementCapabilityProfile" load_steps=2 format=3]
+[ext_resource type="Script" path="res://data/definitions/MovementCapabilityProfile.gd" id="1"]
+[resource]
+script=ExtResource("1")
+movement_mode=&"FLY"
+lane_count=3
+supported_postures=25
+supports_jump=false
+supports_low=false
+supports_rise=true
+supports_dive=true
+lane_change_duration=0.2
+vertical_action_duration=0.2
+vertical_neutral_return_duration=0.75

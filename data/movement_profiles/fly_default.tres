@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MovementProfile" load_steps=2 format=3]
+[ext_resource type="Script" path="res://data/definitions/MovementProfile.gd" id="1"]
+[resource]
+script=ExtResource("1")
+movement_mode=&"FLY"
+lane_count=3
+lane_spacing=2.2
+base_speed=13.0
+max_speed=19.0
+lane_change_duration=0.2
+vertical_rise_offset=1.5
+vertical_dive_offset=1.2
+vertical_action_duration=0.2
+vertical_hold_duration=0.25
+vertical_neutral_return_duration=0.75

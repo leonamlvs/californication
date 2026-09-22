@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="ScenarioDefinition" load_steps=12 format=3]
+[ext_resource type="Script" path="res://data/definitions/ScenarioDefinition.gd" id="1"]
+[ext_resource type="Resource" path="res://data/segments/hollywood_aerial.tres" id="2"]
+[ext_resource type="Resource" path="res://data/track/hollywood_obstacle_library.tres" id="3"]
+[ext_resource type="Resource" path="res://data/track/normal_collectible_layouts.tres" id="4"]
+[ext_resource type="PackedScene" path="res://scenarios/hollywood/HollywoodEnvironment.tscn" id="5"]
+[ext_resource type="Resource" path="res://data/camera_profiles/hollywood_follow.tres" id="6"]
+[ext_resource type="Resource" path="res://data/transitions/hollywood_aerial.tres" id="7"]
+[ext_resource type="Resource" path="res://data/movement_profiles/fly_default.tres" id="8"]
+[ext_resource type="Resource" path="res://data/track/fly_capabilities.tres" id="9"]
+[sub_resource type="Resource" id="h"]
+[resource]
+script=ExtResource("1")
+id=&"hollywood"
+display_name="Hollywood"
+movement_mode=&"FLY"
+base_speed=13.0
+max_speed=19.0
+lane_spacing=2.2
+segment_library=Array[SegmentDefinition]([ExtResource("2")])
+obstacle_library=ExtResource("3")
+collectible_patterns=ExtResource("4")
+environment_scene=ExtResource("5")
+camera_profile=ExtResource("6")
+hud_coordinate_profile=SubResource("h")
+transition_definition=ExtResource("7")
+minimum_transition_time=40.0
+guaranteed_transition_time=55.0
+development_minimum_transition_time=15.0
+development_guaranteed_transition_time=20.0
+movement_profile=ExtResource("8")
+movement_capability_profile=ExtResource("9")

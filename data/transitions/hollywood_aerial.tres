@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TransitionDefinition" load_steps=3 format=3]
+[ext_resource type="Script" path="res://data/definitions/TransitionDefinition.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenarios/hollywood/HollywoodAerialTransition.tscn" id="2"]
+[resource]
+script=ExtResource("1")
+id=&"hollywood_aerial"
+source_scenario=&"hollywood"
+transition_scene=ExtResource("2")
+next_scenario_policy=1
+next_scenario_ids=Array[StringName]([&"fixture_b"])

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PatternDefinition" load_steps=2 format=3]
+[ext_resource type="Script" path="res://data/definitions/PatternDefinition.gd" id="1"]
+[resource]
+script=ExtResource("1")
+id=&"hollywood_safe_recovery"
+length=30.0
+weight=0.5
+minimum_speed=10.0
+maximum_speed=19.0
+allowed_movement_modes=Array[StringName]([&"FLY"])
+minimum_reaction_time=1.5
+entrance_state_mask=32767
+exit_state_mask=32767
+safe_fallback=true

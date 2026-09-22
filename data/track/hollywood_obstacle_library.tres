@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ObstacleSceneLibrary" load_steps=4 format=3]
+[ext_resource type="Script" path="res://data/definitions/ObstacleSceneLibrary.gd" id="1"]
+[ext_resource type="Resource" path="res://data/obstacles/hollywood_air_block.tres" id="2"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleBlock.tscn" id="3"]
+[resource]
+script=ExtResource("1")
+definitions=Array[ObstacleDefinition]([ExtResource("2")])
+scenes=Array[PackedScene]([ExtResource("3")])
