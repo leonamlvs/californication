@@ -91,11 +91,9 @@ Do not invent a duck/brake obstacle requirement merely to use Down.
 - Down: descend temporarily, then settle.
 - Automatic forward movement.
 
-### TRANSITION_RIDE
+### Scenario transitions are not movement modes
 
-Input is defined per transition.
-
-Player is invulnerable immediately after Transition Token collection and remains so until normal gameplay resumes.
+Collecting a Transition Token enters `SCENARIO_TRANSITION`. Normal movement stops, gameplay input is locked, and the source scenario plays a non-interactive scripted real-time 3D cinematic. The runner remains invulnerable until the next scenario's safe runway is ready and normal gameplay resumes.
 
 ## Failure
 
@@ -104,6 +102,10 @@ One meaningful obstacle collision ends the run.
 No stumble / second-chance mechanic in MVP.
 
 NPC hazards should visually resolve as near-collisions / avoidance / loss of balance rather than treating people or animals as impact targets.
+
+## Character presentation invariants
+
+The full frontend Player Select may display a character name, an instrument/category label, and animated decorative values for that category plus STRENGTH, STAMINA, AGILITY, CHARISMA, and RHYTHM. These values are presentation-only. They never modify movement, speed, lane timing, jump, slide, swimming, flying, driving, collision, score, difficulty, scenario selection, or transition behavior. All four characters remain mechanically identical.
 
 ## Obstacle classes
 
@@ -191,11 +193,12 @@ Suggested scoring:
 ```text
 distance: 10 points per meter
 normal collectible: +100
-transition-ride collectible: +100
-completed transition: +500
+transition_bonus_score = 1000
 ```
 
 Missing a collectible has no penalty.
+
+The transition bonus is added to the normal run score exactly once when the token is collected. A centered `BONUS` message remains visible during the scripted transition while the normal upper-right score visibly gains 1000 points. Do not combine them into a large modern `BONUS +1000!` popup. The cinematic contains no collectible scoring.
 
 Required reusable patterns:
 
@@ -208,7 +211,6 @@ RIGHT_TO_LEFT
 ZIGZAG
 JUMP_ARC
 LANE_GUIDE
-TRANSITION_RIDE_LINE
 ```
 
 ## Transition Token logic
@@ -222,9 +224,14 @@ unique from normal collectible
 only spawns after scenario becomes transition-ready
 approach must be safely reachable
 collection immediately grants invulnerability
-collection stops normal segment generation
-collection starts the scenario transition
+collection immediately locks gameplay input and stops runner motion
+collection stops normal segment generation and clears unsafe pending content
+collection awards the configurable transition bonus exactly once
+collection shows a centered BONUS overlay
+collection starts the non-interactive scripted scenario transition
 ```
+
+During the transition there are no playable lanes, directional controls, collectibles, obstacles, or failure conditions. The cinematic completes automatically, then the next scenario loads with a safe runway before control and vulnerability return.
 
 Initial timing:
 

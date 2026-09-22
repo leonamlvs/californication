@@ -8,8 +8,9 @@ Build a **feature-complete graybox MVP** in Godot 4.7.2 Stable that already cont
 
 - all 9 scenarios;
 - all movement modes;
-- all transition rides;
-- full intro / character select / run / pause / failure / retry flow;
+- all 9 scripted scenario-transition cinematics;
+- continuous real-time 3D island intro / logo reveal / Player Select / run-intro flow;
+- pause / failure / retry flow;
 - adaptive browser UI;
 - desktop 4:3 presentation;
 - responsive mobile/tablet presentation;
@@ -44,6 +45,10 @@ The presentation and movement style may change by scenario, but input remains bu
 
 Gameplay logic must not depend on the final art, character identity, obstacle model, or copyrighted content.
 
+Transition Tokens do not begin a playable movement mode. They stop normal gameplay, lock gameplay input, award a configurable `+1000` transition bonus, show a centered `BONUS` overlay, and play the source scenario's non-interactive real-time 3D cinematic before the next scenario begins.
+
+The frontend is also a continuous real-time 3D presentation. A one-shot vegetation-to-island pullback reaches an indefinite rotating-island attract state; after confirmation, an extruded logo and circular lettering reveal an alicorn, the same logo rotates edge-on into the four-position Player Select carousel, and confirming a character flows through a camera-driven `RUN_INTRO` into Boulevard. Reference captures under `ref/start screen transition/` define choreography and composition only, never final assets.
+
 ## Documents
 
 1. `01_ARCHITECTURE.md` — systems, state machines, data contracts.
@@ -52,7 +57,7 @@ Gameplay logic must not depend on the final art, character identity, obstacle mo
 4. `04_UI_RESPONSIVE.md` — HUD layout and viewport behavior.
 5. `05_ASSETS.md` — placeholder assets and replacement contracts.
 6. `06_IMPLEMENTATION_TASKS.md` — ordered tasks with acceptance criteria.
-7. `07_IMPLEMENTATION_PLAN.md` — dependency-aware execution plan and handoff contract for Tasks 00–24.
+7. `07_IMPLEMENTATION_PLAN.md` — dependency-aware execution plan and handoff contract for Tasks 00–28.
 
 ## MVP definition
 

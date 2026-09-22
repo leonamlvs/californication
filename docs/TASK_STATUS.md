@@ -5,12 +5,12 @@ Update only after acceptance criteria are verified.
 - [x] 00 — Project Foundation
 - [x] 01 — Input Abstraction
 - [ ] 02 — Responsive UI Foundation
-- [ ] 03 — GameFlow State Machine
+- [ ] 03 — Expanded GameFlow State Foundation
 - [ ] 04 — RUN Movement
 - [ ] 05 — Seven Obstacle Primitives
 - [ ] 06 — Segment and Pattern Generator
 - [ ] 07 — Collectibles and Score
-- [ ] 08 — Transition Framework + DevHarness
+- [ ] 08 — Scenario Transition Framework + DevHarness Base
 - [ ] 09 — Boulevard
 - [ ] 10 — Sierra Nevada
 - [ ] 11 — San Francisco Bay
@@ -21,9 +21,13 @@ Update only after acceptance criteria are verified.
 - [ ] 16 — Grass
 - [ ] 17 — Earthquake
 - [ ] 18 — Scenario Runtime Hardening
-- [ ] 19 — Characters
+- [ ] 19 — Character Data and Presentation
 - [ ] 20 — Pause and Settings
 - [ ] 21 — Failure and Game Over
-- [ ] 22 — Intro Presentation
-- [ ] 23 — Final HUD Behavior
-- [ ] 24 — Web Hardening
+- [ ] 22 — CinematicTransitionFX
+- [ ] 23 — Loading, Island Intro, and Island Attract
+- [ ] 24 — Logo/Alicorn Reveal and Player Select Entry
+- [ ] 25 — 3D Logo Carousel and Decorative Player Select
+- [ ] 26 — Character Confirmation and Run Intro
+- [ ] 27 — Final HUD Behavior
+- [ ] 28 — itch.io Web Hardening

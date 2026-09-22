@@ -1,8 +1,8 @@
 # Implementation Tasks and Acceptance Criteria
 
-Each task must be independently completable and commit-worthy.
+Each task must be independently completable and commit-worthy. Do not begin the next task merely to prove the current task works.
 
-Do not begin the next task merely to prove the current task works.
+Tasks 00 and 01 are completed. Their implementation has been audited against the current requirements and needs no immediate rewrite. Tasks 02–28 describe future work.
 
 ## Global Definition of Done
 
@@ -15,463 +15,479 @@ Every task is incomplete unless:
 - new tuning constants are exposed as data/config where appropriate;
 - scenario-specific behavior is not hard-coded into the core runner unless it applies globally;
 - a direct debug/test path exists;
+- relevant desktop/mobile layouts or performance paths are rendered manually when headless checks cannot prove them;
 - the spec/task status is updated.
 
 ---
 
 ## 00 — Project Foundation
 
-Implement:
-- Godot 4.7.2 project structure;
-- Compatibility renderer;
-- main scene;
-- autoload skeletons;
-- folders;
-- basic web export settings.
+Implemented:
+
+- Godot 4.7.2 Compatibility project and 960×720 reference viewport;
+- passive main composition with world, frontend, and overlay layers;
+- `GameFlow`, `ScenarioManager`, `InputRouter`, `AudioManager`, and `SaveManager` autoload boundaries;
+- preliminary single-threaded, resizable Web export preset;
+- CLI test runner and required folders/ignore rules.
 
 Acceptance:
-- project opens;
-- main scene runs;
-- CLI command `godot` can run the project/check scripts;
-- no parser errors.
+
+- project opens and main scene runs;
+- CLI can import/run the project without parser or missing-resource errors;
+- Web preset exports toward `build/web/index.html` without threads/extensions/PWA dependencies.
 
 ---
 
 ## 01 — Input Abstraction
 
-Implement:
-- input actions;
-- keyboard;
-- swipe detection;
-- optional gamepad mapping;
-- shared gameplay intent events.
+Implemented:
+
+- shared left/right/up/down/pause/confirm/back StringName intents;
+- keyboard and conventional runtime gamepad mapping;
+- one-finger unhandled swipe recognition using a configurable 6% threshold;
+- GUI exclusion, multi-touch cancellation, and resize/focus-loss cancellation;
+- development input harness and deterministic CLI checks.
 
 Acceptance:
-- Left/Right/Up/Down can be triggered from desktop input;
-- touch swipes trigger same actions;
-- touching UI does not generate gameplay swipe;
-- gameplay controller reads input actions/intents, not raw keys.
+
+- desktop, optional gamepad, and touch use the same intent signal;
+- UI-consumed touches do not become gameplay swipes;
+- gameplay/frontend consumers read intents rather than raw device keys.
+
+Future consumers own state-specific gating: touch-to-confirm, carousel rotation locking, `RUN_INTRO` locking, and scenario-transition locking do not require a second input system.
 
 ---
 
 ## 02 — Responsive UI Foundation
 
 Implement:
-- HUD root;
-- FULL / MEDIUM / COMPACT profiles;
-- safe area handling;
-- desktop centered 4:3 presentation;
-- mobile responsive viewport behavior;
-- placeholder panels.
+
+- `PresentationRoot`, desktop 4:3 game frame, mobile-flex frame, and safe usable rectangle;
+- one HUD tree with FULL/MEDIUM/COMPACT profiles and placeholder panels;
+- a frontend safe-composition region independent of gameplay HUD density;
+- layout test scene and debug overrides.
 
 Acceptance:
-- desktop remains 4:3 and unstretched;
-- large viewport shows FULL;
-- constrained viewport correctly drops to MEDIUM/COMPACT;
-- hidden panels do not reserve empty space;
-- score/time/pause never disappear.
+
+- desktop remains centered 4:3 and unstretched;
+- fit-based FULL/MEDIUM/COMPACT selection works at desktop, tablet, landscape-phone, and narrow-phone sizes;
+- hidden panels reserve no space and score/time/pause placeholders never disappear;
+- frontend test subjects and arrow placeholders remain inside the safe composition region;
+- GUI touch targets cancel InputRouter gestures and pause keeps at least a 56×56 logical hitbox.
 
 ---
 
-## 03 — GameFlow State Machine
+## 03 — Expanded GameFlow State Foundation
 
-Implement placeholder screens/states:
+Implement the authoritative placeholder flow:
 
 ```text
 BOOT
-LOADING
-ISLAND_ATTRACT
-TITLE_CINEMATIC
-CHARACTER_SELECT
-RUN_START
-RUNNING
-PAUSED
-FAILURE_TRANSITION
-LAVA_GAME_OVER
-TRY_AGAIN
+→ LOADING
+→ ISLAND_INTRO
+→ ISLAND_ATTRACT
+→ LOGO_REVEAL
+→ CHARACTER_SELECT_ENTER
+→ CHARACTER_SELECT_ACTIVE
+→ CHARACTER_CONFIRMED
+→ RUN_INTRO
+→ RUNNING
+↔ PAUSED
+→ FAILURE_TRANSITION
+→ LAVA_GAME_OVER
+→ TRY_AGAIN
 ```
 
+Reserve `TRANSITION_READY`, `TOKEN_COLLECTED`, `SCENARIO_TRANSITION`, and `NEXT_SCENARIO` for Task 08.
+
 Acceptance:
-- developer can traverse the whole flow using placeholder buttons/inputs;
-- YES starts new run state;
-- NO returns to island;
-- pause/resume state transition works.
+
+- one transition table accepts every legal edge and rejects illegal edges diagnostically;
+- placeholder controls can traverse every frontend stage without implementing its final presentation;
+- Island Attract waits indefinitely and consumes one confirm/touch without leaking it forward;
+- `CHARACTER_CONFIRMED` and `RUN_INTRO` keep gameplay input/timer disabled;
+- retry retains selected character, resets the run, targets Boulevard, and enters `RUN_INTRO`;
+- Exit Run and retry NO return to `ISLAND_ATTRACT` without replaying `ISLAND_INTRO` in the session;
+- only GameFlow changes global state.
 
 ---
 
 ## 04 — RUN Movement
 
-Implement:
-- automatic forward movement;
-- three lanes;
-- lane change;
-- jump;
-- slide;
-- reusable tuning resource.
+Implement one shared `CharacterBody3D` runner, automatic logical distance, three lanes, lane change, jump, slide, and resource-driven tuning.
 
 Acceptance:
-- player cannot occupy invalid lane;
-- lane changes feel deterministic;
-- jump/slide cannot leave controller in invalid state;
-- controller contains no scenario-name branches.
+
+- lane/state bounds and frame-rate variation are deterministic;
+- repeated/opposing input and state reset cannot strand the controller;
+- controller contains no scenario-name branches;
+- `RunnerController` contains no frontend or `RUN_INTRO` camera choreography.
 
 ---
 
 ## 05 — Seven Obstacle Primitives
 
-Implement:
-- BLOCK;
-- HURDLE;
-- OVERHEAD;
-- CROSSER;
-- SWEEPER;
-- GAP;
-- GATE.
+Implement BLOCK, HURDLE, OVERHEAD, CROSSER, SWEEPER, GAP, and GATE through one data-driven obstacle contract.
 
 Acceptance:
-- each class can be spawned independently;
-- intended avoidance action succeeds;
-- collision causes run failure;
-- classes use shared data contract.
+
+- each class spawns independently;
+- intended avoidance succeeds and meaningful contact requests failure;
+- behavior is independent of mesh identity;
+- moving behavior is deterministic enough for future validation.
 
 ---
 
 ## 06 — Segment and Pattern Generator
 
-Implement:
-- reusable track segments;
-- authored pattern library;
-- recycling/pooling;
-- compatibility filtering;
-- solvability/reaction validation.
+Implement reusable track segments, authored pattern resources, pools, compatibility filtering, and future-window solvability/reaction validation.
 
 Acceptance:
-- graybox track can run for 10+ minutes;
-- no generation holes;
-- no invalid movement-mode patterns;
-- validated patterns always retain at least one legal survival path.
+
+- graybox track simulates for 10+ minutes with bounded pools and no holes;
+- unsupported-mode and impossible pattern combinations are rejected;
+- the active tail plus candidate retains at least one complete legal survival path;
+- safe fallback patterns never relax minimum reaction time.
 
 ---
 
 ## 07 — Collectibles and Score
 
-Implement:
-- normal collectible;
-- collectible patterns;
-- distance score;
-- pickup score;
-- run timer;
-- reset behavior.
+Implement normal collectibles, required normal-gameplay layouts, distance/pickup score, run timer, pooling, and fresh-run reset.
 
 Acceptance:
-- patterns work across all three lanes and jump paths;
-- score/time reset on new run;
-- missed pickup has no penalty;
-- time displays HH:MM:SS.
+
+- layouts work across lanes and jump paths;
+- distance defaults to 10 points/m and pickups to 100 points;
+- collection is idempotent and misses have no penalty;
+- timer advances only during active run simulation, formats `HH:MM:SS`, and resets only on a fresh run.
 
 ---
 
-## 08 — Transition Framework + DevHarness
+## 08 — Scenario Transition Framework + DevHarness Base
 
 Implement:
-- `TRANSITION_READY`;
-- Transition Token logic;
-- immediate invulnerability;
-- normal-generator suspension;
-- transition controller;
-- shuffle bag;
-- DevHarness controls.
+
+- transition readiness and safe/retried Transition Token opportunities;
+- atomic input lock, runner stop, invulnerability, generator suspension, and unsafe-tail cleanup;
+- configurable `transition_bonus_score = 1000`, ordinary-score update, and centered `BONUS` overlay;
+- shared non-interactive `ScenarioTransitionController` contract;
+- shuffle bag and development fixture scenarios;
+- production-service DevHarness with state/system shortcuts.
 
 Acceptance:
-- configured timer makes scenario transition-ready;
-- safe token opportunity appears;
-- missing token produces another opportunity;
-- collecting token starts Transition Ride;
-- normal gameplay resumes after transition;
-- DevHarness can force token/transition/death.
+
+- minimum/guaranteed timing, safe token placement, and missed-token retry pass deterministically;
+- collection awards exactly once and enters `SCENARIO_TRANSITION`, never a movement mode;
+- cinematic accepts no gameplay input and has no lanes, collectibles, obstacles, or failure;
+- next scenario has a safe runway before control/vulnerability return;
+- DevHarness can force ready/token/death, inspect bonus idempotence, skip/complete fixture cinematics, and expose a generic GameFlow state-jump API for later frontend shortcuts.
 
 ---
 
 ## 09 — Boulevard
 
-Implement:
-- RUN profile;
-- sidewalk-only corridor;
-- graybox boundary dressing;
-- curbside transition;
-- trash-can-style scripted jump/fall.
+Implement the opening RUN sidewalk corridor, Boulevard patterns/camera, and input-locked curbside trash-can jump/fall cinematic.
 
 Acceptance:
-- normal movement never requires entering traffic lane;
-- transition is invulnerable;
-- transition exits cleanly into another registered scenario.
+
+- all normal lanes remain on the sidewalk;
+- patterns are solvable and never require traffic entry;
+- cinematic is invulnerable, non-interactive, and hands off cleanly to a registered fixture/target.
 
 ---
 
 ## 10 — Sierra Nevada
 
-Implement:
-- SNOWBOARD mode;
-- snow-path lane behavior;
-- train-roof transition;
-- tunnel sequence.
+Implement SNOWBOARD strategy/profile, snow route/patterns, and scripted fall-onto-train/tunnel/jump-away cinematic.
 
 Acceptance:
-- snowboard uses shared input contract;
-- movement feels distinct without a separate standalone controller;
-- train has three usable roof positions;
-- transition returns cleanly to normal gameplay.
+
+- snowboard uses the shared runner/input/capability contract;
+- normal gameplay filtering matches its capabilities;
+- cinematic stage order, input lock, teardown, and handoff pass.
 
 ---
 
 ## 11 — San Francisco Bay
 
-Implement:
-- SWIM mode;
-- temporary rise/dive;
-- neutral-depth return;
-- underwater corridor;
-- shark/wave transition.
+Implement SWIM, temporary rise/dive with neutral return, underwater volume/patterns, and scripted surface/shark-wave/launch cinematic.
 
 Acceptance:
-- Up/Down reliably return to neutral depth;
-- lane changes remain valid while changing depth;
-- transition completes without normal obstacle damage.
+
+- repeated/opposing vertical input and simultaneous lane changes remain bounded;
+- vertical states participate in pattern validation;
+- cinematic has no input, pickups, hazards, or normal damage.
 
 ---
 
 ## 12 — Sequoia
 
-Implement:
-- RUN scenario profile;
-- forest path;
-- timed environmental obstacle patterns;
-- mining-cart transition.
+Implement forest RUN data/patterns and the authored mining-cart cave cinematic.
 
 Acceptance:
-- common RUN controller works unchanged;
-- mining cart supports three rail positions;
-- rail switching is deterministic;
-- transition exits correctly.
+
+- common RUN code remains unchanged;
+- cart route is deterministic with no player rail switching;
+- cave/cart content unloads before normal play resumes.
 
 ---
 
 ## 13 — Filming Sets
 
-Implement:
-- RUN backlot;
-- film-set obstacle patterns;
-- scripted multi-set transition.
+Implement backlot RUN data and fixed multi-stage cinematic: space/action, non-explicit glamorous/romantic, Da Vinci-style workshop, exit door.
 
 Acceptance:
-- transition visits required placeholder set stages in order;
-- transition does not create a second player controller;
-- exit door hands control back to normal gameplay.
+
+- stages occur in order using one selected-character presentation context;
+- input remains locked and no second player controller is created;
+- exit and repeated cleanup are reliable.
 
 ---
 
 ## 14 — Golden Gate
 
-Implement:
-- CAR mode;
-- traffic-lane movement;
-- ramp support;
-- cable transition.
+Implement CAR strategy/profile, traffic/ramp patterns, and scripted leave-car/snowboard-cable/launch cinematic.
 
 Acceptance:
-- car uses common input interface;
-- Down is not required for normal survival;
-- cable transition disables normal Left/Right;
-- Up/Down work as defined;
-- transition ends cleanly.
+
+- normal CAR uses the shared runner and never requires Down for survival;
+- incompatible crouch/slide patterns are filtered;
+- cinematic accepts no Up/Down/Left/Right gameplay control and cleans up fully.
 
 ---
 
 ## 15 — Hollywood
 
-Implement:
-- FLY mode;
-- lateral lanes;
-- temporary rise/drop;
-- neutral-altitude return;
-- aerial-screw transition.
+Implement fully 3D FLY lane/altitude gameplay and scripted aerial-screw craft/descent cinematic.
 
 Acceptance:
-- fully 3D aerial movement;
-- never depends on 2D/2.5D logic;
-- player stays inside permitted flight volume;
-- all four directional intents work;
-- transition hands off cleanly.
+
+- all four directional intents work during normal FLY gameplay only;
+- player stays in the 3D flight volume and no 2D/2.5D logic is used;
+- cinematic is authored, non-interactive, and hands off cleanly.
 
 ---
 
 ## 16 — Grass
 
-Implement:
-- RUN profile;
-- visibility-focused corridor;
-- super-jump transition.
+Implement visibility-focused RUN data, occlusion-safe dressing constraints, and scripted giant-jump cinematic.
 
 Acceptance:
-- decorative occlusion never creates unavoidable hazards;
-- required obstacles remain readable;
-- super-jump transition works without a vehicle controller.
+
+- decoration never hides required hazards inside the reaction envelope;
+- camera-profile readability probes pass;
+- cinematic requires neither vehicle mode nor gameplay input.
 
 ---
 
 ## 17 — Earthquake
 
-Implement:
-- RUN profile;
-- dynamic hazards;
-- damaged-road gaps/gates;
-- high-speed car transition;
-- ramp/donut/ejection placeholder sequence.
+Implement deterministic dynamic damaged-city hazards and the scripted car/ramp/giant-donut/midair-exit cinematic.
 
 Acceptance:
-- moving environment respects reaction-time rules;
-- transition is invulnerable;
-- ramp sequence is authored and deterministic;
-- transition completes correctly.
+
+- dynamic events remain valid at minimum/maximum speeds;
+- cinematic is invulnerable, input-locked, deterministic, and fully cleaned up;
+- normal RUN is not switched into CAR for the cinematic.
 
 ---
 
 ## 18 — Scenario Runtime Hardening
 
-Implement:
-- all scenario definitions registered;
-- shuffle-bag cycling;
-- scenario cleanup/unload;
-- state reset between visits.
+Implement all-nine production registration, forced Boulevard opening, eight-scenario post-opening shuffle bag, centralized teardown, visit reset, and all-nine DevHarness cycling.
 
 Acceptance:
-- DevHarness can cycle all 9 scenarios repeatedly;
-- no immediate duplicate scenario;
-- no stale obstacles/segments from prior scenario;
-- player movement mode always matches current scenario.
+
+- every bag entry is exhausted before refill and refill cannot immediately repeat current scenario;
+- repeated all-nine cycles leak no nodes/timers/content and keep pool counts bounded;
+- runner mode/profile always matches active scenario;
+- fresh run restarts at Boulevard without changing DevHarness cycling policy.
 
 ---
 
-## 19 — Characters
+## 19 — Character Data and Presentation
 
 Implement:
-- CharacterDefinition;
-- four placeholder characters;
-- character selection;
-- cosmetic swap during pause.
+
+- four mechanically identical CharacterDefinitions and primitive character scenes;
+- display name, instrument/category label and value, decorative STRENGTH/STAMINA/AGILITY/CHARISMA/RHYTHM values;
+- frontend presentation scene/idle key and pause face portrait;
+- CharacterPresenter selection and pause-safe cosmetic replacement APIs.
 
 Acceptance:
-- all characters have identical gameplay stats/collision;
-- selecting/swapping character does not reset current run unless explicitly starting a new run;
-- no scenario behavior depends on character identity.
+
+- collision, runner profile, movement, score, difficulty, and scenario behavior are identical for all four;
+- decorative stats cannot be consumed by gameplay systems;
+- selected identity persists through retry and swaps without resetting the current run;
+- presentation/gameplay instances, if separate, can bind the same definition and matched cosmetic identity.
+
+Do not implement the 3D Player Select carousel in this task.
 
 ---
 
 ## 20 — Pause and Settings
 
-Implement:
-- pause overlay;
-- resume;
-- master/music/effects volume placeholders;
-- character swap;
-- exit run to island.
+Implement the frozen-game pause HUD, resume/exit, four-face immediate cosmetic selector, and approximately ten-step `SFX LEVEL`/`MUSIC LEVEL` controls.
 
 Acceptance:
-- gameplay simulation freezes;
-- UI remains usable;
-- resume restores exact gameplay state;
-- exit returns to island;
-- character swap is cosmetic.
+
+- gameplay freezes and resumes exactly;
+- all four faces, Score, Time, audio rows, and `BACK` remain accessible/touch-safe at supported sizes;
+- pause shows no names, stats, cards, descriptions, character submenu, Sound submenu, or player-facing Master row;
+- portrait focus uses only a rounded green/yellow outline;
+- Up/Down navigates faces, Confirm swaps then focuses `BACK`, Left from faces reaches `SFX LEVEL`, and Confirm enters/exits Left/Right audio adjustment;
+- touch directly activates controls and never leaks a swipe;
+- this UI remains distinct from full frontend Player Select.
 
 ---
 
 ## 21 — Failure and Game Over
 
-Implement two failure-transition families:
-
-1. floor opens / player falls;
-2. player is launched/kicked toward screen when floor-fall is inappropriate.
-
-Both lead to:
-- lava game-over scene;
-- bandmates as placeholders;
-- `GAME OVER`;
-- `TRY AGAIN? YES / NO`.
+Implement data-selected floor-fall and launch-toward-screen failure families, shared lava Game Over, and YES/NO retry flow.
 
 Acceptance:
-- scenario chooses valid failure-transition family;
-- both converge on same Game Over logic;
-- YES creates a fresh run;
-- NO returns to island.
+
+- both families are one-shot and converge on the same Game Over logic;
+- YES retains character, resets run/bag/metrics, targets Boulevard, and enters `RUN_INTRO`;
+- NO returns to `ISLAND_ATTRACT` without replaying Island Intro;
+- generation/control cleanup and pause/input exclusion pass.
 
 ---
 
-## 22 — Intro Presentation
+## 22 — CinematicTransitionFX
 
-Implement placeholders for:
-- music-video-style loading screen;
-- rotating island attract screen;
-- title transition;
-- RHCP/logo-title placeholder;
-- flying alicorn placeholder;
-- character select entry.
+Implement a reusable short-lived cinematic presentation component and data profile for radial/zoom blur, center, sample quality, FOV kick, fade, and duration.
 
 Acceptance:
-- first-session sequence occurs in correct order;
-- island waits indefinitely for input;
-- keyboard/touch can continue;
-- returning from a run does not require replaying the full intro unless configured.
+
+- exact shader/API choices are verified against Godot 4.7.2 Compatibility before implementation;
+- preferred fullscreen CanvasItem/screen-texture effect renders correctly on desktop Web-class Compatibility;
+- reduced mobile sample quality is selectable and profiled;
+- a camera/FOV/overlay fallback preserves timing when blur is disabled or too expensive;
+- completion, cancellation, resize, focus loss, and state exit restore neutral material/camera state;
+- effect cannot remain active during Player Select waiting or normal gameplay;
+- DevHarness can preview profiles, quality levels, and fallback directly.
 
 ---
 
-## 23 — Final HUD Behavior
-
-Implement functional:
-- band-loop placeholder;
-- coordinate generator;
-- scenario-loop placeholder;
-- score;
-- time;
-- pause;
-- profile switching.
-
-Acceptance:
-- FULL layout matches agreed hierarchy;
-- MEDIUM removes scenario panel;
-- COMPACT removes coordinates and scenario panel;
-- band square remains where space allows;
-- viewport resizing selects highest fitting profile;
-- gameplay corridor remains readable.
-
----
-
-## 24 — Web Hardening
+## 23 — Loading, Island Intro, and Island Attract
 
 Implement:
-- production web export;
-- itch.io upload ZIP with `index.html` at archive root;
-- single-threaded export without a `SharedArrayBuffer`/cross-origin-isolation dependency;
-- relative-path and case-sensitivity audit;
-- itch.io desktop embed and mobile-fullscreen configuration;
-- browser startup;
-- touch testing;
-- resize/orientation handling;
-- browser focus loss/resume and audio-unlock handling;
-- performance cleanup;
-- production exclusion/disablement of DevHarness.
+
+- loading presentation;
+- one-shot close-vegetation → vegetation area → city/roads/vehicles → landscape → California-island pullback;
+- fake-scale group/LOD swaps and authored camera/FOV/effect cues;
+- slow indefinite rotating-island attract state;
+- keyboard/gamepad confirm and any ordinary screen-touch continuation;
+- DevHarness shortcuts to Island Intro and Island Attract.
 
 Acceptance:
-- web build starts successfully;
-- the ZIP satisfies itch.io file-count, path-length, total-size and per-file limits;
-- an uploaded itch.io draft/restricted page starts without missing-file, case, path, or cross-origin errors;
-- desktop keyboard works;
-- touch swipes work;
-- pause works;
-- resize/orientation changes do not corrupt game state;
-- itch.io's 960 × 720 desktop embed preserves centered 4:3 presentation;
-- itch.io mobile fullscreen launch selects a valid responsive HUD and safe area;
-- leaving and returning to the browser tab does not advance simulation or corrupt state;
-- audio begins only after a valid user gesture and resumes correctly after focus changes;
-- all nine scenarios can be reached;
-- full fail/retry/island flow works in browser;
+
+- intro pullback plays once and never loops at the attract screen;
+- island rotates/waits indefinitely without advancing itself;
+- touch/confirm advances once without event leakage;
+- substitutions are hidden by composition/effect and final asset groups remain replaceable;
+- desktop/mobile safe composition keeps the focal subject and island readable;
+- leaving the island reaches a mostly blue sky/ocean handoff frame suitable for hidden scene-group loading.
+
+---
+
+## 24 — Logo/Alicorn Reveal and Player Select Entry
+
+Implement:
+
+- visually continuous blue-frame handoff from island frontend;
+- extruded red logo and circular 3D `CALIFORNICATION` letters;
+- logo/text reveal and 3D rotation;
+- alicorn approach, camera pass, and departure;
+- continued rotation of the same logo to reveal its depth/character-panel faces;
+- camera move into `CHARACTER_SELECT_ENTER` and placeholder active composition;
+- DevHarness shortcut to Logo Reveal.
+
+Acceptance:
+
+- no visible loading/hard cut occurs between island departure and logo reveal;
+- alicorn approaches from distance, fills/passes the camera, and leaves the logo visible;
+- the exact same logo instance/assembly becomes the selector object rather than being swapped for a generic red panel;
+- extrusion and panel anchors remain readable across supported safe compositions;
+- sequence ends at a stable first carousel detent without implementing full selection behavior.
+
+---
+
+## 25 — 3D Logo Carousel and Decorative Player Select
+
+Implement:
+
+- four indexed character detents on the existing logo object;
+- Left/Right and visible touch/click arrow navigation;
+- rotation input lock or bounded safe queue;
+- full-body idle character, name, category label, and six decorative values;
+- values/bars resetting to `0.0` and animating to configured targets on focus;
+- confirm into `CHARACTER_CONFIRMED`;
+- DevHarness shortcut/detent/stat controls.
+
+Acceptance:
+
+- each request settles exactly one character position with no half-rotated state;
+- side character panels are not clickable choices; only arrows/direct intents rotate;
+- character name/category/model update only when the new detent is front-facing;
+- all stat values visibly reset and count/grow to their CharacterDefinition targets;
+- stats remain presentation-only under automated dependency checks;
+- keyboard, gamepad, and touch arrows share behavior and remain safe at supported sizes;
+- confirm is one-shot and locks further selection input.
+
+---
+
+## 26 — Character Confirmation and Run Intro
+
+Implement the `CHARACTER_CONFIRMED → RUN_INTRO → RUNNING` choreography:
+
+- Player Select UI fades/disappears;
+- camera pushes rapidly toward the selected front-facing character using CinematicTransitionFX;
+- character fills frame and holds briefly from the front;
+- Boulevard resolves behind the same selected identity;
+- camera moves around/past the character and settles at the gameplay CameraRig;
+- gameplay HUD establishes, effect clears, timer starts, then runner input unlocks;
+- DevHarness shortcut to Run Intro and deterministic skip/complete hook.
+
+Acceptance:
+
+- no hard cut or character-identity discontinuity is visible;
+- `RunnerController` contains no run-intro choreography;
+- input and timer remain disabled until camera settlement is reported;
+- separate presentation/gameplay instances, if used, match definition, pose/transform handoff, and appearance;
+- resize/focus loss/skip restores a valid settled or safely cancelled state;
+- full and fallback effects meet desktop/mobile Web performance budgets.
+
+---
+
+## 27 — Final HUD Behavior
+
+Implement functional band/scenario loops, decorative coordinates, score, time, pause binding, gameplay profiles, and final pause reflow integration.
+
+Acceptance:
+
+- FULL/MEDIUM/COMPACT match the visibility hierarchy and choose the richest fitting profile;
+- Score/Time/Pause never disappear during gameplay and the corridor stays readable;
+- coordinates use scenario ranges rather than player transform;
+- pause preserves its mandatory controls while optional cosmetics may hide;
+- live resize/safe-inset changes recreate neither gameplay nor frontend state;
+- `RUN_INTRO` establishes the HUD before starting timer/input.
+
+---
+
+## 28 — itch.io Web Hardening
+
+Implement final Compatibility Web export, itch.io ZIP/package audit, hosted project-page configuration/checklist, performance fixes, and production exclusion of DevHarness/fixtures/references.
+
+Acceptance:
+
+- root-level `index.html`, unchanged companion filenames, relative exact-case paths, and itch.io extracted limits pass;
+- export remains single-threaded and does not require `SharedArrayBuffer`, cross-origin isolation, GDExtensions, or PWA workarounds;
+- uploaded draft/restricted page passes desktop 960×720 embed and mobile fullscreen launch;
+- keyboard, touch, safe areas, resize/orientation, focus suspension/resume, and audio unlock/resume work;
+- Island Intro through Player Select and Run Intro retain safe composition and acceptable load/frame cost on mobile-class browsers;
+- cinematic blur quality/fallback is profiled and no effect remains active in gameplay;
+- all nine scenarios/transitions, pause, failure, retry, island return, and frontend shortcuts' production exclusion pass;
 - no feature depends on non-Compatibility rendering.

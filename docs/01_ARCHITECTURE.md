@@ -2,6 +2,16 @@
 
 ## Project structure
 
+### Implemented foundation after Tasks 00–01
+
+- `project.godot` targets Godot 4.7 Compatibility at a 960×720 reference viewport and registers `GameFlow`, `ScenarioManager`, `InputRouter`, `AudioManager`, and `SaveManager` autoloads.
+- `main/Main.tscn` is intentionally still a passive graybox composition with `World`, `FrontendLayer`, and `OverlayLayer`; it contains no frontend state implementation yet.
+- `export_presets.cfg` provides a preliminary single-threaded Web preset at `build/web/index.html`, excludes `ref/` and `build/`, disables extension/PWA dependencies, and lets the canvas follow its host viewport. Final itch.io packaging remains Task 28.
+- `InputRouter` emits StringName intents for left/right/up/down/pause/confirm/back, normalizes keyboard and runtime-registered conventional gamepad input, recognizes one-finger unhandled swipes at a configurable 6% threshold, and cancels gestures on GUI consumption, multi-touch, resize, or focus loss.
+- `dev/InputHarness.tscn` demonstrates intent output and GUI swipe exclusion. `tests/cli/TestRunner.gd` contains the completed Task 00/01 deterministic checks.
+
+The new frontend requirements build on these boundaries. They require no Task 00/01 rewrite: frontend touch-to-confirm and arrow taps are state-owned GUI/frontend actions, carousel input gating belongs to its controller, and run/cinematic input locking belongs to the consuming state rather than a second device-input system.
+
 Recommended structure:
 
 ```text
@@ -25,6 +35,15 @@ res://
     obstacles/
     collectibles/
     transitions/
+
+  frontend/
+    island/
+    logo_reveal/
+    player_select/
+    run_intro/
+
+  presentation/
+    cinematic_fx/
 
   scenarios/
     boulevard/
@@ -64,18 +83,25 @@ Single authoritative state machine:
 ```text
 BOOT
 → LOADING
+→ ISLAND_INTRO
 → ISLAND_ATTRACT
-→ TITLE_CINEMATIC
-→ CHARACTER_SELECT
-→ RUN_START
+→ LOGO_REVEAL
+→ CHARACTER_SELECT_ENTER
+→ CHARACTER_SELECT_ACTIVE
+→ CHARACTER_CONFIRMED
+→ RUN_INTRO
 → RUNNING
 ↔ PAUSED
 → FAILURE_TRANSITION
 → LAVA_GAME_OVER
 → TRY_AGAIN
-    YES → RUN_START
+    YES → RUN_INTRO
     NO  → ISLAND_ATTRACT
 ```
+
+The earlier planning names map as follows: `TITLE_CINEMATIC` becomes the more precise `LOGO_REVEAL`; `CHARACTER_SELECT` is split into enter/active/confirmed stages; and the former `RUN_START` bootstrap occurs beneath `CHARACTER_CONFIRMED → RUN_INTRO`. Task 03 has not implemented these states yet, so it should use the precise names directly rather than add compatibility aliases.
+
+The frontend stages form one visually continuous real-time 3D sequence, even when scene groups change internally. They are not unrelated menus joined by generic hard cuts.
 
 Transition Tokens temporarily branch from `RUNNING`:
 
@@ -83,14 +109,28 @@ Transition Tokens temporarily branch from `RUNNING`:
 RUNNING
 → TRANSITION_READY
 → TOKEN_COLLECTED
-→ TRANSITION_RIDE
+→ SCENARIO_TRANSITION
 → NEXT_SCENARIO
 → RUNNING
 ```
 
 `Exit Run` from pause returns to `ISLAND_ATTRACT`.
 
-Changing character during pause is cosmetic only and returns to `PAUSED`.
+Changing character during pause is an immediate cosmetic swap within the pause HUD. It never leaves `PAUSED`, resets no run state, and moves focus directly to `BACK` after selection.
+
+## Frontend presentation ownership
+
+- `GameFlow` authorizes every frontend state transition but does not contain camera choreography.
+- `FrontendCoordinator` mounts/unmounts frontend scene groups and preserves visual continuity across hidden handoffs.
+- `IslandIntroController` owns the one-shot vegetation-to-island pullback. It may use staged geometry/LOD group swaps, camera/FOV changes, and transition blur; it never repeats while the attract state waits.
+- `IslandAttractController` owns slow indefinite island rotation and accepts confirm from keyboard/gamepad or any ordinary screen touch. A consumed touch advances only once and cannot leak into the next state.
+- `LogoRevealController` owns island departure, the blue sky/ocean handoff, logo/letter assembly, alicorn approach/pass, and rotation of the same logo into the Player Select angle.
+- `LogoCarouselController` owns four indexed logo detents. Left/Right or the visible arrow Controls request one detent rotation. Character display panels are presentation surfaces, not clickable character choices. Rotation locks input or safely queues a bounded request until the next detent is exact.
+- `PlayerSelectPresenter` owns name/category/stat display, stat reset/count-up animation, selection idle presentation, and confirm request. Decorative stats never enter gameplay configuration.
+- `RunIntroController` owns the selected-character push-in, brief front hold, Boulevard reveal, camera orbit/past movement, third-person camera settlement, and seamless presentation-to-runner handoff. It alone authorizes runner input and timer start after settlement; none of this choreography belongs in `RunnerController`.
+- `CinematicTransitionFX` is a reusable short-lived presentation component for radial/zoom blur, FOV kick, and fade. It is disabled outside authored transitions and provides a cheap no-screen-sampling fallback.
+
+An internal handoff from `IslandFrontend` to `LogoCharacterSelectFrontend` is allowed during the mostly blue sky/ocean frame, but the user must not perceive a loading cut. If frontend and gameplay use separate character instances, `CharacterPresenter` preserves the same definition and matched pose/transform across the `RUN_INTRO` handoff.
 
 ## Run restart
 
@@ -177,6 +217,15 @@ display_name
 mesh_scene
 portrait
 optional_skin_data
+instrument_category
+decorative_category_value
+decorative_strength
+decorative_stamina
+decorative_agility
+decorative_charisma
+decorative_rhythm
+frontend_presentation_scene
+idle_animation_key
 ```
 
 All playable characters share:
@@ -190,16 +239,35 @@ All playable characters share:
 
 Only presentation changes.
 
+The instrument/category label is character-configured (for example VOCALS, GUITAR, BASS, or DRUMS). All six displayed values are decorative Player Select data: the category value plus five common stats. Validation may reject missing presentation references, but runner, scenario, scoring, obstacle, and transition systems cannot read these fields.
+
+### CinematicFXProfile
+
+```text
+radial_blur_strength
+radial_blur_center
+sample_quality
+fov_kick
+fade_amount
+duration
+mobile_sample_quality
+fallback_policy
+```
+
+The preferred implementation is a Compatibility-compatible fullscreen CanvasItem/ColorRect-style shader using screen-texture sampling. Exact Godot 4.7.2 shader syntax and APIs must be verified when its task begins. The fallback combines camera/FOV motion and a lightweight overlay when screen sampling is unsupported or too expensive.
+
 ### TransitionDefinition
 
 ```text
 id
 source_scenario
-controller_mode
 transition_scene
-allowed_inputs
 next_scenario_policy
+optional_camera_profile
+transition_bonus_score = 1000
 ```
+
+The transition scene implements a shared scripted-cinematic contract. It receives the existing runner/selected-character presentation and camera context, plays in real time without player control, and emits completion. It cannot select the next scenario, award its own score, or enable gameplay collision/failure.
 
 ## Runner architecture
 
@@ -229,8 +297,26 @@ SNOWBOARD
 SWIM
 CAR
 FLY
-TRANSITION_RIDE
 ```
+
+`SCENARIO_TRANSITION` is a `GameFlow` state, not a movement mode. No transition installs a second controller or interprets directional gameplay input.
+
+## Scenario-transition ownership
+
+- `TransitionCoordinator` owns readiness, safe token opportunities, missed-token retry, one-shot bonus award, the centered `BONUS` overlay, generator suspension, cinematic lifecycle, and protected handoff. The shared overlay reads `BONUS`; it does not render a large `BONUS +1000!` message.
+- Token collection synchronously stops runner control, locks gameplay input, enables invulnerability, stops normal generation, and awards the configurable transition bonus (default `+1000`) before the cinematic begins.
+- `ScenarioTransitionController` exposes `start(context)`, `cancel()`, a development-only completion/skip hook, and a `completed` signal. It exposes no gameplay-intent handler.
+- During `SCENARIO_TRANSITION`, obstacles, pickups, player failure, and gameplay choices are disabled. Cinematics are real-time 3D sequences, not pre-rendered video and not playable lanes.
+- `ScenarioManager` alone selects and loads the next scenario after the cinematic completes and keeps the runner protected until the target safe runway is ready.
+
+## Pause ownership
+
+Pause is one responsive HUD overlay over frozen gameplay, not a separate pause character-select screen.
+
+- `GameFlow` owns whether gameplay simulation is paused; the pause HUD remains active.
+- `CharacterPresenter` applies one of four cosmetic portraits immediately. The selector shows faces only: no names, stats, cards, descriptions, or submenu.
+- `AudioManager` exposes player-facing `SFX LEVEL` and `MUSIC LEVEL` controls in roughly ten discrete steps. An internal Master bus may exist, but there is no player-facing Master control.
+- The pause HUD owns deterministic keyboard/gamepad focus and touch hit targets; it never mutates score, elapsed time, scenario, runner mechanics, or generator state.
 
 ## Browser constraints
 
@@ -271,6 +357,9 @@ Source: [itch.io HTML5 upload documentation](https://itch.io/docs/creators/html5
 
 `DevHarness.tscn` must eventually expose:
 
+- frontend shortcuts for `ISLAND_INTRO`, `ISLAND_ATTRACT`, `LOGO_REVEAL`, `CHARACTER_SELECT_ACTIVE`, and `RUN_INTRO`;
+- Player Select character/detent and stat-animation inspection;
+- cinematic-effect quality/fallback controls;
 - scenario selector;
 - movement-mode selector;
 - speed control;
@@ -278,6 +367,8 @@ Source: [itch.io HTML5 upload documentation](https://itch.io/docs/creators/html5
 - spawn collectible pattern;
 - force `TRANSITION_READY`;
 - spawn Transition Token;
+- trigger/skip the scripted scenario transition and inspect the one-shot bonus;
+- cycle currently registered scenarios quickly (all nine once Task 18 registers production content);
 - force death;
 - toggle invulnerability;
 - collision/debug visualization.
