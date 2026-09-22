@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3]
+
+[sub_resource type="BoxMesh" id="RoadMesh"]
+size = Vector3(6.2, 0.16, 100)
+
+[sub_resource type="StandardMaterial3D" id="RoadMaterial"]
+albedo_color = Color(0.22, 0.23, 0.25, 1)
+
+[sub_resource type="BoxMesh" id="BuildingMesh"]
+size = Vector3(2.5, 4.5, 100)
+
+[sub_resource type="StandardMaterial3D" id="BuildingMaterial"]
+albedo_color = Color(0.32, 0.28, 0.24, 1)
+
+[sub_resource type="CylinderMesh" id="LightStandMesh"]
+top_radius = 0.08
+bottom_radius = 0.08
+height = 4.0
+
+[sub_resource type="StandardMaterial3D" id="LightMaterial"]
+albedo_color = Color(0.82, 0.7, 0.28, 1)
+
+[sub_resource type="BoxMesh" id="CaseMesh"]
+size = Vector3(1.0, 0.8, 1.0)
+
+[sub_resource type="StandardMaterial3D" id="CaseMaterial"]
+albedo_color = Color(0.08, 0.1, 0.14, 1)
+
+[node name="FilmingSetsEnvironment" type="Node3D"]
+
+[node name="ServiceRoad" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.08, -45)
+mesh = SubResource("RoadMesh")
+material_override = SubResource("RoadMaterial")
+
+[node name="StudioLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-4.2, 2.25, -45)
+mesh = SubResource("BuildingMesh")
+material_override = SubResource("BuildingMaterial")
+
+[node name="StudioRight" type="MeshInstance3D" parent="."]
+position = Vector3(4.2, 2.25, -45)
+mesh = SubResource("BuildingMesh")
+material_override = SubResource("BuildingMaterial")
+
+[node name="LightStand" type="MeshInstance3D" parent="."]
+position = Vector3(3.1, 2.0, -30)
+mesh = SubResource("LightStandMesh")
+material_override = SubResource("LightMaterial")
+
+[node name="EquipmentCase" type="MeshInstance3D" parent="."]
+position = Vector3(-2.8, 0.4, -62)
+mesh = SubResource("CaseMesh")
+material_override = SubResource("CaseMaterial")

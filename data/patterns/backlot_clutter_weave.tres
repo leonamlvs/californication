@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="PatternDefinition" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/PatternDefinition.gd" id="1_pattern"]
+[ext_resource type="Script" path="res://data/definitions/PatternObstaclePlacement.gd" id="2_placement"]
+[ext_resource type="Resource" path="res://data/obstacles/backlot_clutter.tres" id="3_clutter"]
+
+[sub_resource type="Resource" id="Placement_left"]
+script = ExtResource("2_placement")
+obstacle = ExtResource("3_clutter")
+forward_offset = 24.0
+lane = 0
+
+[sub_resource type="Resource" id="Placement_right"]
+script = ExtResource("2_placement")
+obstacle = ExtResource("3_clutter")
+forward_offset = 27.0
+lane = 2
+
+[resource]
+script = ExtResource("1_pattern")
+id = &"backlot_clutter_weave"
+length = 30.0
+difficulty = 1
+weight = 0.9
+minimum_speed = 10.0
+maximum_speed = 16.0
+allowed_movement_modes = Array[StringName]([&"RUN"])
+minimum_reaction_time = 1.5
+entrance_state_mask = 511
+exit_state_mask = 511
+obstacle_placements = Array[PatternObstaclePlacement]([SubResource("Placement_left"), SubResource("Placement_right")])

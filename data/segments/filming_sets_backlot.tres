@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SegmentDefinition" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/SegmentDefinition.gd" id="1_segment"]
+[ext_resource type="PackedScene" path="res://scenarios/filming_sets/FilmingSetsTrackSegment.tscn" id="2_scene"]
+[ext_resource type="Resource" path="res://data/patterns/backlot_safe_recovery.tres" id="3_safe"]
+[ext_resource type="Resource" path="res://data/patterns/backlot_clutter_weave.tres" id="4_clutter"]
+[ext_resource type="Resource" path="res://data/patterns/backlot_crosser_rhythm.tres" id="5_crosser"]
+
+[resource]
+script = ExtResource("1_segment")
+id = &"filming_sets_backlot"
+length = 30.0
+connection_start = Vector3(0, 0, 0)
+connection_end = Vector3(0, 0, -30)
+compatible_modes = Array[StringName]([&"RUN"])
+environment_tags = Array[StringName]([&"filming_sets", &"backlot"])
+scene = ExtResource("2_scene")
+eligible_patterns = Array[PatternDefinition]([ExtResource("3_safe"), ExtResource("4_clutter"), ExtResource("5_crosser")])

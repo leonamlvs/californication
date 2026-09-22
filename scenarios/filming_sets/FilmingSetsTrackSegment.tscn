@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://gameplay/track/TrackSegment.gd" id="1_segment"]
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+resource_local_to_scene = true
+size = Vector3(6.2, 0.16, 30)
+
+[sub_resource type="StandardMaterial3D" id="RoadMaterial"]
+albedo_color = Color(0.22, 0.23, 0.25, 1)
+
+[sub_resource type="BoxMesh" id="WallMesh"]
+size = Vector3(1.0, 3.5, 30)
+
+[sub_resource type="StandardMaterial3D" id="WallMaterial"]
+albedo_color = Color(0.32, 0.28, 0.24, 1)
+
+[sub_resource type="CylinderMesh" id="LightMesh"]
+top_radius = 0.08
+bottom_radius = 0.08
+height = 3.0
+
+[node name="FilmingSetsTrackSegment" type="Node3D"]
+script = ExtResource("1_segment")
+
+[node name="FloorMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+position = Vector3(0, -0.08, -15)
+mesh = SubResource("FloorMesh")
+material_override = SubResource("RoadMaterial")
+
+[node name="StudioLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-3.6, 1.75, -15)
+mesh = SubResource("WallMesh")
+material_override = SubResource("WallMaterial")
+
+[node name="StudioRight" type="MeshInstance3D" parent="."]
+position = Vector3(3.6, 1.75, -15)
+mesh = SubResource("WallMesh")
+material_override = SubResource("WallMaterial")
+
+[node name="LightStand" type="MeshInstance3D" parent="."]
+position = Vector3(2.8, 1.5, -12)
+mesh = SubResource("LightMesh")
+
+[node name="StartAnchor" type="Marker3D" parent="."]
+
+[node name="EndAnchor" type="Marker3D" parent="."]
+position = Vector3(0, 0, -30)
