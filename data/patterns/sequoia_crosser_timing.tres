@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="PatternDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/PatternDefinition.gd" id="1_pattern"]
+[ext_resource type="Script" path="res://data/definitions/PatternObstaclePlacement.gd" id="2_placement"]
+[ext_resource type="Resource" path="res://data/obstacles/forest_crosser.tres" id="3_crosser"]
+
+[sub_resource type="Resource" id="Placement_crosser"]
+script = ExtResource("2_placement")
+obstacle = ExtResource("3_crosser")
+forward_offset = 24.0
+lane = -1
+
+[resource]
+script = ExtResource("1_pattern")
+id = &"sequoia_crosser_timing"
+length = 30.0
+difficulty = 2
+weight = 0.85
+minimum_speed = 10.5
+maximum_speed = 16.0
+allowed_movement_modes = Array[StringName]([&"RUN"])
+minimum_reaction_time = 1.5
+entrance_state_mask = 511
+exit_state_mask = 511
+obstacle_placements = Array[PatternObstaclePlacement]([SubResource("Placement_crosser")])

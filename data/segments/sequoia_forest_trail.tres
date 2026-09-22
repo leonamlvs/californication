@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SegmentDefinition" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/SegmentDefinition.gd" id="1_segment"]
+[ext_resource type="PackedScene" path="res://scenarios/sequoia/SequoiaTrackSegment.tscn" id="2_scene"]
+[ext_resource type="Resource" path="res://data/patterns/sequoia_safe_recovery.tres" id="3_safe"]
+[ext_resource type="Resource" path="res://data/patterns/sequoia_crosser_timing.tres" id="4_crosser"]
+[ext_resource type="Resource" path="res://data/patterns/sequoia_sweeper_timing.tres" id="5_sweeper"]
+
+[resource]
+script = ExtResource("1_segment")
+id = &"sequoia_forest_trail"
+length = 30.0
+connection_start = Vector3(0, 0, 0)
+connection_end = Vector3(0, 0, -30)
+compatible_modes = Array[StringName]([&"RUN"])
+environment_tags = Array[StringName]([&"sequoia", &"forest"])
+scene = ExtResource("2_scene")
+eligible_patterns = Array[PatternDefinition]([ExtResource("3_safe"), ExtResource("4_crosser"), ExtResource("5_sweeper")])

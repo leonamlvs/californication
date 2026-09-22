@@ -14,7 +14,7 @@ Update only after acceptance criteria are verified.
 - [x] 09 — Boulevard
 - [x] 10 — Sierra Nevada
 - [x] 11 — San Francisco Bay
-- [ ] 12 — Sequoia
+- [x] 12 — Sequoia
 - [ ] 13 — Filming Sets
 - [ ] 14 — Golden Gate
 - [ ] 15 — Hollywood

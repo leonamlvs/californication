@@ -5,6 +5,7 @@ const FIXTURE_B := preload("res://dev/fixtures/fixture_scenario_b.tres")
 const BOULEVARD := preload("res://data/scenarios/boulevard.tres")
 const SIERRA := preload("res://data/scenarios/sierra_nevada.tres")
 const BAY := preload("res://data/scenarios/san_francisco_bay.tres")
+const SEQUOIA := preload("res://data/scenarios/sequoia.tres")
 const BLOCK_DEFINITION := preload("res://data/obstacles/block.tres")
 
 @onready var runner: RunnerController = %Runner
@@ -26,6 +27,7 @@ func _ready() -> void:
 	ScenarioManager.register_scenario(BOULEVARD)
 	ScenarioManager.register_scenario(SIERRA)
 	ScenarioManager.register_scenario(BAY)
+	ScenarioManager.register_scenario(SEQUOIA)
 	ScenarioManager.register_scenario(FIXTURE_A, true)
 	ScenarioManager.register_scenario(FIXTURE_B, true)
 	GameFlow.development_jump_to_state(GameFlow.RUNNING)
@@ -124,6 +126,10 @@ func _on_sierra_pressed() -> void:
 
 func _on_bay_pressed() -> void:
 	_load_debug_scenario(BAY)
+
+
+func _on_sequoia_pressed() -> void:
+	_load_debug_scenario(SEQUOIA)
 
 
 func _load_debug_scenario(definition: ScenarioDefinition) -> void:

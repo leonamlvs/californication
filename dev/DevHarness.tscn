@@ -119,6 +119,11 @@ layout_mode = 2
 text = "LOAD BAY / SWIM"
 script = ExtResource("6_button")
 
+[node name="Sequoia" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "LOAD SEQUOIA / RUN"
+script = ExtResource("6_button")
+
 [node name="State" type="Button" parent="Interface/Panel/Rows"]
 layout_mode = 2
 text = "JUMP GAMEFLOW TO RUNNING"
@@ -143,5 +148,6 @@ script = ExtResource("6_button")
 [connection signal="pressed" from="Interface/Panel/Rows/Cycle" to="." method="_on_cycle_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Sierra" to="." method="_on_sierra_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Bay" to="." method="_on_bay_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Sequoia" to="." method="_on_sequoia_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/State" to="." method="_on_state_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Collisions" to="." method="_on_collisions_pressed"]

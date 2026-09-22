@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://gameplay/track/TrackSegment.gd" id="1_segment"]
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+resource_local_to_scene = true
+size = Vector3(6.4, 0.16, 30)
+
+[sub_resource type="StandardMaterial3D" id="TrailMaterial"]
+albedo_color = Color(0.28, 0.2, 0.12, 1)
+
+[sub_resource type="BoxMesh" id="FenceMesh"]
+size = Vector3(0.2, 0.9, 30)
+
+[sub_resource type="StandardMaterial3D" id="FenceMaterial"]
+albedo_color = Color(0.34, 0.19, 0.08, 1)
+
+[sub_resource type="CylinderMesh" id="TrunkMesh"]
+top_radius = 0.45
+bottom_radius = 0.7
+height = 8.0
+
+[node name="SequoiaTrackSegment" type="Node3D"]
+script = ExtResource("1_segment")
+
+[node name="FloorMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+position = Vector3(0, -0.08, -15)
+mesh = SubResource("FloorMesh")
+material_override = SubResource("TrailMaterial")
+
+[node name="FenceLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-3.45, 0.45, -15)
+mesh = SubResource("FenceMesh")
+material_override = SubResource("FenceMaterial")
+
+[node name="FenceRight" type="MeshInstance3D" parent="."]
+position = Vector3(3.45, 0.45, -15)
+mesh = SubResource("FenceMesh")
+material_override = SubResource("FenceMaterial")
+
+[node name="Redwood" type="MeshInstance3D" parent="."]
+position = Vector3(-4.8, 4.0, -18)
+mesh = SubResource("TrunkMesh")
+
+[node name="StartAnchor" type="Marker3D" parent="."]
+
+[node name="EndAnchor" type="Marker3D" parent="."]
+position = Vector3(0, 0, -30)

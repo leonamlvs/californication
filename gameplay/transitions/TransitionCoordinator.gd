@@ -180,6 +180,7 @@ func _on_cinematic_completed() -> void:
 	var completed_cinematic := active_cinematic
 	active_cinematic = null
 	if is_instance_valid(completed_cinematic):
+		remove_child(completed_cinematic)
 		completed_cinematic.queue_free()
 	if target.movement_profile != null:
 		runner.movement_profile = target.movement_profile
