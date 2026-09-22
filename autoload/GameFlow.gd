@@ -111,11 +111,6 @@ func handle_intent(intent: StringName) -> bool:
 		PAUSED:
 			if intent == InputRouter.INTENT_PAUSE or intent == InputRouter.INTENT_BACK:
 				handled = resume_run()
-		LAVA_GAME_OVER:
-			if intent == InputRouter.INTENT_CONFIRM:
-				handled = choose_game_over(true)
-			elif intent == InputRouter.INTENT_BACK:
-				handled = choose_game_over(false)
 	if handled:
 		input_consumed.emit(intent, current_state)
 		_lock_entry_input()

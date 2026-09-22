@@ -119,6 +119,9 @@ func cancel_active_transition() -> void:
 		active_cinematic = null
 	if generator != null:
 		generator.release_transition_token()
+	active_token = null
+	_retry_remaining = 0.0
+	_collection_committed = false
 	if hud != null:
 		hud.show_transition_bonus(false)
 

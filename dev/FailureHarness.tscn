@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://dev/FailureHarness.gd" id="1_harness"]
+[ext_resource type="PackedScene" path="res://gameplay/runner/Runner.tscn" id="2_runner"]
+[ext_resource type="PackedScene" path="res://gameplay/track/TrackGenerator.tscn" id="3_generator"]
+[ext_resource type="Script" path="res://gameplay/failure/FailureCoordinator.gd" id="4_failure"]
+[ext_resource type="PackedScene" path="res://ui/hud/GameOverOverlay.tscn" id="5_game_over"]
+
+[sub_resource type="BoxMesh" id="Box_floor"]
+size = Vector3(8, 0.2, 16)
+
+[sub_resource type="StandardMaterial3D" id="Material_floor"]
+albedo_color = Color(0.12, 0.24, 0.3, 1)
+
+[sub_resource type="Environment" id="Environment_preview"]
+background_mode = 1
+background_color = Color(0.02, 0.04, 0.07, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.55, 0.62, 0.72, 1)
+ambient_light_energy = 0.8
+
+[node name="FailureHarness" type="Node3D"]
+script = ExtResource("1_harness")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_preview")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+position = Vector3(0, 2.4, 8)
+rotation_degrees = Vector3(-10, 0, 0)
+current = true
+
+[node name="KeyLight" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-35, -25, 0)
+light_energy = 1.5
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.1, -3)
+mesh = SubResource("Box_floor")
+material_override = SubResource("Material_floor")
+
+[node name="Runner" parent="." instance=ExtResource("2_runner")]
+unique_name_in_owner = true
+
+[node name="TrackGenerator" parent="." instance=ExtResource("3_generator")]
+unique_name_in_owner = true
+auto_start = false
+
+[node name="FailureCoordinator" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_failure")
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="GameOverOverlay" parent="Interface" instance=ExtResource("5_game_over")]

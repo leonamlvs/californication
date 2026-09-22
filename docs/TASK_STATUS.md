@@ -23,7 +23,7 @@ Update only after acceptance criteria are verified.
 - [x] 18 — Scenario Runtime Hardening
 - [x] 19 — Character Data and Presentation
 - [x] 20 — Pause and Settings
-- [ ] 21 — Failure and Game Over
+- [x] 21 — Failure and Game Over
 - [ ] 22 — CinematicTransitionFX
 - [ ] 23 — Loading, Island Intro, and Island Attract
 - [ ] 24 — Logo/Alicorn Reveal and Player Select Entry
@@ -39,4 +39,4 @@ Update only after acceptance criteria are verified.
 - The documented shared CLI runner for Tasks 00–05 currently fails to compile when invoked with `--script`; repair that validation path before relying on it for a fresh acceptance audit.
 - Task 19 was completed after this audit with four validated definitions, distinct matched primitive presentation scenes, pause portraits, pause-safe cosmetic replacement, and `Task19Test` acceptance coverage.
 - Task 20 was completed after this audit with runtime intent routing, exact-state resume, live Music/SFX mixer buses, face-only Task 19 portraits, direct touch adjustment, separate resume/exit actions, responsive rendered checks, and expanded `Task20Test` acceptance coverage.
-- Task 21 has failure coordination, retry reset logic, a Game Over overlay, and a passing isolated test. It remains incomplete because `failure_started` has no presentation consumer, so the required floor-fall and launch-toward-screen families are not rendered, and manual integration/layout evidence is still missing.
+- Task 21 was completed after this audit with rendered floor-fall and launch-toward-screen presentations, shared navigable lava Game Over, protected retry/island cleanup, transition-token cancellation, a production-backed DevHarness death path, and expanded `Task21Test` coverage.

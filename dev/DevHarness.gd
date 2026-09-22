@@ -125,7 +125,7 @@ func _on_miss_pressed() -> void:
 
 
 func _on_death_pressed() -> void:
-	_message = "Failure request accepted: %s." % GameFlow.fail_run()
+	_message = "Failure presentation started: %s." % (_failure_coordinator != null and _failure_coordinator.begin_failure())
 
 
 func _on_invulnerability_pressed() -> void:
