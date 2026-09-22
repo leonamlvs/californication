@@ -19,9 +19,9 @@ Update only after acceptance criteria are verified.
 - [x] 14 — Golden Gate
 - [x] 15 — Hollywood
 - [x] 16 — Grass
-- [ ] 17 — Earthquake
-- [ ] 18 — Scenario Runtime Hardening
-- [ ] 19 — Character Data and Presentation
+- [x] 17 — Earthquake
+- [x] 18 — Scenario Runtime Hardening
+- [x] 19 — Character Data and Presentation
 - [ ] 20 — Pause and Settings
 - [ ] 21 — Failure and Game Over
 - [ ] 22 — CinematicTransitionFX

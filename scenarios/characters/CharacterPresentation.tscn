@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+[sub_resource type="CapsuleMesh" id="m"]
+radius=0.4
+height=1.7
+[node name="CharacterPresentation" type="Node3D"]
+[node name="Visual" type="MeshInstance3D" parent="."]
+mesh=SubResource("m")

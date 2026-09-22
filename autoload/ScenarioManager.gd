@@ -53,6 +53,19 @@ func configure_production_shuffle(scenario_ids: Array[StringName], seed_value: i
 	return true
 
 
+func begin_production_run(seed_value: int = 0) -> bool:
+	var boulevard_id: StringName = &"boulevard"
+	if not _production_ids.has(boulevard_id):
+		return false
+	var post_opening: Array[StringName] = []
+	for scenario_id: StringName in _production_ids:
+		if scenario_id != boulevard_id:
+			post_opening.append(scenario_id)
+	if post_opening.size() != 8 or not configure_production_shuffle(post_opening, seed_value):
+		return false
+	return load_scenario(boulevard_id)
+
+
 func load_scenario(scenario_id: StringName) -> bool:
 	var definition: ScenarioDefinition = _registry.get(scenario_id)
 	if definition == null:

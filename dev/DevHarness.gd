@@ -10,6 +10,7 @@ const FILMING_SETS := preload("res://data/scenarios/filming_sets.tres")
 const GOLDEN_GATE := preload("res://data/scenarios/golden_gate.tres")
 const HOLLYWOOD := preload("res://data/scenarios/hollywood.tres")
 const GRASS := preload("res://data/scenarios/grass.tres")
+const EARTHQUAKE := preload("res://data/scenarios/earthquake.tres")
 const BLOCK_DEFINITION := preload("res://data/obstacles/block.tres")
 
 @onready var runner: RunnerController = %Runner
@@ -36,6 +37,7 @@ func _ready() -> void:
 	ScenarioManager.register_scenario(GOLDEN_GATE)
 	ScenarioManager.register_scenario(HOLLYWOOD)
 	ScenarioManager.register_scenario(GRASS)
+	ScenarioManager.register_scenario(EARTHQUAKE)
 	ScenarioManager.register_scenario(FIXTURE_A, true)
 	ScenarioManager.register_scenario(FIXTURE_B, true)
 	GameFlow.development_jump_to_state(GameFlow.RUNNING)

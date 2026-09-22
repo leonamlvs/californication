@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CharacterDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://data/definitions/CharacterDefinition.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenarios/characters/CharacterCosmetic.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenarios/characters/CharacterPresentation.tscn" id="3"]
+[resource]
+script=ExtResource("1")
+id=&"placeholder_03"
+display_name="Character Three"
+category_label="INSTRUMENT"
+category_value="DRUMS"
+decorative_stats={"STRENGTH": 50, "STAMINA": 70, "AGILITY": 50, "CHARISMA": 70, "RHYTHM": 70}
+gameplay_cosmetic_scene=ExtResource("2")
+frontend_presentation_scene=ExtResource("3")
