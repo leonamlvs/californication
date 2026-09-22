@@ -48,7 +48,10 @@ func _ready() -> void:
 
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+	# A Web build can lose either canvas/window focus inside the itch.io iframe or
+	# application focus when the browser tab is backgrounded. Neither may leave a
+	# partially recorded swipe alive for the next interaction.
+	if what == NOTIFICATION_WM_WINDOW_FOCUS_OUT or what == NOTIFICATION_APPLICATION_FOCUS_OUT:
 		cancel_active_swipe()
 
 
@@ -133,7 +136,9 @@ func _emit_mapped_action(event: InputEvent) -> void:
 	for action: StringName in ACTION_TO_INTENT:
 		if event.is_action_pressed(action, false):
 			request_intent(ACTION_TO_INTENT[action])
-			get_viewport().set_input_as_handled()
+			var viewport := get_viewport()
+			if viewport != null:
+				viewport.set_input_as_handled()
 			return
 
 
@@ -152,13 +157,13 @@ func _reset_touch_state() -> void:
 
 
 func _ensure_input_map() -> void:
-	_register_action(ACTION_MOVE_LEFT, [_key_event(Key.A), _key_event(Key.LEFT), _joy_button_event(JoyButton.JOY_BUTTON_DPAD_LEFT), _joy_axis_event(JoyAxis.JOY_AXIS_LEFT_X, -1.0)])
-	_register_action(ACTION_MOVE_RIGHT, [_key_event(Key.D), _key_event(Key.RIGHT), _joy_button_event(JoyButton.JOY_BUTTON_DPAD_RIGHT), _joy_axis_event(JoyAxis.JOY_AXIS_LEFT_X, 1.0)])
-	_register_action(ACTION_MOVE_UP, [_key_event(Key.W), _key_event(Key.UP), _joy_button_event(JoyButton.JOY_BUTTON_DPAD_UP), _joy_axis_event(JoyAxis.JOY_AXIS_LEFT_Y, -1.0)])
-	_register_action(ACTION_MOVE_DOWN, [_key_event(Key.S), _key_event(Key.DOWN), _joy_button_event(JoyButton.JOY_BUTTON_DPAD_DOWN), _joy_axis_event(JoyAxis.JOY_AXIS_LEFT_Y, 1.0)])
-	_register_action(ACTION_PAUSE, [_key_event(Key.P), _key_event(Key.ESCAPE), _joy_button_event(JoyButton.JOY_BUTTON_START)])
-	_register_action(ACTION_CONFIRM, [_key_event(Key.ENTER), _key_event(Key.SPACE), _joy_button_event(JoyButton.JOY_BUTTON_A)])
-	_register_action(ACTION_BACK, [_key_event(Key.BACKSPACE), _joy_button_event(JoyButton.JOY_BUTTON_B)])
+	_register_action(ACTION_MOVE_LEFT, [_key_event(KEY_A), _key_event(KEY_LEFT), _joy_button_event(JoyButton.JOY_BUTTON_DPAD_LEFT), _joy_axis_event(JoyAxis.JOY_AXIS_LEFT_X, -1.0)])
+	_register_action(ACTION_MOVE_RIGHT, [_key_event(KEY_D), _key_event(KEY_RIGHT), _joy_button_event(JoyButton.JOY_BUTTON_DPAD_RIGHT), _joy_axis_event(JoyAxis.JOY_AXIS_LEFT_X, 1.0)])
+	_register_action(ACTION_MOVE_UP, [_key_event(KEY_W), _key_event(KEY_UP), _joy_button_event(JoyButton.JOY_BUTTON_DPAD_UP), _joy_axis_event(JoyAxis.JOY_AXIS_LEFT_Y, -1.0)])
+	_register_action(ACTION_MOVE_DOWN, [_key_event(KEY_S), _key_event(KEY_DOWN), _joy_button_event(JoyButton.JOY_BUTTON_DPAD_DOWN), _joy_axis_event(JoyAxis.JOY_AXIS_LEFT_Y, 1.0)])
+	_register_action(ACTION_PAUSE, [_key_event(KEY_P), _key_event(KEY_ESCAPE), _joy_button_event(JoyButton.JOY_BUTTON_START)])
+	_register_action(ACTION_CONFIRM, [_key_event(KEY_ENTER), _key_event(KEY_SPACE), _joy_button_event(JoyButton.JOY_BUTTON_A)])
+	_register_action(ACTION_BACK, [_key_event(KEY_BACKSPACE), _joy_button_event(JoyButton.JOY_BUTTON_B)])
 
 
 func _register_action(action: StringName, events: Array[InputEvent]) -> void:
