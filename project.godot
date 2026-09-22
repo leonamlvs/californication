@@ -1,0 +1,35 @@
+; Engine configuration file.
+; Edit through the Godot editor where possible.
+;
+; Project Foundation: Godot 4.7.2, Compatibility renderer, 4:3 reference frame.
+
+config_version=5
+
+[application]
+
+config/name="Californication Runner"
+run/main_scene="res://main/Main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+
+[autoload]
+
+GameFlow="*res://autoload/GameFlow.gd"
+ScenarioManager="*res://autoload/ScenarioManager.gd"
+InputRouter="*res://autoload/InputRouter.gd"
+AudioManager="*res://autoload/AudioManager.gd"
+SaveManager="*res://autoload/SaveManager.gd"
+
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=720
+window/size/window_width_override=960
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false
+environment/defaults/default_clear_color=Color(0.045, 0.065, 0.11, 1)

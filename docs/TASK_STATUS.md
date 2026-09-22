@@ -2,7 +2,7 @@
 
 Update only after acceptance criteria are verified.
 
-- [ ] 00 — Project Foundation
+- [x] 00 — Project Foundation
 - [ ] 01 — Input Abstraction
 - [ ] 02 — Responsive UI Foundation
 - [ ] 03 — GameFlow State Machine
