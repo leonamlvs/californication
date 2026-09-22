@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="PatternDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/PatternDefinition.gd" id="1_pattern"]
+[ext_resource type="Script" path="res://data/definitions/PatternObstaclePlacement.gd" id="2_placement"]
+[ext_resource type="Resource" path="res://data/obstacles/snow_hurdle.tres" id="3_hurdle"]
+
+[sub_resource type="Resource" id="Placement_log"]
+script = ExtResource("2_placement")
+obstacle = ExtResource("3_hurdle")
+forward_offset = 27.0
+lane = 1
+vertical_state = 1
+
+[resource]
+script = ExtResource("1_pattern")
+id = &"sierra_jump_log"
+length = 30.0
+difficulty = 1
+weight = 0.9
+minimum_speed = 12.0
+maximum_speed = 18.0
+allowed_movement_modes = Array[StringName]([&"SNOWBOARD"])
+minimum_reaction_time = 1.5
+entrance_state_mask = 511
+exit_state_mask = 511
+obstacle_placements = Array[PatternObstaclePlacement]([SubResource("Placement_log")])

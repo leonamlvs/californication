@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3]
+
+[sub_resource type="BoxMesh" id="WaterMesh"]
+size = Vector3(6.2, 4.0, 100)
+
+[sub_resource type="StandardMaterial3D" id="WaterMaterial"]
+albedo_color = Color(0.03, 0.22, 0.34, 1)
+transparency = 1
+
+[sub_resource type="BoxMesh" id="SeabedMesh"]
+size = Vector3(6.2, 0.25, 100)
+
+[sub_resource type="StandardMaterial3D" id="SandMaterial"]
+albedo_color = Color(0.28, 0.29, 0.18, 1)
+
+[sub_resource type="CylinderMesh" id="KelpMesh"]
+top_radius = 0.05
+bottom_radius = 0.12
+height = 3.2
+
+[sub_resource type="StandardMaterial3D" id="KelpMaterial"]
+albedo_color = Color(0.05, 0.31, 0.18, 1)
+
+[sub_resource type="SphereMesh" id="RockMesh"]
+radius = 1.1
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="RockMaterial"]
+albedo_color = Color(0.18, 0.24, 0.28, 1)
+
+[node name="BayEnvironment" type="Node3D"]
+
+[node name="WaterVolume" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.5, -45)
+mesh = SubResource("WaterMesh")
+material_override = SubResource("WaterMaterial")
+
+[node name="Seabed" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.12, -45)
+mesh = SubResource("SeabedMesh")
+material_override = SubResource("SandMaterial")
+
+[node name="KelpLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-3.4, 1.6, -24)
+mesh = SubResource("KelpMesh")
+material_override = SubResource("KelpMaterial")
+
+[node name="KelpRight" type="MeshInstance3D" parent="."]
+position = Vector3(3.4, 1.6, -62)
+mesh = SubResource("KelpMesh")
+material_override = SubResource("KelpMaterial")
+
+[node name="RockLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-4.0, 0.6, -55)
+mesh = SubResource("RockMesh")
+material_override = SubResource("RockMaterial")
+
+[node name="RockRight" type="MeshInstance3D" parent="."]
+position = Vector3(4.0, 0.6, -35)
+mesh = SubResource("RockMesh")
+material_override = SubResource("RockMaterial")

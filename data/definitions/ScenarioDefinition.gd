@@ -19,6 +19,7 @@ extends Resource
 @export_range(0.0, 120.0, 0.5, "suffix:s") var development_minimum_transition_time := 15.0
 @export_range(0.0, 120.0, 0.5, "suffix:s") var development_guaranteed_transition_time := 20.0
 @export var movement_profile: MovementProfile
+@export var movement_capability_profile: MovementCapabilityProfile
 @export var failure_family: StringName = &"floor_fall"
 @export var scenario_component_scene: PackedScene
 
@@ -30,9 +31,9 @@ func is_valid_definition(development_fixture := false) -> bool:
 		return false
 	if segment_library.is_empty() or obstacle_library == null or collectible_patterns == null:
 		return false
-	if environment_scene == null or camera_profile == null or hud_coordinate_profile == null or movement_profile == null:
+	if environment_scene == null or camera_profile == null or hud_coordinate_profile == null or movement_profile == null or movement_capability_profile == null:
 		return false
-	if movement_profile.movement_mode != movement_mode or transition_definition == null or not transition_definition.is_valid_definition():
+	if movement_profile.movement_mode != movement_mode or movement_capability_profile.movement_mode != movement_mode or not movement_capability_profile.is_valid_profile() or transition_definition == null or not transition_definition.is_valid_definition():
 		return false
 	if transition_definition.source_scenario != id:
 		return false

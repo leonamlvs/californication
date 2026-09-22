@@ -3,6 +3,8 @@ extends Node3D
 const FIXTURE_A := preload("res://dev/fixtures/fixture_scenario_a.tres")
 const FIXTURE_B := preload("res://dev/fixtures/fixture_scenario_b.tres")
 const BOULEVARD := preload("res://data/scenarios/boulevard.tres")
+const SIERRA := preload("res://data/scenarios/sierra_nevada.tres")
+const BAY := preload("res://data/scenarios/san_francisco_bay.tres")
 const BLOCK_DEFINITION := preload("res://data/obstacles/block.tres")
 
 @onready var runner: RunnerController = %Runner
@@ -22,17 +24,16 @@ func _ready() -> void:
 	ScenarioManager.reset_for_tests()
 	ScenarioManager.set_scenario_root(scenario_root)
 	ScenarioManager.register_scenario(BOULEVARD)
+	ScenarioManager.register_scenario(SIERRA)
+	ScenarioManager.register_scenario(BAY)
 	ScenarioManager.register_scenario(FIXTURE_A, true)
 	ScenarioManager.register_scenario(FIXTURE_B, true)
-	ScenarioManager.load_scenario(BOULEVARD.id)
 	GameFlow.development_jump_to_state(GameFlow.RUNNING)
 	runner.development_simulation_enabled = true
 	generator.set_runner(runner)
-	generator.configure_for_scenario(BOULEVARD)
-	generator.reset_generator(generator.deterministic_seed, 0.0, runner.current_speed)
 	hud.bind_run_stats(generator.run_stats)
 	coordinator.configure_services(runner, generator, generator.run_stats, hud)
-	coordinator.begin_scenario(BOULEVARD, true)
+	_load_debug_scenario(BOULEVARD)
 
 
 func _process(_delta: float) -> void:
@@ -114,10 +115,33 @@ func _on_skip_pressed() -> void:
 
 func _on_cycle_pressed() -> void:
 	var target := FIXTURE_B if ScenarioManager.active_scenario_id == FIXTURE_A.id else FIXTURE_A
-	ScenarioManager.load_scenario(target.id)
-	coordinator.begin_scenario(target, true)
+	_load_debug_scenario(target)
+
+
+func _on_sierra_pressed() -> void:
+	_load_debug_scenario(SIERRA)
+
+
+func _on_bay_pressed() -> void:
+	_load_debug_scenario(BAY)
+
+
+func _load_debug_scenario(definition: ScenarioDefinition) -> void:
+	if not ScenarioManager.load_scenario(definition.id):
+		_message = "Could not load %s." % definition.display_name
+		return
+	runner.movement_profile = definition.movement_profile
+	if not runner.set_movement_mode(definition.movement_mode):
+		_message = "Could not install %s mode." % definition.movement_mode
+		return
+	runner.reset_for_run()
+	if not generator.configure_for_scenario(definition):
+		_message = "Could not configure generator for %s." % definition.display_name
+		return
+	generator.reset_generator(generator.deterministic_seed, 0.0, runner.current_speed)
+	coordinator.begin_scenario(definition, true)
 	GameFlow.development_jump_to_state(GameFlow.RUNNING)
-	_message = "Jumped directly to %s." % target.display_name
+	_message = "Loaded %s." % definition.display_name
 
 
 func _on_state_pressed() -> void:

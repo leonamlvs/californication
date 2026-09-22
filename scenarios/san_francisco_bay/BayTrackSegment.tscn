@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://gameplay/track/TrackSegment.gd" id="1_segment"]
+
+[sub_resource type="BoxMesh" id="WaterMesh"]
+size = Vector3(6.2, 4.0, 30)
+
+[sub_resource type="StandardMaterial3D" id="WaterMaterial"]
+albedo_color = Color(0.03, 0.22, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="SeabedMesh"]
+size = Vector3(6.2, 0.2, 30)
+
+[sub_resource type="StandardMaterial3D" id="SandMaterial"]
+albedo_color = Color(0.28, 0.29, 0.18, 1)
+
+[sub_resource type="CylinderMesh" id="KelpMesh"]
+top_radius = 0.05
+bottom_radius = 0.1
+height = 2.8
+
+[sub_resource type="StandardMaterial3D" id="KelpMaterial"]
+albedo_color = Color(0.05, 0.31, 0.18, 1)
+
+[node name="BayTrackSegment" type="Node3D"]
+script = ExtResource("1_segment")
+
+[node name="FloorMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+position = Vector3(0, 1.5, -15)
+mesh = SubResource("WaterMesh")
+material_override = SubResource("WaterMaterial")
+
+[node name="Seabed" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.1, -15)
+mesh = SubResource("SeabedMesh")
+material_override = SubResource("SandMaterial")
+
+[node name="KelpLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-3.35, 1.4, -10)
+mesh = SubResource("KelpMesh")
+material_override = SubResource("KelpMaterial")
+
+[node name="KelpRight" type="MeshInstance3D" parent="."]
+position = Vector3(3.35, 1.4, -20)
+mesh = SubResource("KelpMesh")
+material_override = SubResource("KelpMaterial")
+
+[node name="StartAnchor" type="Marker3D" parent="."]
+
+[node name="EndAnchor" type="Marker3D" parent="."]
+position = Vector3(0, 0, -30)

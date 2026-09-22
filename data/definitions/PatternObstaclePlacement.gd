@@ -30,4 +30,4 @@ func _declared_posture_matches_class() -> bool:
 		ObstacleDefinition.ObstacleClass.OVERHEAD:
 			return vertical_state == RunnerStateSpace.Posture.LOW
 		_:
-			return vertical_state == RunnerStateSpace.Posture.GROUND
+			return vertical_state == RunnerStateSpace.Posture.GROUND or vertical_state == RunnerStateSpace.Posture.RISE or vertical_state == RunnerStateSpace.Posture.DIVE

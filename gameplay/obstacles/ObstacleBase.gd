@@ -17,6 +17,7 @@ var _runner: RunnerController
 var _elapsed := 0.0
 var _resolved := false
 var _placement_lane := -1
+var _avoidance_posture: RunnerStateSpace.Posture = RunnerStateSpace.Posture.GROUND
 var _motion_origin_distance := -INF
 
 
@@ -33,11 +34,12 @@ func set_runner(runner: RunnerController) -> void:
 	_runner = runner
 
 
-func reset_for_spawn(distance: float = forward_distance, placement_lane: int = -1, motion_origin_distance: float = -INF) -> void:
+func reset_for_spawn(distance: float = forward_distance, placement_lane: int = -1, motion_origin_distance: float = -INF, avoidance_posture: RunnerStateSpace.Posture = RunnerStateSpace.Posture.GROUND) -> void:
 	forward_distance = distance
 	_elapsed = 0.0
 	_resolved = false
 	_placement_lane = placement_lane
+	_avoidance_posture = avoidance_posture
 	_motion_origin_distance = motion_origin_distance
 	visible = true
 	set_physics_process(true)
@@ -50,6 +52,7 @@ func prepare_for_pool() -> void:
 	_elapsed = 0.0
 	_resolved = false
 	_placement_lane = -1
+	_avoidance_posture = RunnerStateSpace.Posture.GROUND
 	_motion_origin_distance = -INF
 	position = Vector3.ZERO
 	rotation = Vector3.ZERO
@@ -108,7 +111,7 @@ func _runner_avoids(runner: RunnerController, runner_lane: int) -> bool:
 		ObstacleDefinition.ObstacleClass.OVERHEAD:
 			return runner.is_sliding
 		_:
-			return false
+			return (_avoidance_posture == RunnerStateSpace.Posture.RISE or _avoidance_posture == RunnerStateSpace.Posture.DIVE) and runner.swim_depth_state == _avoidance_posture
 
 
 func _nearest_lane_index(runner: RunnerController) -> int:

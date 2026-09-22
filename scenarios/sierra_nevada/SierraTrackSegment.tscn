@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://gameplay/track/TrackSegment.gd" id="1_segment"]
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+resource_local_to_scene = true
+size = Vector3(6.4, 0.12, 30)
+
+[sub_resource type="StandardMaterial3D" id="SnowMaterial"]
+albedo_color = Color(0.78, 0.88, 0.95, 1)
+
+[sub_resource type="BoxMesh" id="BankMesh"]
+size = Vector3(0.8, 1.1, 30)
+
+[sub_resource type="StandardMaterial3D" id="BankMaterial"]
+albedo_color = Color(0.62, 0.76, 0.86, 1)
+
+[sub_resource type="CylinderMesh" id="StakeMesh"]
+top_radius = 0.08
+bottom_radius = 0.08
+height = 1.3
+
+[node name="SierraTrackSegment" type="Node3D"]
+script = ExtResource("1_segment")
+
+[node name="FloorMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+position = Vector3(0, -0.06, -15)
+mesh = SubResource("FloorMesh")
+material_override = SubResource("SnowMaterial")
+
+[node name="SnowbankLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-3.6, 0.55, -15)
+mesh = SubResource("BankMesh")
+material_override = SubResource("BankMaterial")
+
+[node name="SnowbankRight" type="MeshInstance3D" parent="."]
+position = Vector3(3.6, 0.55, -15)
+mesh = SubResource("BankMesh")
+material_override = SubResource("BankMaterial")
+
+[node name="RouteStake" type="MeshInstance3D" parent="."]
+position = Vector3(3.0, 0.65, -15)
+mesh = SubResource("StakeMesh")
+
+[node name="StartAnchor" type="Marker3D" parent="."]
+
+[node name="EndAnchor" type="Marker3D" parent="."]
+position = Vector3(0, 0, -30)

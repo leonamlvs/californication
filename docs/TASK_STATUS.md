@@ -12,8 +12,8 @@ Update only after acceptance criteria are verified.
 - [x] 07 — Collectibles and Score
 - [x] 08 — Scenario Transition Framework + DevHarness Base
 - [x] 09 — Boulevard
-- [ ] 10 — Sierra Nevada
-- [ ] 11 — San Francisco Bay
+- [x] 10 — Sierra Nevada
+- [x] 11 — San Francisco Bay
 - [ ] 12 — Sequoia
 - [ ] 13 — Filming Sets
 - [ ] 14 — Golden Gate

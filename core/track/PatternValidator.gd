@@ -79,13 +79,14 @@ func _safe_state_mask(placement: PatternObstaclePlacement, capability: MovementC
 		for lane: int in capability.lane_count:
 			var survives := not occupied.has(lane)
 			if not survives:
-				match placement.obstacle.obstacle_class:
-					ObstacleDefinition.ObstacleClass.HURDLE, ObstacleDefinition.ObstacleClass.GAP:
-						survives = posture == placement.vertical_state
-					ObstacleDefinition.ObstacleClass.OVERHEAD:
-						survives = posture == placement.vertical_state
-					_:
-						survives = false
+				if placement.vertical_state == RunnerStateSpace.Posture.RISE or placement.vertical_state == RunnerStateSpace.Posture.DIVE:
+					survives = posture == placement.vertical_state
+				else:
+					match placement.obstacle.obstacle_class:
+						ObstacleDefinition.ObstacleClass.HURDLE, ObstacleDefinition.ObstacleClass.GAP, ObstacleDefinition.ObstacleClass.OVERHEAD:
+							survives = posture == placement.vertical_state
+						_:
+							survives = false
 			if survives:
 				mask |= RunnerStateSpace.state_bit(lane, posture, capability.lane_count)
 	return mask

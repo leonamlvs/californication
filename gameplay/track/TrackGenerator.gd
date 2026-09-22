@@ -74,11 +74,12 @@ func set_runner(runner: RunnerController) -> void:
 
 
 func configure_for_scenario(definition: ScenarioDefinition) -> bool:
-	if definition == null or definition.segment_library.is_empty() or definition.obstacle_library == null or definition.collectible_patterns == null:
+	if definition == null or definition.segment_library.is_empty() or definition.obstacle_library == null or definition.collectible_patterns == null or definition.movement_capability_profile == null:
 		return false
 	segment_definitions = definition.segment_library
 	obstacle_library = definition.obstacle_library
 	collectible_layout_library = definition.collectible_patterns
+	capability_profile = definition.movement_capability_profile
 	for segment_definition: SegmentDefinition in segment_definitions:
 		for pattern: PatternDefinition in segment_definition.eligible_patterns:
 			if pattern.safe_fallback:
@@ -277,7 +278,7 @@ func _append_next_segment() -> bool:
 			pool.release_segment(segment)
 			return false
 		obstacle.rotation_degrees = placement.rotation_degrees
-		obstacle.reset_for_spawn(_cursor_distance + placement.forward_offset, placement.lane, _cursor_distance)
+		obstacle.reset_for_spawn(_cursor_distance + placement.forward_offset, placement.lane, _cursor_distance, placement.vertical_state)
 		segment.active_obstacles.append(obstacle)
 	_spawn_weighted_collectible_layout(segment)
 	active_segments.append(segment)

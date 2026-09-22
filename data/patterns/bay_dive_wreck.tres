@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="PatternDefinition" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/PatternDefinition.gd" id="1_pattern"]
+[ext_resource type="Script" path="res://data/definitions/PatternObstaclePlacement.gd" id="2_placement"]
+[ext_resource type="Resource" path="res://data/obstacles/bay_wreck_beam.tres" id="3_beam"]
+
+[sub_resource type="Resource" id="Placement_beam"]
+script = ExtResource("2_placement")
+obstacle = ExtResource("3_beam")
+forward_offset = 24.0
+lane = 1
+vertical_state = 4
+
+[resource]
+script = ExtResource("1_pattern")
+id = &"bay_dive_wreck"
+length = 30.0
+difficulty = 1
+weight = 0.9
+minimum_speed = 10.0
+maximum_speed = 16.0
+allowed_movement_modes = Array[StringName]([&"SWIM"])
+minimum_reaction_time = 1.5
+entrance_state_mask = 32767
+exit_state_mask = 32767
+obstacle_placements = Array[PatternObstaclePlacement]([SubResource("Placement_beam")])

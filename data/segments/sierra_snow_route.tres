@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SegmentDefinition" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/SegmentDefinition.gd" id="1_segment"]
+[ext_resource type="PackedScene" path="res://scenarios/sierra_nevada/SierraTrackSegment.tscn" id="2_scene"]
+[ext_resource type="Resource" path="res://data/patterns/sierra_safe_recovery.tres" id="3_safe"]
+[ext_resource type="Resource" path="res://data/patterns/sierra_natural_gate.tres" id="4_gate"]
+[ext_resource type="Resource" path="res://data/patterns/sierra_snow_weave.tres" id="5_weave"]
+[ext_resource type="Resource" path="res://data/patterns/sierra_jump_log.tres" id="6_jump"]
+
+[resource]
+script = ExtResource("1_segment")
+id = &"sierra_snow_route"
+length = 30.0
+connection_start = Vector3(0, 0, 0)
+connection_end = Vector3(0, 0, -30)
+compatible_modes = Array[StringName]([&"SNOWBOARD"])
+environment_tags = Array[StringName]([&"sierra", &"snow"])
+scene = ExtResource("2_scene")
+eligible_patterns = Array[PatternDefinition]([ExtResource("3_safe"), ExtResource("4_gate"), ExtResource("5_weave"), ExtResource("6_jump")])

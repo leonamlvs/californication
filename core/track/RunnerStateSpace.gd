@@ -2,7 +2,8 @@ class_name RunnerStateSpace
 extends RefCounted
 
 ## Compact state layout: each posture owns lane_count consecutive bits.
-enum Posture { GROUND, JUMP, LOW }
+## RISE and DIVE are temporary neutral-return depth states used by SWIM/Fly.
+enum Posture { GROUND, JUMP, LOW, RISE, DIVE }
 
 
 static func state_bit(lane: int, posture: Posture, lane_count: int = 3) -> int:

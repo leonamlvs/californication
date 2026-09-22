@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MovementProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/MovementProfile.gd" id="1_profile"]
+
+[resource]
+script = ExtResource("1_profile")
+movement_mode = &"SNOWBOARD"
+lane_count = 3
+lane_spacing = 1.8
+base_speed = 12.0
+max_speed = 18.0
+lane_change_duration = 0.28
+jump_height = 1.35
+jump_duration = 0.78
+slide_duration = 0.72
+capsule_radius = 0.38
+standing_height = 1.7
+sliding_height = 0.9

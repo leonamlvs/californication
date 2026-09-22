@@ -8,6 +8,10 @@ signal obstacle_hit_received(event: ObstacleHitEvent)
 signal obstacle_failure_requested(event: ObstacleHitEvent)
 
 const MODE_RUN: StringName = &"RUN"
+const MODE_SNOWBOARD: StringName = &"SNOWBOARD"
+const MODE_SWIM: StringName = &"SWIM"
+
+enum SwimDepthPhase { NEUTRAL, OUTBOUND, HOLD, RETURN }
 
 @export var movement_profile: MovementProfile
 @export var development_simulation_enabled := false
@@ -24,19 +28,25 @@ var is_sliding := false
 var is_invulnerable := false
 var movement_suspended := false
 var current_movement_mode: StringName = &""
+var swim_depth_state: RunnerStateSpace.Posture = RunnerStateSpace.Posture.GROUND
 
 var _active_mode: MovementMode
 var _lane_from_x := 0.0
 var _lane_elapsed := 0.0
 var _jump_elapsed := 0.0
 var _slide_remaining := 0.0
+var _swim_depth_phase: SwimDepthPhase = SwimDepthPhase.NEUTRAL
+var _swim_depth_elapsed := 0.0
+var _swim_depth_hold_remaining := 0.0
+var _swim_depth_from_y := 0.0
+var _swim_depth_target_y := 0.0
 
 
 func _ready() -> void:
 	if movement_profile == null:
 		push_error("RunnerController requires a MovementProfile resource.")
 		return
-	set_movement_mode(MODE_RUN)
+	set_movement_mode(movement_profile.movement_mode)
 	reset_for_run()
 	InputRouter.intent_requested.connect(_on_intent_requested)
 
@@ -68,11 +78,19 @@ func request_down() -> bool:
 
 
 func set_movement_mode(mode: StringName) -> bool:
-	if movement_profile == null or mode != MODE_RUN or movement_profile.movement_mode != mode:
+	if movement_profile == null or movement_profile.movement_mode != mode:
 		return false
 	if _active_mode != null:
 		_active_mode.exit(self)
-	_active_mode = RunMovementMode.new()
+	match mode:
+		MODE_RUN:
+			_active_mode = RunMovementMode.new()
+		MODE_SNOWBOARD:
+			_active_mode = SnowboardMovementMode.new()
+		MODE_SWIM:
+			_active_mode = SwimMovementMode.new()
+		_:
+			return false
 	_active_mode.enter(self, movement_profile)
 	current_movement_mode = mode
 	movement_mode_changed.emit(mode)
@@ -90,6 +108,12 @@ func reset_for_run() -> void:
 	_lane_elapsed = movement_profile.lane_change_duration
 	_jump_elapsed = 0.0
 	_slide_remaining = 0.0
+	_swim_depth_phase = SwimDepthPhase.NEUTRAL
+	_swim_depth_elapsed = 0.0
+	_swim_depth_hold_remaining = 0.0
+	_swim_depth_from_y = 0.0
+	_swim_depth_target_y = 0.0
+	swim_depth_state = RunnerStateSpace.Posture.GROUND
 	is_jumping = false
 	is_sliding = false
 	movement_suspended = false
@@ -174,6 +198,58 @@ func _advance_run_state(delta: float) -> void:
 	_advance_lane(delta)
 	_advance_jump(delta)
 	_advance_slide(delta)
+
+
+func _begin_swim_depth(next_state: RunnerStateSpace.Posture) -> bool:
+	if next_state != RunnerStateSpace.Posture.RISE and next_state != RunnerStateSpace.Posture.DIVE:
+		return false
+	if swim_depth_state == next_state and _swim_depth_phase != SwimDepthPhase.RETURN:
+		return false
+	swim_depth_state = next_state
+	_swim_depth_phase = SwimDepthPhase.OUTBOUND
+	_swim_depth_elapsed = 0.0
+	_swim_depth_hold_remaining = movement_profile.vertical_hold_duration
+	_swim_depth_from_y = position.y
+	_swim_depth_target_y = movement_profile.vertical_rise_offset if next_state == RunnerStateSpace.Posture.RISE else -movement_profile.vertical_dive_offset
+	return true
+
+
+func _advance_swim_state(delta: float) -> void:
+	logical_forward_distance += current_speed * delta
+	_advance_lane(delta)
+	_advance_swim_depth(delta)
+
+
+func _advance_swim_depth(delta: float) -> void:
+	var remaining := delta
+	while remaining > 0.0 and _swim_depth_phase != SwimDepthPhase.NEUTRAL:
+		match _swim_depth_phase:
+			SwimDepthPhase.OUTBOUND:
+				var outbound_remaining := movement_profile.vertical_action_duration - _swim_depth_elapsed
+				var outbound_step := minf(remaining, outbound_remaining)
+				_swim_depth_elapsed += outbound_step
+				remaining -= outbound_step
+				position.y = lerpf(_swim_depth_from_y, _swim_depth_target_y, _swim_depth_elapsed / movement_profile.vertical_action_duration)
+				if is_equal_approx(_swim_depth_elapsed, movement_profile.vertical_action_duration):
+					_swim_depth_phase = SwimDepthPhase.HOLD
+			SwimDepthPhase.HOLD:
+				var hold_step := minf(remaining, _swim_depth_hold_remaining)
+				_swim_depth_hold_remaining -= hold_step
+				remaining -= hold_step
+				if _swim_depth_hold_remaining <= 0.0:
+					_swim_depth_phase = SwimDepthPhase.RETURN
+					_swim_depth_elapsed = 0.0
+					_swim_depth_from_y = position.y
+			SwimDepthPhase.RETURN:
+				var return_remaining := movement_profile.vertical_neutral_return_duration - _swim_depth_elapsed
+				var return_step := minf(remaining, return_remaining)
+				_swim_depth_elapsed += return_step
+				remaining -= return_step
+				position.y = lerpf(_swim_depth_from_y, 0.0, _swim_depth_elapsed / movement_profile.vertical_neutral_return_duration)
+				if is_equal_approx(_swim_depth_elapsed, movement_profile.vertical_neutral_return_duration):
+					position.y = 0.0
+					swim_depth_state = RunnerStateSpace.Posture.GROUND
+					_swim_depth_phase = SwimDepthPhase.NEUTRAL
 
 
 func _advance_lane(delta: float) -> void:

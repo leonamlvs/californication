@@ -3,14 +3,18 @@ extends Resource
 
 @export var movement_mode: StringName = &"RUN"
 @export_range(1, 5, 1) var lane_count := 3
-@export_flags("GROUND", "JUMP", "LOW") var supported_postures := 0b111
+@export_flags("GROUND", "JUMP", "LOW", "RISE", "DIVE") var supported_postures := 0b111
 @export var supports_lane_change := true
 @export var supports_jump := true
 @export var supports_low := true
+@export var supports_rise := false
+@export var supports_dive := false
 @export_range(0.01, 1.0, 0.01, "suffix:s") var action_response_time := 0.05
 @export_range(0.01, 2.0, 0.01, "suffix:s") var lane_change_duration := 0.18
 @export_range(0.01, 3.0, 0.01, "suffix:s") var jump_duration := 0.72
 @export_range(0.01, 3.0, 0.01, "suffix:s") var low_duration := 0.65
+@export_range(0.01, 3.0, 0.01, "suffix:s") var vertical_action_duration := 0.2
+@export_range(0.01, 3.0, 0.01, "suffix:s") var vertical_neutral_return_duration := 0.75
 
 
 func is_valid_profile() -> bool:
@@ -21,6 +25,10 @@ func supports_posture(posture: RunnerStateSpace.Posture) -> bool:
 	if posture == RunnerStateSpace.Posture.JUMP and not supports_jump:
 		return false
 	if posture == RunnerStateSpace.Posture.LOW and not supports_low:
+		return false
+	if posture == RunnerStateSpace.Posture.RISE and not supports_rise:
+		return false
+	if posture == RunnerStateSpace.Posture.DIVE and not supports_dive:
 		return false
 	return (supported_postures & (1 << int(posture))) != 0
 
@@ -62,11 +70,15 @@ func expand_reachable(source_mask: int, elapsed: float) -> int:
 
 func _posture_reachable(source: RunnerStateSpace.Posture, target: RunnerStateSpace.Posture, elapsed: float) -> bool:
 	if source == target:
+		if source == RunnerStateSpace.Posture.RISE or source == RunnerStateSpace.Posture.DIVE:
+			return elapsed <= vertical_action_duration + vertical_neutral_return_duration
 		return true
 	if target == RunnerStateSpace.Posture.GROUND:
-		return true
+		return source != RunnerStateSpace.Posture.RISE and source != RunnerStateSpace.Posture.DIVE or elapsed >= vertical_neutral_return_duration
 	if source == RunnerStateSpace.Posture.GROUND:
 		return elapsed >= action_response_time
+	if source == RunnerStateSpace.Posture.RISE or source == RunnerStateSpace.Posture.DIVE:
+		return elapsed >= vertical_neutral_return_duration + action_response_time
 	if source == RunnerStateSpace.Posture.JUMP and target == RunnerStateSpace.Posture.LOW:
 		return elapsed >= jump_duration
 	if source == RunnerStateSpace.Posture.LOW and target == RunnerStateSpace.Posture.JUMP:

@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3]
+
+[sub_resource type="BoxMesh" id="SnowRouteMesh"]
+size = Vector3(6.4, 0.22, 100)
+
+[sub_resource type="StandardMaterial3D" id="SnowMaterial"]
+albedo_color = Color(0.78, 0.88, 0.95, 1)
+
+[sub_resource type="BoxMesh" id="SnowbankMesh"]
+size = Vector3(1.2, 1.4, 100)
+
+[sub_resource type="StandardMaterial3D" id="BankMaterial"]
+albedo_color = Color(0.62, 0.76, 0.86, 1)
+
+[sub_resource type="CylinderMesh" id="PineMesh"]
+top_radius = 0.05
+bottom_radius = 1.0
+height = 5.0
+
+[sub_resource type="StandardMaterial3D" id="PineMaterial"]
+albedo_color = Color(0.08, 0.24, 0.16, 1)
+
+[node name="SierraEnvironment" type="Node3D"]
+
+[node name="SnowRoute" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.11, -45)
+mesh = SubResource("SnowRouteMesh")
+material_override = SubResource("SnowMaterial")
+
+[node name="SnowbankLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-3.7, 0.7, -45)
+mesh = SubResource("SnowbankMesh")
+material_override = SubResource("BankMaterial")
+
+[node name="SnowbankRight" type="MeshInstance3D" parent="."]
+position = Vector3(3.7, 0.7, -45)
+mesh = SubResource("SnowbankMesh")
+material_override = SubResource("BankMaterial")
+
+[node name="PineLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-5.5, 2.5, -25)
+mesh = SubResource("PineMesh")
+material_override = SubResource("PineMaterial")
+
+[node name="PineRight" type="MeshInstance3D" parent="."]
+position = Vector3(5.5, 2.5, -60)
+mesh = SubResource("PineMesh")
+material_override = SubResource("PineMaterial")
