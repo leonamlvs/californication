@@ -12,6 +12,7 @@ const HOLLYWOOD := preload("res://data/scenarios/hollywood.tres")
 const GRASS := preload("res://data/scenarios/grass.tres")
 const EARTHQUAKE := preload("res://data/scenarios/earthquake.tres")
 const BLOCK_DEFINITION := preload("res://data/obstacles/block.tres")
+const ISLAND_FRONTEND_SCENE := preload("res://frontend/island/IslandFrontend.tscn")
 const CINEMATIC_FX_PROFILES: Array[CinematicFXProfile] = [
 	preload("res://data/cinematic_fx/island_pullback.tres"),
 	preload("res://data/cinematic_fx/run_intro_push.tres"),
@@ -41,6 +42,7 @@ var _failure_coordinator: FailureCoordinator
 var _fx_profile_index := 0
 var _fx_quality := CinematicTransitionFX.Quality.DESKTOP
 var _fx_force_fallback := false
+var _island_preview: IslandFrontendController
 
 
 func _ready() -> void:
@@ -257,3 +259,31 @@ func _configure_fx_preview_from_command_line() -> void:
 		_fx_quality = CinematicTransitionFX.Quality.HIGH
 	_fx_force_fallback = arguments.has("--fx-fallback")
 	call_deferred("_preview_cinematic_fx")
+
+
+func _ensure_island_preview() -> IslandFrontendController:
+	if _island_preview == null:
+		_island_preview = ISLAND_FRONTEND_SCENE.instantiate() as IslandFrontendController
+		add_child(_island_preview)
+	return _island_preview
+
+
+func _on_island_intro_pressed() -> void:
+	_ensure_island_preview().development_enter_intro()
+	_message = "Entered Island Intro at the authored first stage."
+
+
+func _on_island_attract_pressed() -> void:
+	_ensure_island_preview().development_enter_attract()
+	_message = "Entered indefinite Island Attract directly."
+
+
+func _on_island_replay_pressed() -> void:
+	_ensure_island_preview().development_replay_intro()
+	_message = "Replaying Island Intro with the development override."
+
+
+func _on_island_skip_stage_pressed() -> void:
+	var preview := _ensure_island_preview()
+	preview.development_skip_stage()
+	_message = "Island stage: %s." % (preview.INTRO_STAGE_IDS[preview.intro_stage_index] if preview.intro_stage_index >= 0 else &"inactive")

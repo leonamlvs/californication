@@ -75,6 +75,15 @@ func begin_session() -> bool:
 	return request_transition(LOADING)
 
 
+## Production IslandIntroController completion path. Development placeholders
+## delegate here so session history remains owned by the global flow authority.
+func complete_island_intro() -> bool:
+	if current_state != ISLAND_INTRO:
+		return false
+	intro_seen = true
+	return request_transition(ISLAND_ATTRACT)
+
+
 func request_transition(next_state: StringName) -> bool:
 	if next_state == current_state:
 		_reject(next_state, "State is already active.")
@@ -123,8 +132,7 @@ func advance_placeholder() -> bool:
 		LOADING:
 			return request_transition(ISLAND_INTRO)
 		ISLAND_INTRO:
-			intro_seen = true
-			return request_transition(ISLAND_ATTRACT)
+			return complete_island_intro()
 		ISLAND_ATTRACT:
 			return request_transition(LOGO_REVEAL)
 		LOGO_REVEAL:

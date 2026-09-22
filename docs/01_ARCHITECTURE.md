@@ -2,13 +2,13 @@
 
 ## Project structure
 
-### Implemented foundation after Tasks 00–01
+### Implemented foundation through Task 23
 
 - `project.godot` targets Godot 4.7 Compatibility at a 960×720 reference viewport and registers `GameFlow`, `ScenarioManager`, `InputRouter`, `AudioManager`, and `SaveManager` autoloads.
-- `main/Main.tscn` is intentionally still a passive graybox composition with `World`, `FrontendLayer`, and `OverlayLayer`; it contains no frontend state implementation yet.
+- `main/Main.tscn` keeps the shared `World`, `FrontendLayer`, and `OverlayLayer` composition. `IslandFrontend` now mounts the Task 23 loading, one-shot staged pullback, indefinite attract, and blue handoff presentation while gameplay visuals remain hidden.
 - `export_presets.cfg` provides a preliminary single-threaded Web preset at `build/web/index.html`, excludes `ref/` and `build/`, disables extension/PWA dependencies, and lets the canvas follow its host viewport. Final itch.io packaging remains Task 28.
 - `InputRouter` emits StringName intents for left/right/up/down/pause/confirm/back, normalizes keyboard and runtime-registered conventional gamepad input, recognizes one-finger unhandled swipes at a configurable 6% threshold, and cancels gestures on GUI consumption, multi-touch, resize, or focus loss.
-- `dev/InputHarness.tscn` demonstrates intent output and GUI swipe exclusion. `tests/cli/TestRunner.gd` contains the completed Task 00/01 deterministic checks.
+- `dev/InputHarness.tscn` demonstrates intent output and GUI swipe exclusion. `tests/cli/TestRunner.tscn` contains the completed Task 00/01 deterministic checks.
 
 The new frontend requirements build on these boundaries. They require no Task 00/01 rewrite: frontend touch-to-confirm and arrow taps are state-owned GUI/frontend actions, carousel input gating belongs to its controller, and run/cinematic input locking belongs to the consuming state rather than a second device-input system.
 
@@ -99,7 +99,7 @@ BOOT
     NO  → ISLAND_ATTRACT
 ```
 
-The earlier planning names map as follows: `TITLE_CINEMATIC` becomes the more precise `LOGO_REVEAL`; `CHARACTER_SELECT` is split into enter/active/confirmed stages; and the former `RUN_START` bootstrap occurs beneath `CHARACTER_CONFIRMED → RUN_INTRO`. Task 03 has not implemented these states yet, so it should use the precise names directly rather than add compatibility aliases.
+The earlier planning names map as follows: `TITLE_CINEMATIC` becomes the more precise `LOGO_REVEAL`; `CHARACTER_SELECT` is split into enter/active/confirmed stages; and the former `RUN_START` bootstrap occurs beneath `CHARACTER_CONFIRMED → RUN_INTRO`. Task 03 implements these precise names directly rather than adding compatibility aliases.
 
 The frontend stages form one visually continuous real-time 3D sequence, even when scene groups change internally. They are not unrelated menus joined by generic hard cuts.
 

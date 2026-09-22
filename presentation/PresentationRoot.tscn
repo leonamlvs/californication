@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://presentation/PresentationRoot.gd" id="1_root"]
 [ext_resource type="PackedScene" path="res://ui/hud/HUD.tscn" id="2_hud"]
 [ext_resource type="PackedScene" path="res://presentation/FrontendSafeComposition.tscn" id="3_safe"]
 [ext_resource type="PackedScene" path="res://gameplay/runner/Runner.tscn" id="4_runner"]
+[ext_resource type="PackedScene" path="res://frontend/island/IslandFrontend.tscn" id="5_island"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_placeholder"]
 size = Vector3(2.0, 1.0, 2.0)
@@ -63,6 +64,8 @@ position = Vector3(0, 0, -3)
 mesh = SubResource("BoxMesh_placeholder")
 
 [node name="Runner" parent="GameFrame/WorldContainer/GameViewport/World" instance=ExtResource("4_runner")]
+
+[node name="IslandFrontend" parent="GameFrame/WorldContainer/GameViewport/World" instance=ExtResource("5_island")]
 
 [node name="FrontendLayer" type="Control" parent="GameFrame"]
 layout_mode = 1

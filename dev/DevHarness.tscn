@@ -186,6 +186,40 @@ layout_mode = 2
 text = "TOGGLE FALLBACK + PREVIEW"
 script = ExtResource("6_button")
 
+[node name="IslandPanel" type="PanelContainer" parent="Interface"]
+offset_left = 600.0
+offset_top = 286.0
+offset_right = 944.0
+offset_bottom = 510.0
+
+[node name="Rows" type="VBoxContainer" parent="Interface/IslandPanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Heading" type="Label" parent="Interface/IslandPanel/Rows"]
+layout_mode = 2
+text = "TASK 23 ISLAND FRONTEND"
+
+[node name="Intro" type="Button" parent="Interface/IslandPanel/Rows"]
+layout_mode = 2
+text = "ENTER ISLAND INTRO"
+script = ExtResource("6_button")
+
+[node name="Attract" type="Button" parent="Interface/IslandPanel/Rows"]
+layout_mode = 2
+text = "ENTER ISLAND ATTRACT"
+script = ExtResource("6_button")
+
+[node name="Replay" type="Button" parent="Interface/IslandPanel/Rows"]
+layout_mode = 2
+text = "REPLAY INTRO OVERRIDE"
+script = ExtResource("6_button")
+
+[node name="SkipStage" type="Button" parent="Interface/IslandPanel/Rows"]
+layout_mode = 2
+text = "SKIP INTRO STAGE"
+script = ExtResource("6_button")
+
 [connection signal="pressed" from="Interface/Panel/Rows/Speed" to="." method="_on_speed_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Obstacle" to="." method="_on_obstacle_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Layout" to="." method="_on_layout_pressed"]
@@ -210,3 +244,7 @@ script = ExtResource("6_button")
 [connection signal="pressed" from="Interface/FXPanel/Rows/Profile" to="." method="_on_fx_profile_pressed"]
 [connection signal="pressed" from="Interface/FXPanel/Rows/Quality" to="." method="_on_fx_quality_pressed"]
 [connection signal="pressed" from="Interface/FXPanel/Rows/Fallback" to="." method="_on_fx_fallback_pressed"]
+[connection signal="pressed" from="Interface/IslandPanel/Rows/Intro" to="." method="_on_island_intro_pressed"]
+[connection signal="pressed" from="Interface/IslandPanel/Rows/Attract" to="." method="_on_island_attract_pressed"]
+[connection signal="pressed" from="Interface/IslandPanel/Rows/Replay" to="." method="_on_island_replay_pressed"]
+[connection signal="pressed" from="Interface/IslandPanel/Rows/SkipStage" to="." method="_on_island_skip_stage_pressed"]

@@ -50,7 +50,7 @@ itch.io Web export ──> production scene tree, excluding DevHarness
 | `presentation/cinematic_fx/` | scenes/scripts/resources | Reusable Compatibility-safe blur/FOV/fade transition effect and quality profiles. |
 | `ui/` | scenes/scripts | Presentation root, shared HUD, menus, pause, game-over. |
 | `dev/DevHarness.tscn` | scene | Direct system/scenario testing; never required by production flow. |
-| `tests/cli/TestRunner.gd` | `SceneTree` script | Headless deterministic/smoke suites. |
+| `tests/cli/TestRunner.tscn` | Test scene | Headless deterministic/smoke suites with project autoloads. |
 | `art/`, `audio/` | assets | Replaceable primitives, simple materials, placeholder loops. |
 
 Use lane X, height/depth Y, and forward `-Z`. Keep the runner near the origin while logical run distance advances and streamed world content moves toward it. This prevents long-run precision drift while remaining fully 3D.
@@ -131,7 +131,7 @@ Unless a task requires a rendered/manual check, finish it with:
 ```powershell
 godot --headless --path . --editor --quit
 godot --headless --path . --quit-after 5
-godot --headless --path . --script res://tests/cli/TestRunner.gd -- --suite=task_XX
+godot --headless --path . --scene res://tests/cli/TestRunner.tscn -- --suite=task_XX
 ```
 
 Update `docs/TASK_STATUS.md` only after the task acceptance criteria and Global Definition of Done pass.
@@ -936,7 +936,7 @@ Installed Godot is `4.7.2.stable.official.ed1daf0bf`. Use project import, bounde
 ```powershell
 godot --headless --path . --editor --quit
 godot --headless --path . --quit-after 5
-godot --headless --path . --script res://tests/cli/TestRunner.gd -- --suite=task_XX
+godot --headless --path . --scene res://tests/cli/TestRunner.tscn -- --suite=task_XX
 godot --path . --scene res://dev/DevHarness.tscn --resolution 960x720
 godot --path . --scene res://dev/DevHarness.tscn --debug-collisions
 godot --headless --path . --export-release "Web" build/web/index.html

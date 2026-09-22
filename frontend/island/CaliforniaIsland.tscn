@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3]
+
+[sub_resource type="StandardMaterial3D" id="Material_land"]
+albedo_color = Color(0.24, 0.56, 0.25, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="Material_cliff"]
+albedo_color = Color(0.34, 0.25, 0.14, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="Mesh_marker"]
+size = Vector3(0.18, 0.12, 0.18)
+
+[node name="IslandPivot" type="Node3D"]
+unique_name_in_owner = true
+
+[node name="CaliforniaCliff" type="CSGPolygon3D" parent="."]
+rotation_degrees = Vector3(-90, 0, 0)
+position = Vector3(0, -0.18, 0)
+polygon = PackedVector2Array(-0.7, -3.2, 0.2, -2.8, 0.55, -1.9, 0.75, -0.9, 1.05, 0.2, 0.82, 1.25, 0.45, 2.15, -0.15, 3.15, -0.82, 2.45, -0.62, 1.25, -0.9, 0.15, -0.68, -1.05)
+depth = 0.55
+material = SubResource("Material_cliff")
+
+[node name="CaliforniaSurface" type="CSGPolygon3D" parent="."]
+rotation_degrees = Vector3(-90, 0, 0)
+position = Vector3(0, 0.08, 0)
+scale = Vector3(0.96, 0.96, 0.96)
+polygon = PackedVector2Array(-0.7, -3.2, 0.2, -2.8, 0.55, -1.9, 0.75, -0.9, 1.05, 0.2, 0.82, 1.25, 0.45, 2.15, -0.15, 3.15, -0.82, 2.45, -0.62, 1.25, -0.9, 0.15, -0.68, -1.05)
+depth = 0.12
+material = SubResource("Material_land")
+
+[node name="CityMarkers" type="Node3D" parent="."]
+
+[node name="NorthMarker" type="MeshInstance3D" parent="CityMarkers"]
+position = Vector3(0.1, 0.22, -1.25)
+mesh = SubResource("Mesh_marker")
+material_override = SubResource("Material_cliff")
+
+[node name="SouthMarker" type="MeshInstance3D" parent="CityMarkers"]
+position = Vector3(-0.3, 0.22, 1.65)
+mesh = SubResource("Mesh_marker")
+material_override = SubResource("Material_cliff")

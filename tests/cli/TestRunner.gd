@@ -1,4 +1,4 @@
-extends SceneTree
+extends Node
 
 const MAIN_SCENE_PATH := "res://main/Main.tscn"
 const INPUT_ROUTER_SCRIPT := preload("res://autoload/InputRouter.gd")
@@ -19,7 +19,11 @@ const OBSTACLE_SCENES: Array[PackedScene] = [
 var _failed := false
 
 
-func _initialize() -> void:
+func _ready() -> void:
+	call_deferred("_run_requested_suite")
+
+
+func _run_requested_suite() -> void:
 	var suite := _requested_suite()
 	match suite:
 		"task_01": _run_task_01()
@@ -38,7 +42,7 @@ func _run_task_00() -> void:
 		return
 
 	var main_instance := main_scene.instantiate()
-	root.add_child(main_instance)
+	get_tree().root.add_child(main_instance)
 
 	var required_nodes: Array[NodePath] = [
 		NodePath("PresentationRoot"),
@@ -60,7 +64,7 @@ func _run_task_00() -> void:
 
 func _run_task_01() -> void:
 	var router := INPUT_ROUTER_SCRIPT.new()
-	root.add_child(router)
+	get_tree().root.add_child(router)
 	# SceneTree scripts run their assertions during initialization, before the
 	# isolated node receives its normal ready notification.
 	router._ensure_input_map()
@@ -119,7 +123,7 @@ func _run_task_01() -> void:
 
 func _run_task_02() -> void:
 	var presentation := PRESENTATION_ROOT_SCENE.instantiate() as PresentationRoot
-	root.add_child(presentation)
+	get_tree().root.add_child(presentation)
 
 	var desktop := presentation.preview_layout(Vector2(960, 720), false)
 	_assert(not desktop.mobile_flex, "Reference desktop unexpectedly selected mobile-flex mode.")
@@ -175,7 +179,7 @@ func _run_task_03() -> void:
 	flow._unlock_entry_input()
 	_assert(flow.advance_placeholder() and flow.current_state == flow.CHARACTER_SELECT_ENTER, "Logo stage did not advance to character-select entry.")
 	_assert(flow.advance_placeholder() and flow.current_state == flow.CHARACTER_SELECT_ACTIVE, "Character-select entry did not reach active selection.")
-	var selected_before := flow.selected_character_id
+	var selected_before: StringName = flow.selected_character_id
 	_assert(flow.handle_intent(InputRouter.INTENT_RIGHT), "Character selection intent was not accepted.")
 	_assert(flow.current_state == flow.CHARACTER_SELECT_ACTIVE and flow.selected_character_id != selected_before, "Selection intent incorrectly confirmed or did not change character.")
 	flow._unlock_entry_input()
@@ -190,14 +194,14 @@ func _run_task_03() -> void:
 	_assert(flow.resume_run() and flow.current_state == flow.RUNNING, "Resume transition failed.")
 	_assert(flow.fail_run() and flow.advance_placeholder() and flow.advance_placeholder(), "Failure placeholder path did not reach TRY_AGAIN.")
 	_assert(flow.current_state == flow.TRY_AGAIN, "Failure path did not reach TRY_AGAIN.")
-	var retained_character := flow.selected_character_id
+	var retained_character: StringName = flow.selected_character_id
 	_assert(flow.choose_try_again(false) and flow.current_state == flow.ISLAND_ATTRACT, "Retry NO did not return to island attract.")
 	_assert(flow.selected_character_id == retained_character and flow.intro_seen, "Retry NO did not preserve session character/intro state.")
 	flow.queue_free()
 
 	var retry_flow := _new_game_flow()
 	_reach_running(retry_flow)
-	var retry_character := retry_flow.selected_character_id
+	var retry_character: StringName = retry_flow.selected_character_id
 	retry_flow.fail_run()
 	retry_flow.advance_placeholder()
 	retry_flow.advance_placeholder()
@@ -206,7 +210,7 @@ func _run_task_03() -> void:
 	retry_flow.queue_free()
 
 	var touch_placeholder := GAME_FLOW_PLACEHOLDER_SCENE.instantiate()
-	root.add_child(touch_placeholder)
+	get_tree().root.add_child(touch_placeholder)
 	_assert(GameFlow.current_state == GameFlow.LOADING, "Placeholder scene did not begin the global session in LOADING.")
 	GameFlow.advance_placeholder()
 	GameFlow.advance_placeholder()
@@ -269,7 +273,7 @@ func _run_task_04() -> void:
 func _run_task_05() -> void:
 	for scene: PackedScene in OBSTACLE_SCENES:
 		var obstacle := scene.instantiate() as ObstacleBase
-		root.add_child(obstacle)
+		get_tree().root.add_child(obstacle)
 		_assert(obstacle.definition != null and obstacle.definition.is_valid_definition(), "%s has an invalid obstacle definition." % scene.resource_path)
 		_assert(obstacle.collision_shape.shape is BoxShape3D, "%s does not expose a data-driven collision shape." % obstacle.definition.id)
 		_assert(obstacle.visual_root.get_child_count() > 0, "%s has no replaceable placeholder visual child." % obstacle.definition.id)
@@ -278,7 +282,7 @@ func _run_task_05() -> void:
 	for scene: PackedScene in OBSTACLE_SCENES:
 		var runner := _new_runner()
 		var obstacle := scene.instantiate() as ObstacleBase
-		root.add_child(obstacle)
+		get_tree().root.add_child(obstacle)
 		obstacle.reset_for_spawn(1.0)
 		_prepare_obstacle_avoidance(runner, obstacle)
 		runner.step_simulation(0.12)
@@ -289,28 +293,28 @@ func _run_task_05() -> void:
 
 	for scene: PackedScene in OBSTACLE_SCENES:
 		var runner := _new_runner()
-		var failure_requests := 0
-		runner.obstacle_failure_requested.connect(func(_event: ObstacleHitEvent) -> void: failure_requests += 1)
+		var failure_requests := [0]
+		runner.obstacle_failure_requested.connect(func(_event: ObstacleHitEvent) -> void: failure_requests[0] += 1)
 		var obstacle := scene.instantiate() as ObstacleBase
-		root.add_child(obstacle)
+		get_tree().root.add_child(obstacle)
 		obstacle.reset_for_spawn(1.0)
 		_prepare_obstacle_contact(runner, obstacle)
 		runner.step_simulation(0.12)
 		var hit_event := obstacle.step_simulation(runner, 0.0)
-		_assert(hit_event != null and not hit_event.was_avoided and failure_requests == 1, "%s meaningful contact did not request exactly one failure." % obstacle.definition.id)
+		_assert(hit_event != null and not hit_event.was_avoided and failure_requests[0] == 1, "%s meaningful contact did not request exactly one failure." % obstacle.definition.id)
 		runner.queue_free()
 		obstacle.queue_free()
 
 	var protected_runner := _new_runner()
 	var protected_obstacle := OBSTACLE_SCENES[0].instantiate() as ObstacleBase
-	root.add_child(protected_obstacle)
-	var protected_failures := 0
-	protected_runner.obstacle_failure_requested.connect(func(_event: ObstacleHitEvent) -> void: protected_failures += 1)
+	get_tree().root.add_child(protected_obstacle)
+	var protected_failures := [0]
+	protected_runner.obstacle_failure_requested.connect(func(_event: ObstacleHitEvent) -> void: protected_failures[0] += 1)
 	protected_runner.set_invulnerable(true)
 	protected_obstacle.reset_for_spawn(1.0)
 	protected_runner.step_simulation(0.12)
 	var suppressed_event := protected_obstacle.step_simulation(protected_runner, 0.0)
-	_assert(suppressed_event != null and suppressed_event.was_suppressed and protected_failures == 0, "Invulnerability did not exclusively suppress obstacle failure.")
+	_assert(suppressed_event != null and suppressed_event.was_suppressed and protected_failures[0] == 0, "Invulnerability did not exclusively suppress obstacle failure.")
 	protected_runner.queue_free()
 	protected_obstacle.queue_free()
 	_finish("Task 05 obstacle primitive test passed.")
@@ -343,14 +347,14 @@ func _prepare_obstacle_contact(runner: RunnerController, obstacle: ObstacleBase)
 			obstacle.step_simulation(runner, obstacle.definition.motion_period * 0.5)
 		ObstacleDefinition.ObstacleClass.SWEEPER:
 			# At its turnaround the beam occupies the right lane.
+			obstacle.step_simulation(runner, obstacle.definition.motion_period * 0.5)
 			runner.request_right()
 			runner.step_simulation(runner.movement_profile.lane_change_duration)
-			obstacle.step_simulation(runner, obstacle.definition.motion_period * 0.5)
 
 
 func _new_runner() -> RunnerController:
 	var runner := RUNNER_SCENE.instantiate() as RunnerController
-	root.add_child(runner)
+	get_tree().root.add_child(runner)
 	runner.reset_for_run()
 	return runner
 
@@ -361,7 +365,7 @@ func assert_runner_after_step(runner: RunnerController, delta: float) -> void:
 
 func _new_game_flow() -> Node:
 	var flow := GAME_FLOW_SCRIPT.new()
-	root.add_child(flow)
+	get_tree().root.add_child(flow)
 	return flow
 
 
@@ -431,7 +435,7 @@ func _fail(message: String) -> void:
 
 func _finish(success_message: String) -> void:
 	if _failed:
-		quit(1)
+		get_tree().quit(1)
 		return
 	print(success_message)
-	quit(0)
+	get_tree().quit(0)

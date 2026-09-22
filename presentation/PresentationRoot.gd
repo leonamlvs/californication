@@ -21,13 +21,22 @@ const MOBILE_ASPECT_DEVIATION := 0.25
 @onready var game_viewport: SubViewport = %GameViewport
 @onready var hud: RunnerHUD = %HUD
 @onready var frontend_safe_guide: FrontendSafeComposition = %FrontendSafeGuide
+@onready var gameplay_runner: RunnerController = $GameFrame/WorldContainer/GameViewport/World/Runner
+@onready var placeholder_block: MeshInstance3D = $GameFrame/WorldContainer/GameViewport/World/PlaceholderBlock
 
 var _last_snapshot: Dictionary = {}
 
 
 func _ready() -> void:
 	resized.connect(_refresh_layout)
+	GameFlow.state_changed.connect(_on_game_flow_state_changed)
+	_on_game_flow_state_changed(&"", GameFlow.current_state)
 	_refresh_layout()
+
+
+func _exit_tree() -> void:
+	if GameFlow.state_changed.is_connected(_on_game_flow_state_changed):
+		GameFlow.state_changed.disconnect(_on_game_flow_state_changed)
 
 
 func _notification(what: int) -> void:
@@ -65,10 +74,7 @@ func _refresh_layout() -> void:
 func _apply_layout(frame_rect: Rect2, mobile_flex: bool, safe_rect: Rect2) -> void:
 	game_frame.position = frame_rect.position
 	game_frame.size = frame_rect.size
-	game_viewport.size = Vector2i(DESKTOP_REFERENCE_SIZE if not mobile_flex else frame_rect.size.max(Vector2.ONE))
 	hud.apply_available_size(frame_rect.size)
-	frontend_safe_guide.position = Vector2.ZERO
-	frontend_safe_guide.size = frame_rect.size
 	frontend_safe_guide._layout_guides()
 	InputRouter.set_usable_viewport_size(safe_rect.size)
 	_last_snapshot = {
@@ -121,3 +127,14 @@ func _device_safe_rect(available_size: Vector2) -> Rect2:
 
 func _is_touch_capable() -> bool:
 	return debug_force_touch_capable or OS.has_feature("mobile") or DisplayServer.is_touchscreen_available()
+
+
+func _on_game_flow_state_changed(_previous: StringName, next: StringName) -> void:
+	var gameplay_visible := next in [
+		GameFlow.RUN_INTRO, GameFlow.RUNNING, GameFlow.TRANSITION_READY,
+		GameFlow.TOKEN_COLLECTED, GameFlow.SCENARIO_TRANSITION, GameFlow.NEXT_SCENARIO,
+		GameFlow.PAUSED, GameFlow.FAILURE_TRANSITION, GameFlow.LAVA_GAME_OVER, GameFlow.TRY_AGAIN,
+	]
+	gameplay_runner.visible = gameplay_visible
+	placeholder_block.visible = gameplay_visible
+	hud.visible = gameplay_visible

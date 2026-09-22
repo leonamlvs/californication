@@ -25,7 +25,7 @@ Update only after acceptance criteria are verified.
 - [x] 20 — Pause and Settings
 - [x] 21 — Failure and Game Over
 - [x] 22 — CinematicTransitionFX
-- [ ] 23 — Loading, Island Intro, and Island Attract
+- [x] 23 — Loading, Island Intro, and Island Attract
 - [ ] 24 — Logo/Alicorn Reveal and Player Select Entry
 - [ ] 25 — 3D Logo Carousel and Decorative Player Select
 - [ ] 26 — Character Confirmation and Run Intro
@@ -35,9 +35,11 @@ Update only after acceptance criteria are verified.
 ## Audit notes — 2026-09-22
 
 - Tasks 00–18 remain at their previously recorded status. The project imports and launches under Godot 4.7.2, and the standalone Task 06–18 scene tests pass.
-- Main-scene smoke launch exits successfully but reports redundant layout writes: `PresentationRoot` assigns a stretched `SubViewport` size and directly sizes an opposite-anchored control. These are warnings rather than launch blockers, but should be removed during the next relevant UI pass.
-- The documented shared CLI runner for Tasks 00–05 currently fails to compile when invoked with `--script`; repair that validation path before relying on it for a fresh acceptance audit.
+- Removed redundant layout writes that previously resized a stretched `SubViewport` and an opposite-anchored control; the container/anchors now own those sizes without launch warnings.
+- The shared CLI runner for Tasks 00–05 now runs as `tests/cli/TestRunner.tscn`, ensuring project autoload globals are initialized during deterministic acceptance checks.
 - Task 19 was completed after this audit with four validated definitions, distinct matched primitive presentation scenes, pause portraits, pause-safe cosmetic replacement, and `Task19Test` acceptance coverage.
 - Task 20 was completed after this audit with runtime intent routing, exact-state resume, live Music/SFX mixer buses, face-only Task 19 portraits, direct touch adjustment, separate resume/exit actions, responsive rendered checks, and expanded `Task20Test` acceptance coverage.
 - Task 21 was completed after this audit with rendered floor-fall and launch-toward-screen presentations, shared navigable lava Game Over, protected retry/island cleanup, transition-token cancellation, a production-backed DevHarness death path, and expanded `Task21Test` coverage.
 - Task 22 was completed after this audit with a profiled reusable fullscreen radial/zoom blur, selectable desktop/mobile/high sample quality, synchronized FOV/overlay fallback, defensive neutralization on completion and interruption, direct DevHarness previews, Compatibility-rendered checks, Web export validation, and `Task22Test` coverage.
+- The audit preceding Task 23 repaired the shared Task 00–05 runner as an autoload-aware test scene, corrected stale mutable-capture/sweeper test setup, and removed the two redundant responsive-layout writes; all completed task suites pass again.
+- Task 23 was completed with automatic loading handoff, a deterministic four-stage vegetation/city/landscape/island pullback, replaceable California-island placeholder, authored camera/FOV and shared blur cues, responsive narrow-screen camera compensation, indefinite rotating attract, one-shot touch/confirm handling, blue ocean/sky handoff, DevHarness intro/attract/replay/stage controls, and `Task23Test` coverage.
