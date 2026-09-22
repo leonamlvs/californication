@@ -1,0 +1,138 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://ui/menus/GameFlowPlaceholder.gd" id="1_flow"]
+[ext_resource type="Script" path="res://ui/hud/GestureBlockingButton.gd" id="2_button"]
+[ext_resource type="Script" path="res://ui/menus/IslandAttractTouchSurface.gd" id="3_touch"]
+
+[node name="GameFlowPlaceholder" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_flow")
+
+[node name="TouchConfirmSurface" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("3_touch")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -160.0
+offset_right = 230.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Rows" type="VBoxContainer" parent="Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StateLabel" type="Label" parent="Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="DetailLabel" type="Label" parent="Panel/Margin/Rows"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SelectionRow" type="HBoxContainer" parent="Panel/Margin/Rows"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 12
+
+[node name="SelectLeftButton" type="Button" parent="Panel/Margin/Rows/SelectionRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(84, 42)
+layout_mode = 2
+text = "SELECT <"
+script = ExtResource("2_button")
+
+[node name="SelectRightButton" type="Button" parent="Panel/Margin/Rows/SelectionRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(84, 42)
+layout_mode = 2
+text = "SELECT >"
+script = ExtResource("2_button")
+
+[node name="AdvanceButton" type="Button" parent="Panel/Margin/Rows"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+text = "ADVANCE PLACEHOLDER"
+script = ExtResource("2_button")
+
+[node name="ReadyButton" type="Button" parent="Panel/Margin/Rows"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+text = "CAMERA SETTLED / START RUN"
+script = ExtResource("2_button")
+
+[node name="PauseButton" type="Button" parent="Panel/Margin/Rows"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+text = "PAUSE"
+script = ExtResource("2_button")
+
+[node name="ResumeButton" type="Button" parent="Panel/Margin/Rows"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+text = "RESUME"
+script = ExtResource("2_button")
+
+[node name="FailButton" type="Button" parent="Panel/Margin/Rows"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+text = "FORCE FAILURE"
+script = ExtResource("2_button")
+
+[node name="RetryRow" type="HBoxContainer" parent="Panel/Margin/Rows"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 12
+
+[node name="RetryYesButton" type="Button" parent="Panel/Margin/Rows/RetryRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 42)
+layout_mode = 2
+text = "TRY AGAIN: YES"
+script = ExtResource("2_button")
+
+[node name="RetryNoButton" type="Button" parent="Panel/Margin/Rows/RetryRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 42)
+layout_mode = 2
+text = "TRY AGAIN: NO"
+script = ExtResource("2_button")

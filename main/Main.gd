@@ -1,10 +1,10 @@
 extends Node
 
 ## Composition root only. Gameplay, UI behavior, and flow are added in later tasks.
-@onready var presentation_root: Node = $PresentationRoot
-@onready var world: Node3D = $PresentationRoot/World
-@onready var frontend_layer: CanvasLayer = $PresentationRoot/FrontendLayer
-@onready var overlay_layer: CanvasLayer = $PresentationRoot/OverlayLayer
+@onready var presentation_root: PresentationRoot = $PresentationRoot
+@onready var world: Node3D = $PresentationRoot/GameFrame/WorldContainer/GameViewport/World
+@onready var frontend_layer: Control = $PresentationRoot/GameFrame/FrontendLayer
+@onready var overlay_layer: Control = $PresentationRoot/GameFrame/OverlayLayer
 
 
 func _ready() -> void:

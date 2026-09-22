@@ -1,0 +1,170 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://ui/hud/HUD.gd" id="1_hud"]
+[ext_resource type="Script" path="res://ui/hud/GestureBlockingPanel.gd" id="2_panel"]
+[ext_resource type="Script" path="res://ui/hud/GestureBlockingButton.gd" id="3_button"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_panel"]
+bg_color = Color(0.035, 0.06, 0.1, 0.86)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28, 0.63, 0.82, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_hud")
+
+[node name="TopLeft" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 244.0
+offset_bottom = 340.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Panels" type="VBoxContainer" parent="TopLeft"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BandPanel" type="Panel" parent="TopLeft/Panels"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(112, 112)
+layout_mode = 2
+mouse_filter = 0
+theme_override_styles/panel = SubResource("StyleBox_panel")
+script = ExtResource("2_panel")
+
+[node name="Label" type="Label" parent="TopLeft/Panels/BandPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "BAND\nLOOP"
+
+[node name="CoordinatePanel" type="Panel" parent="TopLeft/Panels"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(170, 70)
+layout_mode = 2
+mouse_filter = 0
+theme_override_styles/panel = SubResource("StyleBox_panel")
+script = ExtResource("2_panel")
+
+[node name="Label" type="Label" parent="TopLeft/Panels/CoordinatePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "X  -122.481\nY    37.816\nZ    14.029"
+
+[node name="ScenarioPanel" type="Panel" parent="TopLeft/Panels"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(190, 70)
+layout_mode = 2
+mouse_filter = 0
+theme_override_styles/panel = SubResource("StyleBox_panel")
+script = ExtResource("2_panel")
+
+[node name="Label" type="Label" parent="TopLeft/Panels/ScenarioPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "SCENARIO\nPLACEHOLDER"
+
+[node name="TopRight" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -236.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 150.0
+grow_horizontal = 0
+
+[node name="Panels" type="VBoxContainer" parent="TopRight"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ScorePanel" type="Panel" parent="TopRight/Panels"]
+custom_minimum_size = Vector2(220, 58)
+layout_mode = 2
+mouse_filter = 0
+theme_override_styles/panel = SubResource("StyleBox_panel")
+script = ExtResource("2_panel")
+
+[node name="Label" type="Label" parent="TopRight/Panels/ScorePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "SCORE 000000"
+
+[node name="TimerPanel" type="Panel" parent="TopRight/Panels"]
+custom_minimum_size = Vector2(220, 42)
+layout_mode = 2
+mouse_filter = 0
+theme_override_styles/panel = SubResource("StyleBox_panel")
+script = ExtResource("2_panel")
+
+[node name="Label" type="Label" parent="TopRight/Panels/TimerPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "TIME 00:00:00"
+
+[node name="PauseButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_top = -72.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "||"
+script = ExtResource("3_button")

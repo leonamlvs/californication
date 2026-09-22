@@ -1,0 +1,87 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://presentation/PresentationRoot.gd" id="1_root"]
+[ext_resource type="PackedScene" path="res://ui/hud/HUD.tscn" id="2_hud"]
+[ext_resource type="PackedScene" path="res://presentation/FrontendSafeComposition.tscn" id="3_safe"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_placeholder"]
+size = Vector3(2.0, 1.0, 2.0)
+
+[node name="PresentationRoot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_root")
+
+[node name="PillarboxBackground" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.015, 0.025, 0.05, 1)
+
+[node name="GameFrame" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+clip_contents = true
+
+[node name="WorldContainer" type="SubViewportContainer" parent="GameFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+
+[node name="GameViewport" type="SubViewport" parent="GameFrame/WorldContainer"]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(960, 720)
+render_target_update_mode = 4
+
+[node name="World" type="Node3D" parent="GameFrame/WorldContainer/GameViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="GameFrame/WorldContainer/GameViewport/World"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.5, 7)
+current = true
+
+[node name="KeyLight" type="DirectionalLight3D" parent="GameFrame/WorldContainer/GameViewport/World"]
+rotation_degrees = Vector3(-35, -25, 0)
+light_energy = 1.5
+
+[node name="PlaceholderBlock" type="MeshInstance3D" parent="GameFrame/WorldContainer/GameViewport/World"]
+position = Vector3(0, 0, -3)
+mesh = SubResource("BoxMesh_placeholder")
+
+[node name="FrontendLayer" type="Control" parent="GameFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FrontendSafeGuide" parent="GameFrame" instance=ExtResource("3_safe")]
+unique_name_in_owner = true
+visible = false
+
+[node name="HUD" parent="GameFrame" instance=ExtResource("2_hud")]
+unique_name_in_owner = true
+
+[node name="OverlayLayer" type="Control" parent="GameFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
