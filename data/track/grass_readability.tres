@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GrassReadabilityProfile" load_steps=2 format=3]
+[ext_resource type="Script" path="res://data/definitions/GrassReadabilityProfile.gd" id="1"]
+[resource]
+script=ExtResource("1")
+reaction_time=1.5
+corridor_half_width=2.4
+dense_grass_start_distance=26.0

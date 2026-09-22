@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ScenarioDefinition" load_steps=12 format=3]
+[ext_resource type="Script" path="res://data/definitions/ScenarioDefinition.gd" id="1"]
+[ext_resource type="Resource" path="res://data/segments/grass_trail.tres" id="2"]
+[ext_resource type="Resource" path="res://data/track/graybox_obstacle_library.tres" id="3"]
+[ext_resource type="Resource" path="res://data/track/normal_collectible_layouts.tres" id="4"]
+[ext_resource type="PackedScene" path="res://scenarios/grass/GrassEnvironment.tscn" id="5"]
+[ext_resource type="Resource" path="res://data/camera_profiles/boulevard_follow.tres" id="6"]
+[ext_resource type="Resource" path="res://data/transitions/grass_jump.tres" id="7"]
+[ext_resource type="Resource" path="res://data/movement_profiles/grass_run.tres" id="8"]
+[ext_resource type="Resource" path="res://data/track/run_capabilities.tres" id="9"]
+[sub_resource type="Resource" id="h"]
+[resource]
+script=ExtResource("1")
+id=&"grass"
+display_name="Grass"
+movement_mode=&"RUN"
+base_speed=10.0
+max_speed=16.0
+lane_spacing=1.6
+segment_library=Array[SegmentDefinition]([ExtResource("2")])
+obstacle_library=ExtResource("3")
+collectible_patterns=ExtResource("4")
+environment_scene=ExtResource("5")
+camera_profile=ExtResource("6")
+hud_coordinate_profile=SubResource("h")
+transition_definition=ExtResource("7")
+movement_profile=ExtResource("8")
+movement_capability_profile=ExtResource("9")
