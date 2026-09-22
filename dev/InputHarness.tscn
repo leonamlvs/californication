@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://dev/InputHarness.gd" id="1_harness"]
+[ext_resource type="Script" path="res://dev/SwipeExclusionPanel.gd" id="2_exclusion"]
+
+[node name="InputHarness" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_harness")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.045, 0.065, 0.11, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 38.0
+offset_right = 760.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 24
+text = "InputRouter Development Harness"
+
+[node name="Instructions" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 92.0
+offset_right = 840.0
+offset_bottom = 154.0
+text = "Swipe the empty area, or use arrows/WASD. The panel below consumes touch and must never emit a gameplay swipe."
+autowrap_mode = 2
+
+[node name="LastIntentLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 40.0
+offset_top = 180.0
+offset_right = 600.0
+offset_bottom = 214.0
+theme_override_font_sizes/font_size = 20
+text = "Last intent: (none)"
+
+[node name="UiExclusionPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 260.0
+offset_right = 440.0
+offset_bottom = 430.0
+mouse_filter = 0
+script = ExtResource("2_exclusion")
+
+[node name="Label" type="Label" parent="UiExclusionPanel"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 376.0
+offset_bottom = 132.0
+text = "GUI exclusion area\n\nTouches and drags here are consumed."

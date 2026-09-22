@@ -13,6 +13,12 @@ The MVP proves:
 
 It does not prove final art style.
 
+## itch.io package budget
+
+The HTML5 build is distributed as an itch.io ZIP. The extracted archive must remain within itch.io's current limits: at most 1,000 files, 500 MB total, 200 MB for any single file, and 240 characters for any full path. These are upload ceilings, not target budgets.
+
+Prefer shared materials, consolidated reusable resources, short paths and names, and a small startup payload. Avoid creating hundreds of one-off placeholder files when a parameterized scene/resource can serve the same purpose. Preserve exact filename case so Windows development does not hide failures that will occur on itch.io's case-sensitive hosting.
+
 ## Replaceability
 
 Gameplay systems must not reference assets by visual meaning.

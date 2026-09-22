@@ -20,6 +20,8 @@ Desktop browser:
 Reference logical composition:
 - 960 × 720 or equivalent 4:3.
 
+For the itch.io desktop page, use a 960 × 720 embed with click-to-play and scrollbars disabled. The game still owns the internal 4:3 presentation and pillarboxing. Keep itch.io's optional bottom-right fullscreen overlay disabled by default because it conflicts with the required bottom-right pause control; if that hosting choice changes later, reserve an overlay-safe inset before enabling it.
+
 ## Mobile/tablet viewport
 
 Do not classify layout by orientation or device name alone.
@@ -27,6 +29,8 @@ Do not classify layout by orientation or device name alone.
 Use actual safe usable viewport size.
 
 Gameplay camera may adapt to the available aspect ratio.
+
+On itch.io mobile pages, launch is click-to-play and uses the device's dynamic fullscreen viewport regardless of the desktop embed dimensions. Mark the itch.io page as Mobile Friendly only after Task 24 verifies resize, safe areas, touch input, and performance on mobile browsers.
 
 HUD chooses the richest profile that fits without:
 - overlapping important gameplay;
@@ -232,3 +236,4 @@ Obstacle logic depends on distance along the runner path, not whether an object 
 - Layout choice is space-driven.
 - Required controls remain touch-safe.
 - Gameplay corridor remains unobstructed by cosmetic UI.
+- The itch.io desktop iframe, mobile fullscreen launch, and live resize paths select valid layouts without obscuring pause or corrupting run state.

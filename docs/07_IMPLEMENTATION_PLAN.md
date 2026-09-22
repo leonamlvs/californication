@@ -1,6 +1,6 @@
 # MVP Implementation Plan
 
-This document describes how Tasks 00–24 should be executed incrementally. `docs/06_IMPLEMENTATION_TASKS.md` remains the source of truth for task boundaries, acceptance criteria, and the Global Definition of Done.
+This document describes how Tasks 00–24 should be executed incrementally for an itch.io HTML5 release. `docs/06_IMPLEMENTATION_TASKS.md` remains the source of truth for task boundaries, acceptance criteria, and the Global Definition of Done.
 
 The specification audit found no unresolved design contradiction. Where task ordering exposes an unfinished dependency, use development-only fixtures rather than implementing later production content early. Production begins in Boulevard, then selects from the eight-scenario shuffle bag; DevHarness can explicitly cycle all nine scenarios.
 
@@ -22,7 +22,7 @@ GameFlow
 
 PresentationRoot ──> desktop 4:3 or mobile flexible frame + safe-area HUD
 DevHarness ──> public debug interfaces of production systems
-Web export ──> production scene tree, excluding DevHarness
+itch.io Web export ──> production scene tree, excluding DevHarness
 ```
 
 `GameFlow` is the authoritative global state machine. `ScenarioManager` owns active-scenario lifecycle and selection. `RunnerController` owns shared player state and delegates directional-intent interpretation to a movement-mode component. Data resources configure systems without scenario-name branches in core gameplay.
@@ -31,7 +31,7 @@ Web export ──> production scene tree, excluding DevHarness
 
 | Path | Type | Responsibility and key dependencies |
 |---|---|---|
-| `project.godot`, `export_presets.cfg` | config | Compatibility renderer, main scene, input map, autoloads, Web preset. |
+| `project.godot`, `export_presets.cfg` | config | Compatibility renderer, main scene, input map, autoloads, single-threaded itch.io Web preset. |
 | `main/Main.tscn` | scene | Root composition for presentation, frontend/run content, and overlay UI. |
 | `autoload/` | scripts | `GameFlow`, `ScenarioManager`, `InputRouter`, `AudioManager`, `SaveManager`. |
 | `core/` | scripts/resources | Enums, typed context, validators, shuffle bag, common helpers. |
@@ -126,7 +126,7 @@ Update `docs/TASK_STATUS.md` only after the task acceptance criteria and Global 
 
 1. Configure Compatibility rendering, 960×720 reference composition, main scene, GDScript, and empty typed autoload APIs.
 2. Create a main composition root for future presentation, world, frontend, and overlay layers.
-3. Add a Web export preset with initial safe settings; production export validation belongs to Task 24.
+3. Add a Web export preset with initial safe settings; production itch.io export naming, packaging, and upload validation belong to Task 24.
 4. Add a `SceneTree` test runner which can load the project/main scene and fail nonzero.
 
 **Validation**  Run the common commands, confirm Godot 4.7.2, and check that the main scene displays a minimal placeholder with no parser or missing-resource errors.
@@ -672,34 +672,39 @@ Update `docs/TASK_STATUS.md` only after the task acceptance criteria and Global 
 
 ### Task 24 — Web Hardening
 
-**Goal**  Produce and validate full Compatibility browser MVP.
+**Goal**  Produce, package, upload, and validate the full Compatibility-rendered MVP on itch.io.
 
 **Depends on**  Tasks 00–23.
 
-**Create / modify**  Final Web preset/bootstrap, performance cleanup, browser checklist, production dev exclusion.
+**Create / modify**  Final Web preset/bootstrap, itch.io ZIP packaging/validation script or checklist, performance cleanup, hosted-browser checklist, production dev exclusion.
 
 **Implementation**
 
-1. Configure production Web export; DevHarness and fixtures must be unreachable in production flow.
-2. Handle resize, focus loss, touch cancellation, safe areas, orientation, and audio resume safely.
-3. Profile long cycles; cap pools, remove avoidable allocations/hitches, keep lighting/material count low.
-4. Serve output over HTTP and test desktop keyboard plus touch browser input.
-5. Complete full browser path across nine scenarios, transitions, failure, retry, island.
+1. Configure a single-threaded production Web export named `index.html`; DevHarness and fixtures must be unreachable in production flow. Do not require `SharedArrayBuffer`, GDExtension support, PWA header workarounds, or cross-origin isolation.
+2. Keep generated companion filenames unchanged and all references relative with exact case. Audit the archive against itch.io's current limits: at most 1,000 extracted files, 500 MB total, 200 MB per file, and 240 characters per full path.
+3. Package the contents of `build/web/` at the ZIP root so `index.html` is not nested under a parent directory.
+4. Configure the itch.io project as an HTML Game: desktop 960 × 720 embed, click-to-play enabled, scrollbars disabled, and the itch.io fullscreen overlay disabled by default to avoid the bottom-right pause button. Enable Mobile Friendly only after mobile acceptance passes; mobile will launch into a dynamic fullscreen viewport.
+5. Handle iframe focus, browser tab suspension/resume, touch cancellation, safe areas, live resize/orientation, and post-gesture audio startup/resume without advancing or corrupting run state.
+6. Profile long cycles; cap pools, remove avoidable allocations/hitches, keep lighting/material counts low, and keep startup/package size well below hosting ceilings.
+7. Test locally over HTTP, then upload to an itch.io draft/restricted page and retest logged out/incognito on desktop and real or emulated mobile.
+8. Complete the hosted path across all nine scenarios, transitions, failure, retry, and island.
 
 **Validation**
 
 ```powershell
 New-Item -ItemType Directory -Force build/web
 godot --headless --path . --export-release "Web" build/web/index.html
+New-Item -ItemType Directory -Force build/itch
+Compress-Archive -Path build/web/* -DestinationPath build/itch/californication-web.zip -Force
 ```
 
-Verify artifacts and browser console/runtime behavior through HTTP-hosted desktop and mobile-class tests.
+Verify `index.html` is at the archive root, inspect file/path/size limits, serve the unpacked build locally, and inspect the browser console. Upload the same ZIP to an itch.io draft/restricted page and repeat desktop iframe, mobile fullscreen, keyboard, touch, focus/resume, audio, and full-flow acceptance there.
 
-**Acceptance**  Meet all Task 24 and Global Definition of Done criteria.
+**Acceptance**  Meet all Task 24 and Global Definition of Done criteria, including a clean hosted run on itch.io with no missing-file, case, absolute-path, mixed-content, or cross-origin-isolation error.
 
 **Do not implement yet**  Final art, unsupported renderer features, unrequested mechanics/deployment.
 
-**Handoff state**  Production Web graybox MVP.
+**Handoff state**  Production itch.io HTML5 ZIP and verified project-page configuration for the complete graybox MVP.
 
 ## 6. Scenario Implementation Matrix
 
@@ -755,13 +760,13 @@ Each scenario contributes a data-selected ride scene/controller. It cannot bypas
 ## 10. Responsive UI Implementation Plan
 
 - Root `Control` contains pillarbox background and game frame.
-- Desktop uses a centered 960×720 logical 4:3 `SubViewport` in `AspectRatioContainer`.
-- Mobile-flex uses safe usable rectangle; automatic frame mode uses touch/mobile capability plus actual space, with development override.
+- Desktop uses a centered 960×720 logical 4:3 `SubViewport` in `AspectRatioContainer`; the itch.io desktop embed is configured to the same 960 × 720 size.
+- Mobile-flex uses the safe usable rectangle; automatic frame mode uses touch/mobile capability plus actual space, with development override. itch.io mobile launches are click-to-play and use a dynamic fullscreen viewport.
 - FULL/MEDIUM/COMPACT selection is fit-based. Orientation can trigger recalculation but never determine density alone.
 - Use one HUD tree and containers/anchors. Hidden controls reserve no space.
 - FULL shows all; MEDIUM hides scenario loop and keeps coordinates only if comfortable; COMPACT hides coordinates and scenario loop.
 - Score, timer, pause never disappear; band square is final cosmetic removal. Pause hitbox is at least 56×56 logical pixels.
-- Convert safe rect into game-frame coordinates. Consumed GUI touches never become swipes.
+- Convert safe rect into game-frame coordinates. Consumed GUI touches never become swipes. Keep itch.io's optional bottom-right fullscreen overlay disabled by default so it cannot cover the pause control; if enabled later, add a hosting-overlay safe inset first.
 - Camera profiles may raise/pull back on narrow aspects to preserve three-lane readability. Spawn/validation uses path distance, not camera frame entry.
 
 ## 11. DevHarness and Testing Strategy
@@ -784,7 +789,7 @@ Display GameFlow state, scenario, mode, speed, legal-state mask, pools, invulner
 
 ## 12. CLI Validation Strategy
 
-Installed Godot is `4.7.2.stable.official.ed1daf0bf`. Use project import, bounded main-scene smoke runs, `SceneTree` suites, rendered DevHarness checks, and `--debug-collisions` where needed. `--check-only` applies with `--script` and is not a substitute for project import/main-scene validation. Web output must be served via HTTP.
+Installed Godot is `4.7.2.stable.official.ed1daf0bf`. Use project import, bounded main-scene smoke runs, `SceneTree` suites, rendered DevHarness checks, and `--debug-collisions` where needed. `--check-only` applies with `--script` and is not a substitute for project import/main-scene validation. Web output must be served via HTTP. Final acceptance must also run from itch.io because its iframe, CDN subdirectory, filename case rules, and mobile fullscreen launch are not reproduced completely by localhost.
 
 ```powershell
 godot --headless --path . --editor --quit
@@ -793,11 +798,13 @@ godot --headless --path . --script res://tests/cli/TestRunner.gd -- --suite=task
 godot --path . --scene res://dev/DevHarness.tscn --resolution 960x720
 godot --path . --scene res://dev/DevHarness.tscn --debug-collisions
 godot --headless --path . --export-release "Web" build/web/index.html
+Compress-Archive -Path build/web/* -DestinationPath build/itch/californication-web.zip -Force
 ```
 
 ## 13. Performance Strategy for Web
 
 - Remain Compatibility-rendered throughout development.
+- Keep the itch.io export single-threaded; do not rely on `SharedArrayBuffer` or cross-origin-isolation headers.
 - Pool/recycle segments, obstacles, collectibles, tokens, and recurring environment objects with bounded counts.
 - Avoid per-frame allocations, repeat loading, and repeated signal connections.
 - Use primitive/shared materials, low material count, simple collision, limited dynamic lights/shadows, and no expensive post-processing.
@@ -805,10 +812,11 @@ godot --headless --path . --export-release "Web" build/web/index.html
 - Clean all scenario timers/signals/cameras/references at handoff.
 - Safely cancel touch state and recompute layout on browser resize/orientation/focus changes.
 - Profile long mobile-class cycles before increasing visual density. Do not introduce Forward+-only or compute-shader features.
+- Keep exact-case, relative asset paths and remain within itch.io's extracted archive ceilings (1,000 files, 500 MB total, 200 MB per file, 240-character paths), while treating those limits as ceilings rather than performance goals.
 
 ## 14. Save / Persistent Data Boundary
 
-The MVP has no specification requirement for durable browser/reload persistence; do not build a save system yet.
+The MVP has no specification requirement for durable browser/reload persistence; do not build a save system yet. In particular, do not rely on itch.io iframe access to IndexedDB/`user://`, which can be restricted by browser privacy settings.
 
 Per-run reset: score, distance, time, active scenario/bag, seed/segments/pools, movement/transition state, invulnerability, failure state.
 
@@ -828,6 +836,9 @@ Session-only: selected character, `intro_seen`, current audio slider values, dev
 | Task-order pressure | Dev-only fixtures/capability data; no premature production implementation. |
 | Human/animal collision tone | Shared abstract hazards with scenario near-collision presentation. |
 | Browser focus/resize | Cancel gestures, preserve GameFlow, recompute presentation independently. |
+| itch.io path/case failures | Use generated filenames unchanged, relative references, exact case, and test the uploaded ZIP rather than localhost alone. |
+| itch.io iframe/mobile launch differences | Test desktop embed plus mobile fullscreen on a draft/restricted page before enabling Mobile Friendly. |
+| Web thread/header incompatibility | Ship the Godot single-threaded export and avoid `SharedArrayBuffer`/cross-origin-isolation dependencies. |
 
 ## 16. Implementation Order Summary
 
@@ -857,12 +868,13 @@ Session-only: selected character, `intro_seen`, current audio slider values, dev
 | 21 | Failure/game over | 03, 18, 20 | Both families converge |
 | 22 | Intro | 03, 19, 21 | First/return paths pass |
 | 23 | Functional HUD | 02, 07, 18, 20 | All profiles pass |
-| 24 | Web release | 00–23 | Browser matrix passes |
+| 24 | itch.io Web release | 00–23 | Uploaded desktop/mobile browser matrix passes |
 
 Assumptions and defaults:
 
 - Existing gameplay-feel values remain configurable defaults, never hard-coded permanence.
 - Placeholder/reference art never determines mechanics.
 - Development fixtures remain under `res://dev/` and are excluded from production registration.
+- itch.io is the production Web host; release artifacts use a root-level `index.html`, relative exact-case paths, and Godot's single-threaded Web export.
 - `TASK_STATUS.md` remains unchanged when this plan is added and is updated only after numbered task acceptance.
 - A task never begins adjacent task work merely to prove itself.

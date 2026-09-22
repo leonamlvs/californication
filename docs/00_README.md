@@ -22,7 +22,7 @@ Final art is intentionally out of scope for the MVP. Every visual asset must be 
 - Engine: Godot 4.7.2 Stable
 - Language: GDScript
 - Renderer: Compatibility
-- Target: Web browser, desktop and mobile
+- Target: itch.io HTML5 browser release, desktop and mobile
 - Godot CLI command: `godot`
 - 3D only. Never design gameplay as 2D or 2.5D.
 - Visual target later: Dreamcast / PS2-era 3D, with GTA San Andreas as a useful fidelity reference.
@@ -52,9 +52,10 @@ Gameplay logic must not depend on the final art, character identity, obstacle mo
 4. `04_UI_RESPONSIVE.md` — HUD layout and viewport behavior.
 5. `05_ASSETS.md` — placeholder assets and replacement contracts.
 6. `06_IMPLEMENTATION_TASKS.md` — ordered tasks with acceptance criteria.
+7. `07_IMPLEMENTATION_PLAN.md` — dependency-aware execution plan and handoff contract for Tasks 00–24.
 
 ## MVP definition
 
-The MVP is complete when the full game loop and all scenario mechanics work with graybox visuals and a production web export can be played using desktop and touch controls.
+The MVP is complete when the full game loop and all scenario mechanics work with graybox visuals and the production HTML5 ZIP can be played from an itch.io project page using desktop and touch controls.
 
 Do not add final models, textures, music-video recreations, shaders, or polish before the system they belong to is complete.

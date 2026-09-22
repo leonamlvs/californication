@@ -449,18 +449,29 @@ Acceptance:
 
 Implement:
 - production web export;
+- itch.io upload ZIP with `index.html` at archive root;
+- single-threaded export without a `SharedArrayBuffer`/cross-origin-isolation dependency;
+- relative-path and case-sensitivity audit;
+- itch.io desktop embed and mobile-fullscreen configuration;
 - browser startup;
 - touch testing;
 - resize/orientation handling;
+- browser focus loss/resume and audio-unlock handling;
 - performance cleanup;
 - production exclusion/disablement of DevHarness.
 
 Acceptance:
 - web build starts successfully;
+- the ZIP satisfies itch.io file-count, path-length, total-size and per-file limits;
+- an uploaded itch.io draft/restricted page starts without missing-file, case, path, or cross-origin errors;
 - desktop keyboard works;
 - touch swipes work;
 - pause works;
 - resize/orientation changes do not corrupt game state;
+- itch.io's 960 × 720 desktop embed preserves centered 4:3 presentation;
+- itch.io mobile fullscreen launch selects a valid responsive HUD and safe area;
+- leaving and returning to the browser tab does not advance simulation or corrupt state;
+- audio begins only after a valid user gesture and resumes correctly after focus changes;
 - all nine scenarios can be reached;
 - full fail/retry/island flow works in browser;
 - no feature depends on non-Compatibility rendering.

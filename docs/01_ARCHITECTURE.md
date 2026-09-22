@@ -236,6 +236,8 @@ TRANSITION_RIDE
 
 Assume Compatibility renderer from the beginning.
 
+The production host is itch.io. Use Godot's single-threaded Web export by default. Do not make the MVP depend on `SharedArrayBuffer`, cross-origin-isolation headers, GDExtensions, or threaded Web APIs. This is the most compatible Godot Web configuration for itch.io and mobile Safari-class browsers.
+
 Avoid gameplay dependencies on:
 
 - Forward+;
@@ -251,6 +253,19 @@ Pool or recycle:
 - obstacles;
 - collectibles;
 - recurring environment objects.
+
+### itch.io distribution contract
+
+- Export with `index.html` as the entry point and do not rename the generated companion files.
+- Package the contents of the Web export directory at the ZIP root; `index.html` must not be hidden inside a parent folder.
+- Use relative URLs only. File/path case must match exactly because itch.io hosting is case-sensitive.
+- Keep the upload self-contained. Any external request must use HTTPS and must not be required for core gameplay.
+- Keep within itch.io's current extracted limits: no more than 1,000 files, 500 MB total, 200 MB per file, and 240 characters per full path. Treat these as ceilings, not performance targets.
+- Let Godot's canvas resize with its host window. itch.io mobile launches use a dynamic fullscreen viewport.
+- Use click-to-play so startup does not consume resources before consent and so the first in-game confirm/tap can unlock browser audio.
+- Validate the final ZIP on an uploaded itch.io draft/restricted page, not only through localhost, including logged-out/incognito desktop and real or emulated mobile runs.
+
+Source: [itch.io HTML5 upload documentation](https://itch.io/docs/creators/html5) and [Godot 4.7 Web export documentation](https://docs.godotengine.org/en/4.7/tutorials/export/exporting_for_web.html).
 
 ## Development harness
 
