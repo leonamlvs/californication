@@ -1,0 +1,135 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://dev/DevHarness.gd" id="1_harness"]
+[ext_resource type="PackedScene" path="res://gameplay/runner/Runner.tscn" id="2_runner"]
+[ext_resource type="PackedScene" path="res://gameplay/track/TrackGenerator.tscn" id="3_generator"]
+[ext_resource type="PackedScene" path="res://gameplay/transitions/TransitionCoordinator.tscn" id="4_coordinator"]
+[ext_resource type="PackedScene" path="res://ui/hud/HUD.tscn" id="5_hud"]
+[ext_resource type="Script" path="res://ui/hud/GestureBlockingButton.gd" id="6_button"]
+
+[node name="DevHarness" type="Node3D"]
+script = ExtResource("1_harness")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 3.2, 8)
+current = true
+
+[node name="KeyLight" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-40, -25, 0)
+light_energy = 1.4
+
+[node name="ScenarioRoot" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Runner" parent="." instance=ExtResource("2_runner")]
+unique_name_in_owner = true
+
+[node name="TrackGenerator" parent="." instance=ExtResource("3_generator")]
+unique_name_in_owner = true
+
+[node name="TransitionCoordinator" parent="." instance=ExtResource("4_coordinator")]
+unique_name_in_owner = true
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="Interface" instance=ExtResource("5_hud")]
+unique_name_in_owner = true
+
+[node name="Panel" type="PanelContainer" parent="Interface"]
+offset_left = 16.0
+offset_top = 120.0
+offset_right = 390.0
+offset_bottom = 704.0
+
+[node name="Rows" type="VBoxContainer" parent="Interface/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="StatusLabel" type="Label" parent="Interface/Panel/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Speed" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "CYCLE SPEED"
+script = ExtResource("6_button")
+
+[node name="Obstacle" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "SPAWN BLOCK"
+script = ExtResource("6_button")
+
+[node name="Layout" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "SPAWN COLLECTIBLE LAYOUT"
+script = ExtResource("6_button")
+
+[node name="Ready" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "FORCE TRANSITION READY"
+script = ExtResource("6_button")
+
+[node name="Token" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "FORCE TOKEN COLLECTION"
+script = ExtResource("6_button")
+
+[node name="Miss" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "MISS TOKEN / RETRY"
+script = ExtResource("6_button")
+
+[node name="Death" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "FORCE DEATH"
+script = ExtResource("6_button")
+
+[node name="Invulnerability" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "TOGGLE INVULNERABILITY"
+script = ExtResource("6_button")
+
+[node name="Bonus" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "INSPECT BONUS IDEMPOTENCE"
+script = ExtResource("6_button")
+
+[node name="Complete" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "COMPLETE CINEMATIC"
+script = ExtResource("6_button")
+
+[node name="Skip" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "SKIP CINEMATIC"
+script = ExtResource("6_button")
+
+[node name="Cycle" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "CYCLE FIXTURE SCENARIO"
+script = ExtResource("6_button")
+
+[node name="State" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "JUMP GAMEFLOW TO RUNNING"
+script = ExtResource("6_button")
+
+[node name="Collisions" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "TOGGLE COLLISIONS"
+script = ExtResource("6_button")
+
+[connection signal="pressed" from="Interface/Panel/Rows/Speed" to="." method="_on_speed_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Obstacle" to="." method="_on_obstacle_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Layout" to="." method="_on_layout_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Ready" to="." method="_on_ready_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Token" to="." method="_on_token_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Miss" to="." method="_on_miss_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Death" to="." method="_on_death_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Invulnerability" to="." method="_on_invulnerability_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Bonus" to="." method="_on_bonus_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Complete" to="." method="_on_complete_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Skip" to="." method="_on_skip_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Cycle" to="." method="_on_cycle_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/State" to="." method="_on_state_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Collisions" to="." method="_on_collisions_pressed"]

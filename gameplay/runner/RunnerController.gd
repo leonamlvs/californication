@@ -22,6 +22,7 @@ var target_lane_index := 1
 var is_jumping := false
 var is_sliding := false
 var is_invulnerable := false
+var movement_suspended := false
 var current_movement_mode: StringName = &""
 
 var _active_mode: MovementMode
@@ -46,7 +47,7 @@ func _exit_tree() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if development_simulation_enabled or GameFlow.gameplay_input_enabled:
+	if not movement_suspended and (development_simulation_enabled or GameFlow.gameplay_input_enabled):
 		step_simulation(delta)
 
 
@@ -91,6 +92,7 @@ func reset_for_run() -> void:
 	_slide_remaining = 0.0
 	is_jumping = false
 	is_sliding = false
+	movement_suspended = false
 	position = Vector3(_lane_from_x, 0.0, 0.0)
 	_set_collider_height(movement_profile.standing_height)
 	cosmetic_mount.position.y = movement_profile.standing_height * 0.5
@@ -99,6 +101,11 @@ func reset_for_run() -> void:
 
 func set_invulnerable(enabled: bool) -> void:
 	is_invulnerable = enabled
+
+
+func set_movement_suspended(suspended: bool) -> void:
+	movement_suspended = suspended
+	velocity = Vector3.ZERO
 
 
 ## Obstacles report typed data events here; GameFlow remains the only global
@@ -117,7 +124,7 @@ func request_obstacle_hit(event: ObstacleHitEvent) -> bool:
 
 ## Deterministic stepping path for CLI tests and the development runner harness.
 func step_simulation(delta: float) -> void:
-	if movement_profile == null or _active_mode == null or delta <= 0.0:
+	if movement_profile == null or _active_mode == null or movement_suspended or delta <= 0.0:
 		return
 	_active_mode.physics_step(self, delta)
 
@@ -128,7 +135,7 @@ func _on_intent_requested(intent: StringName) -> void:
 
 
 func _handle_intent(intent: StringName) -> bool:
-	return _active_mode != null and _active_mode.handle_intent(self, intent)
+	return not movement_suspended and _active_mode != null and _active_mode.handle_intent(self, intent)
 
 
 func _request_lane_delta(delta: int) -> bool:

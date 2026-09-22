@@ -21,6 +21,7 @@ signal candidate_rejected(pattern_id: StringName, reason: String)
 @onready var segment_root: Node3D = %Segments
 @onready var obstacle_root: Node3D = %Obstacles
 @onready var collectible_root: Node3D = %Collectibles
+@onready var token_root: Node3D = %TransitionTokens
 @onready var inactive_root: Node3D = %Pooled
 @onready var pool: TrackPool = %TrackPool
 @onready var run_stats: RunStats = %RunStats
@@ -32,6 +33,8 @@ var fallback_selection_count := 0
 var current_logical_distance := 0.0
 var current_speed := 10.0
 var tail_legal_state_mask := 0
+var suspended := false
+var active_transition_token: TransitionToken
 
 var _runner: RunnerController
 var _cursor_distance := 0.0
@@ -40,7 +43,7 @@ var _validator := PatternValidator.new()
 
 
 func _ready() -> void:
-	pool.configure(obstacle_library, segment_root, obstacle_root, collectible_root, inactive_root)
+	pool.configure(obstacle_library, segment_root, obstacle_root, collectible_root, token_root, inactive_root)
 	_validator.absolute_minimum_reaction_time = absolute_minimum_reaction_time
 	_validator.validation_window_seconds = validation_window_seconds
 	if auto_start and configuration_is_valid():
@@ -48,7 +51,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if _runner != null and (GameFlow.gameplay_input_enabled or _runner.development_simulation_enabled):
+	if not suspended and _runner != null and (GameFlow.gameplay_input_enabled or _runner.development_simulation_enabled):
 		step_simulation(_runner.logical_forward_distance, _runner.current_speed, delta)
 
 
@@ -70,7 +73,18 @@ func set_runner(runner: RunnerController) -> void:
 	_runner = runner
 
 
+func configure_for_scenario(definition: ScenarioDefinition) -> bool:
+	if definition == null or definition.segment_library.is_empty() or definition.obstacle_library == null or definition.collectible_patterns == null:
+		return false
+	segment_definitions = definition.segment_library
+	obstacle_library = definition.obstacle_library
+	collectible_layout_library = definition.collectible_patterns
+	pool.obstacle_library = obstacle_library
+	return true
+
+
 func reset_generator(seed_value: int = deterministic_seed, start_distance: float = 0.0, speed: float = 10.0, initial_state_mask: int = 0) -> void:
+	release_transition_token()
 	for segment: TrackSegment in active_segments.duplicate():
 		pool.release_segment(segment)
 	active_segments.clear()
@@ -81,12 +95,15 @@ func reset_generator(seed_value: int = deterministic_seed, start_distance: float
 	current_speed = speed
 	_cursor_distance = start_distance
 	tail_legal_state_mask = initial_state_mask if initial_state_mask != 0 else capability_profile.initial_state_mask()
+	suspended = false
 	run_stats.reset_for_fresh_run(start_distance)
 	_rng.seed = seed_value
 	_fill_ahead()
 
 
 func step_simulation(logical_distance: float, speed: float, delta: float = 0.0) -> void:
+	if suspended:
+		return
 	current_logical_distance = maxf(logical_distance, current_logical_distance)
 	current_speed = maxf(speed, 0.01)
 	for segment: TrackSegment in active_segments:
@@ -103,6 +120,79 @@ func step_simulation(logical_distance: float, speed: float, delta: float = 0.0) 
 		run_stats.step_simulation(delta, _runner.logical_forward_distance, GameFlow.run_timer_enabled or _runner.development_simulation_enabled)
 	_recycle_passed()
 	_fill_ahead()
+
+
+func set_suspended(value: bool) -> void:
+	suspended = value
+
+
+func spawn_transition_token(force_safe: bool = false) -> TransitionToken:
+	if _runner == null or active_transition_token != null or suspended:
+		return null
+	var reaction_distance := maxf(current_speed * absolute_minimum_reaction_time, 12.0)
+	var target_distance := -1.0
+	for segment: TrackSegment in active_segments:
+		if segment.pattern != null and segment.pattern.safe_fallback and segment.start_distance >= current_logical_distance + reaction_distance:
+			target_distance = segment.start_distance + minf(segment.definition.length * 0.5, 15.0)
+			break
+	if target_distance < 0.0 and not force_safe:
+		return null
+	if target_distance < 0.0:
+		target_distance = current_logical_distance + reaction_distance + 3.0
+		clear_pending_gameplay_content(current_logical_distance + reaction_distance)
+	active_transition_token = pool.acquire_transition_token()
+	active_transition_token.reset_for_spawn(target_distance, capability_profile.lane_count / 2, _runner)
+	return active_transition_token
+
+
+func release_transition_token() -> void:
+	if active_transition_token == null:
+		return
+	pool.release_transition_token(active_transition_token)
+	active_transition_token = null
+
+
+func clear_pending_gameplay_content(from_distance: float) -> void:
+	for segment: TrackSegment in active_segments:
+		for obstacle: ObstacleBase in segment.active_obstacles.duplicate():
+			if obstacle.forward_distance >= from_distance:
+				pool.release_obstacle(obstacle)
+				segment.active_obstacles.erase(obstacle)
+		for collectible: CollectibleBase in segment.active_collectibles.duplicate():
+			if collectible.forward_distance >= from_distance:
+				pool.release_collectible(collectible)
+				segment.active_collectibles.erase(collectible)
+
+
+func prepare_safe_runway(runway_distance: float = 25.0) -> void:
+	release_transition_token()
+	for segment: TrackSegment in active_segments.duplicate():
+		pool.release_segment(segment)
+	active_segments.clear()
+	_cursor_distance = current_logical_distance
+	tail_legal_state_mask = capability_profile.initial_state_mask()
+	var runway_end := current_logical_distance + maxf(runway_distance, current_speed * absolute_minimum_reaction_time)
+	while _cursor_distance < runway_end:
+		if not _append_safe_recovery_segment():
+			push_error("TrackGenerator could not create a safe transition runway.")
+			return
+	_fill_ahead()
+
+
+func _append_safe_recovery_segment() -> bool:
+	var segment_definition := _segment_for_length(fallback_pattern.length)
+	var result := _validator.validate_pattern(fallback_pattern, capability_profile, current_speed, tail_legal_state_mask)
+	if segment_definition == null or not result.is_valid:
+		return false
+	var segment := pool.acquire_segment(segment_definition.scene)
+	segment.configure(segment_definition, fallback_pattern, _cursor_distance, result.exit_state_mask)
+	segment.update_visual(current_logical_distance)
+	active_segments.append(segment)
+	generation_history.append(fallback_pattern.id)
+	tail_legal_state_mask = result.exit_state_mask
+	_cursor_distance = segment.end_distance
+	segment_spawned.emit(segment)
+	return true
 
 
 func active_track_has_no_holes() -> bool:

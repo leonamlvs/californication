@@ -3,26 +3,31 @@ extends Node
 
 const DEFAULT_SEGMENT_SCENE := preload("res://gameplay/track/TrackSegment.tscn")
 const COLLECTIBLE_SCENE := preload("res://gameplay/collectibles/CollectibleBase.tscn")
+const TRANSITION_TOKEN_SCENE := preload("res://gameplay/transitions/TransitionToken.tscn")
 
 var obstacle_library: ObstacleSceneLibrary
 var segment_root: Node3D
 var obstacle_root: Node3D
 var collectible_root: Node3D
+var token_root: Node3D
 var inactive_root: Node3D
 var created_segment_count := 0
 var created_obstacle_count := 0
 var created_collectible_count := 0
+var created_token_count := 0
 
 var _available_segments: Array[TrackSegment] = []
 var _available_obstacles: Dictionary = {}
 var _available_collectibles: Array[CollectibleBase] = []
+var _available_tokens: Array[TransitionToken] = []
 
 
-func configure(library: ObstacleSceneLibrary, active_segment_root: Node3D, active_obstacle_root: Node3D, active_collectible_root: Node3D, pooled_root: Node3D) -> void:
+func configure(library: ObstacleSceneLibrary, active_segment_root: Node3D, active_obstacle_root: Node3D, active_collectible_root: Node3D, active_token_root: Node3D, pooled_root: Node3D) -> void:
 	obstacle_library = library
 	segment_root = active_segment_root
 	obstacle_root = active_obstacle_root
 	collectible_root = active_collectible_root
+	token_root = active_token_root
 	inactive_root = pooled_root
 
 
@@ -105,6 +110,27 @@ func release_collectible(collectible: CollectibleBase) -> void:
 	_available_collectibles.append(collectible)
 
 
+func acquire_transition_token() -> TransitionToken:
+	var token: TransitionToken
+	if not _available_tokens.is_empty():
+		token = _available_tokens.pop_back()
+		token.reparent(token_root)
+	else:
+		token = TRANSITION_TOKEN_SCENE.instantiate() as TransitionToken
+		token_root.add_child(token)
+		created_token_count += 1
+	token.visible = true
+	return token
+
+
+func release_transition_token(token: TransitionToken) -> void:
+	if token == null:
+		return
+	token.prepare_for_pool()
+	token.reparent(inactive_root)
+	_available_tokens.append(token)
+
+
 func available_segment_count() -> int:
 	return _available_segments.size()
 
@@ -118,3 +144,7 @@ func available_obstacle_count() -> int:
 
 func available_collectible_count() -> int:
 	return _available_collectibles.size()
+
+
+func available_token_count() -> int:
+	return _available_tokens.size()

@@ -20,6 +20,7 @@ var active_profile: Profile = Profile.FULL
 @onready var pause_button: Control = %PauseButton
 @onready var score_label: Label = %ScoreLabel
 @onready var timer_label: Label = %TimerLabel
+@onready var bonus_overlay: Control = %BonusOverlay
 
 var _run_stats: RunStats
 
@@ -56,6 +57,10 @@ func bind_run_stats(run_stats: RunStats) -> void:
 		return
 	_run_stats.metrics_changed.connect(_on_metrics_changed)
 	_on_metrics_changed(_run_stats.score, _run_stats.elapsed_seconds, _run_stats.active_distance)
+
+
+func show_transition_bonus(visible: bool) -> void:
+	bonus_overlay.visible = visible
 
 
 func _on_metrics_changed(score: int, elapsed_seconds: float, _distance: float) -> void:

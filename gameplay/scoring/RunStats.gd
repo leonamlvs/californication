@@ -4,6 +4,7 @@ extends Node
 ## Owns ordinary run metrics. Transition bonuses are intentionally deferred to Task 08.
 signal metrics_changed(score: int, elapsed_seconds: float, active_distance: float)
 signal pickup_awarded(amount: int)
+signal transition_bonus_awarded(amount: int, transition_key: StringName)
 
 @export_range(0, 100, 1, "suffix: pts/m") var points_per_meter := 10
 @export_range(0, 1000, 1, "suffix: pts") var pickup_points := 100
@@ -12,7 +13,9 @@ var score := 0
 var elapsed_seconds := 0.0
 var active_distance := 0.0
 var pickup_score := 0
+var transition_bonus_score := 0
 var _last_logical_distance := 0.0
+var _awarded_transition_keys: Dictionary = {}
 
 
 func reset_for_fresh_run(start_distance: float = 0.0) -> void:
@@ -20,6 +23,8 @@ func reset_for_fresh_run(start_distance: float = 0.0) -> void:
 	elapsed_seconds = 0.0
 	active_distance = 0.0
 	pickup_score = 0
+	transition_bonus_score = 0
+	_awarded_transition_keys.clear()
 	_last_logical_distance = start_distance
 	_emit_metrics()
 
@@ -42,6 +47,17 @@ func award_normal_pickup() -> void:
 	_emit_metrics()
 
 
+func award_transition_bonus(transition_key: StringName, amount: int = 1000) -> bool:
+	if transition_key.is_empty() or amount < 0 or _awarded_transition_keys.has(transition_key):
+		return false
+	_awarded_transition_keys[transition_key] = true
+	transition_bonus_score += amount
+	_refresh_distance_score()
+	transition_bonus_awarded.emit(amount, transition_key)
+	_emit_metrics()
+	return true
+
+
 func formatted_time() -> String:
 	var total_seconds: int = maxi(0, floori(elapsed_seconds))
 	var hours: int = total_seconds / 3600
@@ -51,7 +67,7 @@ func formatted_time() -> String:
 
 
 func _refresh_distance_score() -> void:
-	score = floori(active_distance * points_per_meter) + pickup_score
+	score = floori(active_distance * points_per_meter) + pickup_score + transition_bonus_score
 
 
 func _emit_metrics() -> void:

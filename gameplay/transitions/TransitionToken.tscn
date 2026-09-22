@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://gameplay/transitions/TransitionToken.gd" id="1_token"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_token"]
+size = Vector3(0.55, 0.55, 0.55)
+
+[sub_resource type="StandardMaterial3D" id="Material_token"]
+albedo_color = Color(0.08, 0.9, 1, 1)
+emission_enabled = true
+emission = Color(0.02, 0.6, 0.8, 1)
+
+[node name="TransitionToken" type="Node3D"]
+script = ExtResource("1_token")
+
+[node name="Visual" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+rotation_degrees = Vector3(0, 0, 45)
+mesh = SubResource("BoxMesh_token")
+material_override = SubResource("Material_token")

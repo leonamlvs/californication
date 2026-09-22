@@ -26,6 +26,9 @@ unique_name_in_owner = true
 [node name="Collectibles" type="Node3D" parent="."]
 unique_name_in_owner = true
 
+[node name="TransitionTokens" type="Node3D" parent="."]
+unique_name_in_owner = true
+
 [node name="Pooled" type="Node3D" parent="."]
 unique_name_in_owner = true
 visible = false

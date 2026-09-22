@@ -22,7 +22,6 @@ const FAILURE_TRANSITION: StringName = &"FAILURE_TRANSITION"
 const LAVA_GAME_OVER: StringName = &"LAVA_GAME_OVER"
 const TRY_AGAIN: StringName = &"TRY_AGAIN"
 
-## Reserved for Task 08. They are named now but have no behavior in this task.
 const TRANSITION_READY: StringName = &"TRANSITION_READY"
 const TOKEN_COLLECTED: StringName = &"TOKEN_COLLECTED"
 const SCENARIO_TRANSITION: StringName = &"SCENARIO_TRANSITION"
@@ -41,7 +40,11 @@ const ALLOWED_TRANSITIONS: Dictionary[StringName, Array] = {
 	CHARACTER_SELECT_ACTIVE: [CHARACTER_CONFIRMED],
 	CHARACTER_CONFIRMED: [RUN_INTRO],
 	RUN_INTRO: [RUNNING],
-	RUNNING: [PAUSED, FAILURE_TRANSITION],
+	RUNNING: [PAUSED, FAILURE_TRANSITION, TRANSITION_READY],
+	TRANSITION_READY: [PAUSED, FAILURE_TRANSITION, TOKEN_COLLECTED],
+	TOKEN_COLLECTED: [SCENARIO_TRANSITION],
+	SCENARIO_TRANSITION: [NEXT_SCENARIO],
+	NEXT_SCENARIO: [RUNNING],
 	PAUSED: [RUNNING, ISLAND_ATTRACT],
 	FAILURE_TRANSITION: [LAVA_GAME_OVER],
 	LAVA_GAME_OVER: [TRY_AGAIN],
@@ -101,7 +104,7 @@ func handle_intent(intent: StringName) -> bool:
 				handled = select_character_offset(1)
 			elif intent == InputRouter.INTENT_CONFIRM:
 				handled = request_transition(CHARACTER_CONFIRMED)
-		RUNNING:
+		RUNNING, TRANSITION_READY:
 			if intent == InputRouter.INTENT_PAUSE:
 				handled = pause_run()
 		PAUSED:
@@ -179,7 +182,7 @@ func report_run_intro_ready(camera_settled: bool, gameplay_ready: bool) -> bool:
 
 
 func pause_run() -> bool:
-	if current_state != RUNNING:
+	if current_state != RUNNING and current_state != TRANSITION_READY:
 		return false
 	return request_transition(PAUSED)
 
@@ -191,9 +194,40 @@ func resume_run() -> bool:
 
 
 func fail_run() -> bool:
-	if current_state != RUNNING:
+	if current_state != RUNNING and current_state != TRANSITION_READY:
 		return false
 	return request_transition(FAILURE_TRANSITION)
+
+
+func mark_transition_ready() -> bool:
+	return current_state == RUNNING and request_transition(TRANSITION_READY)
+
+
+func report_transition_token_collected() -> bool:
+	return current_state == TRANSITION_READY and request_transition(TOKEN_COLLECTED)
+
+
+func begin_scenario_transition() -> bool:
+	return current_state == TOKEN_COLLECTED and request_transition(SCENARIO_TRANSITION)
+
+
+func begin_next_scenario() -> bool:
+	return current_state == SCENARIO_TRANSITION and request_transition(NEXT_SCENARIO)
+
+
+func complete_scenario_handoff() -> bool:
+	return current_state == NEXT_SCENARIO and request_transition(RUNNING)
+
+
+## Development harness entry point. Production systems must use the legal graph.
+func development_jump_to_state(state: StringName) -> bool:
+	if not _all_states().has(state):
+		_reject(state, "Unknown development state.")
+		return false
+	if state == current_state:
+		return true
+	_set_state(state)
+	return true
 
 
 func choose_try_again(yes: bool) -> bool:
@@ -213,9 +247,19 @@ func exit_run() -> bool:
 func _set_state(next_state: StringName) -> void:
 	var previous_state := current_state
 	current_state = next_state
-	gameplay_input_enabled = current_state == RUNNING
-	run_timer_enabled = current_state == RUNNING
+	gameplay_input_enabled = current_state == RUNNING or current_state == TRANSITION_READY
+	run_timer_enabled = current_state == RUNNING or current_state == TRANSITION_READY
 	state_changed.emit(previous_state, current_state)
+
+
+func _all_states() -> Array[StringName]:
+	return [
+		BOOT, LOADING, ISLAND_INTRO, ISLAND_ATTRACT, LOGO_REVEAL,
+		CHARACTER_SELECT_ENTER, CHARACTER_SELECT_ACTIVE, CHARACTER_CONFIRMED,
+		RUN_INTRO, RUNNING, TRANSITION_READY, TOKEN_COLLECTED,
+		SCENARIO_TRANSITION, NEXT_SCENARIO, PAUSED, FAILURE_TRANSITION,
+		LAVA_GAME_OVER, TRY_AGAIN,
+	]
 
 
 func _lock_entry_input() -> void:

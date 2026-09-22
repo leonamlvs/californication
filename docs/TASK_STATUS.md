@@ -10,7 +10,7 @@ Update only after acceptance criteria are verified.
 - [x] 05 — Seven Obstacle Primitives
 - [x] 06 — Segment and Pattern Generator
 - [x] 07 — Collectibles and Score
-- [ ] 08 — Scenario Transition Framework + DevHarness Base
+- [x] 08 — Scenario Transition Framework + DevHarness Base
 - [ ] 09 — Boulevard
 - [ ] 10 — Sierra Nevada
 - [ ] 11 — San Francisco Bay

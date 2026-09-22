@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TransitionDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/TransitionDefinition.gd" id="1_definition"]
+[ext_resource type="PackedScene" path="res://dev/fixtures/FixtureTransition.tscn" id="2_scene"]
+
+[resource]
+script = ExtResource("1_definition")
+id = &"fixture_a_to_b"
+source_scenario = &"fixture_a"
+transition_scene = ExtResource("2_scene")
+next_scenario_policy = 1
+next_scenario_ids = Array[StringName]([&"fixture_b"])
+transition_bonus_score = 1000
