@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3]
+[sub_resource type="BoxMesh" id="road"]
+size = Vector3(8, 0.2, 100)
+[sub_resource type="StandardMaterial3D" id="roadmat"]
+albedo_color = Color(0.25,0.27,0.3,1)
+[sub_resource type="BoxMesh" id="tower"]
+size = Vector3(1,8,2)
+[sub_resource type="StandardMaterial3D" id="red"]
+albedo_color = Color(0.65,0.12,0.08,1)
+[node name="GoldenGateEnvironment" type="Node3D"]
+[node name="BridgeRoad" type="MeshInstance3D" parent="."]
+position = Vector3(0,-0.1,-45)
+mesh = SubResource("road")
+material_override = SubResource("roadmat")
+[node name="Tower" type="MeshInstance3D" parent="."]
+position = Vector3(-4,4,-30)
+mesh = SubResource("tower")
+material_override = SubResource("red")

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TransitionDefinition" load_steps=3 format=3]
+[ext_resource type="Script" path="res://data/definitions/TransitionDefinition.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenarios/golden_gate/GoldenGateCableTransition.tscn" id="2"]
+[resource]
+script=ExtResource("1")
+id=&"golden_gate_cable"
+source_scenario=&"golden_gate"
+transition_scene=ExtResource("2")
+next_scenario_policy=1
+next_scenario_ids=Array[StringName]([&"fixture_a"])
+transition_bonus_score=1000

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SegmentDefinition" load_steps=7 format=3]
+[ext_resource type="Script" path="res://data/definitions/SegmentDefinition.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenarios/golden_gate/GoldenGateTrackSegment.tscn" id="2"]
+[ext_resource type="Resource" path="res://data/patterns/golden_gate_safe_recovery.tres" id="3"]
+[ext_resource type="Resource" path="res://data/patterns/golden_gate_traffic_weave.tres" id="4"]
+[ext_resource type="Resource" path="res://data/patterns/golden_gate_ramp.tres" id="5"]
+[resource]
+script = ExtResource("1")
+id = &"golden_gate_bridge"
+length = 30.0
+connection_end = Vector3(0,0,-30)
+compatible_modes = Array[StringName]([&"CAR"])
+environment_tags = Array[StringName]([&"golden_gate",&"bridge"])
+scene = ExtResource("2")
+eligible_patterns = Array[PatternDefinition]([ExtResource("3"),ExtResource("4"),ExtResource("5")])

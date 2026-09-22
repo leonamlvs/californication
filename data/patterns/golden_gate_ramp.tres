@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="PatternDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://data/definitions/PatternDefinition.gd" id="1"]
+[ext_resource type="Script" path="res://data/definitions/PatternObstaclePlacement.gd" id="2"]
+[ext_resource type="Resource" path="res://data/obstacles/traffic_ramp.tres" id="3"]
+[sub_resource type="Resource" id="a"]
+script = ExtResource("2")
+obstacle = ExtResource("3")
+forward_offset = 30.0
+lane = 1
+vertical_state = 1
+[resource]
+script = ExtResource("1")
+id = &"golden_gate_ramp"
+length = 30.0
+weight = 0.8
+minimum_speed = 10.0
+maximum_speed = 20.0
+allowed_movement_modes = Array[StringName]([&"CAR"])
+minimum_reaction_time = 1.5
+entrance_state_mask = 511
+exit_state_mask = 511
+obstacle_placements = Array[PatternObstaclePlacement]([SubResource("a")])
