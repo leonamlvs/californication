@@ -11,7 +11,7 @@ Update only after acceptance criteria are verified.
 - [x] 06 — Segment and Pattern Generator
 - [x] 07 — Collectibles and Score
 - [x] 08 — Scenario Transition Framework + DevHarness Base
-- [ ] 09 — Boulevard
+- [x] 09 — Boulevard
 - [ ] 10 — Sierra Nevada
 - [ ] 11 — San Francisco Bay
 - [ ] 12 — Sequoia

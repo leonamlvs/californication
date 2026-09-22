@@ -79,6 +79,11 @@ func configure_for_scenario(definition: ScenarioDefinition) -> bool:
 	segment_definitions = definition.segment_library
 	obstacle_library = definition.obstacle_library
 	collectible_layout_library = definition.collectible_patterns
+	for segment_definition: SegmentDefinition in segment_definitions:
+		for pattern: PatternDefinition in segment_definition.eligible_patterns:
+			if pattern.safe_fallback:
+				fallback_pattern = pattern
+				break
 	pool.obstacle_library = obstacle_library
 	return true
 

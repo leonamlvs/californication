@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scenarios/boulevard/BoulevardEnvironment.gd" id="1_environment"]
+
+[sub_resource type="BoxMesh" id="SidewalkMesh"]
+size = Vector3(5.2, 0.18, 100)
+
+[sub_resource type="StandardMaterial3D" id="SidewalkMaterial"]
+albedo_color = Color(0.38, 0.4, 0.39, 1)
+
+[sub_resource type="BoxMesh" id="RoadMesh"]
+size = Vector3(8, 0.14, 100)
+
+[sub_resource type="StandardMaterial3D" id="RoadMaterial"]
+albedo_color = Color(0.08, 0.09, 0.12, 1)
+
+[sub_resource type="BoxMesh" id="BuildingMesh"]
+size = Vector3(1.4, 5, 20)
+
+[sub_resource type="StandardMaterial3D" id="BuildingMaterial"]
+albedo_color = Color(0.24, 0.18, 0.16, 1)
+
+[sub_resource type="CylinderMesh" id="FurnitureMesh"]
+top_radius = 0.28
+bottom_radius = 0.35
+height = 1.15
+
+[node name="BoulevardEnvironment" type="Node3D"]
+script = ExtResource("1_environment")
+
+[node name="Sidewalk" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.09, -45)
+mesh = SubResource("SidewalkMesh")
+material_override = SubResource("SidewalkMaterial")
+
+[node name="Curb" type="MeshInstance3D" parent="."]
+position = Vector3(2.78, 0.02, -45)
+mesh = SubResource("RoadMesh")
+material_override = SubResource("RoadMaterial")
+scale = Vector3(0.04, 1, 1)
+
+[node name="TrafficVisualOnly" type="MeshInstance3D" parent="."]
+position = Vector3(6.8, -0.12, -45)
+mesh = SubResource("RoadMesh")
+material_override = SubResource("RoadMaterial")
+
+[node name="StorefrontLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-3.45, 2.5, -30)
+mesh = SubResource("BuildingMesh")
+material_override = SubResource("BuildingMaterial")
+
+[node name="StorefrontRight" type="MeshInstance3D" parent="."]
+position = Vector3(-3.45, 2.5, -65)
+mesh = SubResource("BuildingMesh")
+material_override = SubResource("BuildingMaterial")
+
+[node name="StreetFurnitureBoundary" type="MeshInstance3D" parent="."]
+position = Vector3(2.9, 0.58, -16)
+mesh = SubResource("FurnitureMesh")
+
+[node name="StreetFurnitureBoundary2" type="MeshInstance3D" parent="."]
+position = Vector3(2.9, 0.58, -50)
+mesh = SubResource("FurnitureMesh")

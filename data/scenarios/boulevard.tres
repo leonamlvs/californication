@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="ScenarioDefinition" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/ScenarioDefinition.gd" id="1_definition"]
+[ext_resource type="Resource" path="res://data/segments/boulevard_sidewalk.tres" id="2_segment"]
+[ext_resource type="Resource" path="res://data/track/graybox_obstacle_library.tres" id="3_obstacles"]
+[ext_resource type="Resource" path="res://data/track/normal_collectible_layouts.tres" id="4_collectibles"]
+[ext_resource type="PackedScene" path="res://scenarios/boulevard/BoulevardEnvironment.tscn" id="5_environment"]
+[ext_resource type="Resource" path="res://data/camera_profiles/boulevard_follow.tres" id="6_camera"]
+[ext_resource type="Resource" path="res://data/transitions/boulevard_curbside.tres" id="7_transition"]
+[ext_resource type="Resource" path="res://data/movement_profiles/run_default.tres" id="8_movement"]
+
+[sub_resource type="Resource" id="Resource_hud_coordinates"]
+
+[resource]
+script = ExtResource("1_definition")
+id = &"boulevard"
+display_name = "Boulevard"
+movement_mode = &"RUN"
+base_speed = 10.0
+max_speed = 16.0
+lane_spacing = 1.6
+segment_library = Array[SegmentDefinition]([ExtResource("2_segment")])
+obstacle_library = ExtResource("3_obstacles")
+collectible_patterns = ExtResource("4_collectibles")
+environment_scene = ExtResource("5_environment")
+camera_profile = ExtResource("6_camera")
+hud_coordinate_profile = SubResource("Resource_hud_coordinates")
+transition_definition = ExtResource("7_transition")
+minimum_transition_time = 40.0
+guaranteed_transition_time = 55.0
+development_minimum_transition_time = 15.0
+development_guaranteed_transition_time = 20.0
+movement_profile = ExtResource("8_movement")

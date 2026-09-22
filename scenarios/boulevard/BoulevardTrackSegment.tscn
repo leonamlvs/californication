@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://gameplay/track/TrackSegment.gd" id="1_segment"]
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+resource_local_to_scene = true
+size = Vector3(5.2, 0.1, 30)
+
+[sub_resource type="StandardMaterial3D" id="FloorMaterial"]
+albedo_color = Color(0.38, 0.4, 0.39, 1)
+
+[sub_resource type="BoxMesh" id="CurbMesh"]
+size = Vector3(0.18, 0.3, 30)
+
+[sub_resource type="StandardMaterial3D" id="CurbMaterial"]
+albedo_color = Color(0.75, 0.7, 0.56, 1)
+
+[sub_resource type="BoxMesh" id="FacadeMesh"]
+size = Vector3(1.2, 4.2, 30)
+
+[sub_resource type="StandardMaterial3D" id="FacadeMaterial"]
+albedo_color = Color(0.2, 0.16, 0.16, 1)
+
+[node name="BoulevardTrackSegment" type="Node3D"]
+script = ExtResource("1_segment")
+
+[node name="FloorMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+position = Vector3(0, -0.05, -15)
+mesh = SubResource("FloorMesh")
+material_override = SubResource("FloorMaterial")
+
+[node name="StorefrontBoundary" type="MeshInstance3D" parent="."]
+position = Vector3(-3.25, 2.1, -15)
+mesh = SubResource("FacadeMesh")
+material_override = SubResource("FacadeMaterial")
+
+[node name="CurbBoundary" type="MeshInstance3D" parent="."]
+position = Vector3(2.7, 0.15, -15)
+mesh = SubResource("CurbMesh")
+material_override = SubResource("CurbMaterial")
+
+[node name="StartAnchor" type="Marker3D" parent="."]
+
+[node name="EndAnchor" type="Marker3D" parent="."]
+position = Vector3(0, 0, -30)

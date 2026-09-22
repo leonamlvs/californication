@@ -2,6 +2,7 @@ extends Node3D
 
 const FIXTURE_A := preload("res://dev/fixtures/fixture_scenario_a.tres")
 const FIXTURE_B := preload("res://dev/fixtures/fixture_scenario_b.tres")
+const BOULEVARD := preload("res://data/scenarios/boulevard.tres")
 const BLOCK_DEFINITION := preload("res://data/obstacles/block.tres")
 
 @onready var runner: RunnerController = %Runner
@@ -13,23 +14,25 @@ const BLOCK_DEFINITION := preload("res://data/obstacles/block.tres")
 
 var _layout_index := 0
 var _speed_index := 0
-var _message := "Task 08 fixture services ready."
+var _message := "Boulevard and Task 08 fixture services ready."
 var _speeds: Array[float] = [10.0, 13.0, 16.0]
 
 
 func _ready() -> void:
 	ScenarioManager.reset_for_tests()
 	ScenarioManager.set_scenario_root(scenario_root)
+	ScenarioManager.register_scenario(BOULEVARD)
 	ScenarioManager.register_scenario(FIXTURE_A, true)
 	ScenarioManager.register_scenario(FIXTURE_B, true)
-	ScenarioManager.load_scenario(FIXTURE_A.id)
+	ScenarioManager.load_scenario(BOULEVARD.id)
 	GameFlow.development_jump_to_state(GameFlow.RUNNING)
 	runner.development_simulation_enabled = true
 	generator.set_runner(runner)
+	generator.configure_for_scenario(BOULEVARD)
 	generator.reset_generator(generator.deterministic_seed, 0.0, runner.current_speed)
 	hud.bind_run_stats(generator.run_stats)
 	coordinator.configure_services(runner, generator, generator.run_stats, hud)
-	coordinator.begin_scenario(FIXTURE_A, true)
+	coordinator.begin_scenario(BOULEVARD, true)
 
 
 func _process(_delta: float) -> void:

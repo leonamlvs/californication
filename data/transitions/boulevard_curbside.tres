@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TransitionDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/TransitionDefinition.gd" id="1_definition"]
+[ext_resource type="PackedScene" path="res://scenarios/boulevard/BoulevardCurbsideTransition.tscn" id="2_transition"]
+
+[resource]
+script = ExtResource("1_definition")
+id = &"boulevard_curbside"
+source_scenario = &"boulevard"
+transition_scene = ExtResource("2_transition")
+next_scenario_policy = 1
+next_scenario_ids = Array[StringName]([&"fixture_a"])
+transition_bonus_score = 1000
