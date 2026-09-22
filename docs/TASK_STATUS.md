@@ -24,7 +24,7 @@ Update only after acceptance criteria are verified.
 - [x] 19 — Character Data and Presentation
 - [x] 20 — Pause and Settings
 - [x] 21 — Failure and Game Over
-- [ ] 22 — CinematicTransitionFX
+- [x] 22 — CinematicTransitionFX
 - [ ] 23 — Loading, Island Intro, and Island Attract
 - [ ] 24 — Logo/Alicorn Reveal and Player Select Entry
 - [ ] 25 — 3D Logo Carousel and Decorative Player Select
@@ -40,3 +40,4 @@ Update only after acceptance criteria are verified.
 - Task 19 was completed after this audit with four validated definitions, distinct matched primitive presentation scenes, pause portraits, pause-safe cosmetic replacement, and `Task19Test` acceptance coverage.
 - Task 20 was completed after this audit with runtime intent routing, exact-state resume, live Music/SFX mixer buses, face-only Task 19 portraits, direct touch adjustment, separate resume/exit actions, responsive rendered checks, and expanded `Task20Test` acceptance coverage.
 - Task 21 was completed after this audit with rendered floor-fall and launch-toward-screen presentations, shared navigable lava Game Over, protected retry/island cleanup, transition-token cancellation, a production-backed DevHarness death path, and expanded `Task21Test` coverage.
+- Task 22 was completed after this audit with a profiled reusable fullscreen radial/zoom blur, selectable desktop/mobile/high sample quality, synchronized FOV/overlay fallback, defensive neutralization on completion and interruption, direct DevHarness previews, Compatibility-rendered checks, Web export validation, and `Task22Test` coverage.

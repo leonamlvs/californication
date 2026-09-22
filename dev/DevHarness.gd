@@ -12,6 +12,10 @@ const HOLLYWOOD := preload("res://data/scenarios/hollywood.tres")
 const GRASS := preload("res://data/scenarios/grass.tres")
 const EARTHQUAKE := preload("res://data/scenarios/earthquake.tres")
 const BLOCK_DEFINITION := preload("res://data/obstacles/block.tres")
+const CINEMATIC_FX_PROFILES: Array[CinematicFXProfile] = [
+	preload("res://data/cinematic_fx/island_pullback.tres"),
+	preload("res://data/cinematic_fx/run_intro_push.tres"),
+]
 const CHARACTERS: Array[CharacterDefinition] = [
 	preload("res://data/characters/character_01.tres"),
 	preload("res://data/characters/character_02.tres"),
@@ -25,6 +29,8 @@ const CHARACTERS: Array[CharacterDefinition] = [
 @onready var hud: RunnerHUD = %HUD
 @onready var scenario_root: Node3D = %ScenarioRoot
 @onready var status_label: Label = %StatusLabel
+@onready var camera_3d: Camera3D = %Camera3D
+@onready var cinematic_fx: CinematicTransitionFX = %CinematicTransitionFX
 
 var _layout_index := 0
 var _speed_index := 0
@@ -32,6 +38,9 @@ var _message := "Boulevard and Task 08 fixture services ready."
 var _speeds: Array[float] = [10.0, 13.0, 16.0]
 var _character_presenter: CharacterPresenter
 var _failure_coordinator: FailureCoordinator
+var _fx_profile_index := 0
+var _fx_quality := CinematicTransitionFX.Quality.DESKTOP
+var _fx_force_fallback := false
 
 
 func _ready() -> void:
@@ -62,6 +71,7 @@ func _ready() -> void:
 	add_child(_failure_coordinator)
 	_failure_coordinator.configure_services(runner, generator, coordinator)
 	_load_debug_scenario(BOULEVARD)
+	_configure_fx_preview_from_command_line()
 
 
 func _apply_selected_character(_character_id: StringName, selection_index: int) -> void:
@@ -202,3 +212,48 @@ func _on_state_pressed() -> void:
 func _on_collisions_pressed() -> void:
 	get_tree().debug_collisions_hint = not get_tree().debug_collisions_hint
 	_message = "Collision visibility: %s." % get_tree().debug_collisions_hint
+
+
+func _on_fx_profile_pressed() -> void:
+	_fx_profile_index = (_fx_profile_index + 1) % CINEMATIC_FX_PROFILES.size()
+	_preview_cinematic_fx()
+
+
+func _on_fx_quality_pressed() -> void:
+	var qualities: Array[CinematicTransitionFX.Quality] = [
+		CinematicTransitionFX.Quality.MOBILE_LOW,
+		CinematicTransitionFX.Quality.DESKTOP,
+		CinematicTransitionFX.Quality.HIGH,
+	]
+	var current_index := qualities.find(_fx_quality)
+	_fx_quality = qualities[(current_index + 1) % qualities.size()]
+	_preview_cinematic_fx()
+
+
+func _on_fx_fallback_pressed() -> void:
+	_fx_force_fallback = not _fx_force_fallback
+	_preview_cinematic_fx()
+
+
+func _preview_cinematic_fx() -> void:
+	var profile := CINEMATIC_FX_PROFILES[_fx_profile_index]
+	var started := cinematic_fx.play(profile, camera_3d, _fx_quality, _fx_force_fallback, true)
+	_message = "FX %s | quality %s | %s | samples %d | started %s." % [
+		profile.id,
+		CinematicTransitionFX.Quality.keys()[_fx_quality],
+		"FOV/overlay fallback" if _fx_force_fallback else "screen blur",
+		cinematic_fx.active_sample_count,
+		started,
+	]
+
+
+func _configure_fx_preview_from_command_line() -> void:
+	var arguments := OS.get_cmdline_user_args()
+	if not arguments.has("--preview-fx"):
+		return
+	if arguments.has("--fx-mobile"):
+		_fx_quality = CinematicTransitionFX.Quality.MOBILE_LOW
+	elif arguments.has("--fx-high"):
+		_fx_quality = CinematicTransitionFX.Quality.HIGH
+	_fx_force_fallback = arguments.has("--fx-fallback")
+	call_deferred("_preview_cinematic_fx")

@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://presentation/cinematic_fx/CinematicTransitionFX.gd" id="1_controller"]
+[ext_resource type="Shader" path="res://presentation/cinematic_fx/cinematic_zoom_blur.gdshader" id="2_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_blur"]
+shader = ExtResource("2_shader")
+
+[node name="CinematicTransitionFX" type="CanvasLayer"]
+layer = 80
+visible = false
+script = ExtResource("1_controller")
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+unique_name_in_owner = true
+copy_mode = 0
+
+[node name="BlurRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+material = SubResource("ShaderMaterial_blur")
+color = Color(1, 1, 1, 1)
+
+[node name="FadeRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)

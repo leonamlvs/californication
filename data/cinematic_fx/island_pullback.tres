@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CinematicFXProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/CinematicFXProfile.gd" id="1_profile"]
+
+[resource]
+script = ExtResource("1_profile")
+id = &"island_pullback"
+radial_blur_strength = 0.07
+radial_blur_center = Vector2(0.5, 0.46)
+desktop_sample_count = 8
+mobile_sample_count = 4
+fov_kick = 10.0
+overlay_color = Color(0.08, 0.28, 0.55, 1)
+fade_amount = 0.3
+duration = 0.8
+fallback_policy = 0
+blur_enabled = true

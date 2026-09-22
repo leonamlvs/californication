@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CinematicFXProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/CinematicFXProfile.gd" id="1_profile"]
+
+[resource]
+script = ExtResource("1_profile")
+id = &"run_intro_push"
+radial_blur_strength = 0.045
+radial_blur_center = Vector2(0.5, 0.5)
+desktop_sample_count = 6
+mobile_sample_count = 3
+fov_kick = -7.0
+overlay_color = Color(0.72, 0.2, 0.12, 1)
+fade_amount = 0.22
+duration = 0.55
+fallback_policy = 1
+blur_enabled = true

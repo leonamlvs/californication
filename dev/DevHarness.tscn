@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://dev/DevHarness.gd" id="1_harness"]
 [ext_resource type="PackedScene" path="res://gameplay/runner/Runner.tscn" id="2_runner"]
@@ -6,11 +6,13 @@
 [ext_resource type="PackedScene" path="res://gameplay/transitions/TransitionCoordinator.tscn" id="4_coordinator"]
 [ext_resource type="PackedScene" path="res://ui/hud/HUD.tscn" id="5_hud"]
 [ext_resource type="Script" path="res://ui/hud/GestureBlockingButton.gd" id="6_button"]
+[ext_resource type="PackedScene" path="res://presentation/cinematic_fx/CinematicTransitionFX.tscn" id="7_fx"]
 
 [node name="DevHarness" type="Node3D"]
 script = ExtResource("1_harness")
 
 [node name="Camera3D" type="Camera3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 3.2, 8)
 current = true
 
@@ -28,6 +30,9 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="TransitionCoordinator" parent="." instance=ExtResource("4_coordinator")]
+unique_name_in_owner = true
+
+[node name="CinematicTransitionFX" parent="." instance=ExtResource("7_fx")]
 unique_name_in_owner = true
 
 [node name="Interface" type="CanvasLayer" parent="."]
@@ -152,6 +157,35 @@ layout_mode = 2
 text = "TOGGLE COLLISIONS"
 script = ExtResource("6_button")
 
+[node name="FXPanel" type="PanelContainer" parent="Interface"]
+offset_left = 600.0
+offset_top = 120.0
+offset_right = 944.0
+offset_bottom = 268.0
+
+[node name="Rows" type="VBoxContainer" parent="Interface/FXPanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Heading" type="Label" parent="Interface/FXPanel/Rows"]
+layout_mode = 2
+text = "TASK 22 CINEMATIC FX"
+
+[node name="Profile" type="Button" parent="Interface/FXPanel/Rows"]
+layout_mode = 2
+text = "CYCLE PROFILE + PREVIEW"
+script = ExtResource("6_button")
+
+[node name="Quality" type="Button" parent="Interface/FXPanel/Rows"]
+layout_mode = 2
+text = "CYCLE QUALITY + PREVIEW"
+script = ExtResource("6_button")
+
+[node name="Fallback" type="Button" parent="Interface/FXPanel/Rows"]
+layout_mode = 2
+text = "TOGGLE FALLBACK + PREVIEW"
+script = ExtResource("6_button")
+
 [connection signal="pressed" from="Interface/Panel/Rows/Speed" to="." method="_on_speed_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Obstacle" to="." method="_on_obstacle_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Layout" to="." method="_on_layout_pressed"]
@@ -173,3 +207,6 @@ script = ExtResource("6_button")
 [connection signal="pressed" from="Interface/Panel/Rows/Grass" to="." method="_on_grass_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/State" to="." method="_on_state_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Collisions" to="." method="_on_collisions_pressed"]
+[connection signal="pressed" from="Interface/FXPanel/Rows/Profile" to="." method="_on_fx_profile_pressed"]
+[connection signal="pressed" from="Interface/FXPanel/Rows/Quality" to="." method="_on_fx_quality_pressed"]
+[connection signal="pressed" from="Interface/FXPanel/Rows/Fallback" to="." method="_on_fx_fallback_pressed"]
