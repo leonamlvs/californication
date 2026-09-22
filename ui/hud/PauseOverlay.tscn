@@ -23,75 +23,159 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.01, 0.02, 0.04, 0.78)
+color = Color(0.01, 0.02, 0.04, 0.84)
 
-[node name="Content" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = -88.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="Summary" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+offset_left = 728.0
+offset_top = 12.0
+offset_right = 948.0
+offset_bottom = 116.0
+theme_override_constants/separation = 4
 
-[node name="Rows" type="VBoxContainer" parent="Content"]
+[node name="PauseScoreLabel" type="Label" parent="Summary"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 56)
 layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 2
+vertical_alignment = 1
+text = "SCORE 000000"
 
-[node name="Portraits" type="VBoxContainer" parent="Content/Rows"]
+[node name="PauseTimeLabel" type="Label" parent="Summary"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 2
+horizontal_alignment = 2
+vertical_alignment = 1
+text = "TIME 00:00:00"
+
+[node name="Portraits" type="GridContainer" parent="."]
+unique_name_in_owner = true
+offset_left = 892.0
+offset_top = 124.0
+offset_right = 948.0
+offset_bottom = 366.0
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 1
+
+[node name="Portrait01" type="Button" parent="Portraits"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+focus_mode = 0
+expand_icon = true
+icon_max_width = 48
+script = ExtResource("2_button")
+
+[node name="Portrait02" type="Button" parent="Portraits"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+focus_mode = 0
+expand_icon = true
+icon_max_width = 48
+script = ExtResource("2_button")
+
+[node name="Portrait03" type="Button" parent="Portraits"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+focus_mode = 0
+expand_icon = true
+icon_max_width = 48
+script = ExtResource("2_button")
+
+[node name="Portrait04" type="Button" parent="Portraits"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+focus_mode = 0
+expand_icon = true
+icon_max_width = 48
+script = ExtResource("2_button")
+
+[node name="Actions" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+offset_left = 12.0
+offset_top = 239.0
+offset_right = 344.0
+offset_bottom = 481.0
+theme_override_constants/separation = 6
+
+[node name="SfxRow" type="HBoxContainer" parent="Actions"]
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Portrait01" type="Button" parent="Content/Rows/Portraits"]
+[node name="SfxMinus" type="Button" parent="Actions/SfxRow"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
-text = "●"
+focus_mode = 0
+text = "−"
 script = ExtResource("2_button")
 
-[node name="Portrait02" type="Button" parent="Content/Rows/Portraits"]
+[node name="SfxButton" type="Button" parent="Actions/SfxRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(56, 56)
+custom_minimum_size = Vector2(208, 56)
 layout_mode = 2
-text = "●"
-script = ExtResource("2_button")
-
-[node name="Portrait03" type="Button" parent="Content/Rows/Portraits"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(56, 56)
-layout_mode = 2
-text = "●"
-script = ExtResource("2_button")
-
-[node name="Portrait04" type="Button" parent="Content/Rows/Portraits"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(56, 56)
-layout_mode = 2
-text = "●"
-script = ExtResource("2_button")
-
-[node name="SfxButton" type="Button" parent="Content/Rows"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(220, 56)
-layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
 text = "SFX LEVEL  10"
 script = ExtResource("2_button")
 
-[node name="MusicButton" type="Button" parent="Content/Rows"]
+[node name="SfxPlus" type="Button" parent="Actions/SfxRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(220, 56)
+custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
+focus_mode = 0
+text = "+"
+script = ExtResource("2_button")
+
+[node name="MusicRow" type="HBoxContainer" parent="Actions"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="MusicMinus" type="Button" parent="Actions/MusicRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+focus_mode = 0
+text = "−"
+script = ExtResource("2_button")
+
+[node name="MusicButton" type="Button" parent="Actions/MusicRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(208, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
 text = "MUSIC LEVEL  10"
 script = ExtResource("2_button")
 
-[node name="BackButton" type="Button" parent="Content/Rows"]
+[node name="MusicPlus" type="Button" parent="Actions/MusicRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+focus_mode = 0
+text = "+"
+script = ExtResource("2_button")
+
+[node name="BackButton" type="Button" parent="Actions"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(220, 56)
 layout_mode = 2
+focus_mode = 0
 text = "BACK"
+script = ExtResource("2_button")
+
+[node name="ExitButton" type="Button" parent="Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 56)
+layout_mode = 2
+focus_mode = 0
+text = "EXIT RUN"
 script = ExtResource("2_button")

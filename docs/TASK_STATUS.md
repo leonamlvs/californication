@@ -22,7 +22,7 @@ Update only after acceptance criteria are verified.
 - [x] 17 — Earthquake
 - [x] 18 — Scenario Runtime Hardening
 - [x] 19 — Character Data and Presentation
-- [ ] 20 — Pause and Settings
+- [x] 20 — Pause and Settings
 - [ ] 21 — Failure and Game Over
 - [ ] 22 — CinematicTransitionFX
 - [ ] 23 — Loading, Island Intro, and Island Attract
@@ -38,5 +38,5 @@ Update only after acceptance criteria are verified.
 - Main-scene smoke launch exits successfully but reports redundant layout writes: `PresentationRoot` assigns a stretched `SubViewport` size and directly sizes an opposite-anchored control. These are warnings rather than launch blockers, but should be removed during the next relevant UI pass.
 - The documented shared CLI runner for Tasks 00–05 currently fails to compile when invoked with `--script`; repair that validation path before relying on it for a fresh acceptance audit.
 - Task 19 was completed after this audit with four validated definitions, distinct matched primitive presentation scenes, pause portraits, pause-safe cosmetic replacement, and `Task19Test` acceptance coverage.
-- Task 20 has a pause overlay and an isolated controller test, but runtime `InputRouter` intents are not connected to `PauseController`; resuming a pause entered from `TRANSITION_READY` also returns to `RUNNING` and loses readiness. Responsive rendered checks and working audio-bus application are still unverified.
+- Task 20 was completed after this audit with runtime intent routing, exact-state resume, live Music/SFX mixer buses, face-only Task 19 portraits, direct touch adjustment, separate resume/exit actions, responsive rendered checks, and expanded `Task20Test` acceptance coverage.
 - Task 21 has failure coordination, retry reset logic, a Game Over overlay, and a passing isolated test. It remains incomplete because `failure_started` has no presentation consumer, so the required floor-fall and launch-toward-screen families are not rendered, and manual integration/layout evidence is still missing.

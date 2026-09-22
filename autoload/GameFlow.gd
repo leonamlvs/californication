@@ -45,7 +45,7 @@ const ALLOWED_TRANSITIONS: Dictionary[StringName, Array] = {
 	TOKEN_COLLECTED: [SCENARIO_TRANSITION],
 	SCENARIO_TRANSITION: [NEXT_SCENARIO],
 	NEXT_SCENARIO: [RUNNING],
-	PAUSED: [RUNNING, ISLAND_ATTRACT],
+	PAUSED: [RUNNING, TRANSITION_READY, ISLAND_ATTRACT],
 	FAILURE_TRANSITION: [LAVA_GAME_OVER],
 	LAVA_GAME_OVER: [TRY_AGAIN],
 	TRY_AGAIN: [RUN_INTRO, ISLAND_ATTRACT],
@@ -59,6 +59,7 @@ var prepared_run_target: StringName = &""
 var gameplay_input_enabled := false
 var run_timer_enabled := false
 var _entry_input_locked := false
+var _paused_from_state: StringName = RUNNING
 
 
 func _ready() -> void:
@@ -196,13 +197,17 @@ func report_run_intro_ready(camera_settled: bool, gameplay_ready: bool) -> bool:
 func pause_run() -> bool:
 	if current_state != RUNNING and current_state != TRANSITION_READY:
 		return false
+	_paused_from_state = current_state
 	return request_transition(PAUSED)
 
 
 func resume_run() -> bool:
 	if current_state != PAUSED:
 		return false
-	return request_transition(RUNNING)
+	var resume_target := _paused_from_state
+	if resume_target != RUNNING and resume_target != TRANSITION_READY:
+		resume_target = RUNNING
+	return request_transition(resume_target)
 
 
 func fail_run() -> bool:
@@ -259,6 +264,7 @@ func choose_game_over(yes: bool) -> bool:
 func exit_run() -> bool:
 	if current_state != PAUSED:
 		return false
+	_paused_from_state = RUNNING
 	return request_transition(ISLAND_ATTRACT)
 
 

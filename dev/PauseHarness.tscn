@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://dev/PauseHarness.gd" id="1_harness"]
+[ext_resource type="PackedScene" path="res://ui/hud/HUD.tscn" id="2_hud"]
+
+[node name="PauseHarness" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_harness")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.015, 0.025, 0.05, 1)
+
+[node name="PreviewFrame" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+clip_contents = true
+
+[node name="FrozenGame" type="ColorRect" parent="PreviewFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.08, 0.18, 0.26, 1)
+
+[node name="HUD" parent="PreviewFrame" instance=ExtResource("2_hud")]
+unique_name_in_owner = true

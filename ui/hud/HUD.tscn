@@ -29,6 +29,7 @@ mouse_filter = 2
 script = ExtResource("1_hud")
 
 [node name="TopLeft" type="MarginContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 0
 offset_left = 16.0
@@ -102,6 +103,7 @@ vertical_alignment = 1
 text = "SCENARIO\nPLACEHOLDER"
 
 [node name="TopRight" type="MarginContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0

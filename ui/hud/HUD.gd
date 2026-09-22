@@ -17,6 +17,8 @@ var active_profile: Profile = Profile.FULL
 @onready var band_panel: Control = %BandPanel
 @onready var coordinate_panel: Control = %CoordinatePanel
 @onready var scenario_panel: Control = %ScenarioPanel
+@onready var top_left: Control = %TopLeft
+@onready var top_right: Control = %TopRight
 @onready var pause_button: Button = %PauseButton
 @onready var pause_overlay: PauseController = $PauseOverlay
 @onready var score_label: Label = %ScoreLabel
@@ -28,11 +30,19 @@ var _run_stats: RunStats
 func _ready() -> void:
 	pause_button.pressed.connect(GameFlow.pause_run)
 	GameFlow.state_changed.connect(_on_game_flow_state_changed)
-	pause_overlay.visible = GameFlow.current_state == GameFlow.PAUSED
+	_set_pause_presentation(GameFlow.current_state == GameFlow.PAUSED)
 
 
 func _on_game_flow_state_changed(_previous_state: StringName, next_state: StringName) -> void:
-	pause_overlay.visible = next_state == GameFlow.PAUSED
+	_set_pause_presentation(next_state == GameFlow.PAUSED)
+
+
+func _set_pause_presentation(paused: bool) -> void:
+	pause_overlay.set_pause_active(paused)
+	# The pause overlay owns its own score/time so the frozen HUD does not double-render.
+	top_left.visible = not paused
+	top_right.visible = not paused
+	pause_button.visible = not paused
 
 
 func apply_available_size(available_size: Vector2) -> void:
@@ -42,6 +52,7 @@ func apply_available_size(available_size: Vector2) -> void:
 	coordinate_panel.visible = show_coordinates
 	scenario_panel.visible = active_profile == Profile.FULL
 	pause_button.custom_minimum_size = Vector2(56.0, 56.0)
+	pause_overlay.apply_available_size(available_size)
 	_match_panel_density()
 
 
@@ -63,6 +74,7 @@ func bind_run_stats(run_stats: RunStats) -> void:
 	if _run_stats != null and _run_stats.metrics_changed.is_connected(_on_metrics_changed):
 		_run_stats.metrics_changed.disconnect(_on_metrics_changed)
 	_run_stats = run_stats
+	pause_overlay.bind_run_stats(_run_stats)
 	if _run_stats == null:
 		return
 	_run_stats.metrics_changed.connect(_on_metrics_changed)
