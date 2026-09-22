@@ -6,7 +6,7 @@ Update only after acceptance criteria are verified.
 - [x] 01 — Input Abstraction
 - [x] 02 — Responsive UI Foundation
 - [x] 03 — Expanded GameFlow State Foundation
-- [ ] 04 — RUN Movement
+- [x] 04 — RUN Movement
 - [ ] 05 — Seven Obstacle Primitives
 - [ ] 06 — Segment and Pattern Generator
 - [ ] 07 — Collectibles and Score

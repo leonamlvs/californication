@@ -5,6 +5,7 @@ const INPUT_ROUTER_SCRIPT := preload("res://autoload/InputRouter.gd")
 const PRESENTATION_ROOT_SCENE := preload("res://presentation/PresentationRoot.tscn")
 const GAME_FLOW_SCRIPT := preload("res://autoload/GameFlow.gd")
 const GAME_FLOW_PLACEHOLDER_SCENE := preload("res://ui/menus/GameFlowPlaceholder.tscn")
+const RUNNER_SCENE := preload("res://gameplay/runner/Runner.tscn")
 
 var _failed := false
 
@@ -15,6 +16,7 @@ func _initialize() -> void:
 		"task_01": _run_task_01()
 		"task_02": _run_task_02()
 		"task_03": _run_task_03()
+		"task_04": _run_task_04()
 		_: _run_task_00()
 
 
@@ -203,6 +205,66 @@ func _run_task_03() -> void:
 	_assert(GameFlow.current_state == GameFlow.LOGO_REVEAL, "Ordinary Island Attract touch did not advance once through the state-owned surface.")
 	touch_placeholder.queue_free()
 	_finish("Task 03 GameFlow state test passed.")
+
+
+func _run_task_04() -> void:
+	var runner := _new_runner()
+	_assert(runner.movement_profile.is_valid_profile(), "RUN movement profile is invalid.")
+	_assert(runner.current_lane_index == 1 and is_zero_approx(runner.position.x), "Runner did not reset to the center lane.")
+
+	_assert(runner.request_left(), "Center lane did not accept left request.")
+	runner.step_simulation(0.09)
+	_assert(runner.position.x < 0.0 and runner.position.x > -runner.movement_profile.lane_spacing, "Lane change was not interpolated deterministically.")
+	_assert(runner.request_right(), "Opposing lane request was not accepted from an in-flight lane change.")
+	runner.step_simulation(0.18)
+	_assert(runner.current_lane_index == 1 and is_zero_approx(runner.position.x), "Opposing lane request stranded the runner between lanes.")
+
+	_assert(runner.request_right(), "Right lane request was not accepted.")
+	assert_runner_after_step(runner, 0.18)
+	_assert(runner.current_lane_index == 2 and is_equal_approx(runner.position.x, runner.movement_profile.lane_spacing), "Right lane did not settle at the valid bound.")
+	_assert(not runner.request_right(), "Runner accepted an invalid lane beyond the right bound.")
+	assert_runner_after_step(runner, 0.18)
+	_assert(runner.current_lane_index == 2, "Repeated bound input changed the valid lane.")
+
+	runner.reset_for_run()
+	_assert(runner.request_up(), "Runner did not accept jump request.")
+	assert_runner_after_step(runner, runner.movement_profile.jump_duration * 0.5)
+	_assert(runner.is_jumping and is_equal_approx(runner.position.y, runner.movement_profile.jump_height), "Jump arc did not reach configured height.")
+	_assert(not runner.request_down(), "Slide interrupted an active jump.")
+	assert_runner_after_step(runner, runner.movement_profile.jump_duration)
+	_assert(not runner.is_jumping and is_zero_approx(runner.position.y), "Jump did not reset to ground state.")
+
+	_assert(runner.request_down(), "Runner did not accept slide request.")
+	var capsule := runner.collision_shape.shape as CapsuleShape3D
+	_assert(runner.is_sliding and is_equal_approx(capsule.height, runner.movement_profile.sliding_height), "Slide did not apply reduced collider height.")
+	_assert(not runner.request_up(), "Jump interrupted an active slide.")
+	assert_runner_after_step(runner, runner.movement_profile.slide_duration)
+	_assert(not runner.is_sliding and is_equal_approx(capsule.height, runner.movement_profile.standing_height), "Slide did not restore standing collider state.")
+
+	var sixty_fps_runner := _new_runner()
+	var thirty_fps_runner := _new_runner()
+	for _frame in 60:
+		sixty_fps_runner.step_simulation(1.0 / 60.0)
+	for _frame in 30:
+		thirty_fps_runner.step_simulation(1.0 / 30.0)
+	_assert(is_equal_approx(sixty_fps_runner.logical_forward_distance, thirty_fps_runner.logical_forward_distance), "Forward distance varied across deterministic frame steps.")
+	_assert(is_equal_approx(sixty_fps_runner.logical_forward_distance, sixty_fps_runner.movement_profile.base_speed), "Forward distance did not advance from configured speed.")
+
+	runner.queue_free()
+	sixty_fps_runner.queue_free()
+	thirty_fps_runner.queue_free()
+	_finish("Task 04 RUN movement test passed.")
+
+
+func _new_runner() -> RunnerController:
+	var runner := RUNNER_SCENE.instantiate() as RunnerController
+	root.add_child(runner)
+	runner.reset_for_run()
+	return runner
+
+
+func assert_runner_after_step(runner: RunnerController, delta: float) -> void:
+	runner.step_simulation(delta)
 
 
 func _new_game_flow() -> Node:

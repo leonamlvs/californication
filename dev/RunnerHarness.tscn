@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://dev/RunnerHarness.gd" id="1_harness"]
+[ext_resource type="PackedScene" path="res://gameplay/runner/Runner.tscn" id="2_runner"]
+[ext_resource type="Script" path="res://ui/hud/GestureBlockingButton.gd" id="3_button"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ground"]
+size = Vector3(7, 0.1, 16)
+
+[sub_resource type="StandardMaterial3D" id="Material_ground"]
+albedo_color = Color(0.08, 0.14, 0.18, 1)
+
+[node name="RunnerHarness" type="Node3D"]
+script = ExtResource("1_harness")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 3.5, 10)
+current = true
+
+[node name="KeyLight" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-35, -25, 0)
+light_energy = 1.4
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.05, -3)
+mesh = SubResource("BoxMesh_ground")
+material_override = SubResource("Material_ground")
+
+[node name="Runner" parent="." instance=ExtResource("2_runner")]
+unique_name_in_owner = true
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="PanelContainer" parent="Interface"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 300.0
+offset_bottom = 274.0
+
+[node name="Margin" type="MarginContainer" parent="Interface/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Rows" type="VBoxContainer" parent="Interface/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StatusLabel" type="Label" parent="Interface/Panel/Margin/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Runner loading..."
+
+[node name="LateralRow" type="HBoxContainer" parent="Interface/Panel/Margin/Rows"]
+layout_mode = 2
+
+[node name="Left" type="Button" parent="Interface/Panel/Margin/Rows/LateralRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "LEFT"
+script = ExtResource("3_button")
+
+[node name="Right" type="Button" parent="Interface/Panel/Margin/Rows/LateralRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "RIGHT"
+script = ExtResource("3_button")
+
+[node name="Jump" type="Button" parent="Interface/Panel/Margin/Rows"]
+layout_mode = 2
+text = "JUMP"
+script = ExtResource("3_button")
+
+[node name="Slide" type="Button" parent="Interface/Panel/Margin/Rows"]
+layout_mode = 2
+text = "SLIDE"
+script = ExtResource("3_button")
+
+[node name="Reset" type="Button" parent="Interface/Panel/Margin/Rows"]
+layout_mode = 2
+text = "RESET RUN"
+script = ExtResource("3_button")
+
+[connection signal="pressed" from="Interface/Panel/Margin/Rows/LateralRow/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="Interface/Panel/Margin/Rows/LateralRow/Right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="Interface/Panel/Margin/Rows/Jump" to="." method="_on_jump_pressed"]
+[connection signal="pressed" from="Interface/Panel/Margin/Rows/Slide" to="." method="_on_slide_pressed"]
+[connection signal="pressed" from="Interface/Panel/Margin/Rows/Reset" to="." method="_on_reset_pressed"]

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MovementProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/MovementProfile.gd" id="1_profile"]
+
+[resource]
+script = ExtResource("1_profile")
+movement_mode = &"RUN"
+lane_count = 3
+lane_spacing = 1.6
+base_speed = 10.0
+max_speed = 16.0
+lane_change_duration = 0.18
+jump_height = 1.4
+jump_duration = 0.72
+slide_duration = 0.65
+capsule_radius = 0.38
+standing_height = 1.7
+sliding_height = 0.9
