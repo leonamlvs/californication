@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleBase.tscn" id="1_base"]
+[ext_resource type="Resource" path="res://data/obstacles/gate.tres" id="2_definition"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_visual"]
+size = Vector3(1.2, 1.8, 0.8)
+
+[sub_resource type="StandardMaterial3D" id="Material_visual"]
+albedo_color = Color(0.2, 0.78, 0.43, 1)
+
+[node name="ObstacleGate" instance=ExtResource("1_base")]
+definition = ExtResource("2_definition")
+
+[node name="LeftBlocker" type="MeshInstance3D" parent="VisualRoot"]
+position = Vector3(-1.6, 0.9, 0)
+mesh = SubResource("BoxMesh_visual")
+material_override = SubResource("Material_visual")
+[node name="RightBlocker" type="MeshInstance3D" parent="VisualRoot"]
+position = Vector3(1.6, 0.9, 0)
+mesh = SubResource("BoxMesh_visual")
+material_override = SubResource("Material_visual")

@@ -1,0 +1,76 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://dev/TrackSoakHarness.gd" id="1_harness"]
+[ext_resource type="PackedScene" path="res://gameplay/runner/Runner.tscn" id="2_runner"]
+[ext_resource type="PackedScene" path="res://gameplay/track/TrackGenerator.tscn" id="3_generator"]
+[ext_resource type="Script" path="res://ui/hud/GestureBlockingButton.gd" id="4_button"]
+
+[node name="TrackSoakHarness" type="Node3D"]
+script = ExtResource("1_harness")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 3.2, 8)
+current = true
+
+[node name="KeyLight" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-40, -25, 0)
+light_energy = 1.4
+
+[node name="Runner" parent="." instance=ExtResource("2_runner")]
+unique_name_in_owner = true
+
+[node name="TrackGenerator" parent="." instance=ExtResource("3_generator")]
+unique_name_in_owner = true
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="PanelContainer" parent="Interface"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 360.0
+offset_bottom = 330.0
+
+[node name="Rows" type="VBoxContainer" parent="Interface/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="StatusLabel" type="Label" parent="Interface/Panel/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Left" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "LEFT"
+script = ExtResource("4_button")
+
+[node name="Right" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "RIGHT"
+script = ExtResource("4_button")
+
+[node name="Jump" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "JUMP"
+script = ExtResource("4_button")
+
+[node name="Slide" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "SLIDE"
+script = ExtResource("4_button")
+
+[node name="Reset" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "RESET SEED"
+script = ExtResource("4_button")
+
+[node name="Soak" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "SIMULATE 10 MINUTES"
+script = ExtResource("4_button")
+
+[connection signal="pressed" from="Interface/Panel/Rows/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Jump" to="." method="_on_jump_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Slide" to="." method="_on_slide_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Soak" to="." method="_on_soak_pressed"]

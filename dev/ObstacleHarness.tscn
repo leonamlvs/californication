@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://dev/ObstacleHarness.gd" id="1_harness"]
+[ext_resource type="PackedScene" path="res://gameplay/runner/Runner.tscn" id="2_runner"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleBlock.tscn" id="3_block"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleHurdle.tscn" id="4_hurdle"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleOverhead.tscn" id="5_overhead"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleCrosser.tscn" id="6_crosser"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleSweeper.tscn" id="7_sweeper"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleGap.tscn" id="8_gap"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleGate.tscn" id="9_gate"]
+[ext_resource type="Script" path="res://ui/hud/GestureBlockingButton.gd" id="10_button"]
+
+[sub_resource type="BoxMesh" id="GroundMesh"]
+size = Vector3(7, 0.1, 60)
+[sub_resource type="StandardMaterial3D" id="GroundMaterial"]
+albedo_color = Color(0.07, 0.12, 0.16, 1)
+
+[node name="ObstacleHarness" type="Node3D"]
+script = ExtResource("1_harness")
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 4, 10)
+current = true
+[node name="KeyLight" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-35, -25, 0)
+light_energy = 1.4
+[node name="Ground" type="MeshInstance3D" parent="."]
+position = Vector3(0, -0.05, -22)
+mesh = SubResource("GroundMesh")
+material_override = SubResource("GroundMaterial")
+[node name="Runner" parent="." instance=ExtResource("2_runner")]
+unique_name_in_owner = true
+[node name="ObstacleRoot" type="Node3D" parent="."]
+unique_name_in_owner = true
+[node name="Block" parent="ObstacleRoot" instance=ExtResource("3_block")]
+forward_distance = 8.0
+[node name="Hurdle" parent="ObstacleRoot" instance=ExtResource("4_hurdle")]
+forward_distance = 13.0
+[node name="Overhead" parent="ObstacleRoot" instance=ExtResource("5_overhead")]
+forward_distance = 18.0
+[node name="Crosser" parent="ObstacleRoot" instance=ExtResource("6_crosser")]
+forward_distance = 23.0
+[node name="Sweeper" parent="ObstacleRoot" instance=ExtResource("7_sweeper")]
+forward_distance = 28.0
+[node name="Gap" parent="ObstacleRoot" instance=ExtResource("8_gap")]
+forward_distance = 33.0
+[node name="Gate" parent="ObstacleRoot" instance=ExtResource("9_gate")]
+forward_distance = 38.0
+[node name="Interface" type="CanvasLayer" parent="."]
+[node name="Panel" type="PanelContainer" parent="Interface"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 320.0
+offset_bottom = 275.0
+[node name="Rows" type="VBoxContainer" parent="Interface/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+[node name="StatusLabel" type="Label" parent="Interface/Panel/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+[node name="Left" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "LEFT"
+script = ExtResource("10_button")
+[node name="Right" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "RIGHT"
+script = ExtResource("10_button")
+[node name="Jump" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "JUMP"
+script = ExtResource("10_button")
+[node name="Slide" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "SLIDE"
+script = ExtResource("10_button")
+[node name="Reset" type="Button" parent="Interface/Panel/Rows"]
+layout_mode = 2
+text = "RESET"
+script = ExtResource("10_button")
+[connection signal="pressed" from="Interface/Panel/Rows/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Jump" to="." method="_on_jump_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Slide" to="." method="_on_slide_pressed"]
+[connection signal="pressed" from="Interface/Panel/Rows/Reset" to="." method="_on_reset_pressed"]

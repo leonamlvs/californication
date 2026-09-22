@@ -7,8 +7,8 @@ Update only after acceptance criteria are verified.
 - [x] 02 — Responsive UI Foundation
 - [x] 03 — Expanded GameFlow State Foundation
 - [x] 04 — RUN Movement
-- [ ] 05 — Seven Obstacle Primitives
-- [ ] 06 — Segment and Pattern Generator
+- [x] 05 — Seven Obstacle Primitives
+- [x] 06 — Segment and Pattern Generator
 - [ ] 07 — Collectibles and Score
 - [ ] 08 — Scenario Transition Framework + DevHarness Base
 - [ ] 09 — Boulevard

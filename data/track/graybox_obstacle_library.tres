@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ObstacleSceneLibrary" load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/ObstacleSceneLibrary.gd" id="1_library"]
+[ext_resource type="Resource" path="res://data/obstacles/block.tres" id="2_block_def"]
+[ext_resource type="Resource" path="res://data/obstacles/hurdle.tres" id="3_hurdle_def"]
+[ext_resource type="Resource" path="res://data/obstacles/overhead.tres" id="4_overhead_def"]
+[ext_resource type="Resource" path="res://data/obstacles/crosser.tres" id="5_crosser_def"]
+[ext_resource type="Resource" path="res://data/obstacles/sweeper.tres" id="6_sweeper_def"]
+[ext_resource type="Resource" path="res://data/obstacles/gap.tres" id="7_gap_def"]
+[ext_resource type="Resource" path="res://data/obstacles/gate.tres" id="8_gate_def"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleBlock.tscn" id="9_block_scene"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleHurdle.tscn" id="10_hurdle_scene"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleOverhead.tscn" id="11_overhead_scene"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleCrosser.tscn" id="12_crosser_scene"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleSweeper.tscn" id="13_sweeper_scene"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleGap.tscn" id="14_gap_scene"]
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleGate.tscn" id="15_gate_scene"]
+
+[resource]
+script = ExtResource("1_library")
+definitions = Array[ObstacleDefinition]([ExtResource("2_block_def"), ExtResource("3_hurdle_def"), ExtResource("4_overhead_def"), ExtResource("5_crosser_def"), ExtResource("6_sweeper_def"), ExtResource("7_gap_def"), ExtResource("8_gate_def")])
+scenes = Array[PackedScene]([ExtResource("9_block_scene"), ExtResource("10_hurdle_scene"), ExtResource("11_overhead_scene"), ExtResource("12_crosser_scene"), ExtResource("13_sweeper_scene"), ExtResource("14_gap_scene"), ExtResource("15_gate_scene")])

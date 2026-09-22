@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleBase.tscn" id="1_base"]
+[ext_resource type="Resource" path="res://data/obstacles/hurdle.tres" id="2_definition"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_visual"]
+size = Vector3(1.35, 0.55, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="Material_visual"]
+albedo_color = Color(0.95, 0.69, 0.16, 1)
+
+[node name="ObstacleHurdle" instance=ExtResource("1_base")]
+definition = ExtResource("2_definition")
+
+[node name="LowBarrier" type="MeshInstance3D" parent="VisualRoot"]
+position = Vector3(0, 0.275, 0)
+mesh = SubResource("BoxMesh_visual")
+material_override = SubResource("Material_visual")

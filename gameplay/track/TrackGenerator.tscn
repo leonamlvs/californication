@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://gameplay/track/TrackGenerator.gd" id="1_generator"]
+[ext_resource type="Script" path="res://gameplay/track/TrackPool.gd" id="2_pool"]
+[ext_resource type="Resource" path="res://data/track/run_capabilities.tres" id="3_capabilities"]
+[ext_resource type="Resource" path="res://data/track/graybox_obstacle_library.tres" id="4_obstacles"]
+[ext_resource type="Resource" path="res://data/patterns/safe_recovery.tres" id="5_fallback"]
+[ext_resource type="Resource" path="res://data/segments/graybox_straight.tres" id="6_segment"]
+
+[node name="TrackGenerator" type="Node3D"]
+script = ExtResource("1_generator")
+segment_definitions = Array[SegmentDefinition]([ExtResource("6_segment")])
+capability_profile = ExtResource("3_capabilities")
+obstacle_library = ExtResource("4_obstacles")
+fallback_pattern = ExtResource("5_fallback")
+
+[node name="Segments" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Obstacles" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Pooled" type="Node3D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="TrackPool" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_pool")

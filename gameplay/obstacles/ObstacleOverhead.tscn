@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://gameplay/obstacles/ObstacleBase.tscn" id="1_base"]
+[ext_resource type="Resource" path="res://data/obstacles/overhead.tres" id="2_definition"]
+
+[sub_resource type="BoxMesh" id="BeamMesh"]
+size = Vector3(1.45, 0.35, 0.4)
+[sub_resource type="BoxMesh" id="PostMesh"]
+size = Vector3(0.18, 1.7, 0.4)
+[sub_resource type="StandardMaterial3D" id="Material_visual"]
+albedo_color = Color(0.25, 0.5, 0.94, 1)
+
+[node name="ObstacleOverhead" instance=ExtResource("1_base")]
+definition = ExtResource("2_definition")
+
+[node name="Beam" type="MeshInstance3D" parent="VisualRoot"]
+position = Vector3(0, 1.45, 0)
+mesh = SubResource("BeamMesh")
+material_override = SubResource("Material_visual")
+[node name="LeftPost" type="MeshInstance3D" parent="VisualRoot"]
+position = Vector3(-0.635, 0.85, 0)
+mesh = SubResource("PostMesh")
+material_override = SubResource("Material_visual")
+[node name="RightPost" type="MeshInstance3D" parent="VisualRoot"]
+position = Vector3(0.635, 0.85, 0)
+mesh = SubResource("PostMesh")
+material_override = SubResource("Material_visual")

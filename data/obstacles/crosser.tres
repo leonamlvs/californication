@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ObstacleDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/ObstacleDefinition.gd" id="1_definition"]
+
+[resource]
+script = ExtResource("1_definition")
+id = &"crosser"
+obstacle_class = 3
+allowed_movement_modes = Array[StringName]([&"RUN"])
+occupied_lanes = PackedInt32Array(0, 1, 2)
+motion_pattern = 1
+motion_period = 0.9
+motion_start_lane = 0
+motion_end_lane = 2
+collision_size = Vector3(0.8, 1.25, 0.8)

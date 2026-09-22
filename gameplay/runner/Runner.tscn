@@ -4,6 +4,7 @@
 [ext_resource type="Resource" path="res://data/movement_profiles/run_default.tres" id="2_profile"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape_runner"]
+resource_local_to_scene = true
 radius = 0.38
 height = 1.7
 

@@ -4,6 +4,8 @@ extends CharacterBody3D
 signal lane_changed(lane_index: int)
 signal vertical_state_changed(is_jumping: bool, is_sliding: bool)
 signal movement_mode_changed(mode: StringName)
+signal obstacle_hit_received(event: ObstacleHitEvent)
+signal obstacle_failure_requested(event: ObstacleHitEvent)
 
 const MODE_RUN: StringName = &"RUN"
 
@@ -20,6 +22,7 @@ var target_lane_index := 1
 var is_jumping := false
 var is_sliding := false
 var is_invulnerable := false
+var current_movement_mode: StringName = &""
 
 var _active_mode: MovementMode
 var _lane_from_x := 0.0
@@ -70,6 +73,7 @@ func set_movement_mode(mode: StringName) -> bool:
 		_active_mode.exit(self)
 	_active_mode = RunMovementMode.new()
 	_active_mode.enter(self, movement_profile)
+	current_movement_mode = mode
 	movement_mode_changed.emit(mode)
 	return true
 
@@ -95,6 +99,20 @@ func reset_for_run() -> void:
 
 func set_invulnerable(enabled: bool) -> void:
 	is_invulnerable = enabled
+
+
+## Obstacles report typed data events here; GameFlow remains the only global
+## state authority. A non-invulnerable hit always emits a failure request,
+## even when a standalone harness has no active RUNNING state.
+func request_obstacle_hit(event: ObstacleHitEvent) -> bool:
+	if event == null:
+		return false
+	obstacle_hit_received.emit(event)
+	if is_invulnerable:
+		event.was_suppressed = true
+		return false
+	obstacle_failure_requested.emit(event)
+	return GameFlow.fail_run()
 
 
 ## Deterministic stepping path for CLI tests and the development runner harness.

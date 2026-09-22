@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MovementCapabilityProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/MovementCapabilityProfile.gd" id="1_capabilities"]
+
+[resource]
+script = ExtResource("1_capabilities")
+movement_mode = &"RUN"
+lane_count = 3
+supported_postures = 7
+supports_lane_change = true
+supports_jump = true
+supports_low = true
+action_response_time = 0.05
+lane_change_duration = 0.18
+jump_duration = 0.72
+low_duration = 0.65

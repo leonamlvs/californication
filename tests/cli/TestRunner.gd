@@ -6,6 +6,15 @@ const PRESENTATION_ROOT_SCENE := preload("res://presentation/PresentationRoot.ts
 const GAME_FLOW_SCRIPT := preload("res://autoload/GameFlow.gd")
 const GAME_FLOW_PLACEHOLDER_SCENE := preload("res://ui/menus/GameFlowPlaceholder.tscn")
 const RUNNER_SCENE := preload("res://gameplay/runner/Runner.tscn")
+const OBSTACLE_SCENES: Array[PackedScene] = [
+	preload("res://gameplay/obstacles/ObstacleBlock.tscn"),
+	preload("res://gameplay/obstacles/ObstacleHurdle.tscn"),
+	preload("res://gameplay/obstacles/ObstacleOverhead.tscn"),
+	preload("res://gameplay/obstacles/ObstacleCrosser.tscn"),
+	preload("res://gameplay/obstacles/ObstacleSweeper.tscn"),
+	preload("res://gameplay/obstacles/ObstacleGap.tscn"),
+	preload("res://gameplay/obstacles/ObstacleGate.tscn"),
+]
 
 var _failed := false
 
@@ -17,6 +26,7 @@ func _initialize() -> void:
 		"task_02": _run_task_02()
 		"task_03": _run_task_03()
 		"task_04": _run_task_04()
+		"task_05": _run_task_05()
 		_: _run_task_00()
 
 
@@ -254,6 +264,88 @@ func _run_task_04() -> void:
 	sixty_fps_runner.queue_free()
 	thirty_fps_runner.queue_free()
 	_finish("Task 04 RUN movement test passed.")
+
+
+func _run_task_05() -> void:
+	for scene: PackedScene in OBSTACLE_SCENES:
+		var obstacle := scene.instantiate() as ObstacleBase
+		root.add_child(obstacle)
+		_assert(obstacle.definition != null and obstacle.definition.is_valid_definition(), "%s has an invalid obstacle definition." % scene.resource_path)
+		_assert(obstacle.collision_shape.shape is BoxShape3D, "%s does not expose a data-driven collision shape." % obstacle.definition.id)
+		_assert(obstacle.visual_root.get_child_count() > 0, "%s has no replaceable placeholder visual child." % obstacle.definition.id)
+		obstacle.queue_free()
+
+	for scene: PackedScene in OBSTACLE_SCENES:
+		var runner := _new_runner()
+		var obstacle := scene.instantiate() as ObstacleBase
+		root.add_child(obstacle)
+		obstacle.reset_for_spawn(1.0)
+		_prepare_obstacle_avoidance(runner, obstacle)
+		runner.step_simulation(0.12)
+		var avoided_event := obstacle.step_simulation(runner, 0.0)
+		_assert(avoided_event != null and avoided_event.was_avoided, "%s intended avoidance did not succeed." % obstacle.definition.id)
+		runner.queue_free()
+		obstacle.queue_free()
+
+	for scene: PackedScene in OBSTACLE_SCENES:
+		var runner := _new_runner()
+		var failure_requests := 0
+		runner.obstacle_failure_requested.connect(func(_event: ObstacleHitEvent) -> void: failure_requests += 1)
+		var obstacle := scene.instantiate() as ObstacleBase
+		root.add_child(obstacle)
+		obstacle.reset_for_spawn(1.0)
+		_prepare_obstacle_contact(runner, obstacle)
+		runner.step_simulation(0.12)
+		var hit_event := obstacle.step_simulation(runner, 0.0)
+		_assert(hit_event != null and not hit_event.was_avoided and failure_requests == 1, "%s meaningful contact did not request exactly one failure." % obstacle.definition.id)
+		runner.queue_free()
+		obstacle.queue_free()
+
+	var protected_runner := _new_runner()
+	var protected_obstacle := OBSTACLE_SCENES[0].instantiate() as ObstacleBase
+	root.add_child(protected_obstacle)
+	var protected_failures := 0
+	protected_runner.obstacle_failure_requested.connect(func(_event: ObstacleHitEvent) -> void: protected_failures += 1)
+	protected_runner.set_invulnerable(true)
+	protected_obstacle.reset_for_spawn(1.0)
+	protected_runner.step_simulation(0.12)
+	var suppressed_event := protected_obstacle.step_simulation(protected_runner, 0.0)
+	_assert(suppressed_event != null and suppressed_event.was_suppressed and protected_failures == 0, "Invulnerability did not exclusively suppress obstacle failure.")
+	protected_runner.queue_free()
+	protected_obstacle.queue_free()
+	_finish("Task 05 obstacle primitive test passed.")
+
+
+func _prepare_obstacle_avoidance(runner: RunnerController, obstacle: ObstacleBase) -> void:
+	match obstacle.definition.obstacle_class:
+		ObstacleDefinition.ObstacleClass.BLOCK:
+			runner.request_left()
+			runner.step_simulation(runner.movement_profile.lane_change_duration)
+		ObstacleDefinition.ObstacleClass.GATE:
+			# The configured center opening is the intended gate route.
+			pass
+		ObstacleDefinition.ObstacleClass.HURDLE, ObstacleDefinition.ObstacleClass.GAP:
+			runner.request_up()
+		ObstacleDefinition.ObstacleClass.OVERHEAD:
+			runner.request_down()
+		ObstacleDefinition.ObstacleClass.CROSSER, ObstacleDefinition.ObstacleClass.SWEEPER:
+			# Both motion definitions start sweeping lane 0, leaving center safe.
+			obstacle.step_simulation(runner, 0.0)
+
+
+func _prepare_obstacle_contact(runner: RunnerController, obstacle: ObstacleBase) -> void:
+	match obstacle.definition.obstacle_class:
+		ObstacleDefinition.ObstacleClass.GATE:
+			runner.request_left()
+			runner.step_simulation(runner.movement_profile.lane_change_duration)
+		ObstacleDefinition.ObstacleClass.CROSSER:
+			# Halfway through a cross the capsule occupies the center lane.
+			obstacle.step_simulation(runner, obstacle.definition.motion_period * 0.5)
+		ObstacleDefinition.ObstacleClass.SWEEPER:
+			# At its turnaround the beam occupies the right lane.
+			runner.request_right()
+			runner.step_simulation(runner.movement_profile.lane_change_duration)
+			obstacle.step_simulation(runner, obstacle.definition.motion_period * 0.5)
 
 
 func _new_runner() -> RunnerController:

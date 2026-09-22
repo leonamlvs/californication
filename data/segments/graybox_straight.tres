@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="SegmentDefinition" load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/SegmentDefinition.gd" id="1_segment"]
+[ext_resource type="PackedScene" path="res://gameplay/track/TrackSegment.tscn" id="2_scene"]
+[ext_resource type="Resource" path="res://data/patterns/safe_recovery.tres" id="3_safe"]
+[ext_resource type="Resource" path="res://data/patterns/block_center.tres" id="4_block"]
+[ext_resource type="Resource" path="res://data/patterns/hurdle_center.tres" id="5_hurdle"]
+[ext_resource type="Resource" path="res://data/patterns/overhead_center.tres" id="6_overhead"]
+[ext_resource type="Resource" path="res://data/patterns/gate_center.tres" id="7_gate"]
+[ext_resource type="Resource" path="res://data/patterns/weave.tres" id="8_weave"]
+[ext_resource type="Resource" path="res://data/patterns/crosser_timing.tres" id="9_crosser"]
+[ext_resource type="Resource" path="res://data/patterns/sweeper_timing.tres" id="10_sweeper"]
+[ext_resource type="Resource" path="res://data/patterns/gap_jump.tres" id="11_gap"]
+
+[resource]
+script = ExtResource("1_segment")
+id = &"graybox_straight"
+length = 30.0
+connection_start = Vector3(0, 0, 0)
+connection_end = Vector3(0, 0, -30)
+compatible_modes = Array[StringName]([&"RUN"])
+environment_tags = Array[StringName]([&"graybox"])
+scene = ExtResource("2_scene")
+eligible_patterns = Array[PatternDefinition]([ExtResource("3_safe"), ExtResource("4_block"), ExtResource("5_hurdle"), ExtResource("6_overhead"), ExtResource("7_gate"), ExtResource("8_weave"), ExtResource("9_crosser"), ExtResource("10_sweeper"), ExtResource("11_gap")])

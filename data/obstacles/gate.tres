@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ObstacleDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/ObstacleDefinition.gd" id="1_definition"]
+
+[resource]
+script = ExtResource("1_definition")
+id = &"gate"
+obstacle_class = 6
+allowed_movement_modes = Array[StringName]([&"RUN"])
+occupied_lanes = PackedInt32Array(0, 2)
+collision_size = Vector3(4.4, 1.8, 0.8)
