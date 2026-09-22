@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://gameplay/runner/RunnerController.gd" id="1_runner"]
 [ext_resource type="Resource" path="res://data/movement_profiles/run_default.tres" id="2_profile"]
@@ -11,6 +11,12 @@ height = 1.7
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_runner"]
 radius = 0.38
 height = 1.7
+
+[sub_resource type="BoxMesh" id="CarMesh"]
+size = Vector3(1.35, 0.55, 2.2)
+
+[sub_resource type="StandardMaterial3D" id="CarMaterial"]
+albedo_color = Color(0.78, 0.16, 0.12, 1)
 
 [node name="Runner" type="CharacterBody3D"]
 script = ExtResource("1_runner")
@@ -26,4 +32,12 @@ unique_name_in_owner = true
 position = Vector3(0, 0.85, 0)
 
 [node name="PlaceholderBody" type="MeshInstance3D" parent="CosmeticMount"]
+unique_name_in_owner = true
 mesh = SubResource("CapsuleMesh_runner")
+
+[node name="CarCosmetic" type="MeshInstance3D" parent="CosmeticMount"]
+unique_name_in_owner = true
+visible = false
+position = Vector3(0, -0.5, 0)
+mesh = SubResource("CarMesh")
+material_override = SubResource("CarMaterial")

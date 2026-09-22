@@ -6,6 +6,10 @@ const BOULEVARD := preload("res://data/scenarios/boulevard.tres")
 const SIERRA := preload("res://data/scenarios/sierra_nevada.tres")
 const BAY := preload("res://data/scenarios/san_francisco_bay.tres")
 const SEQUOIA := preload("res://data/scenarios/sequoia.tres")
+const FILMING_SETS := preload("res://data/scenarios/filming_sets.tres")
+const GOLDEN_GATE := preload("res://data/scenarios/golden_gate.tres")
+const HOLLYWOOD := preload("res://data/scenarios/hollywood.tres")
+const GRASS := preload("res://data/scenarios/grass.tres")
 const BLOCK_DEFINITION := preload("res://data/obstacles/block.tres")
 
 @onready var runner: RunnerController = %Runner
@@ -28,6 +32,10 @@ func _ready() -> void:
 	ScenarioManager.register_scenario(SIERRA)
 	ScenarioManager.register_scenario(BAY)
 	ScenarioManager.register_scenario(SEQUOIA)
+	ScenarioManager.register_scenario(FILMING_SETS)
+	ScenarioManager.register_scenario(GOLDEN_GATE)
+	ScenarioManager.register_scenario(HOLLYWOOD)
+	ScenarioManager.register_scenario(GRASS)
 	ScenarioManager.register_scenario(FIXTURE_A, true)
 	ScenarioManager.register_scenario(FIXTURE_B, true)
 	GameFlow.development_jump_to_state(GameFlow.RUNNING)
@@ -130,6 +138,17 @@ func _on_bay_pressed() -> void:
 
 func _on_sequoia_pressed() -> void:
 	_load_debug_scenario(SEQUOIA)
+
+
+func _on_filming_sets_pressed() -> void:
+	_load_debug_scenario(FILMING_SETS)
+
+func _on_golden_gate_pressed() -> void:
+	_load_debug_scenario(GOLDEN_GATE)
+func _on_hollywood_pressed() -> void:
+	_load_debug_scenario(HOLLYWOOD)
+func _on_grass_pressed() -> void:
+	_load_debug_scenario(GRASS)
 
 
 func _load_debug_scenario(definition: ScenarioDefinition) -> void:

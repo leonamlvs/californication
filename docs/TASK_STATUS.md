@@ -15,10 +15,10 @@ Update only after acceptance criteria are verified.
 - [x] 10 — Sierra Nevada
 - [x] 11 — San Francisco Bay
 - [x] 12 — Sequoia
-- [ ] 13 — Filming Sets
-- [ ] 14 — Golden Gate
-- [ ] 15 — Hollywood
-- [ ] 16 — Grass
+- [x] 13 — Filming Sets
+- [x] 14 — Golden Gate
+- [x] 15 — Hollywood
+- [x] 16 — Grass
 - [ ] 17 — Earthquake
 - [ ] 18 — Scenario Runtime Hardening
 - [ ] 19 — Character Data and Presentation

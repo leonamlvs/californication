@@ -10,6 +10,10 @@ signal obstacle_failure_requested(event: ObstacleHitEvent)
 const MODE_RUN: StringName = &"RUN"
 const MODE_SNOWBOARD: StringName = &"SNOWBOARD"
 const MODE_SWIM: StringName = &"SWIM"
+const MODE_CAR: StringName = &"CAR"
+const MODE_FLY: StringName = &"FLY"
+const CAR_MOVEMENT_MODE := preload("res://gameplay/runner/CarMovementMode.gd")
+const FLY_MOVEMENT_MODE := preload("res://gameplay/runner/FlyMovementMode.gd")
 
 enum SwimDepthPhase { NEUTRAL, OUTBOUND, HOLD, RETURN }
 
@@ -18,6 +22,8 @@ enum SwimDepthPhase { NEUTRAL, OUTBOUND, HOLD, RETURN }
 
 @onready var collision_shape: CollisionShape3D = %CollisionShape
 @onready var cosmetic_mount: Node3D = %CosmeticMount
+@onready var placeholder_body: MeshInstance3D = %PlaceholderBody
+@onready var car_cosmetic: Node3D = %CarCosmetic
 
 var logical_forward_distance := 0.0
 var current_speed := 0.0
@@ -89,10 +95,16 @@ func set_movement_mode(mode: StringName) -> bool:
 			_active_mode = SnowboardMovementMode.new()
 		MODE_SWIM:
 			_active_mode = SwimMovementMode.new()
+		MODE_CAR:
+			_active_mode = CAR_MOVEMENT_MODE.new()
+		MODE_FLY:
+			_active_mode = FLY_MOVEMENT_MODE.new()
 		_:
 			return false
 	_active_mode.enter(self, movement_profile)
 	current_movement_mode = mode
+	placeholder_body.visible = mode != MODE_CAR
+	car_cosmetic.visible = mode == MODE_CAR
 	movement_mode_changed.emit(mode)
 	return true
 
