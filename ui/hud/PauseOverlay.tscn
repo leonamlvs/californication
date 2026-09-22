@@ -1,0 +1,97 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://ui/hud/PauseController.gd" id="1_controller"]
+[ext_resource type="Script" path="res://ui/hud/GestureBlockingButton.gd" id="2_button"]
+
+[node name="PauseOverlay" type="Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("1_controller")
+
+[node name="Shade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.01, 0.02, 0.04, 0.78)
+
+[node name="Content" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -88.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Rows" type="VBoxContainer" parent="Content"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="Portraits" type="VBoxContainer" parent="Content/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Portrait01" type="Button" parent="Content/Rows/Portraits"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+text = "●"
+script = ExtResource("2_button")
+
+[node name="Portrait02" type="Button" parent="Content/Rows/Portraits"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+text = "●"
+script = ExtResource("2_button")
+
+[node name="Portrait03" type="Button" parent="Content/Rows/Portraits"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+text = "●"
+script = ExtResource("2_button")
+
+[node name="Portrait04" type="Button" parent="Content/Rows/Portraits"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+text = "●"
+script = ExtResource("2_button")
+
+[node name="SfxButton" type="Button" parent="Content/Rows"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 56)
+layout_mode = 2
+text = "SFX LEVEL  10"
+script = ExtResource("2_button")
+
+[node name="MusicButton" type="Button" parent="Content/Rows"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 56)
+layout_mode = 2
+text = "MUSIC LEVEL  10"
+script = ExtResource("2_button")
+
+[node name="BackButton" type="Button" parent="Content/Rows"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 56)
+layout_mode = 2
+text = "BACK"
+script = ExtResource("2_button")

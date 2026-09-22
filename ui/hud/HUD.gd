@@ -17,12 +17,22 @@ var active_profile: Profile = Profile.FULL
 @onready var band_panel: Control = %BandPanel
 @onready var coordinate_panel: Control = %CoordinatePanel
 @onready var scenario_panel: Control = %ScenarioPanel
-@onready var pause_button: Control = %PauseButton
+@onready var pause_button: Button = %PauseButton
+@onready var pause_overlay: PauseController = $PauseOverlay
 @onready var score_label: Label = %ScoreLabel
 @onready var timer_label: Label = %TimerLabel
 @onready var bonus_overlay: Control = %BonusOverlay
 
 var _run_stats: RunStats
+
+func _ready() -> void:
+	pause_button.pressed.connect(GameFlow.pause_run)
+	GameFlow.state_changed.connect(_on_game_flow_state_changed)
+	pause_overlay.visible = GameFlow.current_state == GameFlow.PAUSED
+
+
+func _on_game_flow_state_changed(_previous_state: StringName, next_state: StringName) -> void:
+	pause_overlay.visible = next_state == GameFlow.PAUSED
 
 
 func apply_available_size(available_size: Vector2) -> void:

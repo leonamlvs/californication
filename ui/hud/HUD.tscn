@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://ui/hud/HUD.gd" id="1_hud"]
 [ext_resource type="Script" path="res://ui/hud/GestureBlockingPanel.gd" id="2_panel"]
 [ext_resource type="Script" path="res://ui/hud/GestureBlockingButton.gd" id="3_button"]
+[ext_resource type="PackedScene" path="res://ui/hud/PauseOverlay.tscn" id="4_pause"]
+[ext_resource type="PackedScene" path="res://ui/hud/GameOverOverlay.tscn" id="5_game_over"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_panel"]
 bg_color = Color(0.035, 0.06, 0.1, 0.86)
@@ -190,3 +192,7 @@ theme_override_constants/shadow_offset_x = 4
 theme_override_constants/shadow_offset_y = 4
 theme_override_font_sizes/font_size = 56
 text = "BONUS"
+
+[node name="PauseOverlay" parent="." instance=ExtResource("4_pause")]
+
+[node name="GameOverOverlay" parent="." instance=ExtResource("5_game_over")]

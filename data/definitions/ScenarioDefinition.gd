@@ -39,6 +39,8 @@ func is_valid_definition(development_fixture := false) -> bool:
 		return false
 	if guaranteed_transition_time < minimum_transition_time:
 		return false
+	if failure_family != &"floor_fall" and failure_family != &"launch":
+		return false
 	if development_fixture and development_guaranteed_transition_time < development_minimum_transition_time:
 		return false
 	return true

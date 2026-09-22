@@ -112,7 +112,9 @@ func handle_intent(intent: StringName) -> bool:
 				handled = resume_run()
 		LAVA_GAME_OVER:
 			if intent == InputRouter.INTENT_CONFIRM:
-				handled = request_transition(TRY_AGAIN)
+				handled = choose_game_over(true)
+			elif intent == InputRouter.INTENT_BACK:
+				handled = choose_game_over(false)
 	if handled:
 		input_consumed.emit(intent, current_state)
 		_lock_entry_input()
@@ -160,6 +162,16 @@ func set_selected_character(character_id: StringName) -> bool:
 	var known_index := PLACEHOLDER_CHARACTER_IDS.find(character_id)
 	if known_index >= 0:
 		selected_character_index = known_index
+	selected_character_changed.emit(selected_character_id, selected_character_index)
+	return true
+
+
+## Pause is allowed to change cosmetics without re-entering frontend selection.
+func set_paused_character(character_id: StringName, selection_index: int) -> bool:
+	if current_state != PAUSED or character_id.is_empty():
+		return false
+	selected_character_id = character_id
+	selected_character_index = clampi(selection_index, 0, PLACEHOLDER_CHARACTER_IDS.size() - 1)
 	selected_character_changed.emit(selected_character_id, selected_character_index)
 	return true
 
@@ -236,6 +248,12 @@ func choose_try_again(yes: bool) -> bool:
 	if yes:
 		return start_new_run()
 	return request_transition(ISLAND_ATTRACT)
+
+
+func choose_game_over(yes: bool) -> bool:
+	if current_state != LAVA_GAME_OVER or not request_transition(TRY_AGAIN):
+		return false
+	return choose_try_again(yes)
 
 
 func exit_run() -> bool:

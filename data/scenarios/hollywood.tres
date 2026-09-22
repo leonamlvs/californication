@@ -30,3 +30,4 @@ development_minimum_transition_time=15.0
 development_guaranteed_transition_time=20.0
 movement_profile=ExtResource("8")
 movement_capability_profile=ExtResource("9")
+failure_family=&"launch"

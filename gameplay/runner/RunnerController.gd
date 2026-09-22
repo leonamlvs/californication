@@ -155,6 +155,8 @@ func request_obstacle_hit(event: ObstacleHitEvent) -> bool:
 		event.was_suppressed = true
 		return false
 	obstacle_failure_requested.emit(event)
+	if GameFlow.current_state == GameFlow.FAILURE_TRANSITION:
+		return true
 	return GameFlow.fail_run()
 
 

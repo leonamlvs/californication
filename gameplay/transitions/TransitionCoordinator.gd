@@ -111,6 +111,18 @@ func development_force_complete_cinematic() -> bool:
 	return true
 
 
+func cancel_active_transition() -> void:
+	if active_cinematic != null:
+		active_cinematic.cancel()
+		remove_child(active_cinematic)
+		active_cinematic.queue_free()
+		active_cinematic = null
+	if generator != null:
+		generator.release_transition_token()
+	if hud != null:
+		hud.show_transition_bonus(false)
+
+
 func transition_bonus_key() -> StringName:
 	if active_scenario == null:
 		return &""

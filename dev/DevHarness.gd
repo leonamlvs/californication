@@ -12,6 +12,12 @@ const HOLLYWOOD := preload("res://data/scenarios/hollywood.tres")
 const GRASS := preload("res://data/scenarios/grass.tres")
 const EARTHQUAKE := preload("res://data/scenarios/earthquake.tres")
 const BLOCK_DEFINITION := preload("res://data/obstacles/block.tres")
+const CHARACTERS: Array[CharacterDefinition] = [
+	preload("res://data/characters/character_01.tres"),
+	preload("res://data/characters/character_02.tres"),
+	preload("res://data/characters/character_03.tres"),
+	preload("res://data/characters/character_04.tres"),
+]
 
 @onready var runner: RunnerController = %Runner
 @onready var generator: TrackGenerator = %TrackGenerator
@@ -24,6 +30,8 @@ var _layout_index := 0
 var _speed_index := 0
 var _message := "Boulevard and Task 08 fixture services ready."
 var _speeds: Array[float] = [10.0, 13.0, 16.0]
+var _character_presenter: CharacterPresenter
+var _failure_coordinator: FailureCoordinator
 
 
 func _ready() -> void:
@@ -42,10 +50,23 @@ func _ready() -> void:
 	ScenarioManager.register_scenario(FIXTURE_B, true)
 	GameFlow.development_jump_to_state(GameFlow.RUNNING)
 	runner.development_simulation_enabled = true
+	_character_presenter = CharacterPresenter.new()
+	add_child(_character_presenter)
+	_character_presenter.bind_runner(runner)
+	_apply_selected_character(GameFlow.selected_character_id, GameFlow.selected_character_index)
+	GameFlow.selected_character_changed.connect(_apply_selected_character)
 	generator.set_runner(runner)
 	hud.bind_run_stats(generator.run_stats)
 	coordinator.configure_services(runner, generator, generator.run_stats, hud)
+	_failure_coordinator = FailureCoordinator.new()
+	add_child(_failure_coordinator)
+	_failure_coordinator.configure_services(runner, generator, coordinator)
 	_load_debug_scenario(BOULEVARD)
+
+
+func _apply_selected_character(_character_id: StringName, selection_index: int) -> void:
+	if _character_presenter != null and selection_index >= 0 and selection_index < CHARACTERS.size():
+		_character_presenter.apply_definition(CHARACTERS[selection_index])
 
 
 func _process(_delta: float) -> void:
@@ -167,6 +188,8 @@ func _load_debug_scenario(definition: ScenarioDefinition) -> void:
 		return
 	generator.reset_generator(generator.deterministic_seed, 0.0, runner.current_speed)
 	coordinator.begin_scenario(definition, true)
+	if _failure_coordinator != null:
+		_failure_coordinator.begin_scenario(definition)
 	GameFlow.development_jump_to_state(GameFlow.RUNNING)
 	_message = "Loaded %s." % definition.display_name
 
