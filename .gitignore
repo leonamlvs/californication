@@ -1,1 +1,6 @@
-ref
+.godot/
+.import/
+*.tmp
+*.log
+build/
+ref/
