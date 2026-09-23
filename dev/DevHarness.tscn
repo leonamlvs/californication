@@ -222,9 +222,9 @@ script = ExtResource("6_button")
 
 [node name="LogoPanel" type="PanelContainer" parent="Interface"]
 offset_left = 600.0
-offset_top = 528.0
+offset_top = 500.0
 offset_right = 944.0
-offset_bottom = 704.0
+offset_bottom = 716.0
 
 [node name="Rows" type="VBoxContainer" parent="Interface/LogoPanel"]
 layout_mode = 2
@@ -271,6 +271,22 @@ size_flags_horizontal = 3
 text = "STATS"
 script = ExtResource("6_button")
 
+[node name="RunIntroControls" type="HBoxContainer" parent="Interface/LogoPanel/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Enter" type="Button" parent="Interface/LogoPanel/Rows/RunIntroControls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "RUN INTRO"
+script = ExtResource("6_button")
+
+[node name="Complete" type="Button" parent="Interface/LogoPanel/Rows/RunIntroControls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTLE"
+script = ExtResource("6_button")
+
 [connection signal="pressed" from="Interface/Panel/Rows/Speed" to="." method="_on_speed_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Obstacle" to="." method="_on_obstacle_pressed"]
 [connection signal="pressed" from="Interface/Panel/Rows/Layout" to="." method="_on_layout_pressed"]
@@ -305,3 +321,5 @@ script = ExtResource("6_button")
 [connection signal="pressed" from="Interface/LogoPanel/Rows/PlayerSelectControls/Active" to="." method="_on_player_select_pressed"]
 [connection signal="pressed" from="Interface/LogoPanel/Rows/PlayerSelectControls/Detent" to="." method="_on_player_detent_pressed"]
 [connection signal="pressed" from="Interface/LogoPanel/Rows/PlayerSelectControls/Stats" to="." method="_on_player_stats_pressed"]
+[connection signal="pressed" from="Interface/LogoPanel/Rows/RunIntroControls/Enter" to="." method="_on_run_intro_pressed"]
+[connection signal="pressed" from="Interface/LogoPanel/Rows/RunIntroControls/Complete" to="." method="_on_run_intro_complete_pressed"]

@@ -45,6 +45,7 @@ var _fx_quality := CinematicTransitionFX.Quality.DESKTOP
 var _fx_force_fallback := false
 var _island_preview: IslandFrontendController
 var _logo_preview: LogoRevealController
+var _run_intro_preview: RunIntroController
 
 
 func _ready() -> void:
@@ -298,6 +299,15 @@ func _ensure_logo_preview() -> LogoRevealController:
 	return _logo_preview
 
 
+func _ensure_run_intro_preview() -> RunIntroController:
+	if _run_intro_preview == null:
+		_ensure_logo_preview()
+		_run_intro_preview = RunIntroController.new()
+		add_child(_run_intro_preview)
+		_run_intro_preview.configure_services(runner, generator, scenario_root, camera_3d, _logo_preview, cinematic_fx, _character_presenter, hud, coordinator)
+	return _run_intro_preview
+
+
 func _on_logo_reveal_pressed() -> void:
 	_ensure_island_preview()
 	_ensure_logo_preview().development_enter_reveal()
@@ -330,3 +340,14 @@ func _on_player_detent_pressed() -> void:
 func _on_player_stats_pressed() -> void:
 	var preview := _ensure_logo_preview()
 	_message = "Stat animation replayed: %s." % preview.development_replay_stats()
+
+
+func _on_run_intro_pressed() -> void:
+	var logo := _ensure_logo_preview()
+	logo.development_enter_player_select()
+	GameFlow.development_jump_to_state(GameFlow.CHARACTER_CONFIRMED)
+	_message = "Entered Boulevard Run Intro: %s." % _ensure_run_intro_preview().development_enter_run_intro()
+
+
+func _on_run_intro_complete_pressed() -> void:
+	_message = "Run Intro settled: %s." % _ensure_run_intro_preview().development_complete_run_intro()

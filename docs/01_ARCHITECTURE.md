@@ -2,7 +2,7 @@
 
 ## Project structure
 
-### Implemented foundation through Task 25
+### Implemented foundation through Task 26
 
 - `project.godot` targets Godot 4.7 Compatibility at a 960×720 reference viewport and registers `GameFlow`, `ScenarioManager`, `InputRouter`, `AudioManager`, and `SaveManager` autoloads.
 - `main/Main.tscn` keeps the shared `World`, `FrontendLayer`, and `OverlayLayer` composition. `IslandFrontend` mounts the loading, one-shot staged pullback, indefinite attract, and blue handoff; the mounted `LogoPresentationRig` continues through the logo/alicorn reveal and now remains the four-detent Player Select object with responsive arrows, identity data, and decorative stat animation while gameplay visuals stay hidden.

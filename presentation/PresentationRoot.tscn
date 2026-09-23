@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://presentation/PresentationRoot.gd" id="1_root"]
 [ext_resource type="PackedScene" path="res://ui/hud/HUD.tscn" id="2_hud"]
@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" path="res://gameplay/runner/Runner.tscn" id="4_runner"]
 [ext_resource type="PackedScene" path="res://frontend/island/IslandFrontend.tscn" id="5_island"]
 [ext_resource type="PackedScene" path="res://frontend/logo_reveal/LogoPresentationRig.tscn" id="6_logo"]
+[ext_resource type="PackedScene" path="res://gameplay/track/TrackGenerator.tscn" id="7_generator"]
+[ext_resource type="PackedScene" path="res://gameplay/transitions/TransitionCoordinator.tscn" id="8_transitions"]
+[ext_resource type="PackedScene" path="res://presentation/cinematic_fx/CinematicTransitionFX.tscn" id="9_fx"]
+[ext_resource type="Script" path="res://frontend/run_intro/RunIntroController.gd" id="10_intro"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_placeholder"]
 size = Vector3(2.0, 1.0, 2.0)
@@ -53,6 +57,7 @@ render_target_update_mode = 4
 [node name="World" type="Node3D" parent="GameFrame/WorldContainer/GameViewport"]
 
 [node name="Camera3D" type="Camera3D" parent="GameFrame/WorldContainer/GameViewport/World"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.5, 7)
 current = true
 
@@ -65,10 +70,28 @@ position = Vector3(0, 0, -3)
 mesh = SubResource("BoxMesh_placeholder")
 
 [node name="Runner" parent="GameFrame/WorldContainer/GameViewport/World" instance=ExtResource("4_runner")]
+unique_name_in_owner = true
+
+[node name="ScenarioRoot" type="Node3D" parent="GameFrame/WorldContainer/GameViewport/World"]
+unique_name_in_owner = true
+
+[node name="TrackGenerator" parent="GameFrame/WorldContainer/GameViewport/World" instance=ExtResource("7_generator")]
+unique_name_in_owner = true
+
+[node name="TransitionCoordinator" parent="GameFrame/WorldContainer/GameViewport/World" instance=ExtResource("8_transitions")]
+unique_name_in_owner = true
 
 [node name="IslandFrontend" parent="GameFrame/WorldContainer/GameViewport/World" instance=ExtResource("5_island")]
 
 [node name="LogoPresentationRig" parent="GameFrame/WorldContainer/GameViewport/World" instance=ExtResource("6_logo")]
+unique_name_in_owner = true
+
+[node name="CinematicTransitionFX" parent="GameFrame/WorldContainer/GameViewport/World" instance=ExtResource("9_fx")]
+unique_name_in_owner = true
+
+[node name="RunIntroController" type="Node" parent="GameFrame/WorldContainer/GameViewport/World"]
+unique_name_in_owner = true
+script = ExtResource("10_intro")
 
 [node name="FrontendLayer" type="Control" parent="GameFrame"]
 layout_mode = 1

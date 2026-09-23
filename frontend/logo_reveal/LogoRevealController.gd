@@ -129,9 +129,10 @@ func _apply_state(state: StringName) -> void:
 		GameFlow.LOGO_REVEAL, GameFlow.CHARACTER_SELECT_ENTER,
 		GameFlow.CHARACTER_SELECT_ACTIVE, GameFlow.CHARACTER_CONFIRMED,
 	]
-	visible = frontend_active
+	var intro_active := state == GameFlow.RUN_INTRO
+	visible = frontend_active or intro_active
 	blue_environment.environment = _environment_resource if frontend_active else null
-	logo_camera.current = frontend_active
+	logo_camera.current = frontend_active or intro_active
 	if state == GameFlow.LOGO_REVEAL:
 		_begin_reveal()
 	elif state == GameFlow.CHARACTER_SELECT_ENTER:
@@ -139,8 +140,47 @@ func _apply_state(state: StringName) -> void:
 	elif state == GameFlow.CHARACTER_SELECT_ACTIVE or state == GameFlow.CHARACTER_CONFIRMED:
 		visible = true
 		logo_camera.current = true
+	elif state == GameFlow.RUN_INTRO:
+		# RunIntroController owns the visual handoff once the run reset has completed.
+		visible = true
 	else:
 		blue_handoff_plane.visible = false
+
+
+## Keeps the selected carousel visual in-place while stripping the selector's
+## surrounding UI and logo meshes for the continuous front-character push.
+func begin_run_intro_presentation(_uses_frontend_visual: bool) -> void:
+	visible = true
+	blue_environment.environment = null
+	logo_camera.current = true
+	blue_handoff_plane.visible = false
+	logo_extrusion.visible = false
+	letter_ring.visible = false
+	alicorn.visible = false
+	for anchor: Node3D in panel_anchors:
+		var surface := anchor.get_node_or_null("PanelSurface") as MeshInstance3D
+		if surface != null:
+			surface.visible = false
+	player_select_presenter.visible = true
+	set_player_select_fade(1.0)
+
+
+func set_player_select_fade(alpha: float) -> void:
+	player_select_presenter.root_control.modulate.a = clampf(alpha, 0.0, 1.0)
+
+
+func end_run_intro_presentation() -> void:
+	set_player_select_fade(1.0)
+	player_select_presenter.visible = false
+	logo_assembly.visible = false
+
+
+func _restore_selector_meshes() -> void:
+	logo_extrusion.visible = true
+	for anchor: Node3D in panel_anchors:
+		var surface := anchor.get_node_or_null("PanelSurface") as MeshInstance3D
+		if surface != null:
+			surface.visible = true
 
 
 func _begin_reveal() -> void:
@@ -153,6 +193,7 @@ func _begin_reveal() -> void:
 	alicorn_passed_camera = false
 	parked_at_first_detent = false
 	logo_assembly.visible = false
+	_restore_selector_meshes()
 	letter_ring.visible = false
 	alicorn.visible = false
 	blue_handoff_plane.visible = true
@@ -227,6 +268,7 @@ func _park_selector_composition() -> void:
 	logo_camera.current = true
 	blue_handoff_plane.visible = false
 	logo_assembly.visible = true
+	_restore_selector_meshes()
 	letter_ring.visible = true
 	alicorn.visible = false
 	logo_assembly.scale = Vector3.ONE
