@@ -1,0 +1,181 @@
+[gd_scene load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://frontend/logo_reveal/LogoRevealController.gd" id="1_controller"]
+[ext_resource type="Script" path="res://frontend/player_select/LogoCarouselController.gd" id="2_carousel"]
+[ext_resource type="PackedScene" path="res://frontend/player_select/PlayerSelectPresenter.tscn" id="3_select_ui"]
+
+[sub_resource type="Environment" id="Environment_blue"]
+background_mode = 1
+background_color = Color(0.105, 0.5, 0.82, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.66, 0.82, 1, 1)
+ambient_light_energy = 1.1
+
+[sub_resource type="StandardMaterial3D" id="Material_blue"]
+albedo_color = Color(0.105, 0.5, 0.82, 1)
+shading_mode = 0
+
+[sub_resource type="QuadMesh" id="Mesh_blue"]
+material = SubResource("Material_blue")
+size = Vector2(30, 22)
+
+[sub_resource type="StandardMaterial3D" id="Material_logo"]
+albedo_color = Color(0.82, 0.035, 0.055, 1)
+metallic = 0.12
+roughness = 0.38
+
+[sub_resource type="BoxMesh" id="Mesh_panel"]
+material = SubResource("Material_logo")
+size = Vector3(0.72, 1.55, 0.34)
+
+[sub_resource type="StandardMaterial3D" id="Material_alicorn"]
+albedo_color = Color(0.92, 0.94, 1, 1)
+metallic = 0.03
+roughness = 0.72
+
+[sub_resource type="CapsuleMesh" id="Mesh_body"]
+material = SubResource("Material_alicorn")
+radius = 0.52
+height = 1.8
+radial_segments = 10
+rings = 5
+
+[sub_resource type="SphereMesh" id="Mesh_head"]
+material = SubResource("Material_alicorn")
+radius = 0.42
+height = 0.84
+radial_segments = 10
+rings = 5
+
+[sub_resource type="PrismMesh" id="Mesh_wing"]
+material = SubResource("Material_alicorn")
+size = Vector3(1.8, 0.16, 1.05)
+
+[sub_resource type="CylinderMesh" id="Mesh_leg"]
+material = SubResource("Material_alicorn")
+top_radius = 0.09
+bottom_radius = 0.11
+height = 1.05
+radial_segments = 8
+
+[sub_resource type="CylinderMesh" id="Mesh_horn"]
+material = SubResource("Material_alicorn")
+top_radius = 0.0
+bottom_radius = 0.1
+height = 0.75
+radial_segments = 8
+
+[node name="LogoPresentationRig" type="Node3D"]
+script = ExtResource("1_controller")
+
+[node name="BlueEnvironment" type="WorldEnvironment" parent="."]
+unique_name_in_owner = true
+environment = SubResource("Environment_blue")
+
+[node name="KeyLight" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-35, -28, 0)
+light_energy = 1.45
+shadow_enabled = true
+
+[node name="LogoCamera" type="Camera3D" parent="."]
+unique_name_in_owner = true
+position = Vector3(0, 0.3, 10.5)
+current = true
+fov = 66.0
+
+[node name="BlueHandoffPlane" type="MeshInstance3D" parent="LogoCamera"]
+unique_name_in_owner = true
+position = Vector3(0, 0, -2)
+mesh = SubResource("Mesh_blue")
+
+[node name="LogoAssembly" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="LogoExtrusion" type="CSGPolygon3D" parent="LogoAssembly"]
+unique_name_in_owner = true
+scale = Vector3(1.55, 1.55, 1.55)
+polygon = PackedVector2Array(-0.33, -0.7, 0.33, -0.7, 0.28, -0.22, 0.72, -0.38, 0.92, 0.24, 0.42, 0.34, 0.72, 0.76, 0.17, 1.05, 0, 0.53, -0.17, 1.05, -0.72, 0.76, -0.42, 0.34, -0.92, 0.24, -0.72, -0.38, -0.28, -0.22)
+mode = 0
+depth = 0.72
+material = SubResource("Material_logo")
+
+[node name="PanelAnchor0" type="Node3D" parent="LogoAssembly"]
+unique_name_in_owner = true
+position = Vector3(0, 0, 0.72)
+rotation_degrees = Vector3(0, 180, 0)
+
+[node name="PanelSurface" type="MeshInstance3D" parent="LogoAssembly/PanelAnchor0"]
+position = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_panel")
+
+[node name="PanelAnchor1" type="Node3D" parent="LogoAssembly"]
+unique_name_in_owner = true
+position = Vector3(-0.72, 0, 0)
+rotation_degrees = Vector3(0, 90, 0)
+
+[node name="PanelSurface" type="MeshInstance3D" parent="LogoAssembly/PanelAnchor1"]
+mesh = SubResource("Mesh_panel")
+
+[node name="PanelAnchor2" type="Node3D" parent="LogoAssembly"]
+unique_name_in_owner = true
+position = Vector3(0, 0, -0.72)
+rotation_degrees = Vector3(0, 0, 0)
+
+[node name="PanelSurface" type="MeshInstance3D" parent="LogoAssembly/PanelAnchor2"]
+mesh = SubResource("Mesh_panel")
+
+[node name="PanelAnchor3" type="Node3D" parent="LogoAssembly"]
+unique_name_in_owner = true
+position = Vector3(0.72, 0, 0)
+rotation_degrees = Vector3(0, -90, 0)
+
+[node name="PanelSurface" type="MeshInstance3D" parent="LogoAssembly/PanelAnchor3"]
+mesh = SubResource("Mesh_panel")
+
+[node name="LetterRing" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="LogoCarouselController" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_carousel")
+
+[node name="PlayerSelectPresenter" parent="." instance=ExtResource("3_select_ui")]
+unique_name_in_owner = true
+
+[node name="Alicorn" type="Node3D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector3(-4.8, 2.4, -12)
+
+[node name="Body" type="MeshInstance3D" parent="Alicorn"]
+rotation_degrees = Vector3(90, 0, 0)
+mesh = SubResource("Mesh_body")
+
+[node name="Head" type="MeshInstance3D" parent="Alicorn"]
+position = Vector3(0, 0.48, -0.92)
+mesh = SubResource("Mesh_head")
+
+[node name="Horn" type="MeshInstance3D" parent="Alicorn"]
+position = Vector3(0, 0.96, -1.05)
+rotation_degrees = Vector3(-55, 0, 0)
+mesh = SubResource("Mesh_horn")
+
+[node name="WingLeft" type="MeshInstance3D" parent="Alicorn"]
+position = Vector3(-0.95, 0.2, 0)
+rotation_degrees = Vector3(10, 0, -18)
+mesh = SubResource("Mesh_wing")
+
+[node name="WingRight" type="MeshInstance3D" parent="Alicorn"]
+position = Vector3(0.95, 0.2, 0)
+rotation_degrees = Vector3(-10, 180, 18)
+mesh = SubResource("Mesh_wing")
+
+[node name="LegFront" type="MeshInstance3D" parent="Alicorn"]
+position = Vector3(-0.28, -0.7, -0.55)
+rotation_degrees = Vector3(12, 0, 0)
+mesh = SubResource("Mesh_leg")
+
+[node name="LegRear" type="MeshInstance3D" parent="Alicorn"]
+position = Vector3(0.28, -0.7, 0.55)
+rotation_degrees = Vector3(-12, 0, 0)
+mesh = SubResource("Mesh_leg")

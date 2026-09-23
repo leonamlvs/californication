@@ -23,6 +23,7 @@ const MOBILE_ASPECT_DEVIATION := 0.25
 @onready var frontend_safe_guide: FrontendSafeComposition = %FrontendSafeGuide
 @onready var gameplay_runner: RunnerController = $GameFrame/WorldContainer/GameViewport/World/Runner
 @onready var placeholder_block: MeshInstance3D = $GameFrame/WorldContainer/GameViewport/World/PlaceholderBlock
+@onready var logo_frontend: LogoRevealController = $GameFrame/WorldContainer/GameViewport/World/LogoPresentationRig
 
 var _last_snapshot: Dictionary = {}
 
@@ -75,6 +76,7 @@ func _apply_layout(frame_rect: Rect2, mobile_flex: bool, safe_rect: Rect2) -> vo
 	game_frame.position = frame_rect.position
 	game_frame.size = frame_rect.size
 	hud.apply_available_size(frame_rect.size)
+	logo_frontend.apply_composition_size(frame_rect.size)
 	frontend_safe_guide._layout_guides()
 	InputRouter.set_usable_viewport_size(safe_rect.size)
 	_last_snapshot = {

@@ -14,6 +14,7 @@ const DECORATIVE_STAT_KEYS: Array[StringName] = [
 @export var display_name := ""
 @export var category_label := ""
 @export var category_value := ""
+@export_range(0.0, 100.0, 1.0) var decorative_category_value := 0.0
 @export var decorative_stats: Dictionary[StringName, float] = {}
 @export var gameplay_cosmetic_scene: PackedScene
 @export var frontend_presentation_scene: PackedScene
@@ -27,6 +28,8 @@ func is_valid_definition() -> bool:
 	if gameplay_cosmetic_scene == null or frontend_presentation_scene == null or frontend_idle_key.is_empty() or pause_portrait == null:
 		return false
 	if decorative_stats.size() != DECORATIVE_STAT_KEYS.size():
+		return false
+	if decorative_category_value < 0.0 or decorative_category_value > 100.0:
 		return false
 	for stat_key: StringName in DECORATIVE_STAT_KEYS:
 		if not decorative_stats.has(stat_key):

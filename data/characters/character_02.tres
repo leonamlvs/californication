@@ -8,6 +8,7 @@ id=&"placeholder_02"
 display_name="Character Two"
 category_label="INSTRUMENT"
 category_value="BASS"
+decorative_category_value=65.0
 decorative_stats={&"STRENGTH": 70.0, &"STAMINA": 50.0, &"AGILITY": 70.0, &"CHARISMA": 50.0, &"RHYTHM": 70.0}
 gameplay_cosmetic_scene=ExtResource("2")
 frontend_presentation_scene=ExtResource("2")

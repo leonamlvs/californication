@@ -8,6 +8,7 @@ id=&"placeholder_01"
 display_name="Character One"
 category_label="INSTRUMENT"
 category_value="GUITAR"
+decorative_category_value=70.0
 decorative_stats={&"STRENGTH": 60.0, &"STAMINA": 60.0, &"AGILITY": 60.0, &"CHARISMA": 60.0, &"RHYTHM": 60.0}
 gameplay_cosmetic_scene=ExtResource("2")
 frontend_presentation_scene=ExtResource("2")

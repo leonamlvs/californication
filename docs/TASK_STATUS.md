@@ -26,8 +26,8 @@ Update only after acceptance criteria are verified.
 - [x] 21 — Failure and Game Over
 - [x] 22 — CinematicTransitionFX
 - [x] 23 — Loading, Island Intro, and Island Attract
-- [ ] 24 — Logo/Alicorn Reveal and Player Select Entry
-- [ ] 25 — 3D Logo Carousel and Decorative Player Select
+- [x] 24 — Logo/Alicorn Reveal and Player Select Entry
+- [x] 25 — 3D Logo Carousel and Decorative Player Select
 - [ ] 26 — Character Confirmation and Run Intro
 - [ ] 27 — Final HUD Behavior
 - [ ] 28 — itch.io Web Hardening
@@ -43,3 +43,5 @@ Update only after acceptance criteria are verified.
 - Task 22 was completed after this audit with a profiled reusable fullscreen radial/zoom blur, selectable desktop/mobile/high sample quality, synchronized FOV/overlay fallback, defensive neutralization on completion and interruption, direct DevHarness previews, Compatibility-rendered checks, Web export validation, and `Task22Test` coverage.
 - The audit preceding Task 23 repaired the shared Task 00–05 runner as an autoload-aware test scene, corrected stale mutable-capture/sweeper test setup, and removed the two redundant responsive-layout writes; all completed task suites pass again.
 - Task 23 was completed with automatic loading handoff, a deterministic four-stage vegetation/city/landscape/island pullback, replaceable California-island placeholder, authored camera/FOV and shared blur cues, responsive narrow-screen camera compensation, indefinite rotating attract, one-shot touch/confirm handling, blue ocean/sky handoff, DevHarness intro/attract/replay/stage controls, and `Task23Test` coverage.
+- Task 24 was completed with a color-matched blue-frame scene-group handoff, genuinely extruded red logo and individual 3D `CALIFORNICATION` letters, primitive alicorn approach/camera-pass/departure, one persistent four-anchor logo assembly parked at its first carousel detent, responsive composition adjustment, direct DevHarness entry/stage/complete controls, and `Task24Test` coverage.
+- Task 25 was completed with four exact detents on the persistent logo, keyboard/gamepad/touch-safe arrow navigation, one bounded queued step, anchor-bound full-body presentations, settlement-only identity updates, six animated decorative values, one-shot confirmation, responsive wide/narrow layouts, direct DevHarness selection/detent/stat controls, and `Task25Test` coverage.

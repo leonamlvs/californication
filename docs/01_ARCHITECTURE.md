@@ -2,10 +2,10 @@
 
 ## Project structure
 
-### Implemented foundation through Task 23
+### Implemented foundation through Task 25
 
 - `project.godot` targets Godot 4.7 Compatibility at a 960×720 reference viewport and registers `GameFlow`, `ScenarioManager`, `InputRouter`, `AudioManager`, and `SaveManager` autoloads.
-- `main/Main.tscn` keeps the shared `World`, `FrontendLayer`, and `OverlayLayer` composition. `IslandFrontend` now mounts the Task 23 loading, one-shot staged pullback, indefinite attract, and blue handoff presentation while gameplay visuals remain hidden.
+- `main/Main.tscn` keeps the shared `World`, `FrontendLayer`, and `OverlayLayer` composition. `IslandFrontend` mounts the loading, one-shot staged pullback, indefinite attract, and blue handoff; the mounted `LogoPresentationRig` continues through the logo/alicorn reveal and now remains the four-detent Player Select object with responsive arrows, identity data, and decorative stat animation while gameplay visuals stay hidden.
 - `export_presets.cfg` provides a preliminary single-threaded Web preset at `build/web/index.html`, excludes `ref/` and `build/`, disables extension/PWA dependencies, and lets the canvas follow its host viewport. Final itch.io packaging remains Task 28.
 - `InputRouter` emits StringName intents for left/right/up/down/pause/confirm/back, normalizes keyboard and runtime-registered conventional gamepad input, recognizes one-finger unhandled swipes at a configurable 6% threshold, and cancels gestures on GUI consumption, multi-touch, resize, or focus loss.
 - `dev/InputHarness.tscn` demonstrates intent output and GUI swipe exclusion. `tests/cli/TestRunner.tscn` contains the completed Task 00/01 deterministic checks.
@@ -124,8 +124,8 @@ Changing character during pause is an immediate cosmetic swap within the pause H
 - `FrontendCoordinator` mounts/unmounts frontend scene groups and preserves visual continuity across hidden handoffs.
 - `IslandIntroController` owns the one-shot vegetation-to-island pullback. It may use staged geometry/LOD group swaps, camera/FOV changes, and transition blur; it never repeats while the attract state waits.
 - `IslandAttractController` owns slow indefinite island rotation and accepts confirm from keyboard/gamepad or any ordinary screen touch. A consumed touch advances only once and cannot leak into the next state.
-- `LogoRevealController` owns island departure, the blue sky/ocean handoff, logo/letter assembly, alicorn approach/pass, and rotation of the same logo into the Player Select angle.
-- `LogoCarouselController` owns four indexed logo detents. Left/Right or the visible arrow Controls request one detent rotation. Character display panels are presentation surfaces, not clickable character choices. Rotation locks input or safely queues a bounded request until the next detent is exact.
+- `LogoRevealController` owns the blue sky/ocean handoff, extruded logo and circular 3D letter assembly, alicorn approach/pass, and rotation of the same stable-pivot logo into the first Player Select detent. Its four named panel anchors are the Task 25 attachment contract.
+- `LogoCarouselController` owns four indexed logo detents on the persistent Task 24 assembly. Left/Right or the visible arrow Controls share one request path, rotation permits at most one queued step, and every completion normalizes to an exact detent. Character display panels remain non-clickable presentation surfaces.
 - `PlayerSelectPresenter` owns name/category/stat display, stat reset/count-up animation, selection idle presentation, and confirm request. Decorative stats never enter gameplay configuration.
 - `RunIntroController` owns the selected-character push-in, brief front hold, Boulevard reveal, camera orbit/past movement, third-person camera settlement, and seamless presentation-to-runner handoff. It alone authorizes runner input and timer start after settlement; none of this choreography belongs in `RunnerController`.
 - `CinematicTransitionFX` is a reusable short-lived presentation component for radial/zoom blur, FOV kick, and fade. It is disabled outside authored transitions and provides a cheap no-screen-sampling fallback.

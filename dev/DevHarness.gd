@@ -13,6 +13,7 @@ const GRASS := preload("res://data/scenarios/grass.tres")
 const EARTHQUAKE := preload("res://data/scenarios/earthquake.tres")
 const BLOCK_DEFINITION := preload("res://data/obstacles/block.tres")
 const ISLAND_FRONTEND_SCENE := preload("res://frontend/island/IslandFrontend.tscn")
+const LOGO_REVEAL_SCENE := preload("res://frontend/logo_reveal/LogoPresentationRig.tscn")
 const CINEMATIC_FX_PROFILES: Array[CinematicFXProfile] = [
 	preload("res://data/cinematic_fx/island_pullback.tres"),
 	preload("res://data/cinematic_fx/run_intro_push.tres"),
@@ -43,6 +44,7 @@ var _fx_profile_index := 0
 var _fx_quality := CinematicTransitionFX.Quality.DESKTOP
 var _fx_force_fallback := false
 var _island_preview: IslandFrontendController
+var _logo_preview: LogoRevealController
 
 
 func _ready() -> void:
@@ -287,3 +289,44 @@ func _on_island_skip_stage_pressed() -> void:
 	var preview := _ensure_island_preview()
 	preview.development_skip_stage()
 	_message = "Island stage: %s." % (preview.INTRO_STAGE_IDS[preview.intro_stage_index] if preview.intro_stage_index >= 0 else &"inactive")
+
+
+func _ensure_logo_preview() -> LogoRevealController:
+	if _logo_preview == null:
+		_logo_preview = LOGO_REVEAL_SCENE.instantiate() as LogoRevealController
+		add_child(_logo_preview)
+	return _logo_preview
+
+
+func _on_logo_reveal_pressed() -> void:
+	_ensure_island_preview()
+	_ensure_logo_preview().development_enter_reveal()
+	_message = "Entered Logo/Alicorn Reveal at the continuous blue handoff."
+
+
+func _on_logo_stage_pressed() -> void:
+	var preview := _ensure_logo_preview()
+	preview.development_skip_stage()
+	_message = "Logo stage: %s." % (preview.STAGE_IDS[preview.reveal_stage_index] if preview.reveal_stage_index >= 0 else &"inactive")
+
+
+func _on_logo_complete_pressed() -> void:
+	var preview := _ensure_logo_preview()
+	preview.development_skip_reveal()
+	_message = "Logo reveal parked at first detent: %s." % preview.parked_at_first_detent
+
+
+func _on_player_select_pressed() -> void:
+	_ensure_logo_preview().development_enter_player_select()
+	_message = "Entered active Player Select directly."
+
+
+func _on_player_detent_pressed() -> void:
+	var preview := _ensure_logo_preview()
+	preview.development_next_detent()
+	_message = "Player Select detent: %d." % preview.carousel_controller.current_index
+
+
+func _on_player_stats_pressed() -> void:
+	var preview := _ensure_logo_preview()
+	_message = "Stat animation replayed: %s." % preview.development_replay_stats()

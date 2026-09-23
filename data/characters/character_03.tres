@@ -8,6 +8,7 @@ id=&"placeholder_03"
 display_name="Character Three"
 category_label="INSTRUMENT"
 category_value="DRUMS"
+decorative_category_value=75.0
 decorative_stats={&"STRENGTH": 50.0, &"STAMINA": 70.0, &"AGILITY": 50.0, &"CHARISMA": 70.0, &"RHYTHM": 70.0}
 gameplay_cosmetic_scene=ExtResource("2")
 frontend_presentation_scene=ExtResource("2")

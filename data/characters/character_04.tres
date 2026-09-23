@@ -8,6 +8,7 @@ id=&"placeholder_04"
 display_name="Character Four"
 category_label="INSTRUMENT"
 category_value="VOCALS"
+decorative_category_value=80.0
 decorative_stats={&"STRENGTH": 70.0, &"STAMINA": 70.0, &"AGILITY": 50.0, &"CHARISMA": 70.0, &"RHYTHM": 50.0}
 gameplay_cosmetic_scene=ExtResource("2")
 frontend_presentation_scene=ExtResource("2")

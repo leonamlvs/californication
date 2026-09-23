@@ -42,7 +42,11 @@ func _exit_tree() -> void:
 func _refresh(_previous_state: StringName = &"", _next_state: StringName = &"") -> void:
 	state_label.text = "GAMEFLOW PLACEHOLDER\n%s" % GameFlow.current_state
 	detail_label.text = _detail_for_state()
-	panel.visible = GameFlow.current_state not in [GameFlow.LOADING, GameFlow.ISLAND_INTRO, GameFlow.ISLAND_ATTRACT]
+	panel.visible = GameFlow.current_state not in [
+		GameFlow.LOADING, GameFlow.ISLAND_INTRO, GameFlow.ISLAND_ATTRACT,
+		GameFlow.LOGO_REVEAL, GameFlow.CHARACTER_SELECT_ENTER,
+		GameFlow.CHARACTER_SELECT_ACTIVE, GameFlow.CHARACTER_CONFIRMED,
+	]
 	advance_button.visible = GameFlow.current_state in [GameFlow.LOGO_REVEAL, GameFlow.CHARACTER_SELECT_ENTER, GameFlow.CHARACTER_SELECT_ACTIVE, GameFlow.CHARACTER_CONFIRMED, GameFlow.FAILURE_TRANSITION, GameFlow.LAVA_GAME_OVER]
 	ready_button.visible = GameFlow.current_state == GameFlow.RUN_INTRO
 	pause_button.visible = GameFlow.current_state == GameFlow.RUNNING

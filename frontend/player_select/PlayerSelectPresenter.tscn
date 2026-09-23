@@ -1,0 +1,132 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://frontend/player_select/PlayerSelectPresenter.gd" id="1_presenter"]
+[ext_resource type="Script" path="res://ui/hud/GestureBlockingButton.gd" id="2_button"]
+
+[sub_resource type="StyleBoxFlat" id="Style_panel"]
+bg_color = Color(0.015, 0.035, 0.085, 0.84)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9, 0.78, 0.16, 0.92)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="Style_arrow"]
+bg_color = Color(0.8, 0.035, 0.06, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.86, 0.16, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="PlayerSelectPresenter" type="CanvasLayer"]
+unique_name_in_owner = true
+layer = 35
+script = ExtResource("1_presenter")
+
+[node name="RootControl" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TitleLabel" type="Label" parent="RootControl"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 24.0
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.86, 0.18, 1)
+theme_override_font_sizes/font_size = 30
+text = "PLAYER SELECT"
+horizontal_alignment = 1
+
+[node name="IdentityPanel" type="PanelContainer" parent="RootControl"]
+unique_name_in_owner = true
+layout_mode = 1
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Rows" type="VBoxContainer" parent="RootControl/IdentityPanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="NameLabel" type="Label" parent="RootControl/IdentityPanel/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "CHARACTER ONE"
+horizontal_alignment = 1
+
+[node name="CategoryLabel" type="Label" parent="RootControl/IdentityPanel/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.86, 0.52, 1)
+theme_override_font_sizes/font_size = 15
+text = "INSTRUMENT  GUITAR"
+horizontal_alignment = 1
+
+[node name="StatsPanel" type="PanelContainer" parent="RootControl"]
+unique_name_in_owner = true
+layout_mode = 1
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Margin" type="MarginContainer" parent="RootControl/StatsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
+
+[node name="StatsRows" type="VBoxContainer" parent="RootControl/StatsPanel/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Heading" type="Label" parent="RootControl/StatsPanel/Margin/StatsRows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "DECORATIVE VALUES"
+horizontal_alignment = 1
+
+[node name="LeftArrow" type="Button" parent="RootControl"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 1
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("Style_arrow")
+text = "<"
+script = ExtResource("2_button")
+
+[node name="RightArrow" type="Button" parent="RootControl"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 1
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("Style_arrow")
+text = ">"
+script = ExtResource("2_button")
+
+[node name="SelectButton" type="Button" parent="RootControl"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(112, 56)
+layout_mode = 1
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("Style_arrow")
+text = "SELECT"
+script = ExtResource("2_button")

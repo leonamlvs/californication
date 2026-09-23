@@ -58,6 +58,7 @@ var intro_seen := false
 var prepared_run_target: StringName = &""
 var gameplay_input_enabled := false
 var run_timer_enabled := false
+var frontend_selection_controller_active := false
 var _entry_input_locked := false
 var _paused_from_state: StringName = RUNNING
 
@@ -108,6 +109,8 @@ func handle_intent(intent: StringName) -> bool:
 			if intent == InputRouter.INTENT_CONFIRM:
 				handled = request_transition(CHARACTER_SELECT_ACTIVE)
 		CHARACTER_SELECT_ACTIVE:
+			if frontend_selection_controller_active:
+				return false
 			if intent == InputRouter.INTENT_LEFT:
 				handled = select_character_offset(-1)
 			elif intent == InputRouter.INTENT_RIGHT:
@@ -157,6 +160,12 @@ func select_character_offset(offset: int) -> bool:
 	selected_character_id = PLACEHOLDER_CHARACTER_IDS[selected_character_index]
 	selected_character_changed.emit(selected_character_id, selected_character_index)
 	return true
+
+
+## Task 25's mounted carousel consumes selection intents while active. Keeping
+## this explicit preserves the Task 03 placeholder path when no carousel exists.
+func set_frontend_selection_controller_active(active: bool) -> void:
+	frontend_selection_controller_active = active
 
 
 func set_selected_character(character_id: StringName) -> bool:
