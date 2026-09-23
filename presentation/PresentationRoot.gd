@@ -139,4 +139,5 @@ func _on_game_flow_state_changed(_previous: StringName, next: StringName) -> voi
 	]
 	gameplay_runner.visible = gameplay_visible
 	placeholder_block.visible = gameplay_visible
-	hud.visible = gameplay_visible
+	# The HUD controller owns its state gate: it remains hidden during RUN_INTRO
+	# while its already-bound data is ready for the atomic RUNNING reveal.

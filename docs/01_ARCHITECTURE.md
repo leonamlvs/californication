@@ -2,12 +2,13 @@
 
 ## Project structure
 
-### Implemented foundation through Task 26
+### Implemented foundation through Task 28
 
 - `project.godot` targets Godot 4.7 Compatibility at a 960×720 reference viewport and registers `GameFlow`, `ScenarioManager`, `InputRouter`, `AudioManager`, and `SaveManager` autoloads.
-- `main/Main.tscn` keeps the shared `World`, `FrontendLayer`, and `OverlayLayer` composition. `IslandFrontend` mounts the loading, one-shot staged pullback, indefinite attract, and blue handoff; the mounted `LogoPresentationRig` continues through the logo/alicorn reveal and now remains the four-detent Player Select object with responsive arrows, identity data, and decorative stat animation while gameplay visuals stay hidden.
+- `main/Main.tscn` keeps the shared `World`, `FrontendLayer`, and `OverlayLayer` composition. `IslandFrontend` mounts the loading, one-shot staged pullback, indefinite attract, and blue handoff; the mounted `LogoPresentationRig` continues through the logo/alicorn reveal and remains the four-detent Player Select object with responsive arrows, identity data, decorative stat animation, and Run Intro handoff. The shared HUD binds score/time, scenario-selected looping decoration, and scenario-range-only coordinate telemetry without recreating gameplay or frontend presentation during reflow.
 - `export_presets.cfg` provides a preliminary single-threaded Web preset at `build/web/index.html`, excludes `ref/` and `build/`, disables extension/PWA dependencies, and lets the canvas follow its host viewport. Final itch.io packaging remains Task 28.
 - `InputRouter` emits StringName intents for left/right/up/down/pause/confirm/back, normalizes keyboard and runtime-registered conventional gamepad input, recognizes one-finger unhandled swipes at a configurable 6% threshold, and cancels gestures on GUI consumption, multi-touch, resize, or focus loss.
+- The `Web` export is single-threaded Compatibility with relative root-level companions; its preset excludes `ref/`, `build/`, `dev/`, and `tests/`. `tools/package_web.ps1` audits extracted/archive roots, file/path/size limits, and development-content leakage before creating the itch.io ZIP.
 - `dev/InputHarness.tscn` demonstrates intent output and GUI swipe exclusion. `tests/cli/TestRunner.tscn` contains the completed Task 00/01 deterministic checks.
 
 The new frontend requirements build on these boundaries. They require no Task 00/01 rewrite: frontend touch-to-confirm and arrow taps are state-owned GUI/frontend actions, carousel input gating belongs to its controller, and run/cinematic input locking belongs to the consuming state rather than a second device-input system.

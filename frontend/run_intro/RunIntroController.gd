@@ -195,8 +195,6 @@ func _begin_run_intro() -> void:
 	gameplay_camera.current = false
 	if cinematic_fx != null:
 		cinematic_fx.play(RUN_INTRO_FX, logo_frontend.logo_camera, CinematicTransitionFX.Quality.AUTO, force_fx_fallback)
-	if hud != null:
-		hud.visible = true
 	stage_changed.emit(stage)
 
 

@@ -29,8 +29,8 @@ Update only after acceptance criteria are verified.
 - [x] 24 — Logo/Alicorn Reveal and Player Select Entry
 - [x] 25 — 3D Logo Carousel and Decorative Player Select
 - [x] 26 — Character Confirmation and Run Intro
-- [ ] 27 — Final HUD Behavior
-- [ ] 28 — itch.io Web Hardening
+- [x] 27 — Final HUD Behavior
+- [x] 28 — itch.io Web Hardening
 
 ## Audit notes — 2026-09-22
 
@@ -46,3 +46,5 @@ Update only after acceptance criteria are verified.
 - Task 24 was completed with a color-matched blue-frame scene-group handoff, genuinely extruded red logo and individual 3D `CALIFORNICATION` letters, primitive alicorn approach/camera-pass/departure, one persistent four-anchor logo assembly parked at its first carousel detent, responsive composition adjustment, direct DevHarness entry/stage/complete controls, and `Task24Test` coverage.
 - Task 25 was completed with four exact detents on the persistent logo, keyboard/gamepad/touch-safe arrow navigation, one bounded queued step, anchor-bound full-body presentations, settlement-only identity updates, six animated decorative values, one-shot confirmation, responsive wide/narrow layouts, direct DevHarness selection/detent/stat controls, and `Task25Test` coverage.
 - Task 26 was completed with a production-owned Boulevard reset and safe runway, selected-character presentation handoff, profiled cinematic push/hold/orbit, UI fade and gameplay-camera settlement, strict timer/input/generator unlock gating, retry-to-Boulevard behavior, focus-loss completion safety, DevHarness entry/settle controls, and `Task26Test` coverage.
+- Task 27 was completed with one responsive HUD tree, fit-based FULL/MEDIUM/COMPACT visibility, functional score/time and pause binding, scenario-selected decorative loops, deterministic scenario-range coordinate telemetry, separate pause-overlay preservation, RUN_INTRO-to-RUNNING HUD gating, safe-inset reflow without state recreation, and `Task27Test` coverage.
+- Task 28 was completed with a single-threaded Compatibility Web preset, production exclusion of development/tests/reference content, root-level companion packaging, automated itch.io file/path/size auditing, a hosted-browser acceptance checklist, and a validated Web ZIP export.
