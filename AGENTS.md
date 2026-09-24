@@ -46,6 +46,8 @@ When resuming after another model/session:
 
 Never redo a completed task unless its acceptance criteria fail.
 
+If task context is incomplete or execution resumes after an interruption, recover the approved plan and current implementation state from available conversation history, project documentation, Git diffs, and relevant files before proceeding. Preserve the original scope and decisions. Verify completed work, identify unfinished tasks, and continue from the actual project state. Do not invent missing requirements or repeat completed work.
+
 ## Suggested task prompt
 
 ```text
