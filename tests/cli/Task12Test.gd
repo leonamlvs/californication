@@ -1,6 +1,6 @@
 extends Node
 
-const SEQUOIA := preload("res://data/scenarios/sequoia.tres")
+var SEQUOIA: ScenarioDefinition = preload("res://data/scenarios/sequoia.tres").duplicate(true)
 const FIXTURE_A := preload("res://dev/fixtures/fixture_scenario_a.tres")
 const RUN_CAPABILITIES := preload("res://data/track/run_capabilities.tres")
 const RUNNER_SCENE := preload("res://gameplay/runner/Runner.tscn")
@@ -22,6 +22,9 @@ func _ready() -> void:
 
 
 func _run() -> void:
+	# Fixture routing is test-owned; production transitions use the shuffle bag.
+	SEQUOIA.transition_definition.next_scenario_policy = TransitionDefinition.NextScenarioPolicy.EXPLICIT
+	SEQUOIA.transition_definition.next_scenario_ids = [&"fixture_a"]
 	_assert(SEQUOIA.is_valid_definition(), "Sequoia scenario definition is invalid.")
 	_assert(SEQUOIA.movement_mode == &"RUN" and SEQUOIA.movement_profile.movement_mode == &"RUN", "Sequoia did not reuse the shared RUN profile contract.")
 	_assert(SEQUOIA.obstacle_library.is_valid_library(), "Sequoia obstacle library is invalid.")

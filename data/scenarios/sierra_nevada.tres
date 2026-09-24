@@ -10,7 +10,10 @@
 [ext_resource type="Resource" path="res://data/movement_profiles/snowboard_default.tres" id="8_movement"]
 [ext_resource type="Resource" path="res://data/track/snowboard_capabilities.tres" id="9_capabilities"]
 
+[ext_resource type="Resource" path="res://data/audio/sierra_nevada.tres" id="rehab_audio"]
 [sub_resource type="Resource" id="Resource_hud_coordinates"]
+
+
 
 [resource]
 script = ExtResource("1_definition")
@@ -33,3 +36,7 @@ development_minimum_transition_time = 15.0
 development_guaranteed_transition_time = 20.0
 movement_profile = ExtResource("8_movement")
 movement_capability_profile = ExtResource("9_capabilities")
+
+ambience_profile = ExtResource("rehab_audio")
+sky_color = Color(0.48, 0.63, 0.75, 1)
+control_hint = "Left/Right: lanes\nUp: jump   Down: slide"

@@ -38,6 +38,12 @@ var _development_preview := false
 var _material: ShaderMaterial
 
 
+func set_handoff_cover(amount: float) -> void:
+	visible = amount > 0.0
+	fade_rect.visible = amount > 0.0
+	fade_rect.color = Color(0.055, 0.13, 0.22, clampf(amount, 0.0, 1.0))
+
+
 func _ready() -> void:
 	_material = blur_rect.material.duplicate() as ShaderMaterial
 	blur_rect.material = _material

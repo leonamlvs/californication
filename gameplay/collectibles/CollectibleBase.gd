@@ -71,3 +71,4 @@ func _update_visual(runner: RunnerController) -> void:
 	var lane_x := (float(lane) - float(lane_count - 1) * 0.5) * lane_spacing
 	position = Vector3(lane_x, required_runner_height + 0.5, -(forward_distance - logical_distance))
 	visual.rotation.y += 0.04
+	visual.position.y = sin(logical_distance * 0.7 + forward_distance) * 0.08

@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="CameraProfile" load_steps=2 format=3]
 [ext_resource type="Script" path="res://data/definitions/CameraProfile.gd" id="1"]
 [resource]
+vertical_follow_strength = 0.55
 script=ExtResource("1")
 field_of_view=75.0
 follow_distance=10.0

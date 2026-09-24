@@ -16,6 +16,8 @@ albedo_color=Color(0.7,0.12,0.08,1)
 [node name="GoldenGateCableTransition" type="Node3D"]
 script=ExtResource("1")
 duration=3.0
+camera_start_offset = Vector3(4.0, 2.0, 9.0)
+camera_end_offset = Vector3(-3.0, 2.5, 8.0)
 [node name="Car" type="MeshInstance3D" parent="."]
 unique_name_in_owner=true
 mesh=SubResource("car")

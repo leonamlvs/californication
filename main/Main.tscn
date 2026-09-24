@@ -2,11 +2,18 @@
 
 [ext_resource type="Script" path="res://main/Main.gd" id="1_main"]
 [ext_resource type="PackedScene" path="res://presentation/PresentationRoot.tscn" id="2_presentation"]
-[ext_resource type="PackedScene" path="res://ui/menus/GameFlowPlaceholder.tscn" id="3_flow"]
+[ext_resource type="Script" path="res://ui/menus/IslandAttractTouchSurface.gd" id="3_touch"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_main")
 
 [node name="PresentationRoot" parent="." instance=ExtResource("2_presentation")]
 
-[node name="GameFlowPlaceholder" parent="PresentationRoot/GameFrame/FrontendLayer" instance=ExtResource("3_flow")]
+[node name="TouchConfirmSurface" type="Control" parent="PresentationRoot/GameFrame/FrontendLayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_touch")

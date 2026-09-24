@@ -44,4 +44,6 @@ func occupied_lanes_at(elapsed: float) -> PackedInt32Array:
 	var cycle_progress := fposmod(maxf(elapsed, 0.0), motion_period) / motion_period
 	if motion_pattern == MotionPattern.SWEEP:
 		cycle_progress = 1.0 - absf(cycle_progress * 2.0 - 1.0)
+	else:
+		cycle_progress = 1.0 - absf(fposmod(maxf(elapsed, 0.0) / motion_period, 2.0) - 1.0)
 	return PackedInt32Array([roundi(lerpf(float(motion_start_lane), float(motion_end_lane), cycle_progress))])

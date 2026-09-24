@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+[sub_resource type="BoxMesh" id="skyline"]
+size = Vector3(6, 16, 6)
+[sub_resource type="StandardMaterial3D" id="mat"]
+albedo_color = Color(0.3, 0.22, 0.2, 1)
+[node name="EarthquakeEnvironment" type="Node3D"]
+[node name="BrokenTower" type="MeshInstance3D" parent="."]
+position = Vector3(-13, 4, -75)
+rotation_degrees = Vector3(8, 0, -18)
+mesh = SubResource("skyline")
+material_override = SubResource("mat")
+[node name="BrokenTowerRight" type="MeshInstance3D" parent="."]
+position = Vector3(15, 6, -90)
+rotation_degrees = Vector3(-12, 0, 8)
+mesh = SubResource("skyline")
+material_override = SubResource("mat")

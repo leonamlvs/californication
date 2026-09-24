@@ -8,6 +8,8 @@ size=Vector3(1.5,0.6,2.5)
 [node name="HollywoodAerialTransition" type="Node3D"]
 script=ExtResource("1")
 duration=3.0
+camera_start_offset = Vector3(3.0, 3.0, 9.5)
+camera_end_offset = Vector3(-3.5, 2.0, 8.5)
 [node name="Craft" type="MeshInstance3D" parent="."]
 unique_name_in_owner=true
 mesh=SubResource("c")

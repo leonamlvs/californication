@@ -5,6 +5,7 @@
 [ext_resource type="Resource" path="res://data/patterns/sequoia_safe_recovery.tres" id="3_safe"]
 [ext_resource type="Resource" path="res://data/patterns/sequoia_crosser_timing.tres" id="4_crosser"]
 [ext_resource type="Resource" path="res://data/patterns/sequoia_sweeper_timing.tres" id="5_sweeper"]
+[ext_resource type="Resource" path="res://data/patterns/sequoia_crosser_late.tres" id="6_late"]
 
 [resource]
 script = ExtResource("1_segment")
@@ -15,4 +16,4 @@ connection_end = Vector3(0, 0, -30)
 compatible_modes = Array[StringName]([&"RUN"])
 environment_tags = Array[StringName]([&"sequoia", &"forest"])
 scene = ExtResource("2_scene")
-eligible_patterns = Array[PatternDefinition]([ExtResource("3_safe"), ExtResource("4_crosser"), ExtResource("5_sweeper")])
+eligible_patterns = Array[PatternDefinition]([ExtResource("3_safe"), ExtResource("4_crosser"), ExtResource("5_sweeper"), ExtResource("6_late")])

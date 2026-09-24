@@ -8,7 +8,10 @@
 [ext_resource type="Resource" path="res://data/transitions/golden_gate_cable.tres" id="7"]
 [ext_resource type="Resource" path="res://data/movement_profiles/car_default.tres" id="8"]
 [ext_resource type="Resource" path="res://data/track/car_capabilities.tres" id="9"]
+[ext_resource type="Resource" path="res://data/audio/golden_gate.tres" id="rehab_audio"]
 [sub_resource type="Resource" id="hud"]
+
+
 [resource]
 script=ExtResource("1")
 id=&"golden_gate"
@@ -31,3 +34,7 @@ development_guaranteed_transition_time=20.0
 movement_profile=ExtResource("8")
 movement_capability_profile=ExtResource("9")
 failure_family=&"launch"
+
+ambience_profile = ExtResource("rehab_audio")
+sky_color = Color(0.36, 0.54, 0.62, 1)
+control_hint = "Left/Right: steer\nUp: ramp jump"

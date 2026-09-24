@@ -281,6 +281,10 @@ func exit_run() -> bool:
 
 
 func _set_state(next_state: StringName) -> void:
+	# A routed intent is a transaction: later listeners must not interpret the
+	# same button again against the state that an earlier listener just entered.
+	if InputRouter.is_dispatching_intent:
+		_lock_entry_input()
 	var previous_state := current_state
 	current_state = next_state
 	gameplay_input_enabled = current_state == RUNNING or current_state == TRANSITION_READY

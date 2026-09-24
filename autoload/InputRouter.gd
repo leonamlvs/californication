@@ -40,6 +40,7 @@ var _swipe_start_position := Vector2.ZERO
 var _swipe_usable_size := Vector2.ZERO
 var _gesture_cancelled := false
 var _usable_viewport_size_override := Vector2.ZERO
+var is_dispatching_intent := false
 
 
 func _ready() -> void:
@@ -63,6 +64,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag:
 		if _active_touch_index >= 0 and event.index != _active_touch_index:
 			cancel_active_swipe()
+		elif _active_touch_index >= 0 and not _gesture_cancelled:
+			var intent := classify_swipe(_swipe_start_position, event.position, _swipe_usable_size)
+			if not intent.is_empty():
+				request_intent(intent)
+				_gesture_cancelled = true
 		return
 
 	if event is InputEventKey and event.echo:
@@ -75,7 +81,9 @@ func _unhandled_input(event: InputEvent) -> void:
 ## Emits an intent only when it is part of the shared input contract.
 func request_intent(intent: StringName) -> void:
 	if ACTION_TO_INTENT.values().has(intent):
+		is_dispatching_intent = true
 		intent_requested.emit(intent)
+		is_dispatching_intent = false
 
 
 ## Allows the responsive UI layer to provide its safe, usable input rectangle.

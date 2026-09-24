@@ -3,6 +3,9 @@ extends Resource
 
 @export var id: StringName
 @export var display_name := ""
+@export var control_hint := "← → lanes   ↑ jump   ↓ slide"
+@export var ambience_profile: AmbienceProfile
+@export var sky_color := Color(0.24, 0.43, 0.6)
 @export var movement_mode: StringName = &"RUN"
 @export_range(0.1, 100.0, 0.1, "suffix:m/s") var base_speed := 10.0
 @export_range(0.1, 100.0, 0.1, "suffix:m/s") var max_speed := 16.0

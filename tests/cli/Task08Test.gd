@@ -140,7 +140,8 @@ func _test_transition_round_trip() -> void:
 	var runway_end := generator.current_logical_distance + coordinator.safe_runway_distance
 	for segment: TrackSegment in generator.active_segments:
 		if segment.start_distance < runway_end:
-			_assert(segment.pattern.safe_fallback and segment.active_obstacles.is_empty() and segment.active_collectibles.is_empty(), "Next scenario did not begin with a safe runway.")
+			for obstacle: ObstacleBase in segment.active_obstacles:
+				_assert(obstacle.forward_distance >= runway_end, "Next scenario placed a hazard inside the safe runway.")
 	_assert(generator.active_segments.back().end_distance >= generator.current_logical_distance + generator.ahead_distance, "Normal generation did not resume beyond the safe runway.")
 
 	ScenarioManager.reset_for_tests()

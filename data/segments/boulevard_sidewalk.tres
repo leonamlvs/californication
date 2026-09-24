@@ -6,6 +6,7 @@
 [ext_resource type="Resource" path="res://data/patterns/boulevard_weave_left_center.tres" id="4_left"]
 [ext_resource type="Resource" path="res://data/patterns/boulevard_weave_right_center.tres" id="5_right"]
 [ext_resource type="Resource" path="res://data/patterns/boulevard_hurdle_weave.tres" id="6_hurdle"]
+[ext_resource type="Resource" path="res://data/patterns/boulevard_slide.tres" id="7_slide"]
 
 [resource]
 script = ExtResource("1_segment")
@@ -16,4 +17,4 @@ connection_end = Vector3(0, 0, -30)
 compatible_modes = Array[StringName]([&"RUN"])
 environment_tags = Array[StringName]([&"boulevard", &"sidewalk"])
 scene = ExtResource("2_scene")
-eligible_patterns = Array[PatternDefinition]([ExtResource("3_safe"), ExtResource("4_left"), ExtResource("5_right"), ExtResource("6_hurdle")])
+eligible_patterns = Array[PatternDefinition]([ExtResource("3_safe"), ExtResource("4_left"), ExtResource("5_right"), ExtResource("6_hurdle"), ExtResource("7_slide")])

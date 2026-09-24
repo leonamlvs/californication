@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AmbienceProfile" load_steps=2 format=3]
+[ext_resource type="Script" path="res://data/definitions/AmbienceProfile.gd" id="1"]
+[resource]
+script = ExtResource("1")
+id = &"earthquake_rumble"
+frequency = 32.0
+noise = 0.55
+gain = 0.12
+

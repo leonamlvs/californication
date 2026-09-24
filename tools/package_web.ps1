@@ -11,6 +11,7 @@ $zipPath = Join-Path $packageRoot 'californication-web.zip'
 
 if (-not $SkipExport) {
     New-Item -ItemType Directory -Force -Path $webRoot | Out-Null
+    New-Item -ItemType File -Force -Path (Join-Path $ProjectRoot 'build/.gdignore') | Out-Null
     $indexPath = Join-Path $webRoot 'index.html'
     $logPath = Join-Path $ProjectRoot 'build/task28_export.log'
     $arguments = "--headless --path `"$ProjectRoot`" --export-release Web `"$indexPath`" --log-file `"$logPath`""

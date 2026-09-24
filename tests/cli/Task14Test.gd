@@ -1,5 +1,5 @@
 extends Node
-const GATE := preload("res://data/scenarios/golden_gate.tres")
+var GATE: ScenarioDefinition = preload("res://data/scenarios/golden_gate.tres").duplicate(true)
 const FIXTURE := preload("res://dev/fixtures/fixture_scenario_a.tres")
 const RUNNER := preload("res://gameplay/runner/Runner.tscn")
 const GEN := preload("res://gameplay/track/TrackGenerator.tscn")
@@ -10,6 +10,8 @@ var bad=false
 func _ready()->void:
 	_run(); print("Task 14 Golden Gate / CAR test passed.") if not bad else printerr("Task 14 failed."); get_tree().quit(1 if bad else 0)
 func _run()->void:
+	GATE.transition_definition.next_scenario_policy = TransitionDefinition.NextScenarioPolicy.EXPLICIT
+	GATE.transition_definition.next_scenario_ids = [&"fixture_a"]
 	_ok(GATE.is_valid_definition(),"Gate invalid")
 	_ok(GATE.movement_capability_profile.supports_jump and not GATE.movement_capability_profile.supports_low,"CAR capabilities allow crouch")
 	var v:=PatternValidator.new()

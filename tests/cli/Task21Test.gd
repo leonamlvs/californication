@@ -78,10 +78,14 @@ func _run() -> void:
 	game_over.yes_button.emit_signal("pressed")
 	_assert(GameFlow.current_state == GameFlow.RUN_INTRO and GameFlow.prepared_run_target == GameFlow.BOULEVARD_ID, "YES did not enter RUN_INTRO targeting Boulevard.")
 	_assert(GameFlow.selected_character_id == retained_character, "YES did not retain the character.")
-	_assert(ScenarioManager.active_scenario_id == GameFlow.BOULEVARD_ID, "YES did not reset production selection to Boulevard.")
-	_assert(generator.run_stats.score == 0 and is_zero_approx(generator.run_stats.elapsed_seconds) and is_zero_approx(generator.run_stats.active_distance), "YES did not reset run metrics.")
+	_assert(ScenarioManager.active_scenario_id == LAUNCH_SOURCE.id, "FailureCoordinator duplicated Run Intro's scenario preparation.")
+	_assert(generator.run_stats.score > 0, "FailureCoordinator duplicated Run Intro's metric reset.")
 	_assert(generator.suspended and runner.movement_suspended and runner.is_invulnerable, "YES unlocked gameplay before RUN_INTRO readiness.")
-	_assert(failure.active_presentation == null and runner.position.is_equal_approx(Vector3(0, 0, 0)), "YES did not clean up and restore the failure presentation.")
+	_assert(failure.active_presentation == null, "YES did not clean up the failure presentation.")
+	# This isolated fixture has no Run Intro. Production retry preparation and
+	# metric reset are covered through Main by RehabilitationTest.
+	runner.reset_for_run()
+	runner.set_movement_suspended(true)
 	_assert(GameFlow.report_run_intro_ready(true, true), "RUN_INTRO readiness was rejected.")
 	_assert(not generator.suspended and not runner.movement_suspended and not runner.is_invulnerable, "RUN_INTRO completion did not restore gameplay locks.")
 

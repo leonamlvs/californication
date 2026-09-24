@@ -38,9 +38,32 @@ var _coordinate_profile: HUDCoordinateProfile
 var _coordinate_seed := 0
 var _coordinate_elapsed := 0.0
 var _loop_elapsed := 0.0
+var _entry_banner: Label
+var _entry_remaining := 0.0
+var _portrait: TextureRect
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	band_label.text = ""
+	scenario_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	scenario_label.add_theme_font_size_override("font_size", 14)
+	_portrait = TextureRect.new()
+	_portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_portrait.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	band_panel.add_child(_portrait)
+	_entry_banner = Label.new()
+	_entry_banner.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	_entry_banner.offset_top = -122.0
+	_entry_banner.offset_bottom = -64.0
+	_entry_banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_entry_banner.add_theme_font_size_override("font_size", 18)
+	_entry_banner.add_theme_color_override("font_shadow_color", Color.BLACK)
+	_entry_banner.add_theme_constant_override("shadow_offset_x", 2)
+	_entry_banner.add_theme_constant_override("shadow_offset_y", 2)
+	_entry_banner.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_entry_banner)
 	pause_button.pressed.connect(GameFlow.pause_run)
 	GameFlow.state_changed.connect(_on_game_flow_state_changed)
 	ScenarioManager.scenario_loaded.connect(_on_scenario_loaded)
@@ -61,11 +84,15 @@ func _exit_tree() -> void:
 
 
 func _process(delta: float) -> void:
-	if not visible or delta <= 0.0:
+	if not visible or delta <= 0.0 or GameFlow.current_state == GameFlow.PAUSED:
 		return
 	_loop_elapsed += delta
 	band_label.modulate.a = lerpf(0.72, 1.0, (sin(_loop_elapsed * 3.0) + 1.0) * 0.5)
-	scenario_label.modulate = Color.from_hsv(fposmod(float(_coordinate_seed) * 0.013 + _loop_elapsed * 0.035, 1.0), 0.35, 1.0)
+	_portrait.texture = RunIntroController.CHARACTERS[int(_loop_elapsed * 0.7) % 4].pause_portrait
+	_portrait.modulate = Color(0.7, 0.9, 1.0, 0.85 + sin(_loop_elapsed * 3.0) * 0.15)
+	if GameFlow.gameplay_input_enabled:
+		_entry_remaining = maxf(0.0, _entry_remaining - delta)
+	_entry_banner.modulate.a = clampf(_entry_remaining, 0.0, 1.0)
 	if _coordinate_profile != null:
 		_coordinate_elapsed += delta
 		if _coordinate_elapsed >= _coordinate_profile.update_interval:
@@ -77,6 +104,7 @@ func _on_game_flow_state_changed(_previous_state: StringName, next_state: String
 	# RUN_INTRO binds its data before this point, but gameplay HUD visibility is
 	# atomically reserved for the settled RUNNING edge.
 	visible = next_state in GAMEPLAY_STATES
+	_entry_banner.visible = next_state in [GameFlow.RUNNING, GameFlow.TRANSITION_READY]
 	_set_pause_presentation(next_state == GameFlow.PAUSED)
 
 
@@ -97,6 +125,12 @@ func apply_available_size(available_size: Vector2) -> void:
 	pause_button.custom_minimum_size = Vector2(56.0, 56.0)
 	pause_overlay.apply_available_size(available_size)
 	_match_panel_density()
+	top_left.offset_right = 88.0 if active_profile == Profile.COMPACT else 206.0
+	for panel: Control in top_right.get_node("Panels").get_children():
+		panel.custom_minimum_size.x = 174.0 if active_profile == Profile.COMPACT else 220.0
+	top_right.offset_left = -190.0 if active_profile == Profile.COMPACT else -236.0
+	score_label.add_theme_font_size_override("font_size", 18 if active_profile == Profile.COMPACT else 24)
+	timer_label.add_theme_font_size_override("font_size", 16 if active_profile == Profile.COMPACT else 20)
 
 
 func _select_profile(available_size: Vector2) -> Profile:
@@ -118,7 +152,9 @@ func _on_scenario_loaded(definition: ScenarioDefinition) -> void:
 		_coordinate_profile = HUDCoordinateProfile.fallback_for_scenario(definition.id)
 	_coordinate_seed = abs(String(definition.id).hash())
 	_coordinate_elapsed = 0.0
-	scenario_label.text = "SCENARIO\n%s" % definition.display_name.to_upper()
+	scenario_label.text = "%s\n%s" % [definition.display_name.to_upper(), String(definition.movement_mode)]
+	_entry_banner.text = "%s · %s\n%s" % [definition.display_name.to_upper(), String(definition.movement_mode), definition.control_hint]
+	_entry_remaining = 2.8
 	_refresh_coordinates()
 
 

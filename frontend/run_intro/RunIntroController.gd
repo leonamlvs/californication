@@ -19,7 +19,7 @@ const RUN_INTRO_FX := preload("res://data/cinematic_fx/run_intro_push.tres")
 @export_range(0.1, 2.0, 0.05, "suffix:s") var push_duration := 0.45
 @export_range(0.05, 2.0, 0.05, "suffix:s") var front_hold_duration := 0.28
 @export_range(0.1, 3.0, 0.05, "suffix:s") var orbit_duration := 0.75
-@export_range(15.0, 80.0, 1.0, "suffix:m") var safe_runway_distance := 35.0
+@export_range(15.0, 80.0, 1.0, "suffix:m") var safe_runway_distance := 27.0
 @export var force_fx_fallback := false
 
 var runner: RunnerController
@@ -27,6 +27,7 @@ var generator: TrackGenerator
 var transition_coordinator: TransitionCoordinator
 var scenario_root: Node3D
 var gameplay_camera: Camera3D
+var camera_rig: GameplayCameraRig
 var logo_frontend: LogoRevealController
 var cinematic_fx: CinematicTransitionFX
 var character_presenter: CharacterPresenter
@@ -43,6 +44,7 @@ var source_visual: CharacterVisual
 var _push_start_transform := Transform3D.IDENTITY
 var _push_end_position := Vector3.ZERO
 var _orbit_start_transform := Transform3D.IDENTITY
+var _focus_active := true
 
 
 func _ready() -> void:
@@ -86,7 +88,7 @@ func configure_services(
 
 
 func advance_for_test(delta: float) -> void:
-	if not is_active or delta <= 0.0:
+	if not is_active or delta <= 0.0 or not _focus_active:
 		return
 	var remaining := delta
 	while remaining > 0.0 and is_active:
@@ -135,7 +137,8 @@ func _prepare_boulevard() -> bool:
 	if runner == null or generator == null or scenario_root == null or gameplay_camera == null or character_presenter == null:
 		preparation_failed.emit("Run Intro services are not configured.")
 		return false
-	if not ScenarioManager.load_scenario(BOULEVARD.id):
+	var run_seed := randi() if generator.randomize_runtime_seed else generator.deterministic_seed
+	if not ScenarioManager.begin_production_run(run_seed):
 		preparation_failed.emit("Boulevard is not registered.")
 		return false
 	var definition := ScenarioManager.active_definition
@@ -147,13 +150,20 @@ func _prepare_boulevard() -> bool:
 		preparation_failed.emit("Boulevard runner mode configuration failed.")
 		return false
 	runner.reset_for_run()
+	if camera_rig != null:
+		camera_rig.settle()
 	if not character_presenter.apply_definition(_selected_definition()):
 		preparation_failed.emit("Selected character presentation could not bind to the runner.")
 		return false
 	character_presenter.cosmetic.visible = false
 	generator.set_runner(runner)
-	generator.reset_generator(generator.deterministic_seed, 0.0, runner.current_speed)
-	generator.prepare_safe_runway(safe_runway_distance)
+	generator.reset_generator(run_seed, 0.0, runner.current_speed)
+	if not generator.prepare_safe_runway(safe_runway_distance):
+		generator.set_suspended(true)
+		runner.set_invulnerable(true)
+		runner.set_movement_suspended(true)
+		preparation_failed.emit("Boulevard safe runway could not be generated.")
+		return false
 	generator.set_suspended(true)
 	runner.set_invulnerable(true)
 	runner.set_movement_suspended(true)
@@ -211,9 +221,10 @@ func _update_stage(normalized: float) -> void:
 		Stage.ORBIT:
 			if normalized >= 0.45:
 				character_presenter.cosmetic.visible = true
-			if normalized >= 0.65 and source_visual != character_presenter.cosmetic:
+			if normalized >= 0.45 and source_visual != character_presenter.cosmetic:
 				source_visual.visible = false
 			logo_frontend.logo_camera.global_transform = _orbit_start_transform.interpolate_with(gameplay_camera.global_transform, smoothstep(0.0, 1.0, normalized))
+			logo_frontend.logo_camera.fov = lerpf(logo_frontend.logo_camera.fov, gameplay_camera.fov, normalized)
 
 
 func _advance_stage() -> void:
@@ -304,5 +315,7 @@ func _start_confirmed_run() -> void:
 
 
 func _notification(what: int) -> void:
-	if is_active and (what == NOTIFICATION_APPLICATION_FOCUS_OUT or what == NOTIFICATION_WM_WINDOW_FOCUS_OUT):
-		_force_settled()
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT or what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+		_focus_active = false
+	elif what == NOTIFICATION_APPLICATION_FOCUS_IN or what == NOTIFICATION_WM_WINDOW_FOCUS_IN:
+		_focus_active = true

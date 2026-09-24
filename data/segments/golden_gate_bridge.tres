@@ -5,6 +5,7 @@
 [ext_resource type="Resource" path="res://data/patterns/golden_gate_traffic_weave.tres" id="4"]
 [ext_resource type="Resource" path="res://data/patterns/golden_gate_ramp.tres" id="5"]
 [resource]
+lane_spacing = 2.0
 script = ExtResource("1")
 id = &"golden_gate_bridge"
 length = 30.0

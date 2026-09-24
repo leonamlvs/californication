@@ -18,6 +18,11 @@ var active_scenario: ScenarioDefinition
 var active_token: TransitionToken
 var active_cinematic: ScenarioTransitionController
 var scenario_elapsed := 0.0
+var gameplay_camera: Camera3D
+var camera_rig: GameplayCameraRig
+var character_presenter: CharacterPresenter
+var cinematic_fx: CinematicTransitionFX
+var _settlement: Tween
 
 var _minimum_time := 40.0
 var _guaranteed_time := 55.0
@@ -112,6 +117,11 @@ func development_force_complete_cinematic() -> bool:
 
 
 func cancel_active_transition() -> void:
+	ScenarioManager.transition_in_progress = false
+	if _settlement != null:
+		_settlement.kill()
+	if cinematic_fx != null:
+		cinematic_fx.set_handoff_cover(0.0)
 	if active_cinematic != null:
 		active_cinematic.cancel()
 		remove_child(active_cinematic)
@@ -155,6 +165,7 @@ func _on_token_collected(_token: TransitionToken) -> void:
 	if _collection_committed or GameFlow.current_state != GameFlow.TRANSITION_READY:
 		return
 	_collection_committed = true
+	AudioManager.play_cue(&"token")
 	runner.set_invulnerable(true)
 	runner.set_movement_suspended(true)
 	generator.set_suspended(true)
@@ -164,6 +175,7 @@ func _on_token_collected(_token: TransitionToken) -> void:
 		return
 	var transition := active_scenario.transition_definition
 	run_stats.award_transition_bonus(transition_bonus_key(), transition.transition_bonus_score)
+	AudioManager.play_cue(&"bonus")
 	if hud != null:
 		hud.show_transition_bonus(true)
 	generator.release_transition_token()
@@ -181,6 +193,9 @@ func _on_token_collected(_token: TransitionToken) -> void:
 		"source_scenario": active_scenario.id,
 		"selected_character_id": GameFlow.selected_character_id,
 		"camera_profile": transition.optional_camera_profile,
+		"gameplay_camera": gameplay_camera,
+		"character_definition": character_presenter.current_definition if character_presenter != null else null,
+		"fx": cinematic_fx,
 	})
 	transition_started.emit(transition)
 
@@ -188,6 +203,8 @@ func _on_token_collected(_token: TransitionToken) -> void:
 func _on_cinematic_completed() -> void:
 	if GameFlow.current_state != GameFlow.SCENARIO_TRANSITION:
 		return
+	if cinematic_fx != null:
+		cinematic_fx.set_handoff_cover(1.0)
 	if not GameFlow.begin_next_scenario() or not ScenarioManager.complete_transition():
 		push_error("Scenario transition could not complete its protected handoff.")
 		return
@@ -198,13 +215,34 @@ func _on_cinematic_completed() -> void:
 		remove_child(completed_cinematic)
 		completed_cinematic.queue_free()
 	if target.movement_profile != null:
-		runner.movement_profile = target.movement_profile
-		runner.set_movement_mode(target.movement_mode)
-		runner.current_speed = target.base_speed
-	generator.configure_for_scenario(target)
-	generator.prepare_safe_runway(safe_runway_distance)
+		runner.adopt_profile(target.movement_profile)
+		runner.set_movement_suspended(true)
+		runner.visible = true
+		generator.current_speed = runner.current_speed
+	if camera_rig != null:
+		camera_rig.settle()
+	if gameplay_camera != null:
+		gameplay_camera.make_current()
+	if not generator.configure_for_scenario(target):
+		push_error("Target scenario generator configuration failed during protected handoff.")
+		return
+	generator.current_logical_distance = runner.logical_forward_distance
+	if not generator.prepare_safe_runway(safe_runway_distance):
+		push_error("Target scenario safe runway failed during protected handoff.")
+		return
 	if hud != null:
 		hud.show_transition_bonus(false)
+	if cinematic_fx != null:
+		_settlement = create_tween()
+		_settlement.tween_method(cinematic_fx.set_handoff_cover, 1.0, 0.0, 0.22)
+		_settlement.tween_callback(_unlock_handoff.bind(target))
+	else:
+		_unlock_handoff(target)
+
+
+func _unlock_handoff(target: ScenarioDefinition) -> void:
+	if GameFlow.current_state != GameFlow.NEXT_SCENARIO:
+		return
 	if not GameFlow.complete_scenario_handoff():
 		return
 	generator.set_suspended(false)

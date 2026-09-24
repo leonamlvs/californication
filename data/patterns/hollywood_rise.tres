@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="PatternDefinition" load_steps=5 format=3]
+[ext_resource type="Script" path="res://data/definitions/PatternDefinition.gd" id="1"]
+[ext_resource type="Script" path="res://data/definitions/PatternObstaclePlacement.gd" id="2"]
+[ext_resource type="Resource" path="res://data/obstacles/hollywood_air_block.tres" id="3"]
+[sub_resource type="Resource" id="p"]
+script = ExtResource("2")
+obstacle = ExtResource("3")
+forward_offset = 28.5
+lane = 1
+vertical_state = 3
+[resource]
+script = ExtResource("1")
+id = &"hollywood_rise"
+length = 30.0
+difficulty = 1
+maximum_speed = 19.0
+allowed_movement_modes = Array[StringName]([&"FLY"])
+minimum_reaction_time = 1.5
+entrance_state_mask = 32767
+exit_state_mask = 32767
+obstacle_placements = Array[PatternObstaclePlacement]([SubResource("p")])
+

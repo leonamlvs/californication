@@ -1,6 +1,7 @@
 extends Node
 
-const SIERRA := preload("res://data/scenarios/sierra_nevada.tres")
+var SIERRA: ScenarioDefinition = preload("res://data/scenarios/sierra_nevada.tres").duplicate(true)
+const SIERRA_SOURCE := preload("res://data/scenarios/sierra_nevada.tres")
 const FIXTURE_A := preload("res://dev/fixtures/fixture_scenario_a.tres")
 const RUN_CAPABILITIES := preload("res://data/track/run_capabilities.tres")
 const RUNNER_SCENE := preload("res://gameplay/runner/Runner.tscn")
@@ -21,6 +22,12 @@ func _ready() -> void:
 
 
 func _run() -> void:
+	var sierra_source_snapshot := _library_snapshot(SIERRA_SOURCE)
+	var sierra_fixture_snapshot := _library_snapshot(SIERRA)
+	var target_snapshot := _library_snapshot(FIXTURE_A)
+	# Fixture routing is test-owned; production transitions use the shuffle bag.
+	SIERRA.transition_definition.next_scenario_policy = TransitionDefinition.NextScenarioPolicy.EXPLICIT
+	SIERRA.transition_definition.next_scenario_ids = [&"fixture_a"]
 	_assert(SIERRA.is_valid_definition(), "Sierra scenario definition is invalid.")
 	_assert(SIERRA.movement_profile.movement_mode == &"SNOWBOARD" and SIERRA.movement_capability_profile.movement_mode == &"SNOWBOARD", "Sierra does not declare SNOWBOARD through shared movement data.")
 	_assert(SIERRA.movement_profile.lane_change_duration > 0.18, "Snowboard carve is not looser than the RUN baseline.")
@@ -90,6 +97,21 @@ func _run() -> void:
 	_assert(not cinematic.tunnel.visible, "Sierra tunnel did not tear down after the jump-away stage.")
 	_assert(coordinator.development_force_complete_cinematic(), "Sierra cinematic completion hook failed.")
 	_assert(GameFlow.current_state == GameFlow.RUNNING and ScenarioManager.active_scenario_id == FIXTURE_A.id, "Sierra did not hand off to the registered fixture target.")
+	_assert(_library_snapshot(SIERRA_SOURCE) == sierra_source_snapshot and _library_snapshot(SIERRA) == sierra_fixture_snapshot and _library_snapshot(FIXTURE_A) == target_snapshot, "Handoff mutated an authored pattern library.")
+	_assert(generator.active_track_has_no_holes() and generator.active_segments.back().end_distance >= generator.current_logical_distance + generator.ahead_distance, "Handoff did not build a contiguous track window.")
+	var opening: TrackSegment = generator.active_segments.front()
+	_assert(opening.definition.is_valid_definition() and opening.definition.eligible_patterns.size() == 1 and opening.definition.eligible_patterns[0] == opening.pattern, "Temporary opening segment has an invalid pattern contract.")
+	_assert(opening.definition != FIXTURE_A.segment_library[0] and opening.pattern != generator.fallback_pattern, "Temporary opening reused an authored resource.")
+	for segment: TrackSegment in generator.active_segments:
+		for obstacle: ObstacleBase in segment.active_obstacles:
+			_assert(obstacle.forward_distance >= generator.current_logical_distance + coordinator.safe_runway_distance, "Handoff spawned a hazard inside the protected opening.")
+	_assert(generator.prepare_safe_runway(coordinator.safe_runway_distance), "Repeated safe-runway preparation failed.")
+	_assert(_library_snapshot(FIXTURE_A) == target_snapshot and generator.active_track_has_no_holes(), "Repeated safe-runway preparation changed fixture content or broke track continuity.")
+	var saved_fallback := generator.fallback_pattern
+	generator.fallback_pattern = null
+	_assert(not generator.prepare_safe_runway(coordinator.safe_runway_distance) and generator.suspended, "Failed runway preparation did not stop generation.")
+	generator.fallback_pattern = saved_fallback
+	generator.set_suspended(false)
 
 	_assert(ScenarioManager.load_scenario(SIERRA.id), "Sierra could not be loaded for a repeat transition.")
 	runner.movement_profile = SIERRA.movement_profile
@@ -101,6 +123,8 @@ func _run() -> void:
 	GameFlow.development_jump_to_state(GameFlow.RUNNING)
 	_assert(coordinator.development_force_token_collection() and coordinator.development_force_complete_cinematic(), "Repeated Sierra transition did not cleanly restart.")
 	_assert(ScenarioManager.active_scenario_id == FIXTURE_A.id and coordinator.active_cinematic == null, "Repeated Sierra transition leaked its cinematic lifecycle.")
+	_assert(_library_snapshot(SIERRA_SOURCE) == sierra_source_snapshot and _library_snapshot(SIERRA) == sierra_fixture_snapshot and _library_snapshot(FIXTURE_A) == target_snapshot, "Source-to-fixture-to-source handoff changed an authored pattern library.")
+	_assert(generator.active_track_has_no_holes() and generator.active_segments.front().definition.is_valid_definition(), "Repeated handoff left an invalid or discontinuous opening.")
 
 	ScenarioManager.reset_for_tests()
 	runner.queue_free()
@@ -113,3 +137,13 @@ func _assert(condition: bool, message: String) -> void:
 	if not condition:
 		_failed = true
 		printerr(message)
+
+
+func _library_snapshot(definition: ScenarioDefinition) -> Array:
+	var snapshot: Array = []
+	for segment: SegmentDefinition in definition.segment_library:
+		var patterns: Array = []
+		for pattern: PatternDefinition in segment.eligible_patterns:
+			patterns.append([pattern.get_instance_id(), pattern.id, pattern.length])
+		snapshot.append([segment.get_instance_id(), segment.id, segment.length, patterns])
+	return snapshot

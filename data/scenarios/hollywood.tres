@@ -8,7 +8,10 @@
 [ext_resource type="Resource" path="res://data/transitions/hollywood_aerial.tres" id="7"]
 [ext_resource type="Resource" path="res://data/movement_profiles/fly_default.tres" id="8"]
 [ext_resource type="Resource" path="res://data/track/fly_capabilities.tres" id="9"]
+[ext_resource type="Resource" path="res://data/audio/hollywood.tres" id="rehab_audio"]
 [sub_resource type="Resource" id="h"]
+
+
 [resource]
 script=ExtResource("1")
 id=&"hollywood"
@@ -31,3 +34,7 @@ development_guaranteed_transition_time=20.0
 movement_profile=ExtResource("8")
 movement_capability_profile=ExtResource("9")
 failure_family=&"launch"
+
+ambience_profile = ExtResource("rehab_audio")
+sky_color = Color(0.27, 0.48, 0.73, 1)
+control_hint = "Left/Right: lanes\nUp: rise   Down: dive"

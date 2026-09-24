@@ -8,6 +8,7 @@
 [ext_resource type="Resource" path="res://data/patterns/sierra_jump_log.tres" id="6_jump"]
 
 [resource]
+lane_spacing = 1.8
 script = ExtResource("1_segment")
 id = &"sierra_snow_route"
 length = 30.0

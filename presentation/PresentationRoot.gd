@@ -22,7 +22,6 @@ const MOBILE_ASPECT_DEVIATION := 0.25
 @onready var hud: RunnerHUD = %HUD
 @onready var frontend_safe_guide: FrontendSafeComposition = %FrontendSafeGuide
 @onready var gameplay_runner: RunnerController = $GameFrame/WorldContainer/GameViewport/World/Runner
-@onready var placeholder_block: MeshInstance3D = $GameFrame/WorldContainer/GameViewport/World/PlaceholderBlock
 @onready var logo_frontend: LogoRevealController = $GameFrame/WorldContainer/GameViewport/World/LogoPresentationRig
 
 var _last_snapshot: Dictionary = {}
@@ -138,6 +137,7 @@ func _on_game_flow_state_changed(_previous: StringName, next: StringName) -> voi
 		GameFlow.PAUSED, GameFlow.FAILURE_TRANSITION, GameFlow.LAVA_GAME_OVER, GameFlow.TRY_AGAIN,
 	]
 	gameplay_runner.visible = gameplay_visible
-	placeholder_block.visible = gameplay_visible
+	for node_name: String in ["TrackGenerator", "ScenarioRoot", "KeyLight"]:
+		get_node("GameFrame/WorldContainer/GameViewport/World/" + node_name).visible = gameplay_visible
 	# The HUD controller owns its state gate: it remains hidden during RUN_INTRO
 	# while its already-bound data is ready for the atomic RUNNING reveal.

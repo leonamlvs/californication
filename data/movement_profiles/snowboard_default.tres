@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://data/definitions/MovementProfile.gd" id="1_profile"]
 
 [resource]
+presentation_lean = 9.0
+presentation_bob = 0.01
 script = ExtResource("1_profile")
 movement_mode = &"SNOWBOARD"
 lane_count = 3

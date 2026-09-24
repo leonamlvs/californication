@@ -40,6 +40,9 @@ var _runner: RunnerController
 var _cursor_distance := 0.0
 var _rng := RandomNumberGenerator.new()
 var _validator := PatternValidator.new()
+var _recovery_due := false
+var _ordinary_safe_count := 0
+var _ordinary_count := 0
 
 
 func _ready() -> void:
@@ -95,6 +98,9 @@ func reset_generator(seed_value: int = deterministic_seed, start_distance: float
 		pool.release_segment(segment)
 	active_segments.clear()
 	generation_history.clear()
+	_recovery_due = false
+	_ordinary_safe_count = 0
+	_ordinary_count = 0
 	rejected_candidate_count = 0
 	fallback_selection_count = 0
 	current_logical_distance = start_distance
@@ -112,11 +118,17 @@ func step_simulation(logical_distance: float, speed: float, delta: float = 0.0) 
 		return
 	current_logical_distance = maxf(logical_distance, current_logical_distance)
 	current_speed = maxf(speed, 0.01)
+	if active_transition_token != null:
+		active_transition_token.step_simulation()
+		if suspended:
+			return
 	for segment: TrackSegment in active_segments:
 		segment.update_visual(current_logical_distance)
 		if _runner != null:
-			for obstacle: ObstacleBase in segment.active_obstacles:
+			for obstacle: ObstacleBase in segment.active_obstacles.duplicate():
 				obstacle.step_simulation(_runner, delta)
+				if suspended:
+					return
 			for collectible: CollectibleBase in segment.active_collectibles.duplicate():
 				collectible.step_simulation(_runner)
 				if collectible.is_resolved():
@@ -170,31 +182,61 @@ func clear_pending_gameplay_content(from_distance: float) -> void:
 				segment.active_collectibles.erase(collectible)
 
 
-func prepare_safe_runway(runway_distance: float = 25.0) -> void:
+func prepare_safe_runway(runway_distance: float = 25.0) -> bool:
+	var was_suspended := suspended
+	suspended = true
+	if fallback_pattern == null or capability_profile == null:
+		return false
+	# Check the authored segment before removing the playable track. The
+	# temporary definition below receives its own pattern array.
+	var lead_in := maxf(3.0, runway_distance - fallback_pattern.maximum_speed * 1.5)
+	var opening_length := lead_in + behind_distance
+	var source_definition := _segment_for_length(fallback_pattern.length)
+	if source_definition == null:
+		return false
 	release_transition_token()
 	for segment: TrackSegment in active_segments.duplicate():
 		pool.release_segment(segment)
 	active_segments.clear()
-	_cursor_distance = current_logical_distance
+	_cursor_distance = current_logical_distance - behind_distance
 	tail_legal_state_mask = capability_profile.initial_state_mask()
-	var runway_end := current_logical_distance + maxf(runway_distance, current_speed * absolute_minimum_reaction_time)
-	while _cursor_distance < runway_end:
-		if not _append_safe_recovery_segment():
-			push_error("TrackGenerator could not create a safe transition runway.")
-			return
-	_fill_ahead()
+	# The next pattern already starts with a validated reaction runway. Count
+	# that space, instead of accidentally adding two empty 30 m segments.
+	if not _append_safe_recovery_segment(opening_length) or not _fill_ahead():
+		suspended = true
+		return false
+	if not active_track_has_no_holes():
+		suspended = true
+		return false
+	suspended = was_suspended
+	return true
 
 
-func _append_safe_recovery_segment() -> bool:
+func _append_safe_recovery_segment(length_override := 0.0) -> bool:
 	var segment_definition := _segment_for_length(fallback_pattern.length)
-	var result := _validator.validate_pattern(fallback_pattern, capability_profile, current_speed, tail_legal_state_mask)
-	if segment_definition == null or not result.is_valid:
+	if segment_definition == null:
+		return false
+	var safe_pattern := fallback_pattern
+	if length_override > 0.0:
+		segment_definition = segment_definition.duplicate() as SegmentDefinition
+		safe_pattern = fallback_pattern.duplicate() as PatternDefinition
+		if segment_definition == null or safe_pattern == null:
+			return false
+		segment_definition.length = length_override
+		segment_definition.connection_end.z = -length_override
+		safe_pattern.length = length_override
+		var isolated_patterns: Array[PatternDefinition] = [safe_pattern]
+		segment_definition.eligible_patterns = isolated_patterns
+	var result := _validator.validate_pattern(safe_pattern, capability_profile, current_speed, tail_legal_state_mask)
+	if not segment_definition.is_valid_definition() or not result.is_valid:
 		return false
 	var segment := pool.acquire_segment(segment_definition.scene)
-	segment.configure(segment_definition, fallback_pattern, _cursor_distance, result.exit_state_mask)
+	segment.configure(segment_definition, safe_pattern, _cursor_distance, result.exit_state_mask)
 	segment.update_visual(current_logical_distance)
 	active_segments.append(segment)
 	generation_history.append(fallback_pattern.id)
+	if generation_history.size() > 256:
+		generation_history.pop_front()
 	tail_legal_state_mask = result.exit_state_mask
 	_cursor_distance = segment.end_distance
 	segment_spawned.emit(segment)
@@ -235,19 +277,31 @@ func validate_active_tail_with(candidate: PatternDefinition) -> PatternValidatio
 	return _validator.validate_pattern(candidate, capability_profile, current_speed, tail_legal_state_mask)
 
 
-func _fill_ahead() -> void:
+func _fill_ahead() -> bool:
 	while _cursor_distance < current_logical_distance + ahead_distance:
 		if not _append_next_segment():
 			push_error("TrackGenerator could not append a validated segment.")
-			return
+			return false
+	return true
 
 
 func _append_next_segment() -> bool:
+	if _recovery_due:
+		_recovery_due = false
+		return _append_safe_recovery_segment()
 	var candidates: Array[Dictionary] = []
+	var elapsed := _runner.run_elapsed if _runner != null else current_logical_distance / current_speed
+	var maximum_difficulty := 1 if elapsed < 30.0 else (2 if elapsed < 90.0 else 3)
 	for segment_definition: SegmentDefinition in segment_definitions:
 		if not segment_definition.compatible_modes.has(capability_profile.movement_mode):
 			continue
 		for pattern: PatternDefinition in segment_definition.eligible_patterns:
+			if pattern.difficulty > maximum_difficulty:
+				continue
+			if not generation_history.is_empty() and generation_history.back() == pattern.id:
+				continue
+			if pattern.safe_fallback and (_ordinary_safe_count + 1) * 5 > _ordinary_count + 1:
+				continue
 			var result := _validator.validate_pattern(pattern, capability_profile, current_speed, tail_legal_state_mask)
 			if result.is_valid:
 				candidates.append({"segment": segment_definition, "pattern": pattern, "result": result, "weight": pattern.weight})
@@ -268,6 +322,10 @@ func _append_next_segment() -> bool:
 
 	var segment_definition: SegmentDefinition = selected.segment
 	var pattern: PatternDefinition = selected.pattern
+	_ordinary_count += 1
+	if pattern.safe_fallback:
+		_ordinary_safe_count += 1
+	_recovery_due = pattern.difficulty >= 3
 	var result: PatternValidationResult = selected.result
 	var segment := pool.acquire_segment(segment_definition.scene)
 	segment.configure(segment_definition, pattern, _cursor_distance, result.exit_state_mask)
@@ -279,10 +337,14 @@ func _append_next_segment() -> bool:
 			return false
 		obstacle.rotation_degrees = placement.rotation_degrees
 		obstacle.reset_for_spawn(_cursor_distance + placement.forward_offset, placement.lane, _cursor_distance, placement.vertical_state)
+		if _runner != null:
+			obstacle._update_visual_motion(_runner)
 		segment.active_obstacles.append(obstacle)
 	_spawn_weighted_collectible_layout(segment)
 	active_segments.append(segment)
 	generation_history.append(pattern.id)
+	if generation_history.size() > 256:
+		generation_history.pop_front()
 	tail_legal_state_mask = result.exit_state_mask
 	_cursor_distance = segment.end_distance
 	segment_spawned.emit(segment)
@@ -298,6 +360,14 @@ func spawn_collectible_layout(layout: CollectibleLayout, segment: TrackSegment =
 	if target_segment == null or not is_equal_approx(layout.length, target_segment.definition.length):
 		return false
 	for point: CollectibleLayoutPoint in layout.points:
+		var leads_into_hazard := false
+		for obstacle: ObstacleBase in target_segment.active_obstacles:
+			var point_distance := target_segment.start_distance + point.forward_offset
+			if absf(point_distance - obstacle.forward_distance) < current_speed * 0.8 and obstacle.current_occupied_lanes().has(point.lane):
+				leads_into_hazard = true
+				break
+		if leads_into_hazard:
+			continue
 		var collectible := pool.acquire_collectible()
 		collectible.reset_for_spawn(target_segment.start_distance + point.forward_offset, point.lane, point.runner_height, _runner)
 		if not collectible.collected.is_connected(_on_collectible_collected):
@@ -324,6 +394,8 @@ func _spawn_weighted_collectible_layout(segment: TrackSegment) -> void:
 
 func _on_collectible_collected(_collectible: CollectibleBase) -> void:
 	run_stats.award_normal_pickup()
+	if _runner != null:
+		_runner.pickup_response.emit()
 
 
 func _weighted_choice(candidates: Array[Dictionary]) -> Dictionary:

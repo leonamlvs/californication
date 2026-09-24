@@ -62,7 +62,10 @@ func _run() -> void:
 	GameFlow.development_jump_to_state(GameFlow.CHARACTER_CONFIRMED)
 	_assert(intro.development_enter_run_intro(), "Dev Run Intro entry shortcut did not start.")
 	intro._notification(NOTIFICATION_APPLICATION_FOCUS_OUT)
-	_assert(GameFlow.current_state == GameFlow.RUNNING, "Focus loss left Run Intro in an invalid intermediate state.")
+	_assert(GameFlow.current_state == GameFlow.RUN_INTRO and runner.movement_suspended, "Focus loss unexpectedly unlocked gameplay.")
+	intro._notification(NOTIFICATION_APPLICATION_FOCUS_IN)
+	intro.advance_for_test(2.0)
+	_assert(GameFlow.current_state == GameFlow.RUNNING, "Refocused Run Intro did not settle.")
 
 	main.queue_free()
 	if failures.is_empty():

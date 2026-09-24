@@ -40,9 +40,9 @@ theme_override_constants/separation = 12
 
 [node name="Bandmates" type="Label" parent="Content/Rows"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
-text = "●  ●  ●  ●"
+text = "RUN ENDED"
 
 [node name="Title" type="Label" parent="Content/Rows"]
 layout_mode = 2
@@ -54,12 +54,12 @@ text = "GAME OVER"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(220, 56)
 layout_mode = 2
-text = "YES"
+text = "RETRY"
 script = ExtResource("2_button")
 
 [node name="NoButton" type="Button" parent="Content/Rows"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(220, 56)
 layout_mode = 2
-text = "NO"
+text = "ISLAND"
 script = ExtResource("2_button")

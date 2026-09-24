@@ -80,7 +80,7 @@ func _run() -> void:
 	_assert(peak_active <= generator_a.maximum_expected_active_segments(), "Active segment count exceeded its bounded window.")
 	_assert(generator_a.pool.created_segment_count <= generator_a.maximum_expected_active_segments(), "Segment pool grew without a bound.")
 	_assert(generator_a.pool.created_obstacle_count <= generator_a.maximum_expected_pooled_obstacles(), "Obstacle pool grew without a per-class window bound.")
-	_assert(generator_a.generation_history.size() > 300, "10-minute soak did not produce a long-running stream.")
+	_assert(generator_a.generation_history.size() == 256 and generator_a.current_logical_distance >= 9600.0, "10-minute soak did not retain bounded history for a long-running stream.")
 	for expected_pattern: StringName in [&"block_center", &"hurdle_center", &"overhead_center", &"gate_center", &"crosser_timing", &"sweeper_timing", &"gap_jump"]:
 		_assert(generator_a.generation_history.has(expected_pattern), "10-minute soak never selected authored pattern %s." % expected_pattern)
 

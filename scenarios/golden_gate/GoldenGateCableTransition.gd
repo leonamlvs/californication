@@ -22,5 +22,6 @@ func _route() -> void:
 		_stage(Stage.GRIND_CABLE); cable.visible=true; snowboard.visible=true; proxy.position=Vector3(0,lerpf(.9,4,(p-.42)/.36),lerpf(-3,-9,(p-.42)/.36))
 	else:
 		_stage(Stage.LAUNCH); cable.visible=false; proxy.position=Vector3(lerpf(0,2,(p-.78)/.22),4+2*sin((p-.78)/.22*PI),lerpf(-9,-13,(p-.78)/.22))
+	snowboard.position = proxy.position + Vector3(0, -0.85, 0)
 func _stage(s: Stage)->void:
 	if current_stage != s: current_stage=s; stage_history.append(s)

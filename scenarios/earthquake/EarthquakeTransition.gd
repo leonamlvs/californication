@@ -12,4 +12,20 @@ func _process(d:float)->void:
 func _route()->void:
 	var p:=clampf(_elapsed/duration,0,1); var i:=mini(floori(p*6),5) as Stage
 	if current_stage!=i: current_stage=i; stage_history.append(i)
-	proxy.position=Vector3(lerpf(0,2,p),0.9+5*sin(p*PI),lerpf(2,-14,p)); car.position=Vector3(0,0,-10*p)
+	car.visible = p < 0.83
+	if p < 0.33:
+		car.position = Vector3(0, 0.35, lerpf(2.0, -5.0, p / 0.33))
+		proxy.position = car.position + Vector3(0, 0.8, 0)
+	elif p < 0.5:
+		var ramp := (p - 0.33) / 0.17
+		car.position = Vector3(0, lerpf(0.35, 4.4, ramp), lerpf(-5.0, -7.0, ramp))
+		proxy.position = car.position + Vector3(0, 0.8, 0)
+	elif p < 0.66:
+		car.position = Vector3(0, 4.4, lerpf(-7.0, -10.0, (p - 0.5) / 0.16))
+		proxy.position = car.position + Vector3(0, 0.8, 0)
+	elif p < 0.83:
+		var eject := (p - 0.66) / 0.17
+		proxy.position = Vector3(eject * 2.0, lerpf(5.2, 7.0, eject), lerpf(-10.0, -12.0, eject))
+	else:
+		var fall := (p - 0.83) / 0.17
+		proxy.position = Vector3(2, lerpf(7.0, -3.0, fall), lerpf(-12.0, -16.0, fall))

@@ -11,9 +11,6 @@
 [ext_resource type="PackedScene" path="res://presentation/cinematic_fx/CinematicTransitionFX.tscn" id="9_fx"]
 [ext_resource type="Script" path="res://frontend/run_intro/RunIntroController.gd" id="10_intro"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_placeholder"]
-size = Vector3(2.0, 1.0, 2.0)
-
 [node name="PresentationRoot" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -65,10 +62,6 @@ current = true
 rotation_degrees = Vector3(-35, -25, 0)
 light_energy = 1.5
 
-[node name="PlaceholderBlock" type="MeshInstance3D" parent="GameFrame/WorldContainer/GameViewport/World"]
-position = Vector3(0, 0, -3)
-mesh = SubResource("BoxMesh_placeholder")
-
 [node name="Runner" parent="GameFrame/WorldContainer/GameViewport/World" instance=ExtResource("4_runner")]
 unique_name_in_owner = true
 
@@ -77,6 +70,7 @@ unique_name_in_owner = true
 
 [node name="TrackGenerator" parent="GameFrame/WorldContainer/GameViewport/World" instance=ExtResource("7_generator")]
 unique_name_in_owner = true
+auto_start = false
 
 [node name="TransitionCoordinator" parent="GameFrame/WorldContainer/GameViewport/World" instance=ExtResource("8_transitions")]
 unique_name_in_owner = true

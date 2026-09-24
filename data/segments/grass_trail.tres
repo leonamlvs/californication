@@ -1,7 +1,11 @@
 [gd_resource type="Resource" script_class="SegmentDefinition" load_steps=5 format=3]
 [ext_resource type="Script" path="res://data/definitions/SegmentDefinition.gd" id="1"]
-[ext_resource type="PackedScene" path="res://gameplay/track/TrackSegment.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenarios/grass/GrassTrackSegment.tscn" id="2"]
 [ext_resource type="Resource" path="res://data/patterns/grass_safe_recovery.tres" id="3"]
+[ext_resource type="Resource" path="res://data/patterns/grass_root.tres" id="4"]
+[ext_resource type="Resource" path="res://data/patterns/grass_stone.tres" id="5"]
+[ext_resource type="Resource" path="res://data/patterns/grass_gate.tres" id="6"]
+[ext_resource type="Resource" path="res://data/patterns/grass_hurdles.tres" id="7"]
 [resource]
 script=ExtResource("1")
 id=&"grass_trail"
@@ -10,4 +14,4 @@ connection_end=Vector3(0,0,-30)
 compatible_modes=Array[StringName]([&"RUN"])
 environment_tags=Array[StringName]([&"grass"])
 scene=ExtResource("2")
-eligible_patterns=Array[PatternDefinition]([ExtResource("3")])
+eligible_patterns=Array[PatternDefinition]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("7")])

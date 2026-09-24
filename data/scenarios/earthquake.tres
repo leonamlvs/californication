@@ -1,14 +1,17 @@
 [gd_resource type="Resource" script_class="ScenarioDefinition" load_steps=12 format=3]
 [ext_resource type="Script" path="res://data/definitions/ScenarioDefinition.gd" id="1"]
-[ext_resource type="Resource" path="res://data/segments/graybox_straight.tres" id="2"]
+[ext_resource type="Resource" path="res://data/segments/earthquake_city.tres" id="2"]
 [ext_resource type="Resource" path="res://data/track/graybox_obstacle_library.tres" id="3"]
 [ext_resource type="Resource" path="res://data/track/normal_collectible_layouts.tres" id="4"]
-[ext_resource type="PackedScene" path="res://scenarios/boulevard/BoulevardEnvironment.tscn" id="5"]
-[ext_resource type="Resource" path="res://data/camera_profiles/boulevard_follow.tres" id="6"]
+[ext_resource type="PackedScene" path="res://scenarios/earthquake/EarthquakeEnvironment.tscn" id="5"]
+[ext_resource type="Resource" path="res://data/camera_profiles/earthquake_follow.tres" id="6"]
 [ext_resource type="Resource" path="res://data/transitions/earthquake_donut.tres" id="7"]
 [ext_resource type="Resource" path="res://data/movement_profiles/run_default.tres" id="8"]
 [ext_resource type="Resource" path="res://data/track/run_capabilities.tres" id="9"]
+[ext_resource type="Resource" path="res://data/audio/earthquake.tres" id="rehab_audio"]
 [sub_resource type="Resource" id="h"]
+
+
 [resource]
 script=ExtResource("1")
 id=&"earthquake"
@@ -26,3 +29,7 @@ hud_coordinate_profile=SubResource("h")
 transition_definition=ExtResource("7")
 movement_profile=ExtResource("8")
 movement_capability_profile=ExtResource("9")
+
+ambience_profile = ExtResource("rehab_audio")
+sky_color = Color(0.34, 0.23, 0.19, 1)
+control_hint = "Left/Right: lanes\nUp: jump   Down: slide"

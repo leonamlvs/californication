@@ -32,7 +32,7 @@ mesh = SubResource("WaterMesh")
 material_override = SubResource("WaterMaterial")
 
 [node name="Seabed" type="MeshInstance3D" parent="."]
-position = Vector3(0, -0.1, -15)
+position = Vector3(0, -2.2, -15)
 mesh = SubResource("SeabedMesh")
 material_override = SubResource("SandMaterial")
 

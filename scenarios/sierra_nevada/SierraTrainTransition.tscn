@@ -16,7 +16,7 @@ size = Vector3(3.0, 0.35, 10.0)
 albedo_color = Color(0.24, 0.3, 0.38, 1)
 
 [sub_resource type="BoxMesh" id="TunnelMesh"]
-size = Vector3(6.0, 5.0, 8.0)
+size = Vector3(6.0, 0.35, 8.0)
 
 [sub_resource type="StandardMaterial3D" id="TunnelMaterial"]
 albedo_color = Color(0.08, 0.1, 0.13, 1)
@@ -24,6 +24,8 @@ albedo_color = Color(0.08, 0.1, 0.13, 1)
 [node name="SierraTrainTransition" type="Node3D"]
 script = ExtResource("1_transition")
 duration = 2.7
+camera_start_offset = Vector3(2.0, 3.0, 8.0)
+camera_end_offset = Vector3(0.8, 1.8, 6.0)
 
 [node name="TrainRoof" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
@@ -34,7 +36,7 @@ material_override = SubResource("TrainMaterial")
 [node name="Tunnel" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
 visible = false
-position = Vector3(0, 2.5, -6)
+position = Vector3(0, 4.5, -6)
 mesh = SubResource("TunnelMesh")
 material_override = SubResource("TunnelMaterial")
 

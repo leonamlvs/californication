@@ -6,5 +6,5 @@ script=ExtResource("1")
 id=&"earthquake_donut"
 source_scenario=&"earthquake"
 transition_scene=ExtResource("2")
-next_scenario_policy=1
-next_scenario_ids=Array[StringName]([&"fixture_b"])
+next_scenario_policy = 0
+next_scenario_ids = Array[StringName]([])

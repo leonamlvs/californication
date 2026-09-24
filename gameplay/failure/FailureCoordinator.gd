@@ -89,21 +89,9 @@ func _on_presentation_completed(_family: StringName) -> void:
 func _on_run_reset_requested(target_scenario: StringName) -> void:
 	if target_scenario != GameFlow.BOULEVARD_ID or runner == null or generator == null:
 		return
-	_clear_presentation(true)
-	if not ScenarioManager.begin_production_run(generator.deterministic_seed):
-		push_error("Failure retry could not prepare Boulevard.")
-		return
-	var target := ScenarioManager.active_definition
-	if target == null or not generator.configure_for_scenario(target):
-		push_error("Failure retry could not configure Boulevard gameplay.")
-		return
-	runner.movement_profile = target.movement_profile
-	runner.set_movement_mode(target.movement_mode)
-	runner.reset_for_run()
-	generator.reset_generator(generator.deterministic_seed, 0.0, runner.current_speed)
-	begin_scenario(target)
-	if transition_coordinator != null:
-		transition_coordinator.begin_scenario(target)
+	# Run Intro is the sole owner of fresh-run preparation. Do not restore the
+	# old failure transform over the newly prepared runner.
+	_clear_presentation(false)
 	# RUN_INTRO owns the eventual unlock. Until it reports ready, failure input,
 	# generation, collision, and timer state remain protected.
 	runner.set_invulnerable(true)

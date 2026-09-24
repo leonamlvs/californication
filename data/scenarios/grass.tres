@@ -8,7 +8,10 @@
 [ext_resource type="Resource" path="res://data/transitions/grass_jump.tres" id="7"]
 [ext_resource type="Resource" path="res://data/movement_profiles/grass_run.tres" id="8"]
 [ext_resource type="Resource" path="res://data/track/run_capabilities.tres" id="9"]
+[ext_resource type="Resource" path="res://data/audio/grass.tres" id="rehab_audio"]
 [sub_resource type="Resource" id="h"]
+
+
 [resource]
 script=ExtResource("1")
 id=&"grass"
@@ -26,3 +29,7 @@ hud_coordinate_profile=SubResource("h")
 transition_definition=ExtResource("7")
 movement_profile=ExtResource("8")
 movement_capability_profile=ExtResource("9")
+
+ambience_profile = ExtResource("rehab_audio")
+sky_color = Color(0.38, 0.5, 0.3, 1)
+control_hint = "Left/Right: lanes\nUp: jump   Down: slide"

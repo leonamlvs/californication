@@ -1,6 +1,6 @@
 extends Node
 
-const BOULEVARD := preload("res://data/scenarios/boulevard.tres")
+var BOULEVARD: ScenarioDefinition = preload("res://data/scenarios/boulevard.tres").duplicate(true)
 const FIXTURE_A := preload("res://dev/fixtures/fixture_scenario_a.tres")
 const RUNNER_SCENE := preload("res://gameplay/runner/Runner.tscn")
 const GENERATOR_SCENE := preload("res://gameplay/track/TrackGenerator.tscn")
@@ -21,6 +21,9 @@ func _ready() -> void:
 
 
 func _run() -> void:
+	# Fixture routing is test-owned; production transitions use the shuffle bag.
+	BOULEVARD.transition_definition.next_scenario_policy = TransitionDefinition.NextScenarioPolicy.EXPLICIT
+	BOULEVARD.transition_definition.next_scenario_ids = [&"fixture_a"]
 	_assert(BOULEVARD.is_valid_definition(), "Boulevard scenario definition is invalid.")
 	var camera_profile := BOULEVARD.camera_profile as CameraProfile
 	_assert(camera_profile != null and camera_profile.is_valid_profile(), "Boulevard camera profile is invalid.")

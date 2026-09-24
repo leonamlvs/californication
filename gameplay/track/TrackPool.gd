@@ -33,11 +33,15 @@ func configure(library: ObstacleSceneLibrary, active_segment_root: Node3D, activ
 
 func acquire_segment(scene: PackedScene = null) -> TrackSegment:
 	var segment: TrackSegment
-	if not _available_segments.is_empty():
-		segment = _available_segments.pop_back()
+	var source := scene if scene != null else DEFAULT_SEGMENT_SCENE
+	for available: TrackSegment in _available_segments:
+		if available.scene_file_path == source.resource_path:
+			segment = available
+			_available_segments.erase(available)
+			break
+	if segment != null:
 		segment.reparent(segment_root)
 	else:
-		var source := scene if scene != null else DEFAULT_SEGMENT_SCENE
 		segment = source.instantiate() as TrackSegment
 		segment_root.add_child(segment)
 		created_segment_count += 1

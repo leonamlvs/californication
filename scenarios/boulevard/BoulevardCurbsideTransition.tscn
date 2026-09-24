@@ -20,6 +20,8 @@ albedo_color = Color(0.18, 0.42, 0.28, 1)
 [node name="BoulevardCurbsideTransition" type="Node3D"]
 script = ExtResource("1_transition")
 duration = 2.4
+camera_start_offset = Vector3(3.0, 2.0, 7.0)
+camera_end_offset = Vector3(-1.5, 2.6, 7.0)
 
 [node name="CurbsideFloor" type="MeshInstance3D" parent="."]
 position = Vector3(0, -0.1, -4)

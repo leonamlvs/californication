@@ -3,6 +3,10 @@ extends Resource
 
 ## Editable movement tuning shared by one movement strategy at a time.
 @export var movement_mode: StringName = &"RUN"
+@export var speed_ramp_duration := 150.0
+@export var action_buffer_duration := 0.12
+@export var presentation_lean := 5.0
+@export var presentation_bob := 0.045
 @export_range(3, 3, 1) var lane_count := 3
 @export_range(0.5, 4.0, 0.05) var lane_spacing := 1.6
 @export_range(0.0, 40.0, 0.1) var base_speed := 10.0

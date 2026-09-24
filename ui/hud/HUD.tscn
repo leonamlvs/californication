@@ -63,7 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
-text = "BAND\nLOOP"
+text = ""
 
 [node name="CoordinatePanel" type="Panel" parent="TopLeft/Panels"]
 unique_name_in_owner = true
@@ -103,7 +103,7 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
-text = "SCENARIO\nPLACEHOLDER"
+text = ""
 
 [node name="TopRight" type="MarginContainer" parent="."]
 unique_name_in_owner = true

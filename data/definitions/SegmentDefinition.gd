@@ -2,6 +2,7 @@ class_name SegmentDefinition
 extends Resource
 
 @export var id: StringName
+@export var lane_spacing := 1.6
 @export_range(1.0, 200.0, 0.5, "suffix:m") var length := 30.0
 @export var connection_start := Vector3.ZERO
 @export var connection_end := Vector3(0.0, 0.0, -30.0)

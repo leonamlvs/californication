@@ -36,6 +36,8 @@ albedo_color = Color(0.16, 0.42, 0.26, 1)
 [node name="FilmingSetsTransition" type="Node3D"]
 script = ExtResource("1_transition")
 duration = 3.2
+camera_start_offset = Vector3(3.5, 2.5, 9.0)
+camera_end_offset = Vector3(-2.5, 1.8, 7.5)
 
 [node name="SpaceActionSet" type="Node3D" parent="."]
 unique_name_in_owner = true

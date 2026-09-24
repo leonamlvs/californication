@@ -82,6 +82,7 @@ func load_scenario(scenario_id: StringName) -> bool:
 
 
 func unload_active_scenario() -> void:
+	transition_in_progress = false
 	if active_scenario_id.is_empty():
 		return
 	var previous_id := active_scenario_id

@@ -1,6 +1,6 @@
 extends Node
 
-const BAY := preload("res://data/scenarios/san_francisco_bay.tres")
+var BAY: ScenarioDefinition = preload("res://data/scenarios/san_francisco_bay.tres").duplicate(true)
 const FIXTURE_B := preload("res://dev/fixtures/fixture_scenario_b.tres")
 const RUN_CAPABILITIES := preload("res://data/track/run_capabilities.tres")
 const SEA_ARCH := preload("res://data/obstacles/bay_sea_arch.tres")
@@ -23,6 +23,9 @@ func _ready() -> void:
 
 
 func _run() -> void:
+	# Fixture routing is test-owned; production transitions use the shuffle bag.
+	BAY.transition_definition.next_scenario_policy = TransitionDefinition.NextScenarioPolicy.EXPLICIT
+	BAY.transition_definition.next_scenario_ids = [&"fixture_b"]
 	_assert(BAY.is_valid_definition(), "Bay scenario definition is invalid.")
 	_assert(BAY.movement_profile.movement_mode == &"SWIM" and BAY.movement_capability_profile.movement_mode == &"SWIM", "Bay does not declare SWIM through shared movement data.")
 	_assert(BAY.movement_capability_profile.supports_rise and BAY.movement_capability_profile.supports_dive, "Bay capabilities do not expose both vertical depth states.")

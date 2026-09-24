@@ -10,7 +10,10 @@
 [ext_resource type="Resource" path="res://data/movement_profiles/filming_sets_run.tres" id="8_movement"]
 [ext_resource type="Resource" path="res://data/track/run_capabilities.tres" id="9_capabilities"]
 
+[ext_resource type="Resource" path="res://data/audio/filming_sets.tres" id="rehab_audio"]
 [sub_resource type="Resource" id="Resource_hud_coordinates"]
+
+
 
 [resource]
 script = ExtResource("1_definition")
@@ -33,3 +36,7 @@ development_minimum_transition_time = 15.0
 development_guaranteed_transition_time = 20.0
 movement_profile = ExtResource("8_movement")
 movement_capability_profile = ExtResource("9_capabilities")
+
+ambience_profile = ExtResource("rehab_audio")
+sky_color = Color(0.33, 0.27, 0.4, 1)
+control_hint = "Left/Right: lanes\nUp: jump   Down: slide"

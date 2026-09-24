@@ -224,7 +224,8 @@ func _update_reveal(normalized: float) -> void:
 		flight_t = clampf(flight_t, 0.0, 1.0)
 		var start := Vector3(-4.8, 2.4, -12.0)
 		var control := Vector3(0.2, 1.0, 3.5)
-		var finish := Vector3(6.2, 4.0, 14.0)
+		# The flight must pass the actual camera, including portrait pullback.
+		var finish := Vector3(6.2, 4.0, maxf(16.5, logo_camera.position.z + 6.0))
 		alicorn.position = _quadratic_bezier(start, control, finish, flight_t)
 		alicorn.scale = Vector3.ONE * lerpf(0.18, 1.15, sin(flight_t * PI))
 		alicorn.rotation = Vector3(0.0, lerpf(-0.18, 0.38, flight_t), lerpf(-0.12, 0.18, flight_t))
@@ -283,7 +284,7 @@ func _build_letter_geometry() -> void:
 	if letter_ring.get_child_count() > 0:
 		return
 	var material := StandardMaterial3D.new()
-	material.albedo_color = Color(0.98, 0.87, 0.16)
+	material.albedo_color = Color(0.96, 0.98, 1.0)
 	material.metallic = 0.08
 	material.roughness = 0.52
 	var count := LETTER_TEXT.length()

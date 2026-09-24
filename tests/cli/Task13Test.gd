@@ -1,6 +1,6 @@
 extends Node
 
-const FILMING_SETS := preload("res://data/scenarios/filming_sets.tres")
+var FILMING_SETS: ScenarioDefinition = preload("res://data/scenarios/filming_sets.tres").duplicate(true)
 const FIXTURE_B := preload("res://dev/fixtures/fixture_scenario_b.tres")
 const RUN_CAPABILITIES := preload("res://data/track/run_capabilities.tres")
 const RUNNER_SCENE := preload("res://gameplay/runner/Runner.tscn")
@@ -22,6 +22,9 @@ func _ready() -> void:
 
 
 func _run() -> void:
+	# Fixture routing is test-owned; production transitions use the shuffle bag.
+	FILMING_SETS.transition_definition.next_scenario_policy = TransitionDefinition.NextScenarioPolicy.EXPLICIT
+	FILMING_SETS.transition_definition.next_scenario_ids = [&"fixture_b"]
 	_assert(FILMING_SETS.is_valid_definition(), "Filming Sets scenario definition is invalid.")
 	_assert(FILMING_SETS.movement_mode == &"RUN" and FILMING_SETS.movement_profile.movement_mode == &"RUN", "Filming Sets did not reuse shared RUN data.")
 	var validator := PatternValidator.new()

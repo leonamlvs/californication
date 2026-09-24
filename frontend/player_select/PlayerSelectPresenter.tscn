@@ -101,7 +101,7 @@ theme_override_constants/separation = 3
 [node name="Heading" type="Label" parent="RootControl/StatsPanel/Margin/StatsRows"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
-text = "DECORATIVE VALUES"
+text = "PLAYER PROFILE"
 horizontal_alignment = 1
 
 [node name="LeftArrow" type="Button" parent="RootControl"]

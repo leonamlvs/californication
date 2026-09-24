@@ -1,6 +1,8 @@
 [gd_resource type="Resource" script_class="MovementProfile" load_steps=2 format=3]
 [ext_resource type="Script" path="res://data/definitions/MovementProfile.gd" id="1"]
 [resource]
+presentation_lean = 0.0
+presentation_bob = 0.006
 script = ExtResource("1")
 movement_mode = &"CAR"
 lane_count = 3

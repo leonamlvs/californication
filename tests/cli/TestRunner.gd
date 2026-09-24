@@ -262,7 +262,7 @@ func _run_task_04() -> void:
 	for _frame in 30:
 		thirty_fps_runner.step_simulation(1.0 / 30.0)
 	_assert(is_equal_approx(sixty_fps_runner.logical_forward_distance, thirty_fps_runner.logical_forward_distance), "Forward distance varied across deterministic frame steps.")
-	_assert(is_equal_approx(sixty_fps_runner.logical_forward_distance, sixty_fps_runner.movement_profile.base_speed), "Forward distance did not advance from configured speed.")
+	_assert(is_equal_approx(sixty_fps_runner.logical_forward_distance, (sixty_fps_runner.movement_profile.base_speed + sixty_fps_runner.speed_at(1.0)) * 0.5), "Forward distance did not integrate the speed ramp.")
 
 	runner.queue_free()
 	sixty_fps_runner.queue_free()
@@ -391,7 +391,9 @@ func _assert_web_export_foundation() -> void:
 
 	_assert(export_config.get_value("preset.0", "platform", "") == "Web", "Preset 0 is not a Web export.")
 	_assert(export_config.get_value("preset.0", "export_path", "") == "build/web/index.html", "Web export entry point is not build/web/index.html.")
-	_assert(export_config.get_value("preset.0", "exclude_filter", "") == "ref/*, build/*", "Reference images or generated builds are not excluded from Web export.")
+	var exclusions: String = export_config.get_value("preset.0", "exclude_filter", "")
+	for required: String in ["ref/*", "build/*", "dev/*", "tests/*"]:
+		_assert(exclusions.contains(required), "Web export is missing exclusion: " + required)
 	_assert(not export_config.get_value("preset.0.options", "variant/thread_support", true), "Web thread support would require cross-origin isolation.")
 	_assert(not export_config.get_value("preset.0.options", "variant/extensions_support", true), "Web extension support is unexpectedly enabled.")
 	_assert(export_config.get_value("preset.0.options", "vram_texture_compression/for_desktop", false), "Desktop Web texture compression is disabled.")

@@ -6,5 +6,5 @@ script=ExtResource("1")
 id=&"grass_jump"
 source_scenario=&"grass"
 transition_scene=ExtResource("2")
-next_scenario_policy=1
-next_scenario_ids=Array[StringName]([&"fixture_a"])
+next_scenario_policy = 0
+next_scenario_ids = Array[StringName]([])
