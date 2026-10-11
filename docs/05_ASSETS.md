@@ -50,7 +50,7 @@ The graybox frontend eventually requires replaceable primitives for:
 - four humanoid character presentation scenes with idle animation;
 - a Boulevard/start-environment reveal group.
 
-Reference captures in `ref/start screen transition/` define the order, camera relationships, logo-to-carousel continuity, and broad composition. Do not copy the captured assets or bake the reference imagery into the game.
+Reference captures in `.ref/start screen transition/` define the order, camera relationships, logo-to-carousel continuity, and broad composition. Do not copy the captured assets or bake the reference imagery into the game.
 
 The island sequence must fake extreme scale rather than model literal geography. Separate near-vegetation, city, landscape, and island groups may use different working scales and swap under motion blur/blue-frame coverage. Their authored anchors, bounds, and camera markers are stable replacement contracts.
 
@@ -65,6 +65,16 @@ California island: cinematic scale only
 ```
 
 The logo mesh must keep a stable center pivot, four equal selection detents, sufficient extrusion for edge-on readability, and named panel attachment surfaces. Final logo, panel, letter, alicorn, character, and environment art must fit these contracts without rewriting carousel logic or camera choreography.
+
+### Loading-screen replacement contract
+
+`frontend/loading/LoadingPresentation.tscn` exposes one optional font and eight independent `Texture2D` slots under **Replaceable Assets**. Replacement images may have any aspect ratio; the presentation center-crops them into the existing square frames. Replacing the font or images must not change the measured layout, deterministic fill/reveal timeline, controller, or two-second state duration. Reference captures remain development evidence only and are never runtime resources.
+
+The current eight frame images are copied into `art/loading/frames/loading_01.png` through `loading_08.png` from the user-provided `.ref/loading/0.png` through `7.png`. The presentation assigns them in numeric order to `image_1` through `image_8`; `.ref` remains excluded from runtime exports.
+
+The same scene exposes **Background 3D** properties. Assign an imported GLB scene or a wrapper scene rooted at `Node3D` to `Background Model Scene`; it must contain static `MeshInstance3D` nodes. Adjust `Background Model Rotation Degrees`, `Background Model Scale`, and `Background Model Offset` (logical pixels) if needed. The presentation combines transformed mesh bounds, fits them uniformly into the California subject rectangle, then applies these controls without stretching the model. `Background Color`, `Background Mesh Tint`, `Background Surface Opacity`, `Background Edge Strength`, `Background Halo Strength`, and `Background Halo Radius` tune the solid blue field and mesh-only effects. Inspector changes take effect on the next scene instance; scripts changing these properties on a live instance call `refresh_background_model()` afterward. Model scenes should contain no active cameras, lights, gameplay scripts, or running animations. Runtime sanitization disables processing, cameras, lights, and animation players inside the assigned scene; a meshless scene falls back to the extruded placeholder with one development warning. The loading material is an instance override and does not edit imported resources.
+
+The default background model is `art/models/loading/california.glb`, copied from the development reference source so it can ship in Web builds. It is viewed from its modeled top with `Background Model Rotation Degrees = (90, 0, 0)`; the uniform fitting code handles its remaining scale and centering. The GLB has no authored material, camera, or animation. Its faint lavender surface, two-sided contour, and soft halo come from the loading shaders, not from the GLB. The procedural California scene remains only as the fallback for a missing or meshless replacement.
 
 ## Placeholder obstacle assets
 

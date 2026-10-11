@@ -28,7 +28,7 @@ foreach ($file in $files) {
     $totalBytes += $file.Length
     if ($file.Length -gt 200MB) { throw "File exceeds 200 MB: $relative" }
     if ($relative.Length -gt 240) { throw "Path exceeds 240 characters: $relative" }
-    if ($relative -match '(^|/)(dev|tests|ref)(/|$)') { throw "Development/reference content leaked: $relative" }
+    if ($relative -match '(^|/)(dev|tests|\.ref)(/|$)') { throw "Development/reference content leaked: $relative" }
 }
 if ($totalBytes -gt 500MB) { throw "Extracted Web package exceeds 500 MB: $totalBytes bytes" }
 

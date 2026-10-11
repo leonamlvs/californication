@@ -15,7 +15,7 @@ const CAMERA_POINTS: Array[Vector3] = [
 ]
 const CAMERA_FOV_POINTS: Array[float] = [52.0, 58.0, 64.0, 68.0, 70.0]
 
-@export_range(0.05, 3.0, 0.05, "suffix:s") var loading_duration := 0.35
+@export_range(0.05, 3.0, 0.05, "suffix:s") var loading_duration := 2.0
 @export_range(2.0, 20.0, 0.1, "suffix:s") var intro_duration := 8.0
 @export_range(0.1, 30.0, 0.1, "suffix:deg/s") var attract_rotation_speed_degrees := 5.0
 @export var intro_fx_profile: CinematicFXProfile = preload("res://data/cinematic_fx/island_pullback.tres")
@@ -29,8 +29,7 @@ const CAMERA_FOV_POINTS: Array[float] = [52.0, 58.0, 64.0, 68.0, 70.0]
 @onready var island_pivot: Node3D = %IslandPivot
 @onready var ocean: MeshInstance3D = %Ocean
 @onready var cinematic_fx: CinematicTransitionFX = %CinematicTransitionFX
-@onready var loading_overlay: Control = %LoadingOverlay
-@onready var loading_progress: ProgressBar = %LoadingProgress
+@onready var loading_overlay: LoadingPresentation = %LoadingOverlay
 @onready var attract_prompt: Control = %AttractPrompt
 
 var intro_elapsed := 0.0
@@ -71,7 +70,7 @@ func advance_for_test(delta: float) -> void:
 	match GameFlow.current_state:
 		GameFlow.LOADING:
 			loading_elapsed = minf(loading_elapsed + delta, loading_duration)
-			loading_progress.value = loading_elapsed / loading_duration * 100.0
+			loading_overlay.set_progress(loading_elapsed / loading_duration)
 			if is_equal_approx(loading_elapsed, loading_duration):
 				GameFlow.request_transition(GameFlow.ISLAND_INTRO)
 		GameFlow.ISLAND_INTRO:
@@ -85,6 +84,13 @@ func advance_for_test(delta: float) -> void:
 
 func development_enter_intro() -> void:
 	GameFlow.development_jump_to_state(GameFlow.ISLAND_INTRO)
+
+
+func development_preview_loading(normalized: float) -> void:
+	GameFlow.development_jump_to_state(GameFlow.LOADING)
+	set_process(false)
+	loading_elapsed = clampf(normalized, 0.0, 1.0) * loading_duration
+	loading_overlay.set_progress(clampf(normalized, 0.0, 1.0))
 
 
 func development_enter_attract() -> void:
@@ -144,7 +150,7 @@ func _apply_state(state: StringName) -> void:
 			visible = true
 			frontend_camera.current = true
 			loading_elapsed = 0.0
-			loading_progress.value = 0.0
+			loading_overlay.reset()
 			_set_all_groups_hidden()
 			ocean.visible = false
 		GameFlow.ISLAND_INTRO:

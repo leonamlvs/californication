@@ -4,4 +4,4 @@
 *.tmp
 *.log
 build/
-ref/
+.ref/

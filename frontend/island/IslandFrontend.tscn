@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://frontend/island/IslandFrontendController.gd" id="1_controller"]
 [ext_resource type="PackedScene" path="res://frontend/island/CaliforniaIsland.tscn" id="2_island"]
 [ext_resource type="PackedScene" path="res://presentation/cinematic_fx/CinematicTransitionFX.tscn" id="3_fx"]
+[ext_resource type="PackedScene" path="res://frontend/loading/LoadingPresentation.tscn" id="4_loading"]
 
 [sub_resource type="Environment" id="Environment_blue"]
 background_mode = 1
@@ -72,9 +73,6 @@ roughness = 1.0
 [sub_resource type="PrismMesh" id="Mesh_hill"]
 material = SubResource("Material_landscape")
 size = Vector3(8, 3.5, 8)
-
-[sub_resource type="StyleBoxFlat" id="Style_loading"]
-bg_color = Color(0.015, 0.05, 0.11, 0.94)
 
 [node name="IslandFrontend" type="Node3D"]
 script = ExtResource("1_controller")
@@ -174,42 +172,8 @@ unique_name_in_owner = true
 [node name="FrontendUI" type="CanvasLayer" parent="."]
 layer = 40
 
-[node name="LoadingOverlay" type="Panel" parent="FrontendUI"]
+[node name="LoadingOverlay" parent="FrontendUI" instance=ExtResource("4_loading")]
 unique_name_in_owner = true
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("Style_loading")
-
-[node name="LoadingRows" type="VBoxContainer" parent="FrontendUI/LoadingOverlay"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -170.0
-offset_top = -42.0
-offset_right = 170.0
-offset_bottom = 42.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 12
-
-[node name="LoadingLabel" type="Label" parent="FrontendUI/LoadingOverlay/LoadingRows"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 22
-text = "LOADING CALIFORNIA..."
-horizontal_alignment = 1
-
-[node name="LoadingProgress" type="ProgressBar" parent="FrontendUI/LoadingOverlay/LoadingRows"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(340, 18)
-layout_mode = 2
-show_percentage = false
 
 [node name="AttractPrompt" type="PanelContainer" parent="FrontendUI"]
 unique_name_in_owner = true

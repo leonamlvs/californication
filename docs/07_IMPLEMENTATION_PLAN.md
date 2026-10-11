@@ -686,21 +686,21 @@ Update `docs/TASK_STATUS.md` only after the task acceptance criteria and Global 
 
 **Depends on**  Tasks 03 and 22.
 
-**Create / modify**  Loading presentation, California-island scene, close palms/vegetation and city/landscape groups, IslandIntroController, IslandAttractController, and frontend camera path.
+**Create / modify**  Dedicated loading presentation, California-island scene, close palms/vegetation and city/landscape groups, IslandIntroController, IslandAttractController, and frontend camera path.
 
 **Implementation**
 
-1. Run `LOADING → ISLAND_INTRO` automatically, starting among close palms/vegetation and pulling back through authored road/city/landscape groups to the California-shaped island.
+1. Run a deterministic two-second `LOADING → ISLAND_INTRO` handoff. Loading uses a centered 960×720 composition, reference-measured stepped bar fill, eight sequential replaceable image slots, a replaceable font, and black fit space on other aspect ratios; it reaches 100% at 1.95 seconds before the handoff. The authorized Task 23 background revision uses a replaceable extruded California mesh in an isolated 480x360 viewport, composited over solid indigo with a faint lavender face, contour, and halo while the foreground stays sharp. The authored `art/models/loading/california.glb` now supplies the default mesh; the generated primitive remains a missing-model fallback.
 2. Fake cinematic scale with deterministic scene-group or LOD swaps, FOV change, and the shared blur effect. Do not require a literal one-shot world-scale mesh/camera path.
 3. Set readable placeholder proportions: characters around 1.7–1.8 m, cars around 4–5 m, palms around 8–12 m, while the island uses cinematic presentation scale.
 4. Enter `ISLAND_ATTRACT`, rotate indefinitely, and wait for one keyboard/gamepad confirm or ordinary screen touch. Never loop `ISLAND_INTRO` while waiting.
 5. Support DevHarness entry at intro start and directly at attract, plus a replay-intro development override.
 
-**Validation**  Test automatic loading handoff, authored swap continuity, exact one-shot behavior, indefinite wait, all confirm sources, input debouncing, supported aspect/safe-area composition, replay override, and mobile quality profile.
+**Validation**  Test loading seek points, fill plateaus, image-reveal boundaries, focus pause, unskippable input, exact two-second handoff, real mesh depth/front/back/walls, projected bounds, replacement-model fitting and material override, isolated 3D world, disabled hidden rendering, rendered 4:3 and safe-inset fitting, automatic intro handoff, authored swap continuity, exact one-shot behavior, indefinite wait, all confirm sources, input debouncing, supported aspect/safe-area composition, replay override, and mobile quality profile.
 
 **Acceptance**  Meet all Task 23 criteria; placeholder scale reads consistently even though the island pullback is an authored illusion.
 
-**Do not implement yet**  Logo/alicorn, carousel, final vegetation/city art, or final loading branding.
+**Do not implement yet**  Logo/alicorn, carousel, or final vegetation/city art. The loading-screen branding exception is explicitly authorized; its font and image contents remain replaceable placeholders.
 
 **Handoff state**  First-session island reveal and reusable returning-session attract stage.
 

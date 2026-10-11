@@ -392,7 +392,7 @@ func _assert_web_export_foundation() -> void:
 	_assert(export_config.get_value("preset.0", "platform", "") == "Web", "Preset 0 is not a Web export.")
 	_assert(export_config.get_value("preset.0", "export_path", "") == "build/web/index.html", "Web export entry point is not build/web/index.html.")
 	var exclusions: String = export_config.get_value("preset.0", "exclude_filter", "")
-	for required: String in ["ref/*", "build/*", "dev/*", "tests/*"]:
+	for required: String in [".ref/*", "build/*", "dev/*", "tests/*"]:
 		_assert(exclusions.contains(required), "Web export is missing exclusion: " + required)
 	_assert(not export_config.get_value("preset.0.options", "variant/thread_support", true), "Web thread support would require cross-origin isolation.")
 	_assert(not export_config.get_value("preset.0.options", "variant/extensions_support", true), "Web extension support is unexpectedly enabled.")

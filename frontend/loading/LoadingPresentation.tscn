@@ -1,0 +1,57 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://frontend/loading/LoadingPresentation.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://art/loading/frames/loading_01.png" id="2_image_1"]
+[ext_resource type="Texture2D" path="res://art/loading/frames/loading_02.png" id="3_image_2"]
+[ext_resource type="Texture2D" path="res://art/loading/frames/loading_03.png" id="4_image_3"]
+[ext_resource type="Texture2D" path="res://art/loading/frames/loading_04.png" id="5_image_4"]
+[ext_resource type="Texture2D" path="res://art/loading/frames/loading_05.png" id="6_image_5"]
+[ext_resource type="Texture2D" path="res://art/loading/frames/loading_06.png" id="7_image_6"]
+[ext_resource type="Texture2D" path="res://art/loading/frames/loading_07.png" id="8_image_7"]
+[ext_resource type="Texture2D" path="res://art/loading/frames/loading_08.png" id="9_image_8"]
+[ext_resource type="PackedScene" path="res://frontend/loading/LoadingMeshBackground.tscn" id="10_background"]
+[ext_resource type="Script" path="res://frontend/loading/LoadingForeground.gd" id="11_foreground"]
+
+[node name="LoadingPresentation" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_script")
+image_1 = ExtResource("2_image_1")
+image_2 = ExtResource("3_image_2")
+image_3 = ExtResource("4_image_3")
+image_4 = ExtResource("5_image_4")
+image_5 = ExtResource("6_image_5")
+image_6 = ExtResource("7_image_6")
+image_7 = ExtResource("8_image_7")
+image_8 = ExtResource("9_image_8")
+
+[node name="BlackBackdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="IndigoBackdrop" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+mouse_filter = 2
+color = Color(0.192157, 0.192157, 0.537255, 1)
+
+[node name="Background3D" parent="." instance=ExtResource("10_background")]
+unique_name_in_owner = true
+layout_mode = 0
+
+[node name="Foreground" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+mouse_filter = 2
+script = ExtResource("11_foreground")

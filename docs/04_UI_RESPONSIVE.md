@@ -52,6 +52,10 @@ Across every supported aspect ratio:
 
 Camera distance, FOV, subject offsets, and overlay layout may adapt to usable space. State duration, carousel detents, selected character, stat targets, and the moment gameplay unlocks do not vary by aspect ratio. Do not choose composition solely from device name or orientation.
 
+### Boot loading composition
+
+The two-second boot loading screen is authored on a 960x720 logical canvas and always fits that complete 4:3 canvas uniformly inside the available game viewport. Wide and tall spaces remain black; loading elements never reflow, stretch, or apply safe insets a second time. The measured `NOW LOADING` position, bar, connector tree, California mesh, and eight alternating image frames retain their reference proportions on desktop, tablet, and phone layouts. A solid indigo rectangle fills only the fitted composition. A separate 480x360 3D viewport renders the static mesh once; its texture scales with the same fitted rectangle. Resizing never changes the render target or loading progress. The mesh halo is clipped to the composition and cannot tint the black fit space.
+
 ## Frontend interaction and Player Select
 
 The Player Select object is the same extruded 3D logo shown in `LOGO_REVEAL`, viewed more edge-on so its side/depth faces become four character-display panels. It is not a generic red menu rectangle, a card grid, or a separate replacement object.

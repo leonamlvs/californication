@@ -12,12 +12,14 @@ enum FrameMode {
 
 const DESKTOP_REFERENCE_SIZE := Vector2(960.0, 720.0)
 const MOBILE_ASPECT_DEVIATION := 0.25
+const DEFAULT_PILLARBOX_COLOR := Color(0.015, 0.025, 0.05, 1.0)
 
 @export var debug_frame_mode: FrameMode = FrameMode.AUTO
 @export var debug_force_touch_capable := false
 @export var debug_safe_insets := Vector4.ZERO
 
 @onready var game_frame: Control = %GameFrame
+@onready var pillarbox_background: ColorRect = $PillarboxBackground
 @onready var game_viewport: SubViewport = %GameViewport
 @onready var hud: RunnerHUD = %HUD
 @onready var frontend_safe_guide: FrontendSafeComposition = %FrontendSafeGuide
@@ -131,6 +133,7 @@ func _is_touch_capable() -> bool:
 
 
 func _on_game_flow_state_changed(_previous: StringName, next: StringName) -> void:
+	pillarbox_background.color = Color.BLACK if next == GameFlow.LOADING else DEFAULT_PILLARBOX_COLOR
 	var gameplay_visible := next in [
 		GameFlow.RUN_INTRO, GameFlow.RUNNING, GameFlow.TRANSITION_READY,
 		GameFlow.TOKEN_COLLECTED, GameFlow.SCENARIO_TRANSITION, GameFlow.NEXT_SCENARIO,

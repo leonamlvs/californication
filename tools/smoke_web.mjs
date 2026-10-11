@@ -88,6 +88,7 @@ try {
   }
   if (!started) throw new Error('Web engine failed to finish initialization');
   await call('Runtime.evaluate', { expression: 'document.querySelector("canvas").focus()' });
+  await capture('00-loading');
   await delay(9500);
   await capture('01-attract');
   await key('Enter', 'Enter', 13);

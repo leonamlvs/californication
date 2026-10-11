@@ -375,7 +375,7 @@ Acceptance:
 
 Implement:
 
-- loading presentation;
+- reference-matched two-second loading presentation with a centered 4:3 composition, measured stepped fill, eight replaceable image slots, and replaceable placeholder font;
 - one-shot close-vegetation → vegetation area → city/roads/vehicles → landscape → California-island pullback;
 - fake-scale group/LOD swaps and authored camera/FOV/effect cues;
 - slow indefinite rotating-island attract state;
@@ -384,6 +384,10 @@ Implement:
 
 Acceptance:
 
+- loading begins fully expanded, follows the measured fill pauses and sequential image reveals, reaches 100% at 1.95 seconds, and hands off once at 2.0 active seconds;
+- the loading composition fits uniformly without distortion or reflow, with black unused space on non-4:3 viewports;
+- loading font and all eight image textures are replaceable without controller changes, and no reference capture ships as a runtime asset;
+- the static California loading backdrop is a replaceable, genuinely extruded 3D mesh over solid indigo, with uniform fitting, shallow depth, translucent lavender surface, bright contour, and soft mesh-only halo; it renders in an isolated viewport without changing the loading timeline or foreground;
 - intro pullback plays once and never loops at the attract screen;
 - island rotates/waits indefinitely without advancing itself;
 - touch/confirm advances once without event leakage;

@@ -12,7 +12,7 @@ func _initialize() -> void:
 		for filename: String in DirAccess.get_files_at(path):
 			var file := path.path_join(filename)
 			count += 1
-			if file.begins_with("res://ref/") or file.begins_with("res://dev/") or file.begins_with("res://tests/") or "GameFlowPlaceholder" in file or file.get_extension().to_lower() in ["mp3", "mp4", "avi"]:
+			if file.begins_with("res://.ref/") or file.begins_with("res://dev/") or file.begins_with("res://tests/") or "GameFlowPlaceholder" in file or file.get_extension().to_lower() in ["mp3", "mp4", "avi"]:
 				forbidden.append(file)
 	if forbidden.is_empty() and count > 100:
 		print("PACK_CONTENT_PASS resources=%d no references, recorded audio, tests, or debug frontend" % count)

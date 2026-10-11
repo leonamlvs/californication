@@ -47,7 +47,7 @@ Gameplay logic must not depend on the final art, character identity, obstacle mo
 
 Transition Tokens do not begin a playable movement mode. They stop normal gameplay, lock gameplay input, award a configurable `+1000` transition bonus, show a centered `BONUS` overlay, and play the source scenario's non-interactive real-time 3D cinematic before the next scenario begins.
 
-The frontend is also a continuous real-time 3D presentation. A one-shot vegetation-to-island pullback reaches an indefinite rotating-island attract state; after confirmation, an extruded logo and circular lettering reveal an alicorn, the same logo rotates edge-on into the four-position Player Select carousel, and confirming a character flows through a camera-driven `RUN_INTRO` into Boulevard. Reference captures under `ref/start screen transition/` define choreography and composition only, never final assets.
+The frontend is also a continuous real-time 3D presentation. A one-shot vegetation-to-island pullback reaches an indefinite rotating-island attract state; after confirmation, an extruded logo and circular lettering reveal an alicorn, the same logo rotates edge-on into the four-position Player Select carousel, and confirming a character flows through a camera-driven `RUN_INTRO` into Boulevard. Reference captures under `.ref/start screen transition/` define choreography and composition only, never final assets.
 
 ## Documents
 
