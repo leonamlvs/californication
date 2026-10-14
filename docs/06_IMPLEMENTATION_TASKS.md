@@ -387,7 +387,10 @@ Acceptance:
 - loading begins fully expanded, follows the measured fill pauses and sequential image reveals, reaches 100% at 1.95 seconds, and hands off once at 2.0 active seconds;
 - the loading composition fits uniformly without distortion or reflow, with black unused space on non-4:3 viewports;
 - loading font and all eight image textures are replaceable without controller changes, and no reference capture ships as a runtime asset;
-- the static California loading backdrop is a replaceable, genuinely extruded 3D mesh over solid indigo, with uniform fitting, shallow depth, translucent lavender surface, bright contour, and soft mesh-only halo; it renders in an isolated viewport without changing the loading timeline or foreground;
+- the static California loading backdrop uses the supplied SVG, uniformly fitted inside the existing logical subject rectangle, over the unchanged radial indigo gradient; its authored colors, highlights, and illustrated depth remain intact with map-only tint/opacity tuning;
+- an isolated transparent 960x720 2D source and two isolated 960x720 Gaussian passes render together once, including on the first visible loading frame, and disable updates when cached or hidden; this authorized SVG revision supersedes the previous loading-only extruded-mesh, 3D MSAA, model replacement, and procedural fallback requirements;
+- the SVG has a continuous soft outer halo and a very subtle downward/right drop shadow derived from its silhouette alpha, without repeated rings, directional sampling artifacts, or duplicate internal outlines; inspect against normalized reference frames 0010/0011/0040/0070, retain the eight-level RGB tolerance for primary 5x5 face patches and foreground-masked 40-pixel edge profiles, and cross-check face patches against frames 0040/0070; visible discrepancies still prevent declaring an exact match;
+- the map texture is replaceable with uniform fitting and a bundled-SVG fallback, no loading-specific 3D nodes/resources remain, and resizing, seeking, or appearance refresh cannot change loading progress; radial background and foreground styling/layout remain unchanged;
 - intro pullback plays once and never loops at the attract screen;
 - island rotates/waits indefinitely without advancing itself;
 - touch/confirm advances once without event leakage;

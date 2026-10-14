@@ -30,19 +30,25 @@ const FILL_RIGHTS: Array[float] = [
 	850.0, 906.0, 934.0, 962.0, 990.0, 990.0, 1015.0, 1040.0,
 ]
 const IMAGE_REVEAL_FRAMES: Array[float] = [15.0, 19.0, 24.0, 29.0, 43.0, 55.0, 59.0, 62.0]
-const DEFAULT_BACKGROUND_MODEL: PackedScene = preload("res://art/models/loading/california.glb")
+const DEFAULT_BACKGROUND_TEXTURE: Texture2D = preload("res://art/loading/california-map.svg")
 
-@export_group("Background 3D")
-@export var background_model_scene: PackedScene = DEFAULT_BACKGROUND_MODEL
-@export var background_model_rotation_degrees := Vector3(90.0, 0.0, 0.0)
-@export_range(0.01, 4.0, 0.01) var background_model_scale := 1.0
-@export var background_model_offset := Vector2.ZERO
+@export_group("Background Map")
+@export var background_texture: Texture2D = DEFAULT_BACKGROUND_TEXTURE
+@export_range(0.01, 4.0, 0.01) var background_map_scale := 1.0
+@export var background_map_offset := Vector2.ZERO
 @export var background_color := Color("313189")
-@export var background_mesh_tint := Color(0.72, 0.70, 0.83, 1.0)
-@export_range(0.0, 1.0, 0.01) var background_surface_opacity := 0.22
-@export_range(0.0, 1.0, 0.01) var background_edge_strength := 0.10
-@export_range(0.0, 1.0, 0.01) var background_halo_strength := 0.95
-@export_range(0.0, 32.0, 0.5) var background_halo_radius := 28.0
+@export var background_map_tint := Color(1.12, 1.06, 1.02, 1.0)
+@export_range(0.0, 1.0, 0.01) var background_map_opacity := 1.0
+@export_subgroup("Outer Halo")
+@export var background_halo_color := Color(0.68, 0.67, 0.88, 1.0)
+@export_range(0.0, 1.0, 0.01) var background_halo_strength := 0.45
+@export_range(0.0, 32.0, 0.5) var background_halo_radius := 32.0
+@export var background_halo_direction_bias := Vector2(0.30, -0.45)
+@export_subgroup("Drop Shadow")
+@export var background_shadow_color := Color(0.08, 0.07, 0.22, 1.0)
+@export_range(0.0, 1.0, 0.01) var background_shadow_opacity := 0.10
+@export var background_shadow_offset := Vector2(2.0, 3.0)
+@export_range(0.0, 10.0, 0.1) var background_shadow_softness := 2.0
 
 @export_group("Replaceable Assets")
 @export var loading_font: Font
@@ -56,7 +62,7 @@ const DEFAULT_BACKGROUND_MODEL: PackedScene = preload("res://art/models/loading/
 @export var image_8: Texture2D
 
 @onready var indigo_backdrop: ColorRect = %IndigoBackdrop
-@onready var background_3d: LoadingMeshBackground = %Background3D
+@onready var background_map: LoadingSvgBackground = %BackgroundMap
 @onready var foreground: LoadingForeground = %Foreground
 
 var normalized_time := 0.0
@@ -69,30 +75,34 @@ var _composition_rect := Rect2(Vector2.ZERO, LOGICAL_SIZE)
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_update_composition_rect()
-	refresh_background_model()
+	refresh_background()
 	reset()
 
 
 func reset() -> void:
 	set_progress(0.0)
-	if is_instance_valid(background_3d):
-		background_3d.render_once()
+	if is_instance_valid(background_map):
+		background_map.render_once()
 
 
-func refresh_background_model() -> void:
+func refresh_background() -> void:
 	if not is_node_ready():
 		return
 	indigo_backdrop.color = background_color
-	background_3d.configure(
-		background_model_scene,
-		background_model_rotation_degrees,
-		background_model_scale,
-		background_model_offset,
-		background_mesh_tint,
-		background_surface_opacity,
-		background_edge_strength,
+	background_map.configure(
+		background_texture,
+		background_map_scale,
+		background_map_offset,
+		background_map_tint,
+		background_map_opacity,
+		background_halo_color,
 		background_halo_strength,
-		background_halo_radius
+		background_halo_radius,
+		background_halo_direction_bias,
+		background_shadow_color,
+		background_shadow_opacity,
+		background_shadow_offset,
+		background_shadow_softness
 	)
 
 
@@ -123,8 +133,8 @@ func get_visual_snapshot() -> Dictionary:
 		"text_bounds": _logical_to_actual(TEXT_BOUNDS),
 		"image_frame_rects": _actual_image_rects(),
 	}
-	if is_instance_valid(background_3d):
-		var background_snapshot := background_3d.snapshot()
+	if is_instance_valid(background_map):
+		var background_snapshot := background_map.snapshot()
 		for key: String in background_snapshot:
 			result["background_%s" % key] = background_snapshot[key]
 		result["background_projected_bounds"] = _logical_to_actual(background_snapshot.projected_bounds_logical)
@@ -166,8 +176,8 @@ func _update_composition_rect() -> void:
 	if is_instance_valid(indigo_backdrop):
 		indigo_backdrop.position = _composition_rect.position
 		indigo_backdrop.size = _composition_rect.size
-	if is_instance_valid(background_3d):
-		background_3d.set_composition_rect(_composition_rect)
+	if is_instance_valid(background_map):
+		background_map.set_composition_rect(_composition_rect)
 	if is_instance_valid(foreground):
 		foreground.position = _composition_rect.position
 		foreground.size = _composition_rect.size
@@ -178,5 +188,5 @@ func _notification(what: int) -> void:
 		_update_composition_rect()
 		if is_instance_valid(foreground):
 			foreground.queue_redraw()
-	elif what == NOTIFICATION_VISIBILITY_CHANGED and is_instance_valid(background_3d):
-		background_3d.set_loading_active(is_visible_in_tree())
+	elif what == NOTIFICATION_VISIBILITY_CHANGED and is_instance_valid(background_map):
+		background_map.set_loading_active(is_visible_in_tree())

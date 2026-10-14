@@ -12,9 +12,11 @@ func _initialize() -> void:
 		for filename: String in DirAccess.get_files_at(path):
 			var file := path.path_join(filename)
 			count += 1
+			if file.begins_with("res://art/models/loading/") or "LoadingMeshBackground" in file or "LoadingCaliforniaPlaceholder" in file or "loading_mesh" in file:
+				forbidden.append(file)
 			if file.begins_with("res://.ref/") or file.begins_with("res://dev/") or file.begins_with("res://tests/") or "GameFlowPlaceholder" in file or file.get_extension().to_lower() in ["mp3", "mp4", "avi"]:
 				forbidden.append(file)
-	if forbidden.is_empty() and count > 100:
+	if forbidden.is_empty() and count > 100 and ResourceLoader.exists("res://art/loading/california-map.svg"):
 		print("PACK_CONTENT_PASS resources=%d no references, recorded audio, tests, or debug frontend" % count)
 		quit(0)
 	else:

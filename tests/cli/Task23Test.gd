@@ -55,7 +55,7 @@ func _run() -> void:
 	_assert(GameFlow.begin_session(), "Loading could not be re-entered for focus validation.")
 	_assert(is_zero_approx(frontend.loading_elapsed) and is_zero_approx(frontend.loading_overlay.fill_fraction) and frontend.loading_overlay.revealed_image_count == 0, "Re-entering loading did not reset its visual state.")
 	var reentry_background := frontend.loading_overlay.get_visual_snapshot()
-	_assert(reentry_background.background_viewport_update_mode == SubViewport.UPDATE_ONCE and reentry_background.background_model_root_count == 1, "Re-entering loading did not request one mesh render with one model instance.")
+	_assert(reentry_background.background_viewport_update_mode == SubViewport.UPDATE_ONCE and reentry_background.background_texture_path.ends_with("art/loading/california-map.svg"), "Re-entering loading did not request a cached SVG render.")
 	frontend._notification(NOTIFICATION_APPLICATION_FOCUS_OUT)
 	frontend.advance_for_test(0.5)
 	_assert(is_zero_approx(frontend.loading_elapsed), "Loading advanced while the application was unfocused.")
@@ -66,6 +66,7 @@ func _run() -> void:
 	frontend.advance_for_test(100.0)
 	_assert(GameFlow.current_state == GameFlow.ISLAND_INTRO, "Loading did not hand off automatically to Island Intro.")
 	_assert(frontend.loading_overlay.get_visual_snapshot().background_viewport_update_mode == SubViewport.UPDATE_DISABLED, "Hidden loading background kept rendering after handoff.")
+	_assert(frontend.loading_overlay.get_visual_snapshot().background_effect_update_modes == [SubViewport.UPDATE_DISABLED, SubViewport.UPDATE_DISABLED], "Hidden loading blur passes kept rendering after handoff.")
 	_assert(frontend.intro_play_count == 1 and frontend.intro_stage_index == 0, "Island Intro did not start exactly once at close vegetation.")
 	_assert(frontend.active_group_count() == 1 and frontend.close_vegetation.visible, "Intro did not isolate the close-vegetation group.")
 	_assert(_placeholder_scale_is_readable(frontend), "Placeholder palm/car proportions do not match the frontend scale contract.")
@@ -129,66 +130,60 @@ func _placeholder_scale_is_readable(frontend: IslandFrontendController) -> bool:
 
 
 func _check_loading_background(presentation: LoadingPresentation, baseline: Dictionary) -> void:
-	_assert(baseline.background_viewport_size == Vector2i(480, 360), "Loading mesh render target changed resolution.")
-	_assert(baseline.background_world_isolated, "Loading mesh does not use its own World3D.")
-	_assert(baseline.background_mesh_instance_count == 1 and baseline.background_model_root_count == 1, "California GLB did not create exactly one mesh model.")
-	_assert(baseline.background_material_override_count == 1, "Loading-specific material override was not applied.")
-	_assert(baseline.background_mesh_depth > 0.01, "California GLB has no measurable extrusion depth.")
-	_assert(not baseline.background_using_fallback and presentation.background_model_scene.resource_path.ends_with("art/models/loading/california.glb"), "Loading screen did not use the imported California GLB.")
-	_assert(_rect_near_within(baseline.background_projected_bounds, Rect2(147, 82, 710, 546), 3.0), "California GLB projection no longer matches the reference subject bounds: %s." % baseline.background_projected_bounds)
-
-	var fixture_root := Node3D.new()
-	var fixture_mesh := MeshInstance3D.new()
-	fixture_mesh.mesh = BoxMesh.new()
-	(fixture_mesh.mesh as BoxMesh).size = Vector3(4.0, 2.0, 0.5)
-	fixture_root.add_child(fixture_mesh)
-	fixture_mesh.owner = fixture_root
-	var fixture_scene := PackedScene.new()
-	_assert(fixture_scene.pack(fixture_root) == OK, "Could not pack loading replacement mesh fixture.")
-	fixture_root.free()
-	presentation.background_model_scene = fixture_scene
-	presentation.background_model_rotation_degrees = Vector3(0.0, 20.0, 0.0)
-	presentation.background_model_scale = 0.8
-	presentation.background_model_offset = Vector2(10.0, -5.0)
-	presentation.refresh_background_model()
+	_assert(baseline.background_viewport_size == Vector2i(960, 720), "Loading SVG render target is not full logical resolution.")
+	_assert(baseline.background_all_targets_2d and presentation.background_map.find_children("*", "Node3D", true, false).is_empty(), "Loading SVG retained a 3D renderer or model.")
+	_assert(baseline.background_texture_path.ends_with("art/loading/california-map.svg") and not baseline.background_using_fallback, "Loading did not use the supplied SVG.")
+	_assert(baseline.background_texture_size.x >= 1224 and baseline.background_texture_size.y >= 936, "Loading SVG import is too small for clean fitting.")
+	_assert(baseline.background_effect_target_sizes == [Vector2i(960, 720), Vector2i(960, 720)], "Loading blur targets changed logical resolution.")
+	_assert(baseline.background_effect_worlds_isolated, "SVG and blur passes share their 2D world with one another or the game.")
+	_assert(baseline.background_effect_update_modes == [SubViewport.UPDATE_ONCE, SubViewport.UPDATE_ONCE], "Loading did not schedule both cached blur passes.")
+	var generation_before_seek: int = baseline.background_render_generation
+	presentation.set_progress(0.5)
+	presentation.size = Vector2(844, 390)
+	_assert(presentation.get_visual_snapshot().background_render_generation == generation_before_seek, "Seeking or resizing reran the static loading background.")
+	presentation.size = Vector2(960, 720)
+	presentation.set_progress(0.0)
+	presentation.background_map.set_loading_active(false)
+	_assert(presentation.get_visual_snapshot().background_effect_update_modes == [SubViewport.UPDATE_DISABLED, SubViewport.UPDATE_DISABLED], "Hidden blur targets kept rendering.")
+	presentation.background_map.set_loading_active(true)
+	_assert(presentation.get_visual_snapshot().background_render_generation > generation_before_seek, "Loading re-entry did not request a fresh background generation.")
+	var progress_before_refresh := presentation.normalized_time
+	var initial_radius := presentation.background_halo_radius
+	presentation.background_halo_radius = 16.0
+	presentation.refresh_background()
+	_assert(is_equal_approx(presentation.normalized_time, progress_before_refresh), "Appearance refresh changed loading progress.")
+	var broad_pairs: PackedVector2Array = presentation.background_map.horizontal_pass.material.get_shader_parameter("broad_pairs")
+	_assert(broad_pairs[7].x <= 16.0 and broad_pairs[8].is_zero_approx(), "Appearance refresh did not regenerate the configured Gaussian support.")
+	presentation.background_halo_radius = initial_radius
+	var original_softness := presentation.background_shadow_softness
+	presentation.background_shadow_softness = 4.0
+	presentation.refresh_background()
+	var narrow_pairs: PackedVector2Array = presentation.background_map.horizontal_pass.material.get_shader_parameter("narrow_pairs")
+	_assert(narrow_pairs[5].x <= 12.0 and narrow_pairs[6].is_zero_approx(), "Shadow softness did not update its independent Gaussian support.")
+	presentation.background_shadow_softness = original_softness
+	presentation.refresh_background()
+	_assert(_rect_near_within(baseline.background_projected_bounds, Rect2(145, 82, 714, 546), 1.0), "California SVG did not fit its reference subject rectangle: %s." % baseline.background_projected_bounds)
+	var material := presentation.background_map.texture_rect.material as ShaderMaterial
+	_assert(material.get_shader_parameter("shadow_offset_px") == Vector2(2, 3) and is_equal_approx(material.get_shader_parameter("shadow_opacity"), presentation.background_shadow_opacity), "Subtle shadow settings did not reach the composite.")
+	var fixture := Image.create(240, 120, false, Image.FORMAT_RGBA8)
+	fixture.fill(Color(0.8, 0.6, 0.9, 1.0))
+	presentation.background_texture = ImageTexture.create_from_image(fixture)
+	presentation.background_map_scale = 0.8
+	presentation.background_map_offset = Vector2(10.0, -5.0)
+	presentation.refresh_background()
 	var replaced := presentation.get_visual_snapshot()
-	_assert(replaced.background_mesh_instance_count == 1 and replaced.background_model_root_count == 1 and replaced.background_material_override_count == 1 and not replaced.background_using_fallback, "Replacement model did not fit with a loading-only material.")
-	_assert(replaced.background_projected_bounds.size.x < 718.0 and replaced.background_projected_bounds.size.y < 546.0, "Replacement mesh was stretched or ignored Inspector scale.")
-	_assert(replaced.background_projected_bounds.get_center().distance_to(Vector2(512.0, 350.0)) < 1.0, "Replacement mesh ignored its logical-pixel offset.")
-	_assert(replaced.background_mesh_depth > 0.01, "Replacement mesh lost its rotated depth.")
-
-	var empty_root := Node3D.new()
-	var empty_scene := PackedScene.new()
-	_assert(empty_scene.pack(empty_root) == OK, "Could not pack meshless fallback fixture.")
-	empty_root.free()
-	presentation.background_model_scene = empty_scene
-	presentation.refresh_background_model()
+	_assert(not replaced.background_using_fallback and replaced.background_texture_size == Vector2(240, 120), "Replacement texture was not assigned.")
+	_assert(replaced.background_projected_bounds.size.distance_to(Vector2(574.4, 287.2)) < 0.1, "Replacement texture was stretched or ignored Inspector scale.")
+	_assert(replaced.background_projected_bounds.get_center().distance_to(Vector2(512.0, 350.0)) < 0.1, "Replacement texture ignored its logical-pixel offset.")
+	presentation.background_texture = null
+	presentation.refresh_background()
 	var fallback := presentation.get_visual_snapshot()
-	_assert(fallback.background_using_fallback and fallback.background_mesh_instance_count == 1 and fallback.background_model_root_count == 1, "Meshless model did not fall back to one California placeholder.")
-	var placeholder_mesh := presentation.background_3d.model_transform.get_child(0).get_node("MeshInstance3D") as MeshInstance3D
-	_assert(_mesh_has_closed_slab(placeholder_mesh), "Fallback placeholder lacks front, back, or side triangles.")
-	presentation.background_model_scene = presentation.DEFAULT_BACKGROUND_MODEL
-	presentation.background_model_rotation_degrees = Vector3(90.0, 0.0, 0.0)
-	presentation.background_model_scale = 1.0
-	presentation.background_model_offset = Vector2.ZERO
-	presentation.refresh_background_model()
-	_assert(_rect_near_within(presentation.get_visual_snapshot().background_projected_bounds, Rect2(147, 82, 710, 546), 3.0), "Restoring the California GLB did not restore its bounds.")
-
-
-func _mesh_has_closed_slab(mesh_instance: MeshInstance3D) -> bool:
-	if mesh_instance == null or mesh_instance.mesh == null:
-		return false
-	var arrays := mesh_instance.mesh.surface_get_arrays(0)
-	var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
-	var normals: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
-	var front := false
-	var back := false
-	var side := false
-	for normal: Vector3 in normals:
-		front = front or normal.z > 0.9
-		back = back or normal.z < -0.9
-		side = side or absf(normal.z) < 0.5
-	return vertices.size() >= 12 and front and back and side
+	_assert(fallback.background_using_fallback and fallback.background_texture_path.ends_with("art/loading/california-map.svg"), "Missing texture did not fall back to the bundled SVG.")
+	presentation.background_texture = presentation.DEFAULT_BACKGROUND_TEXTURE
+	presentation.background_map_scale = 1.0
+	presentation.background_map_offset = Vector2.ZERO
+	presentation.refresh_background()
+	_assert(_rect_is_near(presentation.get_visual_snapshot().background_projected_bounds, baseline.background_projected_bounds), "Restoring the default SVG did not restore its bounds.")
 
 
 func _is_california_silhouette(frontend: IslandFrontendController) -> bool:

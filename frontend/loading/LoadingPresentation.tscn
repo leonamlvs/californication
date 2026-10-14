@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://frontend/loading/LoadingPresentation.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://art/loading/frames/loading_01.png" id="2_image_1"]
@@ -9,8 +9,12 @@
 [ext_resource type="Texture2D" path="res://art/loading/frames/loading_06.png" id="7_image_6"]
 [ext_resource type="Texture2D" path="res://art/loading/frames/loading_07.png" id="8_image_7"]
 [ext_resource type="Texture2D" path="res://art/loading/frames/loading_08.png" id="9_image_8"]
-[ext_resource type="PackedScene" path="res://frontend/loading/LoadingMeshBackground.tscn" id="10_background"]
+[ext_resource type="PackedScene" path="res://frontend/loading/LoadingSvgBackground.tscn" id="10_background"]
 [ext_resource type="Script" path="res://frontend/loading/LoadingForeground.gd" id="11_foreground"]
+[ext_resource type="Shader" path="res://frontend/loading/loading_radial_background.gdshader" id="12_radial_bg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_radial_bg"]
+shader = ExtResource("12_radial_bg")
 
 [node name="LoadingPresentation" type="Control"]
 layout_mode = 3
@@ -44,9 +48,10 @@ color = Color(0, 0, 0, 1)
 unique_name_in_owner = true
 layout_mode = 0
 mouse_filter = 2
+material = SubResource("ShaderMaterial_radial_bg")
 color = Color(0.192157, 0.192157, 0.537255, 1)
 
-[node name="Background3D" parent="." instance=ExtResource("10_background")]
+[node name="BackgroundMap" parent="." instance=ExtResource("10_background")]
 unique_name_in_owner = true
 layout_mode = 0
 

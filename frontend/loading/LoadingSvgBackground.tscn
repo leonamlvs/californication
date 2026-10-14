@@ -1,0 +1,83 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://frontend/loading/LoadingSvgBackground.gd" id="1_script"]
+[ext_resource type="Shader" path="res://frontend/loading/loading_map_composite.gdshader" id="2_composite"]
+[ext_resource type="Shader" path="res://frontend/loading/loading_map_blur.gdshader" id="3_blur"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_composite"]
+shader = ExtResource("2_composite")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_horizontal"]
+shader = ExtResource("3_blur")
+shader_parameter/axis = Vector2(1, 0)
+shader_parameter/source_is_alpha = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vertical"]
+shader = ExtResource("3_blur")
+shader_parameter/axis = Vector2(0, 1)
+shader_parameter/source_is_alpha = false
+
+[node name="LoadingSvgBackground" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="BlurVertical" type="SubViewport" parent="."]
+unique_name_in_owner = true
+handle_input_locally = false
+gui_disable_input = true
+disable_3d = true
+size = Vector2i(960, 720)
+render_target_update_mode = 0
+
+[node name="BlurHorizontal" type="SubViewport" parent="BlurVertical"]
+unique_name_in_owner = true
+handle_input_locally = false
+gui_disable_input = true
+disable_3d = true
+size = Vector2i(960, 720)
+render_target_update_mode = 0
+
+[node name="SourceViewport" type="SubViewport" parent="BlurVertical/BlurHorizontal"]
+unique_name_in_owner = true
+transparent_bg = true
+handle_input_locally = false
+gui_disable_input = true
+disable_3d = true
+use_hdr_2d = false
+size = Vector2i(960, 720)
+render_target_update_mode = 0
+
+[node name="MapArtwork" type="TextureRect" parent="BlurVertical/BlurHorizontal/SourceViewport"]
+unique_name_in_owner = true
+mouse_filter = 2
+texture_filter = 2
+expand_mode = 1
+
+[node name="HorizontalPass" type="TextureRect" parent="BlurVertical/BlurHorizontal"]
+unique_name_in_owner = true
+offset_right = 960.0
+offset_bottom = 720.0
+mouse_filter = 2
+texture_filter = 2
+material = SubResource("ShaderMaterial_horizontal")
+
+[node name="VerticalPass" type="TextureRect" parent="BlurVertical"]
+unique_name_in_owner = true
+offset_right = 960.0
+offset_bottom = 720.0
+mouse_filter = 2
+texture_filter = 2
+material = SubResource("ShaderMaterial_vertical")
+
+[node name="MapTexture" type="TextureRect" parent="."]
+layout_mode = 0
+mouse_filter = 2
+texture_filter = 2
+expand_mode = 1
+material = SubResource("ShaderMaterial_composite")

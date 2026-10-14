@@ -273,3 +273,9 @@ func _capture(label: String) -> void:
 		var path := "res://.godot/rehab-%02d-%s-%dx%d.png" % [capture_index, label, dimensions.x, dimensions.y]
 		get_viewport().get_texture().get_image().save_png(path)
 	capture_index += 1
+	# Resizing a rendered Windows capture can send focus-out notifications.
+	# These controllers have processing disabled and are advanced explicitly by
+	# this deterministic fixture; restore its simulated focus after capture.
+	# Production focus-loss behavior is separately covered by Task23/Task26.
+	for controller: Node in [main.world.get_node("IslandFrontend"), main.logo_frontend, main.run_intro]:
+		controller._notification(NOTIFICATION_APPLICATION_FOCUS_IN)
