@@ -2,6 +2,7 @@ extends SceneTree
 
 ## Observe the production clock and first presentation frame; never seek it.
 const OUTPUT := "res://build/rehabilitation/loading-svg/"
+var output_directory := OUTPUT
 var frontend: Node
 var frames := 0
 var captured_middle := false
@@ -14,6 +15,10 @@ func _initialize() -> void:
 
 
 func _run() -> void:
+	for argument: String in OS.get_cmdline_user_args():
+		if argument.begins_with("--loading-output="):
+			output_directory = argument.trim_prefix("--loading-output=")
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output_directory))
 	var main := load("res://main/Main.tscn").instantiate() as Node
 	root.add_child(main)
 	frontend = main.get_node("PresentationRoot/GameFrame/WorldContainer/GameViewport/World/IslandFrontend")
@@ -49,4 +54,4 @@ func _record() -> void:
 
 
 func _save(name: String) -> void:
-	root.get_texture().get_image().save_png(OUTPUT + name + ".png")
+	root.get_texture().get_image().save_png(output_directory.path_join(name + ".png"))

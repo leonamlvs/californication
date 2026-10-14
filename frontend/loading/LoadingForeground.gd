@@ -1,12 +1,16 @@
 class_name LoadingForeground
 extends Control
 
-## Sharp loading UI drawn above the independently rendered 3D background.
+## Sharp loading UI drawn above the independently cached map background.
 const LOGICAL_SIZE := Vector2(960.0, 720.0)
 const BAR_OUTER := Rect2(58.0, 249.0, 838.0, 43.0)
 const BAR_INNER := Rect2(61.0, 252.0, 833.0, 37.0)
 const TEXT_BOUNDS := Rect2(80.0, 195.0, 374.0, 40.0)
 const IMAGE_SIZE := Vector2(82.0, 82.0)
+const IMAGE_BORDER_WIDTH := 2.5
+const IMAGE_CORNER_RADIUS := 7.0
+const IMAGE_BORDER_OVERLAP := 0.5
+const CORNER_SEGMENTS := 8
 const IMAGE_LEFTS: Array[float] = [55.0, 165.0, 274.0, 382.0, 491.0, 600.0, 709.0, 817.0]
 const IMAGE_TOPS: Array[float] = [409.0, 373.0, 409.0, 373.0, 409.0, 373.0, 409.0, 373.0]
 
@@ -55,9 +59,20 @@ func _draw_image_frames() -> void:
 		var frame_rect := Rect2(Vector2(IMAGE_LEFTS[index], IMAGE_TOPS[index]), IMAGE_SIZE)
 		var highlighted := index == presentation.highlighted_image_index
 		var border := Color(0.88, 0.94, 0.72, 0.98) if highlighted else Color(0.92, 0.95, 1.0, 0.94)
-		_draw_glow_round_rect(frame_rect, Color(0.10, 0.14, 0.40, 0.48), border, 2.5, 7.0, highlighted)
-		if index < presentation.revealed_image_count and textures[index] != null:
-			_draw_texture_cover(textures[index], frame_rect.grow(-5.0))
+		var fill := Color(0.10, 0.14, 0.40, 0.48)
+		var texture: Texture2D = textures[index] if index < presentation.revealed_image_count else null
+		if texture == null or texture.get_width() <= 0 or texture.get_height() <= 0:
+			_draw_glow_round_rect(frame_rect, fill, border, IMAGE_BORDER_WIDTH, IMAGE_CORNER_RADIUS, highlighted)
+			continue
+		_draw_round_rect_glow(frame_rect, border, IMAGE_CORNER_RADIUS, highlighted)
+		var style := _style_box(fill, Color.TRANSPARENT, IMAGE_BORDER_WIDTH, IMAGE_CORNER_RADIUS, IMAGE_CORNER_RADIUS)
+		draw_style_box(style, frame_rect)
+		# Extend below the inner border so filtering cannot leave a hairline gap.
+		var inset := roundf(IMAGE_BORDER_WIDTH) - IMAGE_BORDER_OVERLAP
+		_draw_texture_cover(texture, frame_rect.grow(-inset), IMAGE_CORNER_RADIUS - inset)
+		var outline := _style_box(Color.TRANSPARENT, border, IMAGE_BORDER_WIDTH, IMAGE_CORNER_RADIUS, IMAGE_CORNER_RADIUS)
+		outline.draw_center = false
+		draw_style_box(outline, frame_rect)
 
 
 func _draw_loading_text(composition_offset: Vector2, composition_scale: float) -> void:
@@ -75,7 +90,7 @@ func _draw_loading_text(composition_offset: Vector2, composition_scale: float) -
 	draw_string(font, baseline, text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, font_size, Color(0.82, 0.85, 0.96, 0.92))
 
 
-func _draw_texture_cover(texture: Texture2D, destination: Rect2) -> void:
+func _draw_texture_cover(texture: Texture2D, destination: Rect2, corner_radius: float) -> void:
 	var texture_size := texture.get_size()
 	if texture_size.x <= 0.0 or texture_size.y <= 0.0:
 		return
@@ -88,14 +103,32 @@ func _draw_texture_cover(texture: Texture2D, destination: Rect2) -> void:
 	else:
 		source_rect.size.y = texture_size.x / destination_aspect
 		source_rect.position.y = (texture_size.y - source_rect.size.y) * 0.5
-	draw_texture_rect_region(texture, destination, source_rect)
+	var points := PackedVector2Array()
+	var uvs := PackedVector2Array()
+	var centers := [
+		destination.position + Vector2(corner_radius, corner_radius),
+		Vector2(destination.end.x - corner_radius, destination.position.y + corner_radius),
+		destination.end - Vector2.ONE * corner_radius,
+		Vector2(destination.position.x + corner_radius, destination.end.y - corner_radius),
+	]
+	for corner: int in 4:
+		for step: int in range(CORNER_SEGMENTS + 1):
+			var angle := PI + float(corner) * PI * 0.5 + float(step) / CORNER_SEGMENTS * PI * 0.5
+			var point: Vector2 = centers[corner] + Vector2.from_angle(angle) * corner_radius
+			points.append(point)
+			uvs.append((source_rect.position + (point - destination.position) / destination.size * source_rect.size) / texture_size)
+	draw_colored_polygon(points, Color.WHITE, uvs, texture)
 
 
 func _draw_glow_round_rect(rect: Rect2, fill: Color, border: Color, width: float, radius: float, strong := false) -> void:
+	_draw_round_rect_glow(rect, border, radius, strong)
+	draw_style_box(_style_box(fill, border, width, radius, radius), rect)
+
+
+func _draw_round_rect_glow(rect: Rect2, border: Color, radius: float, strong: bool) -> void:
 	var glow_alpha := 0.18 if strong else 0.11
 	draw_style_box(_style_box(Color.TRANSPARENT, Color(border, glow_alpha), 8.0, radius + 4.0, radius + 4.0), rect.grow(3.0))
 	draw_style_box(_style_box(Color.TRANSPARENT, Color(border, glow_alpha + 0.05), 5.0, radius + 2.0, radius + 2.0), rect.grow(1.0))
-	draw_style_box(_style_box(fill, border, width, radius, radius), rect)
 
 
 func _draw_glow_line(from: Vector2, to: Vector2, color: Color, width: float) -> void:
