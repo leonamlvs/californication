@@ -60,7 +60,7 @@ The bar glows around its fixed perimeter at every fill level. Its moving fill ed
 | Sharp UI component | Configured RGBA |
 | --- | --- |
 | Bar border / empty underlay | `(0.93, 0.95, 1, 0.96)` / `(0.09, 0.12, 0.38, 0.74)` |
-| Bar fill | `(0.87, 0.88, 0.97, 0.76)`, with the existing subtle top/bottom variation |
+| Bar fill | `(0.87, 0.88, 0.97, 0.76)`, uniform translucent fill |
 | Normal / highlighted frame border | `(0.92, 0.95, 1, 0.94)` / `(0.88, 0.94, 0.72, 0.98)` |
 | Empty frame underlay | `(0.10, 0.14, 0.40, 0.48)` |
 | Connectors | `(0.965, 0.99, 1, 1)` |

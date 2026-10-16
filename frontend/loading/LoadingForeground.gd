@@ -59,9 +59,6 @@ func _draw_progress_bar() -> void:
 	var right_radius := 6.0 if presentation.fill_fraction >= 0.999 else 0.0
 	var fill_style := _style_box(Color(0.87, 0.88, 0.97, 0.76), Color.TRANSPARENT, 0.0, 6.0, right_radius)
 	draw_style_box(fill_style, fill_rect)
-	# Soft top-to-bottom variation without changing the vertical leading edge.
-	draw_rect(Rect2(fill_rect.position + Vector2(5, 3), Vector2(maxf(0.0, fill_rect.size.x - 5), 8)), Color(1, 1, 1, 0.12))
-	draw_rect(Rect2(fill_rect.position + Vector2(5, 24), Vector2(maxf(0.0, fill_rect.size.x - 5), 8)), Color(0.56, 0.61, 0.88, 0.10))
 
 
 func _draw_image_frames() -> void:
