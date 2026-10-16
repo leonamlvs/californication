@@ -1,6 +1,6 @@
 # Task 23 loading-map effects revision — 2026-10-11
 
-Historical report: the later loading-only SVG replacement supersedes this renderer. See `TASK23_LOADING_SVG_REPORT.md` for the current implementation and validation. The evidence below is retained unchanged.
+> Historical revision report: the SVG replacement superseded this mesh renderer. The loading screen is complete and accepted; [LOADING_SCREEN.md](LOADING_SCREEN.md) is the current contract and [the audit](LOADING_SCREEN_DOC_AUDIT.md) indexes revision evidence. The original dated findings below, including incomplete exact-match acceptance for the removed mesh, remain historical and do not reopen current loading work.
 
 The loading map now uses a continuous cached Gaussian halo instead of the stepped four-direction effect. The authored model, its fit and rotation, image slots, foreground drawing, timing owner, focus pause, and island handoff are preserved.
 

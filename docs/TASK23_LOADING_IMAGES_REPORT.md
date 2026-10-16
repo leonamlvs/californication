@@ -1,5 +1,7 @@
 # Task 23 Loading Image Fill and Lossless Optimization
 
+> Historical revision report: this records one implemented loading revision, not an outstanding task or the live maintenance specification. The loading screen is complete and accepted under [LOADING_SCREEN.md](LOADING_SCREEN.md); [the audit](LOADING_SCREEN_DOC_AUDIT.md) distinguishes current definitions from revision history. Original measurements, dates, and results below are retained.
+
 Revealed images now fill the existing rounded frame interiors up to their borders. The old 5-pixel inset left a visible padding gap; the unchanged 82x82 frames have a 3-pixel border and approximately 76x76 visible image area. Center-cropped textured polygons follow the rounded corners and overlap half a logical pixel beneath the border. The original border draws last, retaining its glow, highlight, position, and thickness.
 
 Only loading image content changes. The SVG, halo, shadow, radial gradient, text, bar, connectors, timeline, island frontend, and project/export settings are preserved. Empty, missing, and unrevealed image slots retain their prior appearance.

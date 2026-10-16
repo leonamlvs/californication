@@ -1,5 +1,7 @@
 # Playable experience rehabilitation: implementation handoff
 
+> Loading-only clarification (2026-10-16): boot-loading references in this dated handoff are historical. The loading screen is now complete and accepted under [LOADING_SCREEN.md](LOADING_SCREEN.md); [its documentation audit](LOADING_SCREEN_DOC_AUDIT.md) separates current checks from prior evidence. This note does not reassess the wider experience/device acceptance or other findings below.
+
 Updated September 23, 2026 after resuming implementation. This is a status record, not a completion certificate.
 
 **Current acceptance: automated source and exported-browser checks pass; hands-on experience and device acceptance remain incomplete.** The safe-runway regression described below was fixed. The current Web ZIP was rebuilt from this uncommitted worktree.

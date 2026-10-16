@@ -1,5 +1,7 @@
 # Task 23 loading text fill and foreground glow
 
+> Historical revision report: this records one implemented loading revision, not an outstanding task or the live maintenance specification. The loading screen is complete and accepted under [LOADING_SCREEN.md](LOADING_SCREEN.md); [the audit](LOADING_SCREEN_DOC_AUDIT.md) distinguishes current definitions from revision history. Original measurements, dates, and results below are retained.
+
 The loading screen now draws the supplied Solid font in white at exactly 50% opacity behind the unchanged Outline lettering. Text, bar, frame, and connector glows have smooth, wider falloff. The California map, its halo/shadow, radial background, other screens, layout, image contents, and loading timeline are preserved.
 
 ## Changed files

@@ -1,5 +1,7 @@
 # Task 23 loading SVG replacement
 
+> Historical revision report: this records one implemented loading revision, not an outstanding task or the live maintenance specification. The loading screen is complete and accepted under [LOADING_SCREEN.md](LOADING_SCREEN.md); [the audit](LOADING_SCREEN_DOC_AUDIT.md) distinguishes current definitions from revision history. Original measurements, dates, and results below are retained.
+
 The loading-only California GLB and procedural fallback are replaced by the supplied SVG. Its painted depth and highlights remain in the artwork. A cached silhouette-driven outer halo and a very subtle downward/right shadow sit behind it. The existing radial-background shader, foreground drawing, image slots, fit behavior, timing owner, and island frontend are unchanged.
 
 This authorized revision supersedes the loading mesh/3D MSAA requirements. `TASK23_LOADING_EFFECTS_REPORT.md` preserves historical evidence for the earlier mesh renderer.

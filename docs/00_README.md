@@ -18,6 +18,8 @@ Build a **feature-complete graybox MVP** in Godot 4.7.2 Stable that already cont
 
 Final art is intentionally out of scope for the MVP. Every visual asset must be replaceable without changing gameplay logic.
 
+The completed boot loading screen is a scoped exception: its supplied SVG, PNGs, and corrected fonts are accepted replaceable artwork. Its current definition and maintenance rules are in [LOADING_SCREEN.md](LOADING_SCREEN.md); the [loading documentation audit](LOADING_SCREEN_DOC_AUDIT.md) separates prior plans from the accepted result. This exception does not expand the art scope of other screens or gameplay.
+
 ## Technical baseline
 
 - Engine: Godot 4.7.2 Stable
@@ -58,6 +60,9 @@ The frontend is also a continuous real-time 3D presentation. A one-shot vegetati
 5. `05_ASSETS.md` — placeholder assets and replacement contracts.
 6. `06_IMPLEMENTATION_TASKS.md` — ordered tasks with acceptance criteria.
 7. `07_IMPLEMENTATION_PLAN.md` — dependency-aware execution plan and handoff contract for Tasks 00–28.
+
+8. [LOADING_SCREEN.md](LOADING_SCREEN.md) — authoritative contract for the completed loading screen.
+9. [LOADING_SCREEN_DOC_AUDIT.md](LOADING_SCREEN_DOC_AUDIT.md) — loading-only documentation inventory, reconciliation, and evidence.
 
 ## MVP definition
 
