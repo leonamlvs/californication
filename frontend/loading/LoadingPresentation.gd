@@ -50,8 +50,19 @@ const DEFAULT_BACKGROUND_TEXTURE: Texture2D = preload("res://art/loading/califor
 @export var background_shadow_offset := Vector2(2.0, 3.0)
 @export_range(0.0, 10.0, 0.1) var background_shadow_softness := 2.0
 
+@export_group("Loading Text")
+@export var loading_fill_color := Color(1.0, 1.0, 1.0, 0.5)
+
+@export_group("Foreground Glow")
+@export_range(0.0, 24.0, 0.5) var text_glow_radius := 8.0
+@export_range(0.0, 24.0, 0.5) var bar_glow_radius := 12.0
+@export_range(0.0, 24.0, 0.5) var frame_glow_radius := 8.0
+@export_range(0.0, 24.0, 0.5) var connector_glow_radius := 6.0
+@export_range(0.0, 2.0, 0.05) var foreground_glow_strength := 1.0
+
 @export_group("Replaceable Assets")
 @export var loading_font: Font
+@export var loading_fill_font: Font
 @export var image_1: Texture2D
 @export var image_2: Texture2D
 @export var image_3: Texture2D

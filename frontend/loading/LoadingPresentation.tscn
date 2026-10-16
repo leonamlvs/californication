@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://frontend/loading/LoadingPresentation.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://art/loading/frames/loading_01.png" id="2_image_1"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" path="res://frontend/loading/LoadingSvgBackground.tscn" id="10_background"]
 [ext_resource type="Script" path="res://frontend/loading/LoadingForeground.gd" id="11_foreground"]
 [ext_resource type="Shader" path="res://frontend/loading/loading_radial_background.gdshader" id="12_radial_bg"]
+[ext_resource type="FontFile" path="res://art/loading/fonts/Californication-Outline.otf" id="13_loading_font"]
+[ext_resource type="FontFile" path="res://art/loading/fonts/Californication-Solid.otf" id="14_loading_fill_font"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_radial_bg"]
 shader = ExtResource("12_radial_bg")
@@ -25,6 +27,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_script")
+loading_font = ExtResource("13_loading_font")
+loading_fill_font = ExtResource("14_loading_fill_font")
 image_1 = ExtResource("2_image_1")
 image_2 = ExtResource("3_image_2")
 image_3 = ExtResource("4_image_3")

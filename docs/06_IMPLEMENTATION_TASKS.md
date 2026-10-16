@@ -375,7 +375,7 @@ Acceptance:
 
 Implement:
 
-- reference-matched two-second loading presentation with a centered 4:3 composition, measured stepped fill, eight replaceable image slots, and replaceable placeholder font;
+- reference-matched two-second loading presentation with a centered 4:3 composition, measured stepped fill, eight replaceable image slots, and replaceable loading font;
 - one-shot close-vegetation → vegetation area → city/roads/vehicles → landscape → California-island pullback;
 - fake-scale group/LOD swaps and authored camera/FOV/effect cues;
 - slow indefinite rotating-island attract state;
@@ -387,11 +387,13 @@ Acceptance:
 - loading begins fully expanded, follows the measured fill pauses and sequential image reveals, reaches 100% at 1.95 seconds, and hands off once at 2.0 active seconds;
 - the loading composition fits uniformly without distortion or reflow, with black unused space on non-4:3 viewports;
 - loading font and all eight image textures are replaceable without controller changes, and no reference capture ships as a runtime asset;
+- the loading-only font revision bundles both supplied Californication OTF variants, with Solid drawn in exactly 50% white beneath the unchanged Outline lettering; both share glyph advances, baseline, size, and fitted transform, retaining the leading N cap height and raised I dot; a missing fill font retains outlined text, with no global theme or other-screen font changes;
+- loading foreground glows use 16 smooth Gaussian-opacity passes with cached reusable styles and radius-independent near-edge strength; expose text/bar/frame/connector radii defaulting to 8/12/8/6 logical pixels and shared strength 1; preserve highlighted green/yellow tint, sharp UI geometry, and image contents; the bar perimeter glows at all fill levels without adding glow to its moving fill edge, and map/background effects remain unchanged;
 - revealed loading images center-crop without distortion and fill their rounded frame interiors up to the existing borders, without extra padding, corner leakage, border obstruction, or changes to empty/missing slots; loading PNG optimization must preserve every decoded pixel, original dimensions, and import UIDs, and retain a re-encoding only when smaller;
 - the static California loading backdrop uses the supplied SVG, uniformly fitted inside the existing logical subject rectangle, over the unchanged radial indigo gradient; its authored colors, highlights, and illustrated depth remain intact with map-only tint/opacity tuning;
 - an isolated transparent 960x720 2D source and two isolated 960x720 Gaussian passes render together once, including on the first visible loading frame, and disable updates when cached or hidden; this authorized SVG revision supersedes the previous loading-only extruded-mesh, 3D MSAA, model replacement, and procedural fallback requirements;
 - the SVG has a continuous soft outer halo and a very subtle downward/right drop shadow derived from its silhouette alpha, without repeated rings, directional sampling artifacts, or duplicate internal outlines; inspect against normalized reference frames 0010/0011/0040/0070, retain the eight-level RGB tolerance for primary 5x5 face patches and foreground-masked 40-pixel edge profiles, and cross-check face patches against frames 0040/0070; visible discrepancies still prevent declaring an exact match;
-- the map texture is replaceable with uniform fitting and a bundled-SVG fallback, no loading-specific 3D nodes/resources remain, and resizing, seeking, or appearance refresh cannot change loading progress; radial background and all foreground styling/layout outside the authorized image-content fill adjustment remain unchanged;
+- the map texture is replaceable with uniform fitting and a bundled-SVG fallback, no loading-specific 3D nodes/resources remain, and resizing, seeking, or appearance refresh cannot change loading progress; radial background and all foreground styling/layout outside the authorized image-content fill, layered loading text, and foreground-glow adjustments remain unchanged;
 - intro pullback plays once and never loops at the attract screen;
 - island rotates/waits indefinitely without advancing itself;
 - touch/confirm advances once without event leakage;

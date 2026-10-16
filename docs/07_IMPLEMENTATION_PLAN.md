@@ -700,7 +700,9 @@ Update `docs/TASK_STATUS.md` only after the task acceptance criteria and Global 
 
 **Acceptance**  Meet all Task 23 criteria; placeholder scale reads consistently even though the island pullback is an authored illusion.
 
-**Do not implement yet**  Logo/alicorn, carousel, or final vegetation/city art. The loading-screen branding exception is explicitly authorized; its font and image contents remain replaceable placeholders.
+The subsequent loading-font revision uses the supplied Outline/Solid OTF pair: draw Solid in exactly 50% white beneath the unchanged Outline lettering, sharing glyph advances, baseline, size, and fitted transform. Fit the shaped glyph ink width and leading N cap height to the existing text bounds, preserving the corrected I's raised dot above the cap line. Both font slots remain replaceable; a missing fill font retains outlined text. The authorized foreground-glow revision replaces coarse bands with 16 Gaussian-opacity passes, normalized near-edge strength, cached styles, Inspector radii of 8/12/8/6 logical pixels for text/bar/frames/connectors, and a shared strength control. Preserve sharp geometry, image contents, highlighted-frame tint, and the static bar-perimeter glow throughout filling, without adding glow to the moving fill edge. Verify rendered 50% opacity, alignment, missing-font behavior, falloff, responsive fits, and exact preservation outside the authorized UI regions. This supersedes earlier foreground-styling preservation requirements only for loading text and foreground glows; no map effects, other screens, or global theme change.
+
+**Do not implement yet**  Logo/alicorn, carousel, or final vegetation/city art. The loading-screen branding exception is explicitly authorized; its font and image contents remain replaceable assets.
 
 **Handoff state**  First-session island reveal and reusable returning-session attract stage.
 
