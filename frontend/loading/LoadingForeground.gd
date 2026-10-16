@@ -57,7 +57,7 @@ func _draw_progress_bar() -> void:
 	var fill_rect := BAR_INNER
 	fill_rect.size.x *= presentation.fill_fraction
 	var right_radius := 6.0 if presentation.fill_fraction >= 0.999 else 0.0
-	var fill_style := _style_box(Color(0.87, 0.88, 0.97, 0.90), Color.TRANSPARENT, 0.0, 6.0, right_radius)
+	var fill_style := _style_box(Color(0.87, 0.88, 0.97, 0.76), Color.TRANSPARENT, 0.0, 6.0, right_radius)
 	draw_style_box(fill_style, fill_rect)
 	# Soft top-to-bottom variation without changing the vertical leading edge.
 	draw_rect(Rect2(fill_rect.position + Vector2(5, 3), Vector2(maxf(0.0, fill_rect.size.x - 5), 8)), Color(1, 1, 1, 0.12))
@@ -231,5 +231,3 @@ func _style_box(fill: Color, border: Color, border_width: float, left_radius: fl
 	style.anti_aliasing = true
 	_style_cache[key] = style
 	return style
-
-
