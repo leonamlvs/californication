@@ -1,0 +1,49 @@
+{
+  "triangles": 10766,
+  "surface_triangles": 10015,
+  "vertices": 5386,
+  "materials": 1,
+  "atlas": [
+    2048,
+    2048
+  ],
+  "bounds_min": [
+    -5.4,
+    -9.358702059229234,
+    -0.14
+  ],
+  "bounds_max": [
+    6.766666666666667,
+    10.03169122337749,
+    2.9403835541009906
+  ],
+  "blender": "4.2.2 LTS",
+  "geometry": "Closed inferred terrain relief; mountains through submerged beach edge; no water geometry",
+  "files": [
+    {
+      "path": "dev/island_scene/assets/island.glb",
+      "bytes": 239620,
+      "sha256": "4756780ae06eb2460f049c58cb85e19996e445ea388219dc9332fa4e685d415c"
+    },
+    {
+      "path": "dev/island_scene/assets/island-color.png",
+      "bytes": 2630663,
+      "sha256": "001e0a4ee2f1ecc9baa592fbc4d697be9034c4196f9eb21c6ee9da400bfa5971"
+    },
+    {
+      "path": "dev/island_scene/assets/ocean-static.png",
+      "bytes": 562922,
+      "sha256": "0b9753112a8f82d49be2d91e9e36c5e20b7049cd40364b8f33c0582b5979c7b8"
+    },
+    {
+      "path": "art/source/island_intro/island.blend",
+      "bytes": 4300636,
+      "sha256": "2077d5cf25a9d1441b0cd46ac7d2536804b4cb6a32a7590035951e019e3f01b2"
+    },
+    {
+      "path": "art/source/island_intro/authoring.json",
+      "bytes": 1516,
+      "sha256": "66c3c28ba42c6d6406e58e692148c81ca33de126e2c104c91d53f899b5f89766"
+    }
+  ]
+}

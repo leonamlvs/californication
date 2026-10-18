@@ -13,6 +13,7 @@ const GRASS := preload("res://data/scenarios/grass.tres")
 const EARTHQUAKE := preload("res://data/scenarios/earthquake.tres")
 const BLOCK_DEFINITION := preload("res://data/obstacles/block.tres")
 const ISLAND_FRONTEND_SCENE := preload("res://frontend/island/IslandFrontend.tscn")
+const ISLAND_SEQUENCE_SCENE := preload("res://frontend/island/live/IslandProductionSequence.tscn")
 const LOGO_REVEAL_SCENE := preload("res://frontend/logo_reveal/LogoPresentationRig.tscn")
 const CINEMATIC_FX_PROFILES: Array[CinematicFXProfile] = [
 	preload("res://data/cinematic_fx/island_pullback.tres"),
@@ -44,6 +45,7 @@ var _fx_profile_index := 0
 var _fx_quality := CinematicTransitionFX.Quality.DESKTOP
 var _fx_force_fallback := false
 var _island_preview: IslandFrontendController
+var _island_sequence: IslandProductionSequence
 var _logo_preview: LogoRevealController
 var _run_intro_preview: RunIntroController
 
@@ -264,32 +266,37 @@ func _configure_fx_preview_from_command_line() -> void:
 	call_deferred("_preview_cinematic_fx")
 
 
-func _ensure_island_preview() -> IslandFrontendController:
-	if _island_preview == null:
-		_island_preview = ISLAND_FRONTEND_SCENE.instantiate() as IslandFrontendController
-		add_child(_island_preview)
-	return _island_preview
+func _ensure_island_sequence() -> IslandProductionSequence:
+	if _island_sequence == null:
+		_island_sequence = ISLAND_SEQUENCE_SCENE.instantiate() as IslandProductionSequence
+		var layer := CanvasLayer.new()
+		layer.layer = 70
+		add_child(layer)
+		layer.add_child(_island_sequence)
+		_island_sequence.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	return _island_sequence
 
 
 func _on_island_intro_pressed() -> void:
-	_ensure_island_preview().development_enter_intro()
-	_message = "Entered Island Intro at the authored first stage."
+	_ensure_island_sequence()
+	GameFlow.development_jump_to_state(GameFlow.ISLAND_INTRO)
+	_message = "Entered the production video-to-island intro."
 
 
 func _on_island_attract_pressed() -> void:
-	_ensure_island_preview().development_enter_attract()
+	_ensure_island_sequence().development_enter_attract()
 	_message = "Entered indefinite Island Attract directly."
 
 
 func _on_island_replay_pressed() -> void:
-	_ensure_island_preview().development_replay_intro()
+	_ensure_island_sequence().development_replay_intro()
 	_message = "Replaying Island Intro with the development override."
 
 
 func _on_island_skip_stage_pressed() -> void:
-	var preview := _ensure_island_preview()
+	var preview := _ensure_island_sequence()
 	preview.development_skip_stage()
-	_message = "Island stage: %s." % (preview.INTRO_STAGE_IDS[preview.intro_stage_index] if preview.intro_stage_index >= 0 else &"inactive")
+	_message = "Island state: %s." % GameFlow.current_state
 
 
 func _ensure_logo_preview() -> LogoRevealController:

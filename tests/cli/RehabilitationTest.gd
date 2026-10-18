@@ -36,8 +36,9 @@ func _run() -> void:
 	_check(main.presentation_root.pillarbox_background.color == Color.BLACK, "Boot loading did not switch the outer fit area to black")
 	await _capture("loading_empty")
 	island.advance_for_test(island.loading_duration)
-	_check(main.presentation_root.pillarbox_background.color == main.presentation_root.DEFAULT_PILLARBOX_COLOR, "Loading exit did not restore the ordinary pillarbox color")
-	island.advance_for_test(island.intro_duration)
+	_check(main.presentation_root.pillarbox_background.color == Color.BLACK, "Island intro did not retain black 4:3 fit space")
+	var island_sequence: IslandProductionSequence = main.presentation_root.get_node("IslandProductionSequence")
+	island_sequence.development_skip_stage()
 	_check(GameFlow.current_state == GameFlow.ISLAND_ATTRACT, "Intro did not reach attract")
 	await _capture("island")
 	await get_tree().process_frame

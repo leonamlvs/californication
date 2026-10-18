@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "seed": 2303,
+  "blender": "4.2.2 LTS",
+  "numpy": "1.24.3",
+  "opencv": "4.11.0",
+  "channels": {
+    "R": "shore distance / 4 world units",
+    "G": "cyan color coefficient",
+    "B": "local foam variation",
+    "A": "blue shelf coefficient"
+  },
+  "near_water_rgb_mae_255": 17.78325665742159,
+  "note": "Wave timings and texture patterns are authored approximations; reference-shaped cyan region is measured. No recovered original water shader is claimed.",
+  "files": [
+    {
+      "path": "art/source/island_intro/ocean-authoring.json",
+      "bytes": 744,
+      "sha256": "0e3a4f068d4c0f830a54ea933c82d6473e6cf8208aad31db999988ffaa2e6dd3"
+    },
+    {
+      "path": "docs/evidence/island_intro/v0/reference/original_0199.png",
+      "bytes": 303895,
+      "sha256": "36669c2bcfc6f86c4d69c6ce2f83dc6dc61d523a9b8ec8ebc3188814b98cf50e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/land-mask.png",
+      "bytes": 4391,
+      "sha256": "91e5c7e8fd9bdc4c236d745d67d6ecce891d44091fb874da54af0f0cf4ea9d7f"
+    },
+    {
+      "path": "dev/island_scene/assets/ocean-shore.png",
+      "bytes": 866893,
+      "sha256": "9ea6687f8e14b7d8904277a2b97777371341eeea6301d3c4390925a07bf5489e"
+    },
+    {
+      "path": "dev/island_scene/assets/ocean-ripple.png",
+      "bytes": 25566,
+      "sha256": "d3176924d63f802e4cd81c8819921eefeab2898fb60801fce237c2c327633e3b"
+    },
+    {
+      "path": "dev/island_scene/ocean.tres",
+      "bytes": 479,
+      "sha256": "811f378829c57bb85e9eb03761bde4f6acadae192a79f5b337737e6e58ce4ed2"
+    }
+  ]
+}

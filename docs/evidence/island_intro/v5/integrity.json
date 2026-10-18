@@ -1,0 +1,182 @@
+{
+  "revision": "fc03f6ffb2cb1678dd0e9afbe9b184d8f0a88720",
+  "date": "2026-10-18",
+  "milestone": "23.V5",
+  "clip_sha256": "3775cdc7a3a680d4ece5ca7578b52e7ad55e4107f8053697421acaf8d4619866",
+  "preserved": [
+    {
+      "source": "dev\\island_scene\\assets\\island.glb",
+      "runtime": "frontend\\island\\live\\assets\\island.glb",
+      "sha256": "4756780ae06eb2460f049c58cb85e19996e445ea388219dc9332fa4e685d415c"
+    },
+    {
+      "source": "dev\\island_scene\\assets\\island-color.png",
+      "runtime": "frontend\\island\\live\\assets\\island-color.png",
+      "sha256": "001e0a4ee2f1ecc9baa592fbc4d697be9034c4196f9eb21c6ee9da400bfa5971"
+    },
+    {
+      "source": "dev\\island_scene\\assets\\ocean-shore.png",
+      "runtime": "frontend\\island\\live\\assets\\ocean-shore.png",
+      "sha256": "9ea6687f8e14b7d8904277a2b97777371341eeea6301d3c4390925a07bf5489e"
+    },
+    {
+      "source": "dev\\island_scene\\assets\\ocean-ripple.png",
+      "runtime": "frontend\\island\\live\\assets\\ocean-ripple.png",
+      "sha256": "d3176924d63f802e4cd81c8819921eefeab2898fb60801fce237c2c327633e3b"
+    }
+  ],
+  "commands": [
+    "python tools/validate_island_production.py",
+    "node tools/smoke_web.mjs",
+    "python tools/finalize_island_production_evidence.py"
+  ],
+  "limitations": [
+    "V6 actual device measurements and visual review 3 pending"
+  ],
+  "runtime_files": [
+    {
+      "path": "frontend\\island\\live\\assets\\island-color.png",
+      "sha256": "001e0a4ee2f1ecc9baa592fbc4d697be9034c4196f9eb21c6ee9da400bfa5971"
+    },
+    {
+      "path": "frontend\\island\\live\\assets\\island-color.png.import",
+      "sha256": "aff067a83342dd1875e429ab857c427d3b379a0a6c95e0345faa9a7b5db6175b"
+    },
+    {
+      "path": "frontend\\island\\live\\assets\\island.glb",
+      "sha256": "4756780ae06eb2460f049c58cb85e19996e445ea388219dc9332fa4e685d415c"
+    },
+    {
+      "path": "frontend\\island\\live\\assets\\island.glb.import",
+      "sha256": "04616b25a60e57e220134fe6375587f47aa5abfef3a4c22c42132ba3e0b1b004"
+    },
+    {
+      "path": "frontend\\island\\live\\assets\\ocean-ripple.png",
+      "sha256": "d3176924d63f802e4cd81c8819921eefeab2898fb60801fce237c2c327633e3b"
+    },
+    {
+      "path": "frontend\\island\\live\\assets\\ocean-ripple.png.import",
+      "sha256": "0148edf345cb4f1a0c1c5d4a87b95df7112947a96e07de11f22f03a69f3a4e45"
+    },
+    {
+      "path": "frontend\\island\\live\\assets\\ocean-shore.png",
+      "sha256": "9ea6687f8e14b7d8904277a2b97777371341eeea6301d3c4390925a07bf5489e"
+    },
+    {
+      "path": "frontend\\island\\live\\assets\\ocean-shore.png.import",
+      "sha256": "ad7cbd3450f29fe23d8bfd9fec00814132cd79650651032f7ee14b72a6c11645"
+    },
+    {
+      "path": "frontend\\island\\live\\handoff.tres",
+      "sha256": "b6a477b8f527acb0ed168a98a23539f8fd4e7ea9e0cc52802ec9ee6b51cf0294"
+    },
+    {
+      "path": "frontend\\island\\live\\IslandProductionSequence.gd",
+      "sha256": "72d600fc29a1d977370c733bdaf67042897aef9f581d134d601b6b849424b7a9"
+    },
+    {
+      "path": "frontend\\island\\live\\IslandProductionSequence.gd.uid",
+      "sha256": "b5dd8744428db41b46efaf0a8e28d1925921256dda486aad2f7e47a0dd1b84fa"
+    },
+    {
+      "path": "frontend\\island\\live\\IslandProductionSequence.tscn",
+      "sha256": "38db3ccfcb3767dc713949495c88564942e6248a44a169895ef4f6de34b6e814"
+    },
+    {
+      "path": "frontend\\island\\live\\IslandRuntimeHandoffProfile.gd",
+      "sha256": "0d6e5c67948ab173f1ecc40f374c5a1d9942c23c34d76b0c21fb72fee0c168c6"
+    },
+    {
+      "path": "frontend\\island\\live\\IslandRuntimeHandoffProfile.gd.uid",
+      "sha256": "260c195eed150ec51b5a31589a3b98391da8d2ebe33b645398aeaf391b078b8e"
+    },
+    {
+      "path": "frontend\\island\\live\\IslandRuntimeLiveScene.gd",
+      "sha256": "3103dfee0641a6ec2c4f2d006c535f164891eee5964b192e9534af0f9ead4b0c"
+    },
+    {
+      "path": "frontend\\island\\live\\IslandRuntimeLiveScene.gd.uid",
+      "sha256": "3c5b467cc2453ad0da29d5e7bd095945553cce7a1b0c3675037df7a4b677f577"
+    },
+    {
+      "path": "frontend\\island\\live\\IslandRuntimeOceanProfile.gd",
+      "sha256": "fe11fb79e33282855d06f31a8087344808852198e21dd6f8d0fff13ade9512da"
+    },
+    {
+      "path": "frontend\\island\\live\\IslandRuntimeOceanProfile.gd.uid",
+      "sha256": "f294aba22ea8089f6be8b37eb9a2cdc8daa6369650fe8aec1edca10b938ec740"
+    },
+    {
+      "path": "frontend\\island\\live\\IslandRuntimePresentationClock.gd",
+      "sha256": "b97b6bf65d9d01fb0734ae20e0c2c035020761fb6d3ede8500c8754d831930e5"
+    },
+    {
+      "path": "frontend\\island\\live\\IslandRuntimePresentationClock.gd.uid",
+      "sha256": "8132f281f7ead564c3a035aa16fce87dd650e299104be0abb14fe1d0abc92e93"
+    },
+    {
+      "path": "frontend\\island\\live\\IslandRuntimeTransitionProfile.gd",
+      "sha256": "369a951a17f76a2dfa6a92360fc797e0a452ac787d87cf38240e5e0e9fb82287"
+    },
+    {
+      "path": "frontend\\island\\live\\IslandRuntimeTransitionProfile.gd.uid",
+      "sha256": "5b618a23e3d3735b4791dd1dd65ae0e59dfe4007e14bc34b4f61d82cec8dc22e"
+    },
+    {
+      "path": "frontend\\island\\live\\live_blur.tres",
+      "sha256": "ec8f66656016b8348cb7968dc93c02761ad4b5801988e8a9c7d42906f4de9a5c"
+    },
+    {
+      "path": "frontend\\island\\live\\live_soft_blur.gdshader",
+      "sha256": "e328716fc9ebc43f5b9805e03e13589d8cae0c9ec7bb7c57bf7d03b80204e20b"
+    },
+    {
+      "path": "frontend\\island\\live\\live_soft_blur.gdshader.uid",
+      "sha256": "fdc2e8dd803fdae054ff31264e7781b28b991a21c527d3b3364ed750a9c34adc"
+    },
+    {
+      "path": "frontend\\island\\live\\media\\intro.ogv",
+      "sha256": "0991165c585b951c6520cb18568fd48060be69415f421faaed9566cbdeefab83"
+    },
+    {
+      "path": "frontend\\island\\live\\media\\intro.ogv.uid",
+      "sha256": "99532e5018d97a0f81f8fed9c9f24f229ca53899de8704f2b383db2ffc0e100b"
+    },
+    {
+      "path": "frontend\\island\\live\\media\\last.png",
+      "sha256": "ecbc35c076c8ba7f5d35ca569b7a6f5ed9859733fc43c0fe15e7248e70352ee8"
+    },
+    {
+      "path": "frontend\\island\\live\\media\\last.png.import",
+      "sha256": "285c4d724c71c7f62fbf08a440d1f7269c7b261ad9e7ae2efdf045b5488e46b1"
+    },
+    {
+      "path": "frontend\\island\\live\\media\\poster.png",
+      "sha256": "34d4acb8f2d543b664ef5c068ea4b91df074e9696318602d6a5b50ae163abc9e"
+    },
+    {
+      "path": "frontend\\island\\live\\media\\poster.png.import",
+      "sha256": "766cc26e1d9db718d780e91af93cffc38fc12bb6b257367ac321c045973e8cd9"
+    },
+    {
+      "path": "frontend\\island\\live\\ocean.tres",
+      "sha256": "d5cdf0b323ab9cced960988fa0f13dbfb7f26a1eda1e1b00cb1135ec49c4b1a7"
+    },
+    {
+      "path": "frontend\\island\\live\\ocean_animated.gdshader",
+      "sha256": "cdd69d6bd8466efac5893c4a47fd7113db3d19aaa2f2c7aeabe36370c49038a4"
+    },
+    {
+      "path": "frontend\\island\\live\\ocean_animated.gdshader.uid",
+      "sha256": "92e1c30ccff806fa684323e5d800dce3092da754b55a5f9d494fac1a52c1e968"
+    },
+    {
+      "path": "frontend\\island\\live\\README.md",
+      "sha256": "ba75e2c0061952591dd8d873c8eb0319cf5b26c542c4cb4c07f9aab134169235"
+    },
+    {
+      "path": "frontend\\island\\live\\transition.tres",
+      "sha256": "e4dd701fe74aabd4a3bac0c259c70b1f1a0694e5165852c293f3cbadcc2769b1"
+    }
+  ]
+}

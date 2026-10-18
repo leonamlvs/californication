@@ -18,6 +18,10 @@ enum FallbackPolicy {
 @export_range(0.05, 5.0, 0.05, "suffix:s") var duration := 0.65
 @export var fallback_policy: FallbackPolicy = FallbackPolicy.AUTO
 @export var blur_enabled := true
+## Optional screen shader with the shared blur uniforms. Existing profiles use
+## the original shader and incur no mipmap-softening work.
+@export var screen_shader: Shader
+@export_range(0.0, 6.0, 0.1) var softness_lod := 0.0
 
 
 func is_valid_profile() -> bool:

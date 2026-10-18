@@ -1,0 +1,6 @@
+ISLAND_MANIFOLD 0 nonmanifold edges
+Blender 4.2.2 LTS (hash c03d7d98a413 built 2024-09-24 01:17:42)
+Read blend: "F:\Desktop\Projects\In Progress\Godot\californication\art\source\island_intro\island.blend"
+
+Blender quit
+TBBmalloc: skip allocation functions replacement in ucrtbase.dll: unknown prologue for function _msize

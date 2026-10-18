@@ -1,0 +1,24 @@
+[
+  [
+    "ffmpeg",
+    "-v",
+    "error",
+    "-y",
+    "-framerate",
+    "30",
+    "-i",
+    "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\captures\\preview_%04d.png",
+    "-frames:v",
+    "150",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "18",
+    "-pix_fmt",
+    "yuv420p",
+    "-movflags",
+    "+faststart",
+    "-an",
+    "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\docs\\evidence\\island_intro\\v2\\review\\camera-preview.mp4"
+  ]
+]

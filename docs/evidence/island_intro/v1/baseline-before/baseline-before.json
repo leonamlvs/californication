@@ -1,0 +1,26 @@
+﻿[
+    {
+        "passed":  true,
+        "command":  "godot --headless --editor --path . --import --quit",
+        "name":  "import",
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "command":  "godot --headless --path . --quit-after 90",
+        "name":  "main",
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "command":  "godot --headless --path . tests/cli/Task23Test.tscn",
+        "name":  "task23",
+        "exit_code":  0
+    },
+    {
+        "passed":  true,
+        "command":  "godot --headless --path . tests/cli/Task24Test.tscn",
+        "name":  "task24",
+        "exit_code":  0
+    }
+]

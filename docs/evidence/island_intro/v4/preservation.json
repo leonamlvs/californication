@@ -1,0 +1,167 @@
+[
+  {
+    "path": "art/source/island_intro/authoring.json",
+    "sha256": "66c3c28ba42c6d6406e58e692148c81ca33de126e2c104c91d53f899b5f89766",
+    "unchanged": true
+  },
+  {
+    "path": "art/source/island_intro/island.blend",
+    "sha256": "2077d5cf25a9d1441b0cd46ac7d2536804b4cb6a32a7590035951e019e3f01b2",
+    "unchanged": true
+  },
+  {
+    "path": "art/source/island_intro/ocean-authoring.json",
+    "sha256": "0e3a4f068d4c0f830a54ea933c82d6473e6cf8208aad31db999988ffaa2e6dd3",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/IslandLiveStudy.gd",
+    "sha256": "699609e523d1eb875aeabdba01df97ea7bdfc1e14de92a54d8956f9037afe1f4",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/IslandLiveStudy.gd.uid",
+    "sha256": "1fbf76716a81e04ecd29a90cbeea826e7cbbb6fc11b7f8d2e810be1d4864dc0d",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/IslandOceanProfile.gd",
+    "sha256": "8e76589ab9f70559eb84e5a0a3bd809146efbf077a011bf3a28785f6874401ed",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/IslandOceanProfile.gd.uid",
+    "sha256": "64304cc3bc339f39ea55109ecbc25c0096f6a21dbed1ccb8d8f4d1ce3bb81d0b",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/IslandScenePreview.gd",
+    "sha256": "2bd7e5fdab61af2b84f790cdf4d84e8c3c9640a52358ba4dab6be2fcdeafd7a5",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/IslandScenePreview.gd.uid",
+    "sha256": "faa3507a060ecd43817e6a9fdc05ecc363a2cbb415a43908a5d1aa5e3be2fd90",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/IslandScenePreview.tscn",
+    "sha256": "d4a4ed96cd1bcc54f4753880d17230a1b1cfb6cbac9dbe3a2bdb6395168fbfb5",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/IslandTransitionProfile.gd",
+    "sha256": "86c0133cecb08d5600abd2129b6918e15de50e0c1a570b11f0a09be0d941d868",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/IslandTransitionProfile.gd.uid",
+    "sha256": "2d12df512bf4ba69ae2826fcf0b7f579acba6388a073623eebd8dc0f0272ca64",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/README.md",
+    "sha256": "a4e0f2623c54a6b062d6a7d052a03a121719f1720c0f0ae89819cbadf4ff6820",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/assets/island-color.png",
+    "sha256": "001e0a4ee2f1ecc9baa592fbc4d697be9034c4196f9eb21c6ee9da400bfa5971",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/assets/island-color.png.import",
+    "sha256": "948ed48ef0a017be0287e2fb98d8cf9fb9d79de19816ccda7d1e928eb884df6e",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/assets/island.glb",
+    "sha256": "4756780ae06eb2460f049c58cb85e19996e445ea388219dc9332fa4e685d415c",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/assets/island.glb.import",
+    "sha256": "30c8200272b2a5bac5878121410e6429c04bd1fd5ee205c3e93c4bf533bb445a",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/assets/ocean-ripple.png",
+    "sha256": "d3176924d63f802e4cd81c8819921eefeab2898fb60801fce237c2c327633e3b",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/assets/ocean-ripple.png.import",
+    "sha256": "36f61d5ac97b45a70c044bcffb9db17f8f46ada305bbe8663ffe630058d44f22",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/assets/ocean-shore.png",
+    "sha256": "9ea6687f8e14b7d8904277a2b97777371341eeea6301d3c4390925a07bf5489e",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/assets/ocean-shore.png.import",
+    "sha256": "53e31316cdc051efc7a5aac722fd012cf81445ddb3f7c718efbfb6a0e8ee0d8b",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/assets/ocean-static.png",
+    "sha256": "0b9753112a8f82d49be2d91e9e36c5e20b7049cd40364b8f33c0582b5979c7b8",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/assets/ocean-static.png.import",
+    "sha256": "b187bfeaff5c146d4911529f4bf1db730678f1a416e7124491d4029e343f88dd",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/ocean.tres",
+    "sha256": "811f378829c57bb85e9eb03761bde4f6acadae192a79f5b337737e6e58ce4ed2",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/ocean_animated.gdshader",
+    "sha256": "b257766dd038289408479941643ca69726ca85adb2e847961e30ba5e9498374a",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/ocean_animated.gdshader.uid",
+    "sha256": "3eea03b27bb5205074dc417ec3f9ef095811e3a9ae35e6af7abd929b0201be09",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/ocean_static.gdshader",
+    "sha256": "db8d832e0ae5b8b8c98ba39793a751387d9ad5f7e307cfb5baad960abd29a899",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/ocean_static.gdshader.uid",
+    "sha256": "cb1713dc50156464e2b609c94152b40569f2e2f56caf7d060520726dcfad7400",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/reference.png",
+    "sha256": "36669c2bcfc6f86c4d69c6ce2f83dc6dc61d523a9b8ec8ebc3188814b98cf50e",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/reference.png.import",
+    "sha256": "ffb27e29843c87c888f3f1d2f51a9fb0a56ea65d49771ae8e0adcc0606931022",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/transition.tres",
+    "sha256": "dde120614868da06552f8860b8308ab8de2deb606fb3ec6de1795ba67fac28ee",
+    "unchanged": true
+  },
+  {
+    "path": "docs/evidence/island_intro/v0/reference/original_0199.png",
+    "sha256": "36669c2bcfc6f86c4d69c6ce2f83dc6dc61d523a9b8ec8ebc3188814b98cf50e",
+    "unchanged": true
+  },
+  {
+    "path": "docs/evidence/island_intro/v2/reference/land-mask.png",
+    "sha256": "91e5c7e8fd9bdc4c236d745d67d6ecce891d44091fb874da54af0f0cf4ea9d7f",
+    "unchanged": true
+  }
+]

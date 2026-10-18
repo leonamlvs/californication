@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Island V2 — Visual review 1</title>
+<style>body{margin:0;background:#0c1220;color:#e9eef8;font:16px/1.55 system-ui}main{max-width:1120px;margin:auto;padding:28px}h1{line-height:1.15}h2{margin-top:38px}a{color:#88d2ff}img,video{max-width:100%;height:auto;background:#000}figure{margin:18px 0}figcaption{color:#aebbd0;font-size:14px}button{padding:8px 18px;margin-bottom:10px;background:#25446e;color:white;border:1px solid #83bce8;border-radius:5px}.compare{position:relative;max-width:960px}.compare img{display:block}.compare #live{position:absolute;inset:0;width:100%}input{width:min(960px,100%)}</style>
+<main><h1>Island intro — V2 visual review</h1>
+<p>Editable 3D terrain, reference color atlas, static ocean, and measured camera continuation. Review 1 is pending your approval.</p>
+<p><a href="../index.html">Open interactive Godot study</a> · <a href="camera-preview.mp4">Camera preview video</a></p>
+<h2>Full reveal: source and live</h2><p>Move the slider to compare the same frame. The live island has actual terrain relief; color and lighting are projected from the supplied footage.</p>
+<div class="compare"><img src="reference.png" alt="Original source frame 199"><img id="live" src="live.png" alt="Live 3D at the corresponding camera pose"></div>
+<input type="range" min="0" max="1" step="0.01" value="1" aria-label="Live image opacity" oninput="document.getElementById('live').style.opacity=this.value">
+<p>Left: source only. Right: live only.</p>
+<h2>Camera continuation</h2><video controls muted playsinline preload="metadata" src="camera-preview.mp4"></video>
+<p>The preview starts at the planned overlap time, 3.3033 s, then settles and rotates. V4 supplies the video blend and live radial blur. V2 adds no runtime blur; the source-derived atlas retains some source softness and streaking.</p>
+<figure><img src="pullback-comparison.png" alt="Five source and live pullback samples"><figcaption>Source on left; live study on right. Early close-up coastline and texture seams remain visible without V4 blur and require inspection during that milestone.</figcaption></figure>
+<h2>Rotation and mesh</h2><figure><img src="rotation-sheet.png" alt="Eight angles of the live island"><figcaption>The source does not establish hidden slopes uniquely. Relief heights and unseen surfaces are editable estimates.</figcaption></figure>
+<figure><img src="relief-oblique.png" alt="Untextured terrain from an oblique camera"><figcaption>Clay inspection of the actual island mesh. All water is a separate flat plane.</figcaption></figure>
+<h2>Review scope</h2><p>Please assess silhouette, mountain placement, coast, color, and composition. The ocean currently uses a frozen reference color plate; its waves and world-anchored deep-water pattern are V3. Production loading is unchanged. This preview does not establish seamless-transition approval or physical-phone performance.</p></main></html>

@@ -1,0 +1,189 @@
+[
+  {
+    "name": "import",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--editor",
+      "--import",
+      "--quit",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\import.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 9.132,
+    "log": "import.txt"
+  },
+  {
+    "name": "main",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--quit-after",
+      "90",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\main.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 2.629,
+    "log": "main.txt"
+  },
+  {
+    "name": "task22",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/Task22Test.tscn",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\task22.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 0.502,
+    "log": "task22.txt"
+  },
+  {
+    "name": "task23",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/Task23Test.tscn",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\task23.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 0.857,
+    "log": "task23.txt"
+  },
+  {
+    "name": "task24",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/Task24Test.tscn",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\task24.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 0.948,
+    "log": "task24.txt"
+  },
+  {
+    "name": "task26",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/Task26Test.tscn",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\task26.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 2.38,
+    "log": "task26.txt"
+  },
+  {
+    "name": "handoff-contract",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\project",
+      "tests/cli/IslandHandoffTest.tscn",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\handoff-contract.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 0.704,
+    "log": "handoff-contract.txt"
+  },
+  {
+    "name": "native-preview",
+    "command": [
+      "godot",
+      "--path",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\project",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\native-preview.txt",
+      "--",
+      "--capture-native=F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\native-attract.png"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 11.988,
+    "log": "native-preview.txt"
+  },
+  {
+    "name": "production-export",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--export-pack",
+      "Web",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\production.pck",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\production-export.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 6.406,
+    "log": "production-export.txt"
+  },
+  {
+    "name": "production-content",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--main-pack",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\production.pck",
+      "--script",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\tests\\cli\\ExportAudit.gd",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\production-content.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 0.299,
+    "log": "production-content.txt"
+  },
+  {
+    "name": "source-isolation",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--main-pack",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\production.pck",
+      "--script",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\tests\\cli\\IslandScenePackAudit.gd",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\validation\\source-isolation.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 0.288,
+    "log": "source-isolation.txt"
+  }
+]

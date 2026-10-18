@@ -39,6 +39,8 @@ A bench, boulder, parked car, studio camera or underwater rock may all later reu
 
 ## Frontend placeholder set
 
+**Approved Task 23 exception:** [ISLAND_INTRO_PLAN.md](ISLAND_INTRO_PLAN.md) authorizes the supplied intro clip, reference-derived island geometry/textures (mountains through beach), and a flat ocean plane with animated cyan shoreline and blue-water shading. These replace the corresponding graybox presentation requirements below. The named runtime MP4 companion is permitted; the complete source video and development references remain excluded. Durable V0 evidence is under `docs/evidence/island_intro/` with `.gdignore`; it is source material, not a runtime asset directory. Native preview media and future editable Blender sources also remain development-only. Other assets retain their current policy.
+
 The graybox frontend eventually requires replaceable primitives for:
 
 - close palm/vegetation and larger vegetation groups;

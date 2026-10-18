@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://presentation/PresentationRoot.gd" id="1_root"]
 [ext_resource type="PackedScene" path="res://ui/hud/HUD.tscn" id="2_hud"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" path="res://gameplay/transitions/TransitionCoordinator.tscn" id="8_transitions"]
 [ext_resource type="PackedScene" path="res://presentation/cinematic_fx/CinematicTransitionFX.tscn" id="9_fx"]
 [ext_resource type="Script" path="res://frontend/run_intro/RunIntroController.gd" id="10_intro"]
+[ext_resource type="PackedScene" path="res://frontend/island/live/IslandProductionSequence.tscn" id="11_island_sequence"]
 
 [node name="PresentationRoot" type="Control"]
 layout_mode = 3
@@ -111,3 +112,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="IslandProductionSequence" parent="." instance=ExtResource("11_island_sequence")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0

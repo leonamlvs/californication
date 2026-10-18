@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "reference": "docs/evidence/island_intro/v0/reference/original_0199.png",
+  "land_mask": "docs/evidence/island_intro/v2/reference/land-mask.png",
+  "shore_resolution": 1024,
+  "ripple_resolution": 256,
+  "distance_range_units": 4.0,
+  "pixels_per_unit": 30.0,
+  "elevation_degrees": 78.0,
+  "deep_color": "06144c",
+  "shelf_color": "1268b5",
+  "shallow_color": "80e9e1",
+  "color_smoothing_pixels": 2.0,
+  "seed": 2303,
+  "notes": "RGBA data: R shore distance / 4 world units, G cyan coefficient, B local foam variation, A blue shelf coefficient. Color coefficients are fitted in sRGB for Compatibility rendering. Land pixels extend nearest water color underneath the beach. No source deep-water wave pattern is retained."
+}

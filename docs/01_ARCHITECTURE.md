@@ -121,6 +121,8 @@ Changing character during pause is an immediate cosmetic swap within the pause H
 
 ## Frontend presentation ownership
 
+The approved [Task 23 island revision](ISLAND_INTRO_PLAN.md) replaces the recorded opening's geometry stages with a browser video adapter and a synchronized live island/ocean continuation. `GameFlow` retains global state ownership; the island controller owns the shared presentation clock, camera, blend, and water phase. Staged-group wording below describes the existing baseline where superseded by that plan. Revision progress is tracked in [the handoff](ISLAND_INTRO_HANDOFF.md).
+
 Boot loading is complete and follows [LOADING_SCREEN.md](LOADING_SCREEN.md). `GameFlow` owns the legal `BOOT → LOADING → ISLAND_INTRO` transitions; `IslandFrontendController` owns the two-active-second clock and requests its handoff. `LoadingPresentation` renders normalized progress, with an independent cached 2D SVG background and a foreground for the bar, images, layered text, and glows. The bar is timed presentation, not resource/download progress. These loading responsibilities do not change the following ownership boundaries.
 
 - `GameFlow` authorizes every frontend state transition but does not contain camera choreography.

@@ -1,0 +1,179 @@
+[
+  {
+    "name": "import",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--editor",
+      "--import",
+      "--quit",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\import.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 6.36,
+    "log": "import.txt"
+  },
+  {
+    "name": "main",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--quit-after",
+      "90",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\main.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 2.526,
+    "log": "main.txt"
+  },
+  {
+    "name": "task23",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/Task23Test.tscn",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\task23.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 0.753,
+    "log": "task23.txt"
+  },
+  {
+    "name": "task24",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/Task24Test.tscn",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\task24.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 0.75,
+    "log": "task24.txt"
+  },
+  {
+    "name": "contract",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/IslandVideoNativeTest.tscn",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\contract.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 0.435,
+    "log": "contract.txt"
+  },
+  {
+    "name": "native",
+    "command": [
+      "godot",
+      "--path",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\project",
+      "tests/cli/IslandVideoNativeTest.tscn",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\native.txt",
+      "--",
+      "--captures=F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\native"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 6.735,
+    "log": "native.txt"
+  },
+  {
+    "name": "production-export",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--export-pack",
+      "Web",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\production.pck",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\production-export.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 14.438,
+    "log": "production-export.txt"
+  },
+  {
+    "name": "production-content",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--main-pack",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\production.pck",
+      "--script",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\tests\\cli\\ExportAudit.gd",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\production-content.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 0.304,
+    "log": "production-content.txt"
+  },
+  {
+    "name": "production-isolation",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--main-pack",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\production.pck",
+      "--script",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\tests\\cli\\IslandVideoPackAudit.gd",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\production-isolation.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 0.302,
+    "log": "production-isolation.txt"
+  },
+  {
+    "name": "preview-isolation",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--main-pack",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\web\\index.pck",
+      "--script",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\tests\\cli\\IslandVideoPackAudit.gd",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-video-preview\\validation\\preview-isolation.txt",
+      "--",
+      "--preview"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 0.205,
+    "log": "preview-isolation.txt"
+  }
+]

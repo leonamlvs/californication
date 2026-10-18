@@ -1,0 +1,18 @@
+{
+  "checks": [
+    {
+      "asset": "index.html",
+      "status": 200,
+      "type": "text/html",
+      "bytes": 5454
+    },
+    {
+      "asset": "index.island-intro.mp4",
+      "status": 206,
+      "type": "video/mp4",
+      "bytes": 32
+    }
+  ],
+  "certificate": "Verified using generated local certificate as trust anchor; hostname checked",
+  "phone_result": "pending"
+}

@@ -1,0 +1,12 @@
+{
+  "command": [
+    "C:/Program Files/Blender Foundation/Blender 4.2/blender.exe",
+    "--background",
+    "art/source/island_intro/island.blend",
+    "--python-exit-code",
+    "1",
+    "--python-expr",
+    "import bpy,bmesh; obj=bpy.data.objects['IslandTerrain']; bm=bmesh.new(); bm.from_mesh(obj.data); bad=[e for e in bm.edges if not e.is_manifold]; print('ISLAND_MANIFOLD',len(bad),'nonmanifold edges'); assert not bad; bm.free()"
+  ],
+  "exit_code": 0
+}

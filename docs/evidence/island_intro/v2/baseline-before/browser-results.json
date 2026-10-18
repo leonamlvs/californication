@@ -1,0 +1,87 @@
+{
+  "status": "ISLAND_VIDEO_WEB_PASS",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Edg/155.0.4283.45",
+    "revision": "@50f24ef2aa5369a074b8888b7db82d9c0652d642",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+    "jsVersion": "15.5.9.4"
+  },
+  "rendering": "SwiftShader; functional checks only",
+  "checks": [
+    {
+      "name": "HTTP video MIME, byte ranges, HEAD, and exact source hash",
+      "passed": true
+    },
+    {
+      "name": "Muted inline autoplay at original speed",
+      "passed": true,
+      "observed_seconds": 0.533867,
+      "elapsed": 0.463
+    },
+    {
+      "name": "Explicit pause freezes the presented clock",
+      "passed": true
+    },
+    {
+      "name": "4:3 layout 360x640 DPR 1",
+      "passed": true,
+      "x": 0,
+      "y": 185,
+      "w": 360,
+      "h": 270
+    },
+    {
+      "name": "4:3 layout 844x390 DPR 2",
+      "passed": true,
+      "x": 162,
+      "y": 0,
+      "w": 520,
+      "h": 390
+    },
+    {
+      "name": "4:3 layout 1280x720 DPR 1",
+      "passed": true,
+      "x": 160,
+      "y": 0,
+      "w": 960,
+      "h": 720
+    },
+    {
+      "name": "Host focus pause and resume",
+      "passed": true
+    },
+    {
+      "name": "Injected media stall freezes time and resumes",
+      "passed": true
+    },
+    {
+      "name": "One-shot completion retains final frame",
+      "passed": true
+    },
+    {
+      "name": "Mid-play failure retains frame and Retry recovers",
+      "passed": true
+    },
+    {
+      "name": "Release removes media and overlay",
+      "passed": true
+    },
+    {
+      "name": "Real tab focus loss/resume and containing-element fullscreen",
+      "passed": true
+    },
+    {
+      "name": "Rejected autoplay offers consumed user gesture",
+      "passed": true
+    },
+    {
+      "name": "Actual blocked network load and consumed touch Retry recovery",
+      "passed": true
+    },
+    {
+      "name": "currentTime compatibility fallback",
+      "passed": true
+    }
+  ]
+}

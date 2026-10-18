@@ -373,7 +373,9 @@ Acceptance:
 
 ## 23 — Loading, Island Intro, and Island Attract
 
-**Loading status: complete and accepted.** [LOADING_SCREEN.md](LOADING_SCREEN.md) is the current loading contract; [the audit](LOADING_SCREEN_DOC_AUDIT.md) records superseded requirements. The island-intro/attract requirements below retain their existing scope.
+**Loading status: complete and accepted.** [LOADING_SCREEN.md](LOADING_SCREEN.md) is the current loading contract; [the audit](LOADING_SCREEN_DOC_AUDIT.md) records superseded requirements.
+
+**Island revision:** the user-approved [video/island/ocean plan](ISLAND_INTRO_PLAN.md) supersedes the geometry-stage/graybox presentation and mobile reframing requirements for this Task 23 revision. Preserve the behavior and loading acceptance criteria below except for explicitly documented presentation substitutions. Work on one of milestones 23.V0-23.V6 per request; [ISLAND_INTRO_HANDOFF.md](ISLAND_INTRO_HANDOFF.md) records current completion evidence. Old Task 23 passes prove the existing baseline, not completion of the revision.
 
 Implement:
 

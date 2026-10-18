@@ -1,0 +1,276 @@
+{
+  "revision": "fc03f6ffb2cb1678dd0e9afbe9b184d8f0a88720",
+  "state": "uncommitted V0/V1; V1 complete",
+  "files": [
+    {
+      "path": "dev/island_video/IslandVideoPreview.gd",
+      "bytes": 3796,
+      "sha256": "cb9162a22f1def9f8a411839b333218884dcaaaa7ae64eb855d64ddf3a344bcc"
+    },
+    {
+      "path": "dev/island_video/IslandVideoPreview.gd.uid",
+      "bytes": 20,
+      "sha256": "8ca3d7bdef490f3010a7cd647c09fbee4ed6b9400b84968554e287ca7081c648"
+    },
+    {
+      "path": "dev/island_video/IslandVideoPreview.tscn",
+      "bytes": 310,
+      "sha256": "bde80d7b181c847950055141786d84925c1b735d56d18ada817c813e7ba45964"
+    },
+    {
+      "path": "dev/island_video/README.md",
+      "bytes": 6439,
+      "sha256": "15ffadef5a21578a6d7e191323cb3151a75904076210eaaf5a669f97fcc17464"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/baseline-before/baseline-before.json",
+      "bytes": 675,
+      "sha256": "2f6b574895ff9794cd09968e7dd153682ec86ba1d14d149062294de09718d24a"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/baseline-before/import-before.txt",
+      "bytes": 979,
+      "sha256": "32038998d1c52075f003fe1c0b7aaf29596648e9711049c5c4d9e681674a58a5"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/baseline-before/main-before.txt",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/baseline-before/task23-before.txt",
+      "bytes": 85,
+      "sha256": "05a888e21a37c3752e1d59df02c2c90320240501c8b5c3170452624f3a78292e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/baseline-before/task24-before.txt",
+      "bytes": 85,
+      "sha256": "aa040cf9a9179dbb15138bae4de49ed87b0444d2dc9c8fee6cfd6edf019ca1f6"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/browser/desktop-paused.png",
+      "bytes": 507665,
+      "sha256": "c8483a5834c3e5c1d3acc2113df99d8cd79709a31b147b52fdfd4d522a9116dc"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/browser/ended-retained-frame.png",
+      "bytes": 319565,
+      "sha256": "455745c6d9cfe0615b952f50c05ea9819a407b5f21a1e12e78d676e308dcbb79"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/browser/failure-retained-frame.png",
+      "bytes": 522678,
+      "sha256": "87ef32cf7c48cb5e6f6dd3cc5f52d10ba1aa18e5ae583a6fa472782314517582"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/browser/fullscreen-paused.png",
+      "bytes": 496631,
+      "sha256": "30839d42cb44afe5b435bd4a24f59a361b49d1e66d767b19a6d9f2d368365910"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/browser/gesture-required.png",
+      "bytes": 397679,
+      "sha256": "b743b6c01ee4bd3f3c2819ec9f5548a95dc023bd9749172eed10f9ac5eccf38a"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/browser/layout-1280x720-dpr1.png",
+      "bytes": 525118,
+      "sha256": "922b86b87d16166e6768c12a222dfd43ac2a3071d0f7b415d96f7bc74e39b403"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/browser/layout-360x640-dpr1.png",
+      "bytes": 123526,
+      "sha256": "a05064fa5b0b84e34efdf9f8d08bcd1da82095679cfadbf2c18f96b4f91b7f75"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/browser/layout-844x390-dpr2.png",
+      "bytes": 580757,
+      "sha256": "68fae2a58bc76a0350a3aa64c90efab7741435a7ef93b019ba2b1150a00e8e59"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/browser/network-error.png",
+      "bytes": 315605,
+      "sha256": "bbe8b021d7e96cef8bad0fd96da534ad0431ba52b2d925de7f7059e4089aad15"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/browser/results.json",
+      "bytes": 2069,
+      "sha256": "5a4e29a0facc1848f24f1b89e250c64f29bef66edfadf4d348afff306da4d174"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/build/media-manifest.json",
+      "bytes": 719,
+      "sha256": "7c4a40f43997fbf8b8b1673238842ef11039582e689f9903ccfae0e929a8c42a"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/build/native-encoding.json",
+      "bytes": 137,
+      "sha256": "829efcf9378e8d7345a22f87d4fa65da58f0beefbe4874536f05056f23928f06"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/build/preview-import.txt",
+      "bytes": 1165,
+      "sha256": "49febf9573742bfb953219a1bdf31195afd76ba183733cf38ac0c9ab39077ec5"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/build/preview-web-export.txt",
+      "bytes": 1799,
+      "sha256": "c387ca35d31c5e62ce23c2b821d81d1a806b6028eff86a3614cfde3211b7552c"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/native/native-complete-portrait.png",
+      "bytes": 91472,
+      "sha256": "e8fc59c8095872598a4d5cd7cfdb4973b49313eacc0914546e1b579f7afbf3d9"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/native/native-paused-desktop.png",
+      "bytes": 454923,
+      "sha256": "66177d51e3965db3b22fae0190146db0421b50d4956e3b674cffbae1a90eda3e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/native/native-paused-portrait.png",
+      "bytes": 117584,
+      "sha256": "d921d4423b0ef1855d1c06410726210f4ee5fb4b0c839d8826fa9afd61422141"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/native/native-poster.png",
+      "bytes": 410193,
+      "sha256": "232dcb9ccc013a76a888a25ffdc0d2e186bc32b0469634f0186394ca7e2db7ea"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/README.md",
+      "bytes": 2614,
+      "sha256": "fc41c5f2d0f523e0098e5d326eab55b95d8a3b30b0605a7833ede72655199ac3"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/validation/contract.txt",
+      "bytes": 100,
+      "sha256": "5638d879c7b09dda88f1b6e142f5c6f26dd65fb0e0c3a2b3ad14e85f6172c4c8"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/validation/import.txt",
+      "bytes": 1253,
+      "sha256": "e747ab0ae11d1ee8a28db978fa30276358aaddb8633161bd036cff626388b97c"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/validation/main.txt",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/validation/native.txt",
+      "bytes": 225,
+      "sha256": "bb396792ab6fb00d9a32151a519ae1b994cee34d77adce28839fa87138fa7e9e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/validation/preview-isolation.txt",
+      "bytes": 121,
+      "sha256": "d93141fcee0bac9a69c801f44b7c0e30c4f64ad596df0c2a790cecc078f93e1e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/validation/production-content.txt",
+      "bytes": 161,
+      "sha256": "aeda6c4129bc2682dba5e0334971b99bf314eef11350868a7d8ca3d74561109f"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/validation/production-export.txt",
+      "bytes": 60569,
+      "sha256": "d570d7b51a9b4aa29847505df0f7551606a69f8b4c54ee6be9e66258189d865d"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/validation/production-isolation.txt",
+      "bytes": 124,
+      "sha256": "f1925fab0df05a2eef8f690da74b86ec5c735de20013eef2dc83974d95aff2e4"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/validation/results.json",
+      "bytes": 5276,
+      "sha256": "985adf404611287d3719d38281db2d0c861e38fbb4c84078639533f0b4a72846"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/validation/task23.txt",
+      "bytes": 85,
+      "sha256": "05a888e21a37c3752e1d59df02c2c90320240501c8b5c3170452624f3a78292e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v1/validation/task24.txt",
+      "bytes": 85,
+      "sha256": "aa040cf9a9179dbb15138bae4de49ed87b0444d2dc9c8fee6cfd6edf019ca1f6"
+    },
+    {
+      "path": "docs/ISLAND_INTRO_HANDOFF.md",
+      "bytes": 14396,
+      "sha256": "e9ded0f0c7464adb29348d1139aef6e727455c3a7bc9f3897fa36279548ed2b2"
+    },
+    {
+      "path": "docs/TASK_STATUS.md",
+      "bytes": 15595,
+      "sha256": "fb22bd11caf94fc9f9220107550d62cc21284fd3eb00253b190f2e1b9b572d9e"
+    },
+    {
+      "path": "frontend/island/video/island_video.js",
+      "bytes": 12460,
+      "sha256": "d9b4582fa3ab308ec89f1087ef84e77945d02296a4a68ef58fa8186871cd8f2e"
+    },
+    {
+      "path": "frontend/island/video/IslandVideoPlayback.gd",
+      "bytes": 9423,
+      "sha256": "b3ad40006c528da4f20f52a6e482057834b4103655b5b36bb2fb151bda2eb3c8"
+    },
+    {
+      "path": "frontend/island/video/IslandVideoPlayback.gd.uid",
+      "bytes": 20,
+      "sha256": "b96a9847d144cdfe7db058e731c981131a681519c8e0db961204b16e9fa450c3"
+    },
+    {
+      "path": "tests/cli/IslandVideoNativeTest.gd",
+      "bytes": 4867,
+      "sha256": "6cdd61030eb1f1edf1ee10f1cb2ae2ee64263eccd3025ca87ec1abe5460dae67"
+    },
+    {
+      "path": "tests/cli/IslandVideoNativeTest.gd.uid",
+      "bytes": 20,
+      "sha256": "085e7bfcf0575ac51df5ef0f1e88406b2507639bf011f88982feced797ce3c38"
+    },
+    {
+      "path": "tests/cli/IslandVideoNativeTest.tscn",
+      "bytes": 309,
+      "sha256": "f1bb6c08312f2617282ea5517076fb750d06071211ddbf0950a49bd63d392725"
+    },
+    {
+      "path": "tests/cli/IslandVideoPackAudit.gd",
+      "bytes": 1013,
+      "sha256": "b65f36e42beeb2e3fd789c04aa188020adeba2b26df2b787b84696cceb6f012a"
+    },
+    {
+      "path": "tests/cli/IslandVideoPackAudit.gd.uid",
+      "bytes": 20,
+      "sha256": "76804b25a0d2d559dde113f1187bf7758dff0f480004bc48c463e8158390a59d"
+    },
+    {
+      "path": "tools/build_island_video_preview.py",
+      "bytes": 5778,
+      "sha256": "2e353532f2a0f97094d37ed74f4a8e6d123988ecf4e18cbc89f16fd47c3490e5"
+    },
+    {
+      "path": "tools/encode_island_preview_blender.py",
+      "bytes": 1113,
+      "sha256": "9244cd01d8d7a2a8e8f3dbae2350c4c70d223568561618d60bf833e1bd7051d8"
+    },
+    {
+      "path": "tools/island_video_preview_server.mjs",
+      "bytes": 2932,
+      "sha256": "b20760dbb2e1b9d797d6ff4050a64a993b5ad105be148106b6e91784c030aa25"
+    },
+    {
+      "path": "tools/test_island_video_web.mjs",
+      "bytes": 15016,
+      "sha256": "f51583570d817660dacc201411df17c7765f21ed8a3877c95597df65229b3709"
+    },
+    {
+      "path": "tools/validate_island_video.py",
+      "bytes": 2793,
+      "sha256": "464114febd634188829cd5cd2267b083bd3f2d60385e19a08168613ba8cada87"
+    }
+  ]
+}

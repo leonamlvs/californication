@@ -1,0 +1,58 @@
+﻿[
+    {
+        "name":  "import",
+        "command":  "godot --headless --editor --path . --import --quit",
+        "exit_code":  0,
+        "passed":  true,
+        "elapsed_seconds":  6.154,
+        "log":  "import-after.txt"
+    },
+    {
+        "name":  "main",
+        "command":  "godot --headless --path . --quit-after 90",
+        "exit_code":  0,
+        "passed":  true,
+        "elapsed_seconds":  2.616,
+        "log":  "main-after.txt"
+    },
+    {
+        "name":  "task23",
+        "command":  "godot --headless --path . tests/cli/Task23Test.tscn",
+        "exit_code":  0,
+        "passed":  true,
+        "elapsed_seconds":  0.866,
+        "log":  "task23-after.txt"
+    },
+    {
+        "name":  "task24",
+        "command":  "godot --headless --path . tests/cli/Task24Test.tscn",
+        "exit_code":  0,
+        "passed":  true,
+        "elapsed_seconds":  0.852,
+        "log":  "task24-after.txt"
+    },
+    {
+        "name":  "export-pack",
+        "command":  "godot --headless --path . --export-pack Web .godot/island-intro-v0/baseline.pck",
+        "exit_code":  0,
+        "passed":  true,
+        "elapsed_seconds":  7.457,
+        "log":  "export-pack-after.txt"
+    },
+    {
+        "name":  "pack-content",
+        "command":  "godot --headless --path . --main-pack .godot/island-intro-v0/baseline.pck --script \"F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\tests\\cli\\ExportAudit.gd\"",
+        "exit_code":  0,
+        "passed":  true,
+        "elapsed_seconds":  0.388,
+        "log":  "pack-content-after.txt"
+    },
+    {
+        "name":  "reference-exclusion",
+        "command":  "godot --headless --path . --main-pack .godot/island-intro-v0/baseline.pck --script \"F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\docs\\evidence\\island_intro\\v0\\validation\\check_reference_exclusion.gd\"",
+        "exit_code":  0,
+        "passed":  true,
+        "elapsed_seconds":  0.527,
+        "log":  "reference-exclusion-after.txt"
+    }
+]

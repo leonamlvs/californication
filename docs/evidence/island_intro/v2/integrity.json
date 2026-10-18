@@ -1,0 +1,546 @@
+{
+  "revision": "fc03f6ffb2cb1678dd0e9afbe9b184d8f0a88720",
+  "status": "V2 implemented; visual approval 1 pending",
+  "files": [
+    {
+      "path": "art/source/island_intro/.gdignore",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "art/source/island_intro/authoring.json",
+      "bytes": 1516,
+      "sha256": "66c3c28ba42c6d6406e58e692148c81ca33de126e2c104c91d53f899b5f89766"
+    },
+    {
+      "path": "art/source/island_intro/island.blend",
+      "bytes": 4300636,
+      "sha256": "2077d5cf25a9d1441b0cd46ac7d2536804b4cb6a32a7590035951e019e3f01b2"
+    },
+    {
+      "path": "dev/island_scene/assets/island-color.png",
+      "bytes": 2630663,
+      "sha256": "001e0a4ee2f1ecc9baa592fbc4d697be9034c4196f9eb21c6ee9da400bfa5971"
+    },
+    {
+      "path": "dev/island_scene/assets/island-color.png.import",
+      "bytes": 964,
+      "sha256": "948ed48ef0a017be0287e2fb98d8cf9fb9d79de19816ccda7d1e928eb884df6e"
+    },
+    {
+      "path": "dev/island_scene/assets/island.glb",
+      "bytes": 239620,
+      "sha256": "4756780ae06eb2460f049c58cb85e19996e445ea388219dc9332fa4e685d415c"
+    },
+    {
+      "path": "dev/island_scene/assets/island.glb.import",
+      "bytes": 1157,
+      "sha256": "30c8200272b2a5bac5878121410e6429c04bd1fd5ee205c3e93c4bf533bb445a"
+    },
+    {
+      "path": "dev/island_scene/assets/ocean-static.png",
+      "bytes": 562922,
+      "sha256": "0b9753112a8f82d49be2d91e9e36c5e20b7049cd40364b8f33c0582b5979c7b8"
+    },
+    {
+      "path": "dev/island_scene/assets/ocean-static.png.import",
+      "bytes": 964,
+      "sha256": "b187bfeaff5c146d4911529f4bf1db730678f1a416e7124491d4029e343f88dd"
+    },
+    {
+      "path": "dev/island_scene/IslandLiveStudy.gd",
+      "bytes": 3250,
+      "sha256": "ba8c3d69529a0b9a1160a8140acc69ebf202bdfdf6061091148274ca64e67798"
+    },
+    {
+      "path": "dev/island_scene/IslandLiveStudy.gd.uid",
+      "bytes": 20,
+      "sha256": "1fbf76716a81e04ecd29a90cbeea826e7cbbb6fc11b7f8d2e810be1d4864dc0d"
+    },
+    {
+      "path": "dev/island_scene/IslandScenePreview.gd",
+      "bytes": 5841,
+      "sha256": "2a5ee57f40dae3b42e0d8ae0f17a73a97391ea05569ac5ee2727e68a688c3985"
+    },
+    {
+      "path": "dev/island_scene/IslandScenePreview.gd.uid",
+      "bytes": 20,
+      "sha256": "faa3507a060ecd43817e6a9fdc05ecc363a2cbb415a43908a5d1aa5e3be2fd90"
+    },
+    {
+      "path": "dev/island_scene/IslandScenePreview.tscn",
+      "bytes": 310,
+      "sha256": "d4a4ed96cd1bcc54f4753880d17230a1b1cfb6cbac9dbe3a2bdb6395168fbfb5"
+    },
+    {
+      "path": "dev/island_scene/IslandTransitionProfile.gd",
+      "bytes": 3177,
+      "sha256": "86c0133cecb08d5600abd2129b6918e15de50e0c1a570b11f0a09be0d941d868"
+    },
+    {
+      "path": "dev/island_scene/IslandTransitionProfile.gd.uid",
+      "bytes": 20,
+      "sha256": "2d12df512bf4ba69ae2826fcf0b7f579acba6388a073623eebd8dc0f0272ca64"
+    },
+    {
+      "path": "dev/island_scene/ocean_static.gdshader",
+      "bytes": 869,
+      "sha256": "db8d832e0ae5b8b8c98ba39793a751387d9ad5f7e307cfb5baad960abd29a899"
+    },
+    {
+      "path": "dev/island_scene/ocean_static.gdshader.uid",
+      "bytes": 20,
+      "sha256": "cb1713dc50156464e2b609c94152b40569f2e2f56caf7d060520726dcfad7400"
+    },
+    {
+      "path": "dev/island_scene/README.md",
+      "bytes": 8251,
+      "sha256": "15b6cc5fdc925aa5d69421746903aa64d12e6660af3beba81bed344b55b88cc3"
+    },
+    {
+      "path": "dev/island_scene/reference.png",
+      "bytes": 303895,
+      "sha256": "36669c2bcfc6f86c4d69c6ce2f83dc6dc61d523a9b8ec8ebc3188814b98cf50e"
+    },
+    {
+      "path": "dev/island_scene/reference.png.import",
+      "bytes": 948,
+      "sha256": "ffb27e29843c87c888f3f1d2f51a9fb0a56ea65d49771ae8e0adcc0606931022"
+    },
+    {
+      "path": "dev/island_scene/transition.tres",
+      "bytes": 1475,
+      "sha256": "dde120614868da06552f8860b8308ab8de2deb606fb3ec6de1795ba67fac28ee"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/asset-manifest.json",
+      "bytes": 1361,
+      "sha256": "fce24b0dfe8e80854ab4bb4768a55e02a1ed01bbb5691c399b632b5a521dc637"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/baseline-before/browser-results.json",
+      "bytes": 2071,
+      "sha256": "a5d9b8618914a4509bc37e95a05614192bb6e91465da195b4f59b2d5e7e634a6"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/baseline-before/contract.txt",
+      "bytes": 100,
+      "sha256": "5638d879c7b09dda88f1b6e142f5c6f26dd65fb0e0c3a2b3ad14e85f6172c4c8"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/baseline-before/import.txt",
+      "bytes": 979,
+      "sha256": "32038998d1c52075f003fe1c0b7aaf29596648e9711049c5c4d9e681674a58a5"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/baseline-before/main.txt",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/baseline-before/native.txt",
+      "bytes": 225,
+      "sha256": "bb396792ab6fb00d9a32151a519ae1b994cee34d77adce28839fa87138fa7e9e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/baseline-before/preview-isolation.txt",
+      "bytes": 121,
+      "sha256": "d93141fcee0bac9a69c801f44b7c0e30c4f64ad596df0c2a790cecc078f93e1e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/baseline-before/production-content.txt",
+      "bytes": 161,
+      "sha256": "aeda6c4129bc2682dba5e0334971b99bf314eef11350868a7d8ca3d74561109f"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/baseline-before/production-export.txt",
+      "bytes": 60569,
+      "sha256": "d570d7b51a9b4aa29847505df0f7551606a69f8b4c54ee6be9e66258189d865d"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/baseline-before/production-isolation.txt",
+      "bytes": 124,
+      "sha256": "f1925fab0df05a2eef8f690da74b86ec5c735de20013eef2dc83974d95aff2e4"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/baseline-before/results.json",
+      "bytes": 5276,
+      "sha256": "6e7eba1fe6ae463a50cea4b412f61b89c1697a2382214e968ab4fbf5ef282300"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/baseline-before/task23.txt",
+      "bytes": 85,
+      "sha256": "05a888e21a37c3752e1d59df02c2c90320240501c8b5c3170452624f3a78292e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/baseline-before/task24.txt",
+      "bytes": 85,
+      "sha256": "aa040cf9a9179dbb15138bae4de49ed87b0444d2dc9c8fee6cfd6edf019ca1f6"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/browser/desktop-reveal.png",
+      "bytes": 366480,
+      "sha256": "5a7549952cc7d792624257019a4ed304320614405fef96916e3c1efc6ce7e105"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/browser/layout-1280x720.png",
+      "bytes": 373673,
+      "sha256": "ce14990ca1e5067ac2df258dc513153e9774445af3a953fb57357b4187fcd34b"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/browser/layout-360x640.png",
+      "bytes": 89487,
+      "sha256": "e8c2f7a37f1aa4855caf4068be212ffd3452d789b8143e739f5f166ab740fa87"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/browser/layout-844x390.png",
+      "bytes": 154613,
+      "sha256": "19edf1fef10f9ccc482bca16e599fc9182ae306d78fbacdbd90da8013d2b8b6f"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/browser/reference-toggle.png",
+      "bytes": 357879,
+      "sha256": "2bf906eee2582fe779a88285ad846a3a147af75043a709182756d54374e993fb"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/browser/relief-toggle.png",
+      "bytes": 348743,
+      "sha256": "bc1eb38b79d67c67c7fe491e8f9c56b07ff585a80c2558fde32205e0ef6bc367"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/browser/results.json",
+      "bytes": 967,
+      "sha256": "2cf0a4a1d5e1b80cf64c2e7f9ff329233f08d2fd65cdcc30128f4d79ff0fa7ac"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/comparison-metrics.json",
+      "bytes": 369,
+      "sha256": "bdc610c3319f2d5b75f1721f71b58195ab6df7e19049772e49dde330b368531f"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/README.md",
+      "bytes": 3242,
+      "sha256": "3b39130f01ea12c74a3644d76e24f0f8e9da9e749ba7772cd36e53717eb0c738"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/coastline-trace.png",
+      "bytes": 497263,
+      "sha256": "c11402c0c0749b114b87c786a71109317e16fa9105c6f55faa039605adbc7820"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/land-mask.png",
+      "bytes": 4391,
+      "sha256": "91e5c7e8fd9bdc4c236d745d67d6ecce891d44091fb874da54af0f0cf4ea9d7f"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0180.png",
+      "bytes": 650776,
+      "sha256": "0f606155dc7b8c18fbbab2794a27046061eec71345a66d1aa927c5181e15a15a"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0181.png",
+      "bytes": 637278,
+      "sha256": "b8343919bdc86e77fd08cedff6a1eb8549761e1e293f33e12b6271f0504b9a1c"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0182.png",
+      "bytes": 577305,
+      "sha256": "b2e8fc7eef429021a1a6d3a7e8d200d9009e6d5fa934403e8f330c56bcc209e2"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0183.png",
+      "bytes": 499908,
+      "sha256": "df95f8ed865ba576bdd0b04fba71bb8ddf0847f740419eb792189fed424d2458"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0184.png",
+      "bytes": 413775,
+      "sha256": "dad26a21d0ab378248d3c34da5fff4ab4c37f349c91aac8a250c49d91218187f"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0185.png",
+      "bytes": 346961,
+      "sha256": "7dd5a68759567306ebf9462629b97fbe7611319d8314193a5c9e4fec83744954"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0186.png",
+      "bytes": 270281,
+      "sha256": "e2dc4d6c76fa878721f6afbb95bc1cf9e8d456ae00520ebb97e148784971eece"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0187.png",
+      "bytes": 288703,
+      "sha256": "dfc5c696769568cd5966c2864a80ed0f9d5d78b4afdf1f01cf3a712205c200e1"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0188.png",
+      "bytes": 346026,
+      "sha256": "a07bd7649e5b9a6c69544515c828bcac06de2766fd22f8ff52534239f045290c"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0189.png",
+      "bytes": 402645,
+      "sha256": "6ff19cf23ec58840204fc1a40023313274e4a977f70f3343e6366331b614fcab"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0190.png",
+      "bytes": 426590,
+      "sha256": "d4c713b084651e8c926391b50e783eea5130f0bb7ca95724f269485335df886c"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0191.png",
+      "bytes": 461940,
+      "sha256": "03545bfb240552d214c65d2c2c5109b05f6246a929529bb1defd94a62de4e00e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0192.png",
+      "bytes": 506055,
+      "sha256": "7588237efc18c754cea2b8f195452ae4b32b2d71cc539ce69628aa4dbe2fcdef"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0193.png",
+      "bytes": 514507,
+      "sha256": "61f25f62c3a0e869b9f37d38da0bed6df79d5fe4e618e40d726a7f7538e534be"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0194.png",
+      "bytes": 473121,
+      "sha256": "dc5da30ad3e219a6577c0935a11c639734bee0bea2a2175dc44f96abddc15a3b"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0195.png",
+      "bytes": 473640,
+      "sha256": "8a30b8ab8db4207021ca7accf87f265733bde08d75994f8cdf9edfa8b033ba30"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0196.png",
+      "bytes": 452012,
+      "sha256": "94e598839ca9699e847e2c78fdf2ed18d183db1326853a804aa7d05917acf210"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0197.png",
+      "bytes": 465472,
+      "sha256": "8922262029a970dbfc7080331e9f33e8840e03e1e1117b55ef81501b8ca2bdc1"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0198.png",
+      "bytes": 456709,
+      "sha256": "513470eb14284e1663642b29ca1b6f15f99a5c810a630c2832e3cba3ad4531ba"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/original_0199.png",
+      "bytes": 485272,
+      "sha256": "121c92769f2554d3ff3378ee466b2d9fb859956e03a256fee868abd2eb74adee"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/pullback-contact-sheet.png",
+      "bytes": 681676,
+      "sha256": "b5e787ab4eb70ecdebb22351fa0254ea38ad34c075529084d6277209c5e097b0"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference-measurements.json",
+      "bytes": 22470,
+      "sha256": "132fa0b7a9294190face5be9219ba5d428644cf9b197aa1283bbdb9532247ca0"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review/camera-preview.mp4",
+      "bytes": 498602,
+      "sha256": "12035eb2900d90271df97c543ccd95bc9fb7eef6a86f8a77ba7b93d9ff8d8938"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review/frame-186.png",
+      "bytes": 683871,
+      "sha256": "f32e63ebf44690ca5c7867b897f5c189b23a96c32e48cdba5abfcc36345c6b6b"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review/frame-190.png",
+      "bytes": 877224,
+      "sha256": "cba3e0ebdbfe761461493aa9275d47cfce4eb88568bb061b1d429bb4e15eed22"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review/frame-193.png",
+      "bytes": 1097634,
+      "sha256": "274de898a2d10085e0fa4c9a9b92ae55154c534c35d1cc28330206cd7211beec"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review/frame-196.png",
+      "bytes": 955269,
+      "sha256": "f4d4ff4020100fc41f37d4a4ed505e66bb7efdc2e3bb7d100c17730fd99624d8"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review/frame-199.png",
+      "bytes": 992992,
+      "sha256": "02e6ac1c8d98510ae358cdfeb2a59068569d335c136793a9c026e3c35152326e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review/index.html",
+      "bytes": 3044,
+      "sha256": "b87e91da94f9c662d6f387a609a861381e06c41cf5d0b0eb21a761e730bf27d4"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review/live.png",
+      "bytes": 511335,
+      "sha256": "17804568cee5cd2fc43a7f00f8abd3b9a5a79429953eb4a3e02fe05ceb935853"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review/pullback-comparison.png",
+      "bytes": 1568755,
+      "sha256": "57132e0f1370b02a03e16dc424611626c0f88a34959786c03583f2e1aa5ba972"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review/reference.png",
+      "bytes": 485272,
+      "sha256": "121c92769f2554d3ff3378ee466b2d9fb859956e03a256fee868abd2eb74adee"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review/relief-oblique.png",
+      "bytes": 324001,
+      "sha256": "e12c480cc5395baacd5668f438790f725bcfab2a054d076225674e0081a32d46"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review/reveal-comparison.png",
+      "bytes": 996410,
+      "sha256": "601cb0700b2548b6bd5901f5805c002e01b2676a1e897ee8267b27c8e9187215"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review/rotation-sheet.png",
+      "bytes": 594989,
+      "sha256": "b24312c2890681ed43cc889c60bf252bc8829e8d51d8788920f0ff0c0b4e186f"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/review-commands.json",
+      "bytes": 525,
+      "sha256": "76bcb0cdd87d2df205f5688a5b751ed17d3a6cafeda3ba228f6535c04e8277dd"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/generate.txt",
+      "bytes": 671,
+      "sha256": "46a5bfa54c4d8fe7fb7707a24af47e1647fd1b73e1d989c9887a1509a0b9874f"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/import.txt",
+      "bytes": 1396,
+      "sha256": "6290aa06e8b117f72a938cb6bc0fecc9f1b27ee0b6f7433eaa91ed0ae1657997"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/island-contract.txt",
+      "bytes": 141,
+      "sha256": "045fb189802528f61b1c8c1ff2b91fd3596fd232aef1a119195cd5854fa918f7"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/main.txt",
+      "bytes": 73,
+      "sha256": "6d1c065383a27c36804949b6ffa4b09714470b112e5dacc0bd5aeb7b9c147c4e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/native-captures.txt",
+      "bytes": 226,
+      "sha256": "9902ed011d0e1b1eb8f993464f5de4c1ac7200553e10d37526406dbc404f1753"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/production-content.txt",
+      "bytes": 161,
+      "sha256": "aeda6c4129bc2682dba5e0334971b99bf314eef11350868a7d8ca3d74561109f"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/production-export.txt",
+      "bytes": 60569,
+      "sha256": "7c623efc8c575c8e6deb2a5343155548f92abb1c18e9c857a446e8d27fc17a08"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/results.json",
+      "bytes": 4579,
+      "sha256": "f6f5b7603252fdf87593fabe013de548d6605e10c51f02c79f16ac95530631df"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/source-isolation.txt",
+      "bytes": 134,
+      "sha256": "597a36bbc1be436cf490acc45a87b0a1a2e0587db9749d15f4f150effcb25b76"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/task23.txt",
+      "bytes": 85,
+      "sha256": "05a888e21a37c3752e1d59df02c2c90320240501c8b5c3170452624f3a78292e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/task24.txt",
+      "bytes": 85,
+      "sha256": "aa040cf9a9179dbb15138bae4de49ed87b0444d2dc9c8fee6cfd6edf019ca1f6"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/topology-command.json",
+      "bytes": 472,
+      "sha256": "2d0a7fbd5023a3a1b9701aa00e4fe43992c9a54140b47c8a614f73255246031d"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/topology.txt",
+      "bytes": 330,
+      "sha256": "bbae3392ba0b2148ada9a79a0555a33aab56e0d1e49dae7e68405a42b0f46afb"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/validation/web-export.txt",
+      "bytes": 2736,
+      "sha256": "b212c2ca73acf452ff985fed519e435497b5102754a1da3f17263d1357566fdf"
+    },
+    {
+      "path": "tests/cli/IslandScenePackAudit.gd",
+      "bytes": 856,
+      "sha256": "bf48978ec87080207d9b1350bdf22938a2d29c583eca00e2afd74de400098234"
+    },
+    {
+      "path": "tests/cli/IslandScenePackAudit.gd.uid",
+      "bytes": 20,
+      "sha256": "c179fe087bfb6ffe2456f7c088d2f9238f47212b632f61baaa310cb2a2d13ce4"
+    },
+    {
+      "path": "tests/cli/IslandSceneTest.gd",
+      "bytes": 3839,
+      "sha256": "5f745e172841debda84adfe0b3a044383fdab472b4d4e736a9b8468a44f6e7eb"
+    },
+    {
+      "path": "tests/cli/IslandSceneTest.gd.uid",
+      "bytes": 19,
+      "sha256": "3fe855f2c2e39e162ef4f17740000fe67f898fd884d0d00c1efc0c5ce1582d54"
+    },
+    {
+      "path": "tests/cli/IslandSceneTest.tscn",
+      "bytes": 181,
+      "sha256": "055d81e53a57f7d2c91254187b798429f522bb8dac47d072be35dbf965e0d4b5"
+    },
+    {
+      "path": "tools/analyze_island_reference.py",
+      "bytes": 5110,
+      "sha256": "0f4e87e7a76a215df6c2aef7c1a8c1c7a5e5e87784f36f9ff257ba58b38309dd"
+    },
+    {
+      "path": "tools/build_island_scene_preview.py",
+      "bytes": 4565,
+      "sha256": "57eed082ca23fa34fe8c16b4aaa7bc69f0d3c3c6663646de3aa5f6546856d41b"
+    },
+    {
+      "path": "tools/capture_island_scene_review.py",
+      "bytes": 6214,
+      "sha256": "52b32450250282410f21e1bb8cf3c0bb9709a3316b0064e2e8026518d548c0c1"
+    },
+    {
+      "path": "tools/generate_island_asset.py",
+      "bytes": 10896,
+      "sha256": "383eaef31c0f1ee3aa8a5611ae95a0d55edf18558062d8fe7b0e8638bcf7165c"
+    },
+    {
+      "path": "tools/serve_island_scene.mjs",
+      "bytes": 455,
+      "sha256": "e6ad8affcf347a732bf08681dc398a1af7bb9ab13217ec141b6acab5fc092a6a"
+    },
+    {
+      "path": "tools/test_island_scene_web.mjs",
+      "bytes": 5686,
+      "sha256": "53fe01a21622ba8f002152ffdf693856a9bc233e8aa178a671d8a2e890509f6d"
+    },
+    {
+      "path": "tools/validate_island_scene.py",
+      "bytes": 2196,
+      "sha256": "58c2a5ab8b57591104ac073359aa2465b9c957fb4c3ee22e9fc1411a77eecc5c"
+    }
+  ]
+}

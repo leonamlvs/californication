@@ -1,0 +1,10 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Island V3 — Animated water</title><style>body{margin:0;background:#0c1220;color:#e9eef8;font:16px/1.55 system-ui}main{max-width:1120px;margin:auto;padding:28px}h1{line-height:1.15}h2{margin-top:36px}a{color:#88d2ff}img,video{max-width:100%;height:auto;background:#000}figure{margin:18px 0}small{color:#afbdd0}</style>
+<main><h1>Island V3 — Animated water</h1><p>Subtle shore waves follow the rotating coast. Deep-water ripples stay anchored to the surrounding sea.</p>
+<p><a href="../index.html">Open interactive preview</a> · Use <b>Water</b> for a stationary island, <b>Rotate</b> for attract, and <b>Pause</b> to hold the same water phase.</p>
+<h2>Water motion at normal speed</h2><video controls muted playsinline loop preload="metadata" src="water-preview.mp4"></video>
+<p>The camera is held still to make the faint waves easier to inspect. The five-second review video loops; the live water clock continues indefinitely.</p>
+<h2>Complete island rotation</h2><video controls muted playsinline preload="metadata" src="full-rotation.mp4"></video><p>One full 72-second turn. This inspection recording samples at 5 fps; it is not a performance measurement.</p>
+<img src="rotation-sheet.png" alt="Coastline and water at eight rotation angles">
+<h2>Reference and animated reconstruction</h2><img src="source-and-water.png" alt="Original frame on left, live water on right"><p>Reference on the left; live rendering on the right. The cyan shape is derived from the reference. Wave shape, timing, and deep-water noise are authored approximations; the original frozen outer wave rings are replaced by animated shading.</p>
+<h2>Scope and checks</h2><p>One opaque plane, two triangles, one material, a 1024-square packed data map, and a 256-square periodic noise texture. Pause/seek, phase wraps, world anchoring, full rotation, browser focus, and package isolation are checked. V2 terrain and camera approval is recorded. Seamless video blending is V4; production integration is V5; phone performance remains V6.</p></main></html>

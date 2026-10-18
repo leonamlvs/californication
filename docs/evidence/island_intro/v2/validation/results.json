@@ -1,0 +1,157 @@
+[
+  {
+    "name": "import",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--editor",
+      "--import",
+      "--quit",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\validation\\import.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 23.57,
+    "log": "import.txt"
+  },
+  {
+    "name": "main",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--quit-after",
+      "90",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\validation\\main.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 3.225,
+    "log": "main.txt"
+  },
+  {
+    "name": "task23",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/Task23Test.tscn",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\validation\\task23.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 0.743,
+    "log": "task23.txt"
+  },
+  {
+    "name": "task24",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/Task24Test.tscn",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\validation\\task24.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 0.945,
+    "log": "task24.txt"
+  },
+  {
+    "name": "island-contract",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\project",
+      "tests/cli/IslandSceneTest.tscn",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\validation\\island-contract.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 1.519,
+    "log": "island-contract.txt"
+  },
+  {
+    "name": "native-captures",
+    "command": [
+      "godot",
+      "--path",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\project",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\validation\\native-captures.txt",
+      "--",
+      "--capture=F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\captures"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 30.95,
+    "log": "native-captures.txt"
+  },
+  {
+    "name": "production-export",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--export-pack",
+      "Web",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\validation\\production.pck",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\validation\\production-export.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 6.363,
+    "log": "production-export.txt"
+  },
+  {
+    "name": "production-content",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--main-pack",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\validation\\production.pck",
+      "--script",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\tests\\cli\\ExportAudit.gd",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\validation\\production-content.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 0.287,
+    "log": "production-content.txt"
+  },
+  {
+    "name": "source-isolation",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--main-pack",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\validation\\production.pck",
+      "--script",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\tests\\cli\\IslandScenePackAudit.gd",
+      "--log-file",
+      "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-scene-preview\\validation\\source-isolation.txt"
+    ],
+    "exit_code": 0,
+    "passed": true,
+    "seconds": 0.284,
+    "log": "source-isolation.txt"
+  }
+]

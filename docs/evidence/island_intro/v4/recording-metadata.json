@@ -1,0 +1,124 @@
+{
+  "renderer": "ANGLE (AMD, AMD Radeon RX 7600 (0x00007480) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "frames": 677,
+  "duration_seconds": 7.048927068710327,
+  "samples": [
+    {
+      "target": 3.3033,
+      "time": 3.3033,
+      "opacity": 1,
+      "camera_size": 0.436927646398544,
+      "blur": 0.143000026446117,
+      "frame": "record_00333.jpg",
+      "image": "overlap-3.303.png",
+      "mean_rgb": 50.25688319830247
+    },
+    {
+      "target": 3.3700333,
+      "time": 3.370033,
+      "opacity": 0.648002877120483,
+      "camera_size": 0.915882050991058,
+      "blur": 0.164999912914249,
+      "frame": "record_00340.jpg",
+      "image": "overlap-3.370.png",
+      "mean_rgb": 73.54370515046297
+    },
+    {
+      "target": 3.4367667,
+      "time": 3.436767,
+      "opacity": 0.103998081925266,
+      "camera_size": 1.82309317588806,
+      "blur": 0.187000190956305,
+      "frame": "record_00346.jpg",
+      "image": "overlap-3.437.png",
+      "mean_rgb": 82.70179832175926
+    },
+    {
+      "target": 3.4701333,
+      "time": 3.470133,
+      "opacity": 1.19759757666316e-11,
+      "camera_size": 3.9371931552887,
+      "blur": 0.20349985199832,
+      "frame": "record_00351.jpg",
+      "image": "overlap-3.470.png",
+      "mean_rgb": 85.93238908179012
+    },
+    {
+      "target": 3.5035,
+      "time": 3.50346633333334,
+      "opacity": 0,
+      "camera_size": 13.7679643630981,
+      "blur": 0.219983359203275,
+      "frame": "record_00354.jpg",
+      "image": "overlap-3.503.png",
+      "mean_rgb": 70.24780671296297
+    },
+    {
+      "target": 3.57,
+      "time": 3.57013300000001,
+      "opacity": 0,
+      "camera_size": 17.969446182251,
+      "blur": 0.168743851629887,
+      "frame": "record_00360.jpg",
+      "image": "overlap-3.570.png",
+      "mean_rgb": 56.992004726080246
+    },
+    {
+      "target": 3.7370667,
+      "time": 3.73679966666668,
+      "opacity": 0,
+      "camera_size": 23.9941787719727,
+      "blur": 0.0332201213395191,
+      "frame": "record_00377.jpg",
+      "image": "overlap-3.737.png",
+      "mean_rgb": 47.2645630787037
+    },
+    {
+      "target": 4.1370667,
+      "time": 4.13679966666669,
+      "opacity": 0,
+      "camera_size": 25.2000007629395,
+      "blur": 0,
+      "frame": "record_00417.jpg",
+      "image": "overlap-4.137.png",
+      "mean_rgb": 45.41725742669753
+    }
+  ],
+  "cadence": {
+    "overlap": {
+      "samples": 43,
+      "median_raf_interval_ms": 4.199951171875,
+      "p95_raf_interval_ms": 4.300048828125
+    },
+    "attract": {
+      "samples": 600,
+      "median_raf_interval_ms": 4.199951171875,
+      "p95_raf_interval_ms": 4.300048828125
+    }
+  },
+  "caveat": "Actual browser screencast, not offline video/live compositing. rAF cadence includes screencast overhead and is not GPU frame-time or V6 device acceptance. Visual review 2 pending.",
+  "command": [
+    "ffmpeg",
+    "-v",
+    "error",
+    "-y",
+    "-safe",
+    "0",
+    "-f",
+    "concat",
+    "-i",
+    "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\build\\island-transition-preview\\browser\\recording.ffconcat",
+    "-vf",
+    "fps=30",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "18",
+    "-pix_fmt",
+    "yuv420p",
+    "-movflags",
+    "+faststart",
+    "-an",
+    "F:\\Desktop\\Projects\\In Progress\\Godot\\californication\\docs\\evidence\\island_intro\\v4\\review\\browser-handoff.mp4"
+  ]
+}

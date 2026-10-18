@@ -1,0 +1,45 @@
+{
+  "status": "ISLAND_SCENE_WEB_PASS",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Edg/155.0.4283.45",
+    "revision": "@50f24ef2aa5369a074b8888b7db82d9c0652d642",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+    "jsVersion": "15.5.9.4"
+  },
+  "rendering": "SwiftShader; functional evidence only",
+  "checks": [
+    {
+      "name": "Exported WebGL island imports and reaches measured reveal",
+      "passed": true
+    },
+    {
+      "name": "Pullback advances and pause freezes its clock",
+      "passed": true
+    },
+    {
+      "name": "Portrait, landscape, and widescreen retain the sampled camera",
+      "passed": true
+    },
+    {
+      "name": "Source comparison and relief controls work",
+      "passed": true
+    },
+    {
+      "name": "Rotation retains settled camera with no browser/Godot errors",
+      "passed": true
+    },
+    {
+      "name": "Water-only preview advances, and pause freezes shader phases",
+      "passed": true
+    },
+    {
+      "name": "Seek and day-long attract time remain deterministic",
+      "passed": true
+    },
+    {
+      "name": "Real browser focus loss holds water and focus return resumes it",
+      "passed": true
+    }
+  ]
+}

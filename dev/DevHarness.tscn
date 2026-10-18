@@ -217,7 +217,7 @@ script = ExtResource("6_button")
 
 [node name="SkipStage" type="Button" parent="Interface/IslandPanel/Rows"]
 layout_mode = 2
-text = "SKIP INTRO STAGE"
+text = "COMPLETE INTRO TO ATTRACT"
 script = ExtResource("6_button")
 
 [node name="LogoPanel" type="PanelContainer" parent="Interface"]

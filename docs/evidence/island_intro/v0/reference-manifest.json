@@ -1,0 +1,641 @@
+{
+  "milestone": "23.V0",
+  "baseline_revision": "fc03f6ffb2cb1678dd0e9afbe9b184d8f0a88720",
+  "clip": {
+    "original_path": ".ref/island-intro/island-intro.mp4",
+    "sha256": "3775cdc7a3a680d4ece5ca7578b52e7ad55e4107f8053697421acaf8d4619866",
+    "metadata": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuv420p",
+          "color_range": "tv",
+          "color_space": "bt709",
+          "color_transfer": "bt709",
+          "color_primaries": "bt709",
+          "r_frame_rate": "30000/1001",
+          "avg_frame_rate": "30000/1001",
+          "nb_frames": "104",
+          "nb_read_frames": "104"
+        }
+      ],
+      "format": {
+        "duration": "3.470133",
+        "size": "3883069"
+      }
+    }
+  },
+  "original_video": {
+    "path": ".ref/music-video.mp4",
+    "sha256": "b09cdb326cf1e62574c3aea75b1be4f599c4b48baf517fb03da25d1886ba366a",
+    "metadata": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuv420p",
+          "color_range": "tv",
+          "color_space": "bt709",
+          "color_transfer": "bt709",
+          "color_primaries": "bt709",
+          "r_frame_rate": "30000/1001",
+          "avg_frame_rate": "30000/1001"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "321.142132",
+        "size": "52365414"
+      }
+    }
+  },
+  "active_picture": {
+    "x": 160,
+    "y": 0,
+    "width": 960,
+    "height": 720,
+    "png_crop": "960:720:160:0"
+  },
+  "frame_indexing": "Zero-based native decode indices. Clip starts at PTS 0; original starts at PTS 0.033367. Original timeline slots are native index + 1. Use fps_mode passthrough to avoid CFR padding at the beginning.",
+  "approved_plan_numbering_correction": "Approved reference slots 88-191 correspond to native original frames 87-190. Full-reveal timeline slot 200 is native frame 199 (PTS 6.673333); native frame 200 is also preserved as a nearby fully framed reference. Authored transition timings are unchanged.",
+  "mapping_method": "Lowest mean squared error of cropped 64x48 grayscale decodes over the original first 9 seconds; verifies sampled correspondence, not identical encoded pixels.",
+  "frame_matches": [
+    {
+      "clip_frame_zero_based": 0,
+      "clip_seconds": 0.0,
+      "original_frame_zero_based": 87,
+      "original_seconds": 2.936267,
+      "original_timeline_slot": 88,
+      "gray_64x48_mse": 0.2568359375
+    },
+    {
+      "clip_frame_zero_based": 45,
+      "clip_seconds": 1.5015,
+      "original_frame_zero_based": 132,
+      "original_seconds": 4.437767,
+      "original_timeline_slot": 133,
+      "gray_64x48_mse": 0.2718098958333333
+    },
+    {
+      "clip_frame_zero_based": 80,
+      "clip_seconds": 2.6693333333333333,
+      "original_frame_zero_based": 167,
+      "original_seconds": 5.6056,
+      "original_timeline_slot": 168,
+      "gray_64x48_mse": 0.3268229166666667
+    },
+    {
+      "clip_frame_zero_based": 90,
+      "clip_seconds": 3.003,
+      "original_frame_zero_based": 177,
+      "original_seconds": 5.939267,
+      "original_timeline_slot": 178,
+      "gray_64x48_mse": 0.4306640625
+    },
+    {
+      "clip_frame_zero_based": 98,
+      "clip_seconds": 3.2699333333333334,
+      "original_frame_zero_based": 185,
+      "original_seconds": 6.2062,
+      "original_timeline_slot": 186,
+      "gray_64x48_mse": 0.23697916666666666
+    },
+    {
+      "clip_frame_zero_based": 99,
+      "clip_seconds": 3.3033,
+      "original_frame_zero_based": 186,
+      "original_seconds": 6.239567,
+      "original_timeline_slot": 187,
+      "gray_64x48_mse": 0.1689453125
+    },
+    {
+      "clip_frame_zero_based": 100,
+      "clip_seconds": 3.3366666666666664,
+      "original_frame_zero_based": 187,
+      "original_seconds": 6.272933,
+      "original_timeline_slot": 188,
+      "gray_64x48_mse": 0.12174479166666667
+    },
+    {
+      "clip_frame_zero_based": 101,
+      "clip_seconds": 3.370033333333333,
+      "original_frame_zero_based": 188,
+      "original_seconds": 6.3063,
+      "original_timeline_slot": 189,
+      "gray_64x48_mse": 0.15852864583333334
+    },
+    {
+      "clip_frame_zero_based": 102,
+      "clip_seconds": 3.4034,
+      "original_frame_zero_based": 189,
+      "original_seconds": 6.339667,
+      "original_timeline_slot": 190,
+      "gray_64x48_mse": 0.201171875
+    },
+    {
+      "clip_frame_zero_based": 103,
+      "clip_seconds": 3.4367666666666667,
+      "original_frame_zero_based": 190,
+      "original_seconds": 6.373033,
+      "original_timeline_slot": 191,
+      "gray_64x48_mse": 0.2158203125
+    }
+  ],
+  "continuation": {
+    "original_start_frame_inclusive": 191,
+    "original_end_frame_inclusive": 223,
+    "metadata": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "sample_aspect_ratio": "1:1",
+          "display_aspect_ratio": "16:9",
+          "pix_fmt": "yuv420p",
+          "color_range": "tv",
+          "color_space": "bt709",
+          "color_transfer": "bt709",
+          "color_primaries": "bt709",
+          "r_frame_rate": "30000/1001",
+          "avg_frame_rate": "30000/1001",
+          "nb_frames": "33",
+          "nb_read_frames": "33"
+        }
+      ],
+      "format": {
+        "duration": "1.101100",
+        "size": "396727"
+      }
+    },
+    "purpose": "Development reference only; re-encoded at CRF 12. Never append to or replace the supplied runtime clip. PNGs are lossless decoded crops."
+  },
+  "tools": {
+    "ffmpeg": "ffmpeg version 8.0-full_build-www.gyan.dev Copyright (c) 2000-2025 the FFmpeg developers",
+    "ffprobe": "ffprobe version 8.0-full_build-www.gyan.dev Copyright (c) 2007-2025 the FFmpeg developers"
+  },
+  "assets": [
+    {
+      "path": "reference/island-intro.mp4",
+      "bytes": 3883069,
+      "sha256": "3775cdc7a3a680d4ece5ca7578b52e7ad55e4107f8053697421acaf8d4619866"
+    },
+    {
+      "path": "reference/clip_0000.png",
+      "bytes": 315307,
+      "sha256": "34d4acb8f2d543b664ef5c068ea4b91df074e9696318602d6a5b50ae163abc9e"
+    },
+    {
+      "path": "reference/clip_0098.png",
+      "bytes": 160697,
+      "sha256": "e5fb48fcc1729bc4494c2c81129e8fb985fb4d1b7dd83fefb6b28e8cc8eb3945"
+    },
+    {
+      "path": "reference/clip_0099.png",
+      "bytes": 94708,
+      "sha256": "1d6ed6c5b8bcff35ba63d950e48ca19dc0862660a63f4e6114719d3ad70b3d53"
+    },
+    {
+      "path": "reference/clip_0100.png",
+      "bytes": 113139,
+      "sha256": "6a7127a8af414a732140543ac1d8db22b4a641905f334efabeb5754e06c0d394"
+    },
+    {
+      "path": "reference/clip_0101.png",
+      "bytes": 155133,
+      "sha256": "23e0fc37005b110981b6b4810a1707a2d4962bab67cff9e736fe9373cf99d7c3"
+    },
+    {
+      "path": "reference/clip_0102.png",
+      "bytes": 195032,
+      "sha256": "b47a711e59c496e10568aedae0e6fe58eb49267570707d6c978499e3eca7594b"
+    },
+    {
+      "path": "reference/clip_0103.png",
+      "bytes": 213402,
+      "sha256": "ecbc35c076c8ba7f5d35ca569b7a6f5ed9859733fc43c0fe15e7248e70352ee8"
+    },
+    {
+      "path": "reference/original_0193.png",
+      "bytes": 285644,
+      "sha256": "8c8d56a4559b307456cb3f3b59701631be131a67f70ac56e8b15d6a1798fe628"
+    },
+    {
+      "path": "reference/original_0199.png",
+      "bytes": 303895,
+      "sha256": "36669c2bcfc6f86c4d69c6ce2f83dc6dc61d523a9b8ec8ebc3188814b98cf50e"
+    },
+    {
+      "path": "reference/original_0200.png",
+      "bytes": 292907,
+      "sha256": "ead22436ef89b9e84a9ceab441038e966c98b134882e4024d5d742559a28653f"
+    },
+    {
+      "path": "reference/original_0205.png",
+      "bytes": 334542,
+      "sha256": "85aab5edb899c5b4c6e5528352fe71f60b3aa02c3553bee4a2788c9ee59a15f0"
+    },
+    {
+      "path": "reference/original_0211.png",
+      "bytes": 368937,
+      "sha256": "47466149ce1ef54c8525f49867d4d73ae8486594e135f98aee776aeddb9871b4"
+    },
+    {
+      "path": "reference/original_0223.png",
+      "bytes": 381251,
+      "sha256": "a59afef3691e508b4b13af7e98d035d28021d81229d26c27c7d2c375aeba54f0"
+    },
+    {
+      "path": "reference/continuation-reference.mp4",
+      "bytes": 396727,
+      "sha256": "f17ed039f1bc17a7beb7cb4eaacc11e6a05c8e20b85db561321c7c5e8d9a130c"
+    }
+  ],
+  "commands": [
+    [
+      "ffprobe",
+      "-v",
+      "error",
+      "-count_frames",
+      "-show_entries",
+      "format=duration,size:stream=codec_name,codec_type,width,height,r_frame_rate,avg_frame_rate,nb_frames,nb_read_frames,pix_fmt,sample_aspect_ratio,display_aspect_ratio,color_range,color_space,color_transfer,color_primaries",
+      "-of",
+      "json",
+      ".ref\\island-intro\\island-intro.mp4"
+    ],
+    [
+      "ffprobe",
+      "-v",
+      "error",
+      "-show_entries",
+      "format=duration,size:stream=codec_name,codec_type,width,height,r_frame_rate,avg_frame_rate,nb_frames,nb_read_frames,pix_fmt,sample_aspect_ratio,display_aspect_ratio,color_range,color_space,color_transfer,color_primaries",
+      "-of",
+      "json",
+      ".ref\\music-video.mp4"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-i",
+      ".ref\\island-intro\\island-intro.mp4",
+      "-vf",
+      "crop=960:720:160:0,scale=64:48,format=gray",
+      "-fps_mode",
+      "passthrough",
+      "-f",
+      "rawvideo",
+      "-pix_fmt",
+      "gray",
+      "pipe:1"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-i",
+      ".ref\\music-video.mp4",
+      "-t",
+      "9",
+      "-vf",
+      "crop=960:720:160:0,scale=64:48,format=gray",
+      "-fps_mode",
+      "passthrough",
+      "-f",
+      "rawvideo",
+      "-pix_fmt",
+      "gray",
+      "pipe:1"
+    ],
+    [
+      "ffprobe",
+      "-v",
+      "error",
+      "-select_streams",
+      "v:0",
+      "-read_intervals",
+      "0%+9",
+      "-show_entries",
+      "frame=best_effort_timestamp_time",
+      "-of",
+      "json",
+      ".ref\\music-video.mp4"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\island-intro\\island-intro.mp4",
+      "-vf",
+      "select=eq(n\\,0),crop=960:720:160:0",
+      "-fps_mode",
+      "passthrough",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "docs\\evidence\\island_intro\\v0\\reference\\clip_0000.png"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\island-intro\\island-intro.mp4",
+      "-vf",
+      "select=eq(n\\,98),crop=960:720:160:0",
+      "-fps_mode",
+      "passthrough",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "docs\\evidence\\island_intro\\v0\\reference\\clip_0098.png"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\island-intro\\island-intro.mp4",
+      "-vf",
+      "select=eq(n\\,99),crop=960:720:160:0",
+      "-fps_mode",
+      "passthrough",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "docs\\evidence\\island_intro\\v0\\reference\\clip_0099.png"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\island-intro\\island-intro.mp4",
+      "-vf",
+      "select=eq(n\\,100),crop=960:720:160:0",
+      "-fps_mode",
+      "passthrough",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "docs\\evidence\\island_intro\\v0\\reference\\clip_0100.png"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\island-intro\\island-intro.mp4",
+      "-vf",
+      "select=eq(n\\,101),crop=960:720:160:0",
+      "-fps_mode",
+      "passthrough",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "docs\\evidence\\island_intro\\v0\\reference\\clip_0101.png"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\island-intro\\island-intro.mp4",
+      "-vf",
+      "select=eq(n\\,102),crop=960:720:160:0",
+      "-fps_mode",
+      "passthrough",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "docs\\evidence\\island_intro\\v0\\reference\\clip_0102.png"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\island-intro\\island-intro.mp4",
+      "-vf",
+      "select=eq(n\\,103),crop=960:720:160:0",
+      "-fps_mode",
+      "passthrough",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "docs\\evidence\\island_intro\\v0\\reference\\clip_0103.png"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\music-video.mp4",
+      "-vf",
+      "select=eq(n\\,193),crop=960:720:160:0",
+      "-fps_mode",
+      "passthrough",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "docs\\evidence\\island_intro\\v0\\reference\\original_0193.png"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\music-video.mp4",
+      "-vf",
+      "select=eq(n\\,199),crop=960:720:160:0",
+      "-fps_mode",
+      "passthrough",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "docs\\evidence\\island_intro\\v0\\reference\\original_0199.png"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\music-video.mp4",
+      "-vf",
+      "select=eq(n\\,200),crop=960:720:160:0",
+      "-fps_mode",
+      "passthrough",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "docs\\evidence\\island_intro\\v0\\reference\\original_0200.png"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\music-video.mp4",
+      "-vf",
+      "select=eq(n\\,205),crop=960:720:160:0",
+      "-fps_mode",
+      "passthrough",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "docs\\evidence\\island_intro\\v0\\reference\\original_0205.png"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\music-video.mp4",
+      "-vf",
+      "select=eq(n\\,211),crop=960:720:160:0",
+      "-fps_mode",
+      "passthrough",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "docs\\evidence\\island_intro\\v0\\reference\\original_0211.png"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\music-video.mp4",
+      "-vf",
+      "select=eq(n\\,223),crop=960:720:160:0",
+      "-fps_mode",
+      "passthrough",
+      "-frames:v",
+      "1",
+      "-update",
+      "1",
+      "docs\\evidence\\island_intro\\v0\\reference\\original_0223.png"
+    ],
+    [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      ".ref\\music-video.mp4",
+      "-vf",
+      "trim=start_frame=191:end_frame=224,setpts=PTS-STARTPTS",
+      "-frames:v",
+      "33",
+      "-an",
+      "-c:v",
+      "libx264",
+      "-crf",
+      "12",
+      "-preset",
+      "medium",
+      "-pix_fmt",
+      "yuv420p",
+      "-color_range",
+      "tv",
+      "-colorspace",
+      "bt709",
+      "-color_trc",
+      "bt709",
+      "-color_primaries",
+      "bt709",
+      "-fps_mode",
+      "passthrough",
+      "-movflags",
+      "+faststart",
+      "docs\\evidence\\island_intro\\v0\\reference\\continuation-reference.mp4"
+    ],
+    [
+      "ffprobe",
+      "-v",
+      "error",
+      "-count_frames",
+      "-show_entries",
+      "format=duration,size:stream=codec_name,codec_type,width,height,r_frame_rate,avg_frame_rate,nb_frames,nb_read_frames,pix_fmt,sample_aspect_ratio,display_aspect_ratio,color_range,color_space,color_transfer,color_primaries",
+      "-of",
+      "json",
+      "docs\\evidence\\island_intro\\v0\\reference\\continuation-reference.mp4"
+    ],
+    [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    [
+      "ffmpeg",
+      "-version"
+    ],
+    [
+      "ffprobe",
+      "-version"
+    ]
+  ]
+}

@@ -91,6 +91,8 @@ func _apply_layout(frame_rect: Rect2, mobile_flex: bool, safe_rect: Rect2) -> vo
 
 
 func _should_use_mobile_flex(safe_size: Vector2, touch_capable: bool) -> bool:
+	if GameFlow.current_state in [GameFlow.LOADING, GameFlow.ISLAND_INTRO, GameFlow.ISLAND_ATTRACT]:
+		return false
 	match debug_frame_mode:
 		FrameMode.DESKTOP_4_3:
 			return false
@@ -133,7 +135,8 @@ func _is_touch_capable() -> bool:
 
 
 func _on_game_flow_state_changed(_previous: StringName, next: StringName) -> void:
-	pillarbox_background.color = Color.BLACK if next == GameFlow.LOADING else DEFAULT_PILLARBOX_COLOR
+	pillarbox_background.color = Color.BLACK if next in [GameFlow.LOADING, GameFlow.ISLAND_INTRO, GameFlow.ISLAND_ATTRACT] else DEFAULT_PILLARBOX_COLOR
+	_refresh_layout()
 	var gameplay_visible := next in [
 		GameFlow.RUN_INTRO, GameFlow.RUNNING, GameFlow.TRANSITION_READY,
 		GameFlow.TOKEN_COLLECTED, GameFlow.SCENARIO_TRANSITION, GameFlow.NEXT_SCENARIO,

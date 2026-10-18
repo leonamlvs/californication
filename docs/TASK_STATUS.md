@@ -38,6 +38,20 @@ Update only after acceptance criteria are verified.
 
 Loading-specific revision entries below are historical. In particular, incomplete exact-match findings refer to the removed mesh renderer and do not reopen the accepted SVG/font/glow presentation. The current outline remains lavender at 94% opacity with a 50%-white Solid fill; pure-white outlining and finished-text texture caching are not pending requirements. Other task statuses and island-intro/attract behavior are unchanged.
 
+## Island intro revision — 23.V5 complete; 23.V6 in progress
+
+The user-approved [island plan](ISLAND_INTRO_PLAN.md) revises Task 23 through milestones 23.V0-23.V6. The historical task checkboxes above remain baseline status; they do not imply completion of this new presentation.
+
+- [x] **23.V0 — Documents and baseline:** approved plan/handoff saved; scoped spec exceptions linked; exact intro clip, key frames, short continuation reference, hashes, tool versions, and reproduction script preserved outside ignored caches. Before/after Godot import/startup and Task 23/24 checks pass. A fresh Web pack passes both the existing content audit and island reference-exclusion audit (385 resources). Native frame numbering was corrected for the original's nonzero first timestamp; approved playback timing is unchanged.
+- [x] **23.V1 — Video playback:** common browser/native adapter, isolated previews, exact MP4 companion, 4:3 framing, presented clock, pause/focus/buffering handling, poster/frame retention, consumed start/retry actions, and release. Godot import/startup, Task 23/24, native playback, 15 exported-browser checks, and production/preview package isolation pass. Evidence: `docs/evidence/island_intro/v1/`.
+- [x] **23.V2 — Island and camera / visual review 1:** editable 10,766-triangle island, one 2048 atlas with reference road detail, two-triangle static ocean, measured camera continuation, isolated native/Web previews, and durable comparison artifacts. Nine CLI/native/package and five browser checks pass. **User explicitly approved on 2026-10-16: "Approve V2 and implement V3 water animation".** Evidence: `docs/evidence/island_intro/v2/`.
+- [x] **23.V3 — Water animation:** 1024 packed shore data, 256 repeating noise, one opaque unshaded two-triangle ocean, local shore waves/world ripples, editable profile, deterministic pause/seek/long-wait phases, isolated water preview and full-turn recording. Eleven CLI/native/package, eight browser, and sixteen rendered checks pass. Approved V2 assets and production flow remain unchanged. Evidence: `docs/evidence/island_intro/v3/`.
+- [x] **23.V4 — Seamless handoff / visual review 2:** isolated synchronized video/live preview, external shared FX sampling, live blur and camera continuation, interruption/retry handling, real browser recording. Eleven CLI/native/package and twelve browser checks pass. **User explicitly approved on 2026-10-17: "Approve V4 transition".** Evidence: `docs/evidence/island_intro/v4/`, including `APPROVAL.md`.
+- [x] **23.V5 - Production integration:** approved sequence now runs after accepted loading; 4:3/shared touch, retry/focus/direct return and blue logo boundary preserved. Thirteen CLI/package checks and exported-browser flow pass. Exact MP4 companion verified; evidence: `docs/evidence/island_intro/v5/`.
+- [ ] 23.V6 — Device validation / visual review 3
+
+Resume through [ISLAND_INTRO_HANDOFF.md](ISLAND_INTRO_HANDOFF.md). V5 is complete. The normal game now shows the video/live sequence; local production preview: http://127.0.0.1:8066/index.html (`node tools/serve_production_web.mjs`). Visual reviews 1 and 2 are approved. V6 is in progress: Android LAN preview prepared, device results and measured performance pending; iPhone unavailable. Visual review 3 remains pending.
+
 ## Audit notes — 2026-09-22
 
 - Tasks 00–18 remain at their previously recorded status. The project imports and launches under Godot 4.7.2, and the standalone Task 06–18 scene tests pass.

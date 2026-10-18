@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "reference_native_frame": 199,
+  "reference_size": [960, 720],
+  "pixels_per_unit": 30.0,
+  "camera_elevation_degrees": 78.0,
+  "camera_distance": 45.0,
+  "reference_ortho_size": 24.0,
+  "mesh_grid_pixels": 5.0,
+  "shore_fade_pixels": 17.0,
+  "submerged_edge": -0.06,
+  "underside_height": -0.14,
+  "atlas_rect": [294, 40, 704, 650],
+  "atlas_resolution": 2048,
+  "detail_rect": [500, 517, 534, 551],
+  "detail_grid_pixels": 1.0,
+  "terrain_base_height": 0.16,
+  "relief_noise_height": 0.10,
+  "ridges": [
+    {"name":"northern_sierra", "width_pixels":22, "points":[[416,93,0.7],[442,120,1.45],[432,155,2.2],[450,190,2.7],[458,222,2.6],[479,261,2.1],[501,291,1.65]]},
+    {"name":"southern_sierra", "width_pixels":25, "points":[[501,291,1.65],[529,337,2.0],[548,376,2.25],[580,415,2.05],[609,459,1.7],[647,505,0.85],[661,538,0.3]]},
+    {"name":"northern_coast", "width_pixels":17, "points":[[357,116,0.65],[348,158,1.05],[369,208,1.1],[378,254,0.85],[399,292,0.55]]},
+    {"name":"coastal_ranges", "width_pixels":17, "points":[[400,327,0.45],[415,376,0.7],[430,418,1.0],[451,467,0.85],[479,495,0.55]]},
+    {"name":"southern_ranges", "width_pixels":19, "points":[[534,526,0.5],[560,550,0.6],[582,588,0.3],[621,603,0.35]]}
+  ],
+  "notes": "Coastline/color/camera image transforms are measured. Heights, unseen surfaces, absolute scale, and orthographic elevation are authored inferences. Atlas retains source lighting. Static ocean is a V2 color plate only; V3 replaces its frozen wave detail."
+}

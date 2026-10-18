@@ -39,6 +39,8 @@ HUD chooses the richest profile that fits without:
 
 ## Frontend safe composition
 
+**Approved Task 23 exception:** the [island intro revision](ISLAND_INTRO_PLAN.md) requires one centered 4:3 active picture with black unused space for `ISLAND_INTRO` and `ISLAND_ATTRACT` on every device. Video and live rendering share that rectangle; only encoded black video borders are cropped. Ordinary attract touch confirmation includes the usable black-border area. Later screens recover their existing responsive policy during the covered handoff. This exception does not change the accepted loading composition or gameplay/HUD layout.
+
 Frontend cinematics use the same desktop 4:3 game frame and mobile safe usable rectangle, but they do not use gameplay HUD density profiles. Each authored camera stage declares a safe composition region for its important subject and overlay controls.
 
 Across every supported aspect ratio:

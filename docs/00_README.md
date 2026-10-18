@@ -22,6 +22,8 @@ The completed boot loading screen is a scoped exception: its supplied SVG, PNGs,
 
 ## Technical baseline
 
+The user-approved [island intro revision](ISLAND_INTRO_PLAN.md) is a separate Task 23 exception: recorded opening footage, a reference-matched 3D island, and one flat animated ocean plane, with fixed 4:3 framing on all devices. Follow its one-milestone-per-request workflow and [handoff](ISLAND_INTRO_HANDOFF.md). It supersedes the earlier all-real-time/graybox island presentation requirements only; the accepted loading screen and later frontend behavior remain protected.
+
 - Engine: Godot 4.7.2 Stable
 - Language: GDScript
 - Renderer: Compatibility
@@ -63,6 +65,8 @@ The frontend is also a continuous real-time 3D presentation. A one-shot vegetati
 
 8. [LOADING_SCREEN.md](LOADING_SCREEN.md) — authoritative contract for the completed loading screen.
 9. [LOADING_SCREEN_DOC_AUDIT.md](LOADING_SCREEN_DOC_AUDIT.md) — loading-only documentation inventory, reconciliation, and evidence.
+10. [ISLAND_INTRO_PLAN.md](ISLAND_INTRO_PLAN.md) — approved Task 23 video/island/ocean revision, scoped exceptions, and milestones 23.V0-23.V6.
+11. [ISLAND_INTRO_HANDOFF.md](ISLAND_INTRO_HANDOFF.md) — revision status, durable evidence, validation, and the next implementation action.
 
 ## MVP definition
 

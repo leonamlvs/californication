@@ -682,6 +682,8 @@ Update `docs/TASK_STATUS.md` only after the task acceptance criteria and Global 
 
 ### Task 23 — Loading, Island Intro, and Island Attract
 
+**Approved revision:** [ISLAND_INTRO_PLAN.md](ISLAND_INTRO_PLAN.md) is authoritative for the supplied-video opening, live 3D island, flat animated ocean, fixed 4:3 island framing, and milestones 23.V0-23.V6. The historical geometry/placeholder instructions below remain baseline context where replaced by that plan. Loading maintenance and behavioral acceptance remain in force. Resume through [ISLAND_INTRO_HANDOFF.md](ISLAND_INTRO_HANDOFF.md), implement one milestone, and stop before the next.
+
 **Goal**  Implement the one-shot close-vegetation pullback and indefinite rotating-island attract stage.
 
 **Depends on**  Tasks 03 and 22.

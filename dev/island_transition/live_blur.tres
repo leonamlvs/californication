@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CinematicFXProfile" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/definitions/CinematicFXProfile.gd" id="1"]
+[ext_resource type="Shader" path="res://dev/island_transition/live_soft_blur.gdshader" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = &"island_live_continuation"
+radial_blur_strength = 0.22
+radial_blur_center = Vector2(0.5, 0.5)
+desktop_sample_count = 12
+mobile_sample_count = 4
+fov_kick = 0.0
+fade_amount = 0.0
+duration = 0.833766667
+screen_shader = ExtResource("2")
+softness_lod = 3.5

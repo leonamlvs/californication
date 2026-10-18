@@ -1,0 +1,64 @@
+{
+  "status": "ISLAND_HANDOFF_WEB_PASS",
+  "renderer": "ANGLE (AMD, AMD Radeon RX 7600 (0x00007480) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Edg/155.0.4283.45",
+    "revision": "@50f24ef2aa5369a074b8888b7db82d9c0652d642",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+    "jsVersion": "15.5.9.4"
+  },
+  "checks": [
+    {
+      "name": "Clip completes into attract and releases native video",
+      "passed": true,
+      "renderer": "ANGLE (AMD, AMD Radeon RX 7600 (0x00007480) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "name": "Actual browser video/live sequence recorded with synchronized overlap",
+      "passed": true,
+      "frames": 677,
+      "overlap_samples": 43
+    },
+    {
+      "name": "Pause holds video, camera, water, opacity, and live blur during overlap",
+      "passed": true
+    },
+    {
+      "name": "Paused overlap keeps shared centered 4:3 through orientation/resize",
+      "passed": true
+    },
+    {
+      "name": "Containing-element fullscreen keeps video/live framing and held blur",
+      "passed": true
+    },
+    {
+      "name": "Buffering freezes the coordinated presentation and resumes to attract",
+      "passed": true
+    },
+    {
+      "name": "Real tab focus loss during handoff freezes and resumes safely",
+      "passed": true
+    },
+    {
+      "name": "Failure retains blend and Retry restarts the coordinated clock",
+      "passed": true
+    },
+    {
+      "name": "Rejected autoplay keeps poster; start action resumes",
+      "passed": true
+    },
+    {
+      "name": "Direct attract keeps final camera and indefinite rotation",
+      "passed": true
+    },
+    {
+      "name": "currentTime fallback completes the coordinated video/live handoff",
+      "passed": true
+    },
+    {
+      "name": "Exact companion video, byte ranges, and no browser/Godot errors",
+      "passed": true
+    }
+  ]
+}

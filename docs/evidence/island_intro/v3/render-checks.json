@@ -1,0 +1,95 @@
+{
+  "status": "ISLAND_OCEAN_RENDER_PASS",
+  "checks": [
+    {
+      "name": "Same water time reproduces identical native pixels",
+      "passed": true,
+      "mean": 0.0,
+      "maximum": 0.0,
+      "changed_pixels": 0
+    },
+    {
+      "name": "Water visibly changes with controller time",
+      "passed": true,
+      "mean": 0.4129730902777778,
+      "maximum": 13.0,
+      "changed_pixels": 341817
+    },
+    {
+      "name": "wave phase wrap is visually continuous",
+      "passed": true,
+      "mean": 0.0006216242283950617,
+      "maximum": 1.0,
+      "changed_pixels": 1278
+    },
+    {
+      "name": "ripple phase wrap is visually continuous",
+      "passed": true,
+      "mean": 0.000584008487654321,
+      "maximum": 1.0,
+      "changed_pixels": 1202
+    },
+    {
+      "name": "World ocean stays fixed at 45 degrees",
+      "passed": true,
+      "maximum": 0.0
+    },
+    {
+      "name": "World ocean stays fixed at 90 degrees",
+      "passed": true,
+      "maximum": 0.0
+    },
+    {
+      "name": "World ocean stays fixed at 135 degrees",
+      "passed": true,
+      "maximum": 0.0
+    },
+    {
+      "name": "World ocean stays fixed at 180 degrees",
+      "passed": true,
+      "maximum": 0.0
+    },
+    {
+      "name": "World ocean stays fixed at 225 degrees",
+      "passed": true,
+      "maximum": 0.0
+    },
+    {
+      "name": "World ocean stays fixed at 270 degrees",
+      "passed": true,
+      "maximum": 0.0
+    },
+    {
+      "name": "World ocean stays fixed at 315 degrees",
+      "passed": true,
+      "maximum": 0.0
+    },
+    {
+      "name": "World ocean stays fixed at 360 degrees",
+      "passed": true,
+      "maximum": 0.0
+    },
+    {
+      "name": "Full rotation returns to matching shore pixels",
+      "passed": true,
+      "mean": 3.568672839506173e-05,
+      "maximum": 1.0,
+      "changed_pixels": 72
+    },
+    {
+      "name": "Consecutive 30fps water samples have no jump",
+      "passed": true,
+      "maximum_frame_mean_delta": 0.010556520061728395
+    },
+    {
+      "name": "Packed shore border is constant deep water",
+      "passed": true
+    },
+    {
+      "name": "Periodic noise boundary has no exceptional derivative",
+      "passed": true,
+      "seam_max": 4.0,
+      "internal_max": 9.0
+    }
+  ]
+}

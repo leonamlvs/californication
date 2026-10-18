@@ -1,0 +1,27 @@
+[
+  {
+    "path": "dev/island_scene/assets/island.glb",
+    "sha256": "4756780ae06eb2460f049c58cb85e19996e445ea388219dc9332fa4e685d415c",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/assets/island-color.png",
+    "sha256": "001e0a4ee2f1ecc9baa592fbc4d697be9034c4196f9eb21c6ee9da400bfa5971",
+    "unchanged": true
+  },
+  {
+    "path": "dev/island_scene/assets/ocean-static.png",
+    "sha256": "0b9753112a8f82d49be2d91e9e36c5e20b7049cd40364b8f33c0582b5979c7b8",
+    "unchanged": true
+  },
+  {
+    "path": "art/source/island_intro/island.blend",
+    "sha256": "2077d5cf25a9d1441b0cd46ac7d2536804b4cb6a32a7590035951e019e3f01b2",
+    "unchanged": true
+  },
+  {
+    "path": "art/source/island_intro/authoring.json",
+    "sha256": "66c3c28ba42c6d6406e58e692148c81ca33de126e2c104c91d53f899b5f89766",
+    "unchanged": true
+  }
+]

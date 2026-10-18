@@ -1,0 +1,7 @@
+{
+  "reference_frame": 199,
+  "land_color_mean_absolute_error_rgb": 1.840413121843341,
+  "full_picture_mean_absolute_error_rgb": 2.7070457175925924,
+  "warning": "Reference-projected color and static reference water make these match metrics expected; they do not establish recovered 3D geometry or seamless motion.",
+  "visual_approval": "PENDING USER REVIEW"
+}

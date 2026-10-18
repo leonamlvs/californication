@@ -1,0 +1,168 @@
+WorkerThreadPool: 16 threads, 4 max low-priority.
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 2004498165
+EDITOR API HASH: 1696660745
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://autoload/GameFlow.gd remapped: res://autoload/GameFlow.gd
+Completed load for: 'res://autoload/GameFlow.gd' remapped 'res://autoload/GameFlow.gd' at thread -1
+Loading resource: res://autoload/ScenarioManager.gd remapped: res://autoload/ScenarioManager.gd
+Completed load for: 'res://autoload/ScenarioManager.gd' remapped 'res://autoload/ScenarioManager.gd' at thread -1
+Loading resource: res://autoload/AudioManager.gd remapped: res://autoload/AudioManager.gd
+Completed load for: 'res://autoload/AudioManager.gd' remapped 'res://autoload/AudioManager.gd' at thread -1
+Loading resource: res://autoload/SaveManager.gd remapped: res://autoload/SaveManager.gd
+Completed load for: 'res://autoload/SaveManager.gd' remapped 'res://autoload/SaveManager.gd' at thread -1
+Loaded system CA certificates
+Loading resource: res://tests/cli/Task23Test.tscn remapped: res://tests/cli/Task23Test.tscn
+Loading resource: res://tests/cli/Task23Test.gd remapped: res://tests/cli/Task23Test.gd
+Loading resource: res://frontend/island/IslandFrontend.tscn remapped: res://frontend/island/IslandFrontend.tscn
+Loading resource: res://frontend/island/IslandFrontendController.gd remapped: res://frontend/island/IslandFrontendController.gd
+Loading resource: res://art/loading/california-map.svg remapped: res://art/loading/california-map.svg
+Loading resource: res://.godot/imported/california-map.svg-1d6ff4c6fd89e5ed2db229a62e3848a5.ctex remapped: res://.godot/imported/california-map.svg-1d6ff4c6fd89e5ed2db229a62e3848a5.ctex
+Completed load for: 'res://art/loading/california-map.svg' remapped 'res://art/loading/california-map.svg' at thread -1
+Completed load for: 'res://frontend/island/IslandFrontendController.gd' remapped 'res://frontend/island/IslandFrontendController.gd' at thread -1
+Loading resource: res://frontend/loading/LoadingPresentation.tscn remapped: res://frontend/loading/LoadingPresentation.tscn
+Loading resource: res://art/loading/frames/loading_01.png remapped: res://art/loading/frames/loading_01.png
+Loading resource: res://.godot/imported/loading_01.png-87367b73bfce232ca542fe67a0112efb.ctex remapped: res://.godot/imported/loading_01.png-87367b73bfce232ca542fe67a0112efb.ctex
+Completed load for: 'res://art/loading/frames/loading_01.png' remapped 'res://art/loading/frames/loading_01.png' at thread -1
+Loading resource: res://art/loading/frames/loading_02.png remapped: res://art/loading/frames/loading_02.png
+Loading resource: res://.godot/imported/loading_02.png-f8518b50141d3ef4eb1f434f65184394.ctex remapped: res://.godot/imported/loading_02.png-f8518b50141d3ef4eb1f434f65184394.ctex
+Completed load for: 'res://art/loading/frames/loading_02.png' remapped 'res://art/loading/frames/loading_02.png' at thread -1
+Loading resource: res://art/loading/frames/loading_03.png remapped: res://art/loading/frames/loading_03.png
+Loading resource: res://.godot/imported/loading_03.png-c1a11e34b8f0b212f90b294a2d68c2ed.ctex remapped: res://.godot/imported/loading_03.png-c1a11e34b8f0b212f90b294a2d68c2ed.ctex
+Completed load for: 'res://art/loading/frames/loading_03.png' remapped 'res://art/loading/frames/loading_03.png' at thread -1
+Loading resource: res://art/loading/frames/loading_04.png remapped: res://art/loading/frames/loading_04.png
+Loading resource: res://.godot/imported/loading_04.png-7b6879cc05c6c81521e43ac8dd0977f3.ctex remapped: res://.godot/imported/loading_04.png-7b6879cc05c6c81521e43ac8dd0977f3.ctex
+Completed load for: 'res://art/loading/frames/loading_04.png' remapped 'res://art/loading/frames/loading_04.png' at thread -1
+Loading resource: res://art/loading/frames/loading_05.png remapped: res://art/loading/frames/loading_05.png
+Loading resource: res://.godot/imported/loading_05.png-a675b242adc384c6cfd29e0209a11c20.ctex remapped: res://.godot/imported/loading_05.png-a675b242adc384c6cfd29e0209a11c20.ctex
+Completed load for: 'res://art/loading/frames/loading_05.png' remapped 'res://art/loading/frames/loading_05.png' at thread -1
+Loading resource: res://art/loading/frames/loading_06.png remapped: res://art/loading/frames/loading_06.png
+Loading resource: res://.godot/imported/loading_06.png-4b7f19541b4677a988e8bf4f61287e25.ctex remapped: res://.godot/imported/loading_06.png-4b7f19541b4677a988e8bf4f61287e25.ctex
+Completed load for: 'res://art/loading/frames/loading_06.png' remapped 'res://art/loading/frames/loading_06.png' at thread -1
+Loading resource: res://art/loading/frames/loading_07.png remapped: res://art/loading/frames/loading_07.png
+Loading resource: res://.godot/imported/loading_07.png-7a50462c393d48660478cfdae2bf7251.ctex remapped: res://.godot/imported/loading_07.png-7a50462c393d48660478cfdae2bf7251.ctex
+Completed load for: 'res://art/loading/frames/loading_07.png' remapped 'res://art/loading/frames/loading_07.png' at thread -1
+Loading resource: res://art/loading/frames/loading_08.png remapped: res://art/loading/frames/loading_08.png
+Loading resource: res://.godot/imported/loading_08.png-18581917bf6d3426163d0cf4f5ec3765.ctex remapped: res://.godot/imported/loading_08.png-18581917bf6d3426163d0cf4f5ec3765.ctex
+Completed load for: 'res://art/loading/frames/loading_08.png' remapped 'res://art/loading/frames/loading_08.png' at thread -1
+Loading resource: res://frontend/loading/LoadingSvgBackground.tscn remapped: res://frontend/loading/LoadingSvgBackground.tscn
+Loading resource: res://frontend/loading/loading_map_composite.gdshader remapped: res://frontend/loading/loading_map_composite.gdshader
+Completed load for: 'res://frontend/loading/loading_map_composite.gdshader' remapped 'res://frontend/loading/loading_map_composite.gdshader' at thread -1
+Loading resource: res://frontend/loading/loading_map_blur.gdshader remapped: res://frontend/loading/loading_map_blur.gdshader
+Completed load for: 'res://frontend/loading/loading_map_blur.gdshader' remapped 'res://frontend/loading/loading_map_blur.gdshader' at thread -1
+Completed load for: 'res://frontend/loading/LoadingSvgBackground.tscn' remapped 'res://frontend/loading/LoadingSvgBackground.tscn' at thread -1
+Loading resource: res://frontend/loading/loading_radial_background.gdshader remapped: res://frontend/loading/loading_radial_background.gdshader
+Completed load for: 'res://frontend/loading/loading_radial_background.gdshader' remapped 'res://frontend/loading/loading_radial_background.gdshader' at thread -1
+Loading resource: res://art/loading/fonts/Californication-Outline.otf remapped: res://art/loading/fonts/Californication-Outline.otf
+Loading resource: res://.godot/imported/Californication-Outline.otf-ad53ecfa1fd36a62d0c6d3116021c8c7.fontdata remapped: res://.godot/imported/Californication-Outline.otf-ad53ecfa1fd36a62d0c6d3116021c8c7.fontdata
+Completed load for: 'res://art/loading/fonts/Californication-Outline.otf' remapped 'res://art/loading/fonts/Californication-Outline.otf' at thread -1
+Loading resource: res://art/loading/fonts/Californication-Solid.otf remapped: res://art/loading/fonts/Californication-Solid.otf
+Loading resource: res://.godot/imported/Californication-Solid.otf-3afc64af7e49493152ba664b0c19f7be.fontdata remapped: res://.godot/imported/Californication-Solid.otf-3afc64af7e49493152ba664b0c19f7be.fontdata
+Completed load for: 'res://art/loading/fonts/Californication-Solid.otf' remapped 'res://art/loading/fonts/Californication-Solid.otf' at thread -1
+Completed load for: 'res://frontend/loading/LoadingPresentation.tscn' remapped 'res://frontend/loading/LoadingPresentation.tscn' at thread -1
+Completed load for: 'res://frontend/island/IslandFrontend.tscn' remapped 'res://frontend/island/IslandFrontend.tscn' at thread -1
+Loading resource: res://frontend/island/live/IslandProductionSequence.tscn remapped: res://frontend/island/live/IslandProductionSequence.tscn
+Loading resource: res://frontend/island/live/IslandProductionSequence.gd remapped: res://frontend/island/live/IslandProductionSequence.gd
+Loading resource: res://presentation/cinematic_fx/CinematicTransitionFX.tscn remapped: res://presentation/cinematic_fx/CinematicTransitionFX.tscn
+Loading resource: res://presentation/cinematic_fx/CinematicTransitionFX.gd remapped: res://presentation/cinematic_fx/CinematicTransitionFX.gd
+Completed load for: 'res://presentation/cinematic_fx/CinematicTransitionFX.gd' remapped 'res://presentation/cinematic_fx/CinematicTransitionFX.gd' at thread -1
+Loading resource: res://presentation/cinematic_fx/cinematic_zoom_blur.gdshader remapped: res://presentation/cinematic_fx/cinematic_zoom_blur.gdshader
+Completed load for: 'res://presentation/cinematic_fx/cinematic_zoom_blur.gdshader' remapped 'res://presentation/cinematic_fx/cinematic_zoom_blur.gdshader' at thread -1
+Completed load for: 'res://presentation/cinematic_fx/CinematicTransitionFX.tscn' remapped 'res://presentation/cinematic_fx/CinematicTransitionFX.tscn' at thread -1
+Loading resource: res://frontend/island/live/handoff.tres remapped: res://frontend/island/live/handoff.tres
+Loading resource: res://frontend/island/live/IslandRuntimeHandoffProfile.gd remapped: res://frontend/island/live/IslandRuntimeHandoffProfile.gd
+Loading resource: res://frontend/island/live/transition.tres remapped: res://frontend/island/live/transition.tres
+Loading resource: res://frontend/island/live/IslandRuntimeTransitionProfile.gd remapped: res://frontend/island/live/IslandRuntimeTransitionProfile.gd
+Completed load for: 'res://frontend/island/live/IslandRuntimeTransitionProfile.gd' remapped 'res://frontend/island/live/IslandRuntimeTransitionProfile.gd' at thread -1
+Completed load for: 'res://frontend/island/live/transition.tres' remapped 'res://frontend/island/live/transition.tres' at thread -1
+Loading resource: res://frontend/island/live/live_blur.tres remapped: res://frontend/island/live/live_blur.tres
+Loading resource: res://frontend/island/live/live_soft_blur.gdshader remapped: res://frontend/island/live/live_soft_blur.gdshader
+Completed load for: 'res://frontend/island/live/live_soft_blur.gdshader' remapped 'res://frontend/island/live/live_soft_blur.gdshader' at thread -1
+Completed load for: 'res://frontend/island/live/live_blur.tres' remapped 'res://frontend/island/live/live_blur.tres' at thread -1
+Completed load for: 'res://frontend/island/live/IslandRuntimeHandoffProfile.gd' remapped 'res://frontend/island/live/IslandRuntimeHandoffProfile.gd' at thread -1
+Completed load for: 'res://frontend/island/live/handoff.tres' remapped 'res://frontend/island/live/handoff.tres' at thread -1
+Loading resource: res://frontend/island/live/assets/island.glb remapped: res://frontend/island/live/assets/island.glb
+Loading resource: res://.godot/imported/island.glb-9d1ec7264c7eba28911a11e8ce03192d.scn remapped: res://.godot/imported/island.glb-9d1ec7264c7eba28911a11e8ce03192d.scn
+Completed load for: 'res://frontend/island/live/assets/island.glb' remapped 'res://frontend/island/live/assets/island.glb' at thread -1
+Loading resource: res://frontend/island/live/assets/island-color.png remapped: res://frontend/island/live/assets/island-color.png
+Loading resource: res://.godot/imported/island-color.png-54d2fef7fd143054df8230901ae62940.ctex remapped: res://.godot/imported/island-color.png-54d2fef7fd143054df8230901ae62940.ctex
+Completed load for: 'res://frontend/island/live/assets/island-color.png' remapped 'res://frontend/island/live/assets/island-color.png' at thread -1
+Loading resource: res://frontend/island/live/ocean.tres remapped: res://frontend/island/live/ocean.tres
+Loading resource: res://frontend/island/live/IslandRuntimeOceanProfile.gd remapped: res://frontend/island/live/IslandRuntimeOceanProfile.gd
+Loading resource: res://frontend/island/live/assets/ocean-shore.png remapped: res://frontend/island/live/assets/ocean-shore.png
+Loading resource: res://.godot/imported/ocean-shore.png-1325710d55e6ece74392fc10f734cd0d.ctex remapped: res://.godot/imported/ocean-shore.png-1325710d55e6ece74392fc10f734cd0d.ctex
+Completed load for: 'res://frontend/island/live/assets/ocean-shore.png' remapped 'res://frontend/island/live/assets/ocean-shore.png' at thread -1
+Loading resource: res://frontend/island/live/assets/ocean-ripple.png remapped: res://frontend/island/live/assets/ocean-ripple.png
+Loading resource: res://.godot/imported/ocean-ripple.png-df1b3057813ec00088cc137d9b21154f.ctex remapped: res://.godot/imported/ocean-ripple.png-df1b3057813ec00088cc137d9b21154f.ctex
+Completed load for: 'res://frontend/island/live/assets/ocean-ripple.png' remapped 'res://frontend/island/live/assets/ocean-ripple.png' at thread -1
+Completed load for: 'res://frontend/island/live/IslandRuntimeOceanProfile.gd' remapped 'res://frontend/island/live/IslandRuntimeOceanProfile.gd' at thread -1
+Completed load for: 'res://frontend/island/live/ocean.tres' remapped 'res://frontend/island/live/ocean.tres' at thread -1
+Loading resource: res://frontend/island/live/ocean_animated.gdshader remapped: res://frontend/island/live/ocean_animated.gdshader
+Completed load for: 'res://frontend/island/live/ocean_animated.gdshader' remapped 'res://frontend/island/live/ocean_animated.gdshader' at thread -1
+Loading resource: res://data/characters/character_01.tres remapped: res://data/characters/character_01.tres
+Loading resource: res://data/definitions/CharacterDefinition.gd remapped: res://data/definitions/CharacterDefinition.gd
+Completed load for: 'res://data/definitions/CharacterDefinition.gd' remapped 'res://data/definitions/CharacterDefinition.gd' at thread -1
+Loading resource: res://scenarios/characters/Character01.tscn remapped: res://scenarios/characters/Character01.tscn
+Loading resource: res://gameplay/characters/CharacterVisual.gd remapped: res://gameplay/characters/CharacterVisual.gd
+Completed load for: 'res://gameplay/characters/CharacterVisual.gd' remapped 'res://gameplay/characters/CharacterVisual.gd' at thread -1
+Completed load for: 'res://scenarios/characters/Character01.tscn' remapped 'res://scenarios/characters/Character01.tscn' at thread -1
+Loading resource: res://art/placeholders/characters/portrait_01.svg remapped: res://art/placeholders/characters/portrait_01.svg
+Loading resource: res://.godot/imported/portrait_01.svg-945671c1fc218ab3168bb88a6316d471.ctex remapped: res://.godot/imported/portrait_01.svg-945671c1fc218ab3168bb88a6316d471.ctex
+Completed load for: 'res://art/placeholders/characters/portrait_01.svg' remapped 'res://art/placeholders/characters/portrait_01.svg' at thread -1
+Completed load for: 'res://data/characters/character_01.tres' remapped 'res://data/characters/character_01.tres' at thread -1
+Loading resource: res://data/characters/character_02.tres remapped: res://data/characters/character_02.tres
+Loading resource: res://scenarios/characters/Character02.tscn remapped: res://scenarios/characters/Character02.tscn
+Completed load for: 'res://scenarios/characters/Character02.tscn' remapped 'res://scenarios/characters/Character02.tscn' at thread -1
+Loading resource: res://art/placeholders/characters/portrait_02.svg remapped: res://art/placeholders/characters/portrait_02.svg
+Loading resource: res://.godot/imported/portrait_02.svg-5d89790c1492591cde1f17c53985d346.ctex remapped: res://.godot/imported/portrait_02.svg-5d89790c1492591cde1f17c53985d346.ctex
+Completed load for: 'res://art/placeholders/characters/portrait_02.svg' remapped 'res://art/placeholders/characters/portrait_02.svg' at thread -1
+Completed load for: 'res://data/characters/character_02.tres' remapped 'res://data/characters/character_02.tres' at thread -1
+Loading resource: res://data/characters/character_03.tres remapped: res://data/characters/character_03.tres
+Loading resource: res://scenarios/characters/Character03.tscn remapped: res://scenarios/characters/Character03.tscn
+Completed load for: 'res://scenarios/characters/Character03.tscn' remapped 'res://scenarios/characters/Character03.tscn' at thread -1
+Loading resource: res://art/placeholders/characters/portrait_03.svg remapped: res://art/placeholders/characters/portrait_03.svg
+Loading resource: res://.godot/imported/portrait_03.svg-c6a8e5683ce7d4d1a91d7b3f6036845f.ctex remapped: res://.godot/imported/portrait_03.svg-c6a8e5683ce7d4d1a91d7b3f6036845f.ctex
+Completed load for: 'res://art/placeholders/characters/portrait_03.svg' remapped 'res://art/placeholders/characters/portrait_03.svg' at thread -1
+Completed load for: 'res://data/characters/character_03.tres' remapped 'res://data/characters/character_03.tres' at thread -1
+Loading resource: res://data/characters/character_04.tres remapped: res://data/characters/character_04.tres
+Loading resource: res://scenarios/characters/Character04.tscn remapped: res://scenarios/characters/Character04.tscn
+Completed load for: 'res://scenarios/characters/Character04.tscn' remapped 'res://scenarios/characters/Character04.tscn' at thread -1
+Loading resource: res://art/placeholders/characters/portrait_04.svg remapped: res://art/placeholders/characters/portrait_04.svg
+Loading resource: res://.godot/imported/portrait_04.svg-4344560c8f4bc4851f4d17faf53d2c7c.ctex remapped: res://.godot/imported/portrait_04.svg-4344560c8f4bc4851f4d17faf53d2c7c.ctex
+Completed load for: 'res://art/placeholders/characters/portrait_04.svg' remapped 'res://art/placeholders/characters/portrait_04.svg' at thread -1
+Completed load for: 'res://data/characters/character_04.tres' remapped 'res://data/characters/character_04.tres' at thread -1
+Completed load for: 'res://frontend/island/live/IslandProductionSequence.gd' remapped 'res://frontend/island/live/IslandProductionSequence.gd' at thread -1
+Completed load for: 'res://frontend/island/live/IslandProductionSequence.tscn' remapped 'res://frontend/island/live/IslandProductionSequence.tscn' at thread -1
+Completed load for: 'res://tests/cli/Task23Test.gd' remapped 'res://tests/cli/Task23Test.gd' at thread -1
+Completed load for: 'res://tests/cli/Task23Test.tscn' remapped 'res://tests/cli/Task23Test.tscn' at thread -1
+Loading resource: res://frontend/island/live/media/poster.png remapped: res://frontend/island/live/media/poster.png
+Loading resource: res://.godot/imported/poster.png-892abe19abd018ddd596071587c3b8ae.ctex remapped: res://.godot/imported/poster.png-892abe19abd018ddd596071587c3b8ae.ctex
+Completed load for: 'res://frontend/island/live/media/poster.png' remapped 'res://frontend/island/live/media/poster.png' at thread -1
+Loading resource: res://frontend/island/live/media/last.png remapped: res://frontend/island/live/media/last.png
+Loading resource: res://.godot/imported/last.png-a6b3fde031f83475e62050d19d6f093d.ctex remapped: res://.godot/imported/last.png-a6b3fde031f83475e62050d19d6f093d.ctex
+Completed load for: 'res://frontend/island/live/media/last.png' remapped 'res://frontend/island/live/media/last.png' at thread -1
+Loading resource: res://frontend/island/live/media/last.png remapped: res://frontend/island/live/media/last.png
+Loading resource: res://.godot/imported/last.png-a6b3fde031f83475e62050d19d6f093d.ctex remapped: res://.godot/imported/last.png-a6b3fde031f83475e62050d19d6f093d.ctex
+Completed load for: 'res://frontend/island/live/media/last.png' remapped 'res://frontend/island/live/media/last.png' at thread -1
+Loading resource: res://frontend/island/live/media/last.png remapped: res://frontend/island/live/media/last.png
+Loading resource: res://.godot/imported/last.png-a6b3fde031f83475e62050d19d6f093d.ctex remapped: res://.godot/imported/last.png-a6b3fde031f83475e62050d19d6f093d.ctex
+Completed load for: 'res://frontend/island/live/media/last.png' remapped 'res://frontend/island/live/media/last.png' at thread -1
+TASK23_PASS
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+Leaked instance: AudioStreamWAV:9223372103611320035 - Reference count: 1
+Leaked instance: AudioStreamPlaybackWAV:9223372103628097253 - Reference count: 1
+Leaked instance: AudioStreamPlaybackWAV:9223372102671795944 - Reference count: 1
+Leaked instance: AudioStreamWAV:9223372102655018729 - Reference count: 1
+Hint: Leaked instances typically happen when nodes are removed from the scene tree (with `remove_child()`) but not freed (with `free()` or `queue_free()`).
+Orphan StringName: SFX (static: 0, total: 1)
+Orphan StringName: Music (static: 0, total: 1)
+StringName: 2 unclaimed string names at exit.
+WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

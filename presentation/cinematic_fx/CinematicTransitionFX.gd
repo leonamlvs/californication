@@ -36,6 +36,8 @@ var _original_fov := 75.0
 var _started_state: StringName = &""
 var _development_preview := false
 var _material: ShaderMaterial
+var externally_sampled := false
+var _default_shader: Shader
 
 
 func set_handoff_cover(amount: float) -> void:
@@ -46,6 +48,7 @@ func set_handoff_cover(amount: float) -> void:
 
 func _ready() -> void:
 	_material = blur_rect.material.duplicate() as ShaderMaterial
+	_default_shader = _material.shader
 	blur_rect.material = _material
 	_neutralize()
 	GameFlow.state_changed.connect(_on_game_flow_state_changed)
@@ -69,6 +72,9 @@ func play(profile: CinematicFXProfile, target_camera: Camera3D = null, quality: 
 	if is_active:
 		cancel(&"replaced")
 	active_profile = profile
+	_material.shader = profile.screen_shader if profile.screen_shader != null else _default_shader
+	if profile.screen_shader != null:
+		_material.set_shader_parameter("softness_lod",profile.softness_lod)
 	camera = target_camera
 	_original_fov = camera.fov if camera != null else 75.0
 	_started_state = GameFlow.current_state
@@ -93,13 +99,13 @@ func play(profile: CinematicFXProfile, target_camera: Camera3D = null, quality: 
 
 
 func _process(delta: float) -> void:
-	if not is_active or active_profile == null:
+	if not is_active or active_profile == null or externally_sampled:
 		return
 	advance_for_test(delta)
 
 
 func advance_for_test(delta: float) -> void:
-	if not is_active or active_profile == null or delta <= 0.0:
+	if not is_active or active_profile == null or delta <= 0.0 or externally_sampled:
 		return
 	elapsed = minf(elapsed + delta, active_profile.duration)
 	var normalized := clampf(elapsed / active_profile.duration, 0.0, 1.0)
@@ -116,6 +122,32 @@ func advance_for_test(delta: float) -> void:
 		var completed_id := active_profile.id
 		_neutralize()
 		completed.emit(completed_id)
+
+
+func begin_external(profile: CinematicFXProfile, quality: Quality = Quality.AUTO, development_preview := false) -> bool:
+	# External consumers own their camera and clock. Existing play() consumers
+	# retain their FOV/envelope/cancellation behavior.
+	if not play(profile, null, quality, false, development_preview):
+		return false
+	externally_sampled = true
+	set_process(false)
+	return true
+
+
+func sample_external(progress: float, envelope_override := -1.0) -> void:
+	if not externally_sampled or not is_active or active_profile == null:
+		return
+	var normalized := clampf(progress, 0.0, 1.0)
+	elapsed = normalized * active_profile.duration
+	var envelope := sin(normalized * PI) if envelope_override < 0.0 else clampf(envelope_override, 0.0, 1.0)
+	if using_screen_blur:
+		_material.set_shader_parameter("blur_strength", active_profile.radial_blur_strength * envelope)
+		_material.set_shader_parameter("effect_mix", envelope)
+		blur_rect.visible = envelope > 0.0
+		back_buffer_copy.copy_mode = BackBufferCopy.COPY_MODE_VIEWPORT if envelope > 0.0 else BackBufferCopy.COPY_MODE_DISABLED
+	var color := active_profile.overlay_color
+	color.a *= active_profile.fade_amount * envelope
+	fade_rect.color = color
 
 
 func cancel(reason: StringName = &"cancelled") -> void:
@@ -166,6 +198,7 @@ func _neutralize() -> void:
 	camera = null
 	_started_state = &""
 	_development_preview = false
+	externally_sampled = false
 
 
 func _on_game_flow_state_changed(previous: StringName, _next: StringName) -> void:
@@ -174,10 +207,10 @@ func _on_game_flow_state_changed(previous: StringName, _next: StringName) -> voi
 
 
 func _on_viewport_size_changed() -> void:
-	if is_active:
+	if is_active and not externally_sampled:
 		cancel(&"resize")
 
 
 func _notification(what: int) -> void:
-	if (what == NOTIFICATION_APPLICATION_FOCUS_OUT or what == NOTIFICATION_WM_WINDOW_FOCUS_OUT) and is_active:
+	if (what == NOTIFICATION_APPLICATION_FOCUS_OUT or what == NOTIFICATION_WM_WINDOW_FOCUS_OUT) and is_active and not externally_sampled:
 		cancel(&"focus_lost")

@@ -1,0 +1,34 @@
+[
+  {
+    "name": "import",
+    "command": "godot --headless --editor --path . --import --quit",
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 7.906,
+    "log": "import-before.txt"
+  },
+  {
+    "name": "main",
+    "command": "godot --headless --path . --quit-after 90",
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 2.556,
+    "log": "main-before.txt"
+  },
+  {
+    "name": "task23",
+    "command": "godot --headless --path . tests/cli/Task23Test.tscn",
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 0.777,
+    "log": "task23-before.txt"
+  },
+  {
+    "name": "task24",
+    "command": "godot --headless --path . tests/cli/Task24Test.tscn",
+    "exit_code": 0,
+    "passed": true,
+    "elapsed_seconds": 0.88,
+    "log": "task24-before.txt"
+  }
+]

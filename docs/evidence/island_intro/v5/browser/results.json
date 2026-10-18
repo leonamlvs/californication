@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "checks": [
+    "MP4 MIME and byte-range serving",
+    "Default-policy video playback after loading",
+    "Retained error and browser Retry action",
+    "Focus loss and return during the overlap",
+    "Video release after live handoff",
+    "Portrait attract capture and black-border touch continuation",
+    "No browser or Godot runtime errors through return from gameplay"
+  ],
+  "captures": [
+    "00-loading.png",
+    "00-video.png",
+    "00-retained-error.png",
+    "00-overlap.png",
+    "01-attract.png",
+    "01-attract-portrait.png",
+    "01-logo-cover.png",
+    "01-logo-blue.png",
+    "02-player-select.png",
+    "03-running.png",
+    "03-touch-swipe.png",
+    "04-pause.png",
+    "05-resize-844x390.png",
+    "05-resize-360x640.png",
+    "06-game-over.png",
+    "07-retry.png",
+    "08-island-return.png"
+  ]
+}
