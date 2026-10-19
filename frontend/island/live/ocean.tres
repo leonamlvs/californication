@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="IslandRuntimeOceanProfile" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="IslandRuntimeOceanProfile" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://frontend/island/live/IslandRuntimeOceanProfile.gd" id="1"]
+[ext_resource type="Texture2D" path="res://frontend/island/live/assets/ocean-frame.png" id="2"]
 
 [resource]
 script = ExtResource("1")
-deep_color = Color(0.023529412, 0.078431375, 0.298039228, 1)
-shelf_color = Color(0.070588239, 0.407843143, 0.709803939, 1)
-shallow_color = Color(0.501960814, 0.913725495, 0.882352948, 1)
+color_plate = ExtResource("2")
 map_size = Vector2(32.000000000, 24.536174277)
 distance_range = 4.0

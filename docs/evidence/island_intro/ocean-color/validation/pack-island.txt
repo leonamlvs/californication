@@ -1,0 +1,3 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ISLAND_PRODUCTION_PACK_PASS resources=415 runtime scene, flat ocean, video bridge; native/source media excluded

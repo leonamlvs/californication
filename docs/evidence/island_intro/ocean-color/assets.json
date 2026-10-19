@@ -1,0 +1,78 @@
+{
+  "source_native_frame": 199,
+  "canvas": [
+    960,
+    720
+  ],
+  "map_size": [
+    32,
+    24.536174277
+  ],
+  "deep_patch": [
+    24,
+    260,
+    152,
+    388
+  ],
+  "wave_mask_pixels": 49520,
+  "algorithm": "outer-band mask + Telea neighboring-pixel inpaint; nearest-water land extension; mirrored source deep tile",
+  "limitations": "Wave/base separation is an editable approximation from one frame. No unseen detail or AI generation.",
+  "files": [
+    {
+      "path": "docs/evidence/island_intro/v0/reference/original_0199.png",
+      "sha256": "36669c2bcfc6f86c4d69c6ce2f83dc6dc61d523a9b8ec8ebc3188814b98cf50e"
+    },
+    {
+      "path": "docs/evidence/island_intro/v2/reference/land-mask.png",
+      "sha256": "91e5c7e8fd9bdc4c236d745d67d6ecce891d44091fb874da54af0f0cf4ea9d7f"
+    },
+    {
+      "path": "tools/build_ocean_color_texture.py",
+      "sha256": "03d789c87ac956cbbaebd33b303a7ee5dede02e890f26380b2b5ab9a72983b9b"
+    },
+    {
+      "path": "art/source/island_intro/ocean-color/base-water.png",
+      "sha256": "b700a46ec0c64db8ca10e6abf88fbe502003add602157f25ac29b7532ec6b97a"
+    },
+    {
+      "path": "art/source/island_intro/ocean-color/coastal-blend-mask.png",
+      "sha256": "b19067a6990546dc6c92b5d6a98c4537940acbe3e4310886b1daf38dceeac893"
+    },
+    {
+      "path": "art/source/island_intro/ocean-color/coastline-guide.png",
+      "sha256": "60573ffb0f5566919a3cae0e0986751ebd8ecb4d31234c0c192391b5e069ef1a"
+    },
+    {
+      "path": "art/source/island_intro/ocean-color/deep-water-tile.png",
+      "sha256": "b454f3bafaa0cf4a103c185fb979b52d567b72ce8fc0447d0e6b4597848e25c1"
+    },
+    {
+      "path": "art/source/island_intro/ocean-color/reference.png",
+      "sha256": "121c92769f2554d3ff3378ee466b2d9fb859956e03a256fee868abd2eb74adee"
+    },
+    {
+      "path": "art/source/island_intro/ocean-color/wave-appearance.png",
+      "sha256": "262afce1f832c87e7730ae99a61e2951fd1020fb44b585483a71b63b515cfdfc"
+    },
+    {
+      "path": "art/source/island_intro/ocean-color/wave-mask.png",
+      "sha256": "a695c05aa2b2d92c19223e38060d204e133661e0de29d967158769a0ed5db127"
+    },
+    {
+      "path": "art/source/island_intro/ocean-color/ocean-color.ora",
+      "sha256": "5bdf305526b7ac4bdac78e9089dfb93f24e28de1a352b5efdffa5de4ad2c1386"
+    },
+    {
+      "path": "frontend/island/live/assets/ocean-color.png",
+      "sha256": "b700a46ec0c64db8ca10e6abf88fbe502003add602157f25ac29b7532ec6b97a"
+    },
+    {
+      "path": "frontend/island/live/assets/ocean-color-mask.png",
+      "sha256": "b19067a6990546dc6c92b5d6a98c4537940acbe3e4310886b1daf38dceeac893"
+    },
+    {
+      "path": "frontend/island/live/assets/ocean-deep-color.png",
+      "sha256": "b454f3bafaa0cf4a103c185fb979b52d567b72ce8fc0447d0e6b4597848e25c1"
+    }
+  ]
+}

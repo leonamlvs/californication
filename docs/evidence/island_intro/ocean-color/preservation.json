@@ -1,0 +1,30 @@
+[
+  {
+    "path": "frontend/island/live/assets/island.glb",
+    "sha256": "4756780ae06eb2460f049c58cb85e19996e445ea388219dc9332fa4e685d415c"
+  },
+  {
+    "path": "frontend/island/live/assets/island-color.png",
+    "sha256": "001e0a4ee2f1ecc9baa592fbc4d697be9034c4196f9eb21c6ee9da400bfa5971"
+  },
+  {
+    "path": "frontend/island/live/transition.tres",
+    "sha256": "e4dd701fe74aabd4a3bac0c259c70b1f1a0694e5165852c293f3cbadcc2769b1"
+  },
+  {
+    "path": "frontend/island/live/handoff.tres",
+    "sha256": "b6a477b8f527acb0ed168a98a23539f8fd4e7ea9e0cc52802ec9ee6b51cf0294"
+  },
+  {
+    "path": "frontend/island/live/IslandProductionSequence.gd",
+    "sha256": "72d600fc29a1d977370c733bdaf67042897aef9f581d134d601b6b849424b7a9"
+  },
+  {
+    "path": "frontend/island/live/assets/ocean-shore.png",
+    "sha256": "9ea6687f8e14b7d8904277a2b97777371341eeea6301d3c4390925a07bf5489e"
+  },
+  {
+    "path": "frontend/island/live/assets/ocean-ripple.png",
+    "sha256": "d3176924d63f802e4cd81c8819921eefeab2898fb60801fce237c2c327633e3b"
+  }
+]

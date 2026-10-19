@@ -8,6 +8,22 @@ This is the user-approved specification for the Task 23 island revision. It repl
 
 Work on **one milestone per implementation request**, then update the handoff and stop. Preserve the accepted loading presentation, shared input system, and subsequent frontend behavior. Do not begin Task 24 or another numbered task.
 
+### Current ocean correction: full screenshot (2026-10-18)
+
+The user rejected the cleaned/extracted-water result and requested the complete
+video frame as a flat texture beneath the 3D island. The current production sea
+uses an untouched 960x720 frame containing land, beach, cyan shallows and frozen
+wave bands, proportionally aligned with the existing island. There is no coastline
+cutout, land removal, inpainting, or wave separation. Only the outer frame margin
+joins the surrounding deep sea. Shader wave effects are deferred to a later request.
+
+The single screenshot is directly editable. The previously requested ORA/cleaning
+workflow is superseded. Island geometry/atlas, camera and video timing, loading,
+input and later frontend behavior remain protected. See the
+[full-frame review](evidence/island_intro/ocean-frame/README.md).
+V6 remains incomplete; Android HTTPS startup is user-confirmed, performance and
+iPhone testing are pending.
+
 ### Locked decisions
 
 - Use `.ref/island-intro/island-intro.mp4` as the runtime footage. A byte-identical durable copy is preserved in the [V0 reference bundle](evidence/island_intro/v0/README.md).

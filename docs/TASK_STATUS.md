@@ -52,6 +52,14 @@ The user-approved [island plan](ISLAND_INTRO_PLAN.md) revises Task 23 through mi
 
 Resume through [ISLAND_INTRO_HANDOFF.md](ISLAND_INTRO_HANDOFF.md). V5 is complete. The normal game now shows the video/live sequence; local production preview: http://127.0.0.1:8066/index.html (`node tools/serve_production_web.mjs`). Visual reviews 1 and 2 are approved. V6 is in progress: Android LAN preview prepared, device results and measured performance pending; iPhone unavailable. Visual review 3 remains pending.
 
+## Full-screenshot ocean correction - ready for review
+
+The user rejected the processed-water extraction. Production now places the
+untouched full video frame beneath the 3D island, aligned proportionally with
+its beach. Land and wave bands stay in the screenshot; wave animation remains
+disabled. Review and evidence: [full screenshot](evidence/island_intro/ocean-frame/README.md).
+The prior ORA/cleaning workflow is superseded. V6 remains incomplete.
+
 ## Audit notes — 2026-09-22
 
 - Tasks 00–18 remain at their previously recorded status. The project imports and launches under Godot 4.7.2, and the standalone Task 06–18 scene tests pass.

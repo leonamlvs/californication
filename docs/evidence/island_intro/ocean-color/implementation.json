@@ -1,0 +1,85 @@
+{
+  "revision": "64a0912c0eba0f2bfabb89059a1e30d7e3b40f71",
+  "files": [
+    {
+      "path": "frontend/island/live/IslandProductionSequence.gd",
+      "sha256": "72d600fc29a1d977370c733bdaf67042897aef9f581d134d601b6b849424b7a9"
+    },
+    {
+      "path": "frontend/island/live/IslandRuntimeHandoffProfile.gd",
+      "sha256": "0d6e5c67948ab173f1ecc40f374c5a1d9942c23c34d76b0c21fb72fee0c168c6"
+    },
+    {
+      "path": "frontend/island/live/IslandRuntimeLiveScene.gd",
+      "sha256": "3103dfee0641a6ec2c4f2d006c535f164891eee5964b192e9534af0f9ead4b0c"
+    },
+    {
+      "path": "frontend/island/live/IslandRuntimeOceanProfile.gd",
+      "sha256": "79ed911b4d373a23ed4e8b6a55124da21d359053882fc4468f5ee6cf2f1a5a35"
+    },
+    {
+      "path": "frontend/island/live/IslandRuntimePresentationClock.gd",
+      "sha256": "b97b6bf65d9d01fb0734ae20e0c2c035020761fb6d3ede8500c8754d831930e5"
+    },
+    {
+      "path": "frontend/island/live/IslandRuntimeTransitionProfile.gd",
+      "sha256": "369a951a17f76a2dfa6a92360fc797e0a452ac787d87cf38240e5e0e9fb82287"
+    },
+    {
+      "path": "frontend/island/live/ocean.tres",
+      "sha256": "ee0943117ba8b369b564114eacf94bbc32d6c13d68d7cd9c389a4f38d787e842"
+    },
+    {
+      "path": "frontend/island/live/ocean_animated.gdshader",
+      "sha256": "3766fb7c2fbe6e889fb680bdd85d92129f9e60d3036347bb8dcf49f1992e49be"
+    },
+    {
+      "path": "frontend/island/live/assets/ocean-color-mask.png",
+      "sha256": "b19067a6990546dc6c92b5d6a98c4537940acbe3e4310886b1daf38dceeac893"
+    },
+    {
+      "path": "frontend/island/live/assets/ocean-color-mask.png.import",
+      "sha256": "50b7bb7068decdb70ee0094efbadf94735c6708f7ab52b0f3cbfc15dd54d9254"
+    },
+    {
+      "path": "frontend/island/live/assets/ocean-color.png",
+      "sha256": "b700a46ec0c64db8ca10e6abf88fbe502003add602157f25ac29b7532ec6b97a"
+    },
+    {
+      "path": "frontend/island/live/assets/ocean-color.png.import",
+      "sha256": "edd3d7ee083796ccfc3e49b5c5b31d4066848b6c227f6e218ab97fb17633d565"
+    },
+    {
+      "path": "frontend/island/live/assets/ocean-deep-color.png",
+      "sha256": "b454f3bafaa0cf4a103c185fb979b52d567b72ce8fc0447d0e6b4597848e25c1"
+    },
+    {
+      "path": "frontend/island/live/assets/ocean-deep-color.png.import",
+      "sha256": "3184496d91d0d9acbd863d3d43b12215e6a65803f0de8d79504a55d489625324"
+    },
+    {
+      "path": "tools/build_ocean_color_texture.py",
+      "sha256": "03d789c87ac956cbbaebd33b303a7ee5dede02e890f26380b2b5ab9a72983b9b"
+    },
+    {
+      "path": "tools/finalize_ocean_color_review.py",
+      "sha256": "ec8f6fb948d0d8ec51115dd3a7103191016c8b6a3239ea1fd94691f03017f701"
+    },
+    {
+      "path": "tools/capture_ocean_color_web.mjs",
+      "sha256": "5010352b8b73d023657e5ab5724ddcd3a17cca154027ade422c71ca8c0e6a2d6"
+    },
+    {
+      "path": "tests/cli/OceanColorCapture.gd",
+      "sha256": "5f76aa33aa38bd03b486e0576e935de77ab3e21c9fb8a738d890f1d2ed288692"
+    },
+    {
+      "path": "tests/cli/OceanColorCapture.gd.uid",
+      "sha256": "10b0faeadb95a7135d7723ddadd30c5155a73d422d3d915a3c33ebaddc6bb6db"
+    },
+    {
+      "path": "tests/cli/OceanColorCapture.tscn",
+      "sha256": "a34bceadb7cc05b3e480e08c77196a502dbc2d4589e6c9b7c174d83ff9df5418"
+    }
+  ]
+}

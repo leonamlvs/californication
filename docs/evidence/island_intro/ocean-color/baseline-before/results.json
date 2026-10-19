@@ -1,0 +1,187 @@
+[
+  {
+    "name": "import",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--editor",
+      "--import",
+      "--quit"
+    ],
+    "passed": true,
+    "exit_code": 0,
+    "seconds": 6.952
+  },
+  {
+    "name": "main",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--quit-after",
+      "90"
+    ],
+    "passed": true,
+    "exit_code": 0,
+    "seconds": 2.799
+  },
+  {
+    "name": "task22",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/Task22Test.tscn"
+    ],
+    "passed": true,
+    "exit_code": 0,
+    "seconds": 0.485
+  },
+  {
+    "name": "task23",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/Task23Test.tscn"
+    ],
+    "passed": true,
+    "exit_code": 0,
+    "seconds": 1.128
+  },
+  {
+    "name": "task24",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/Task24Test.tscn"
+    ],
+    "passed": true,
+    "exit_code": 0,
+    "seconds": 0.861
+  },
+  {
+    "name": "task26",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/Task26Test.tscn"
+    ],
+    "passed": true,
+    "exit_code": 0,
+    "seconds": 2.338
+  },
+  {
+    "name": "shared-task_01",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/TestRunner.tscn",
+      "--",
+      "--suite=task_01"
+    ],
+    "passed": true,
+    "exit_code": 0,
+    "seconds": 1.684
+  },
+  {
+    "name": "shared-task_02",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/TestRunner.tscn",
+      "--",
+      "--suite=task_02"
+    ],
+    "passed": true,
+    "exit_code": 0,
+    "seconds": 1.775
+  },
+  {
+    "name": "shared-task_03",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/TestRunner.tscn",
+      "--",
+      "--suite=task_03"
+    ],
+    "passed": true,
+    "exit_code": 0,
+    "seconds": 1.683
+  },
+  {
+    "name": "production-flow",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "tests/cli/RehabilitationTest.tscn"
+    ],
+    "passed": true,
+    "exit_code": 0,
+    "seconds": 9.545
+  },
+  {
+    "name": "web-package",
+    "command": [
+      "powershell",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "tools/package_web.ps1"
+    ],
+    "passed": true,
+    "exit_code": 0,
+    "seconds": 12.753
+  },
+  {
+    "name": "pack-content",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--main-pack",
+      "build/web/index.pck",
+      "--script",
+      "tests/cli/ExportAudit.gd"
+    ],
+    "passed": true,
+    "exit_code": 0,
+    "seconds": 0.388
+  },
+  {
+    "name": "pack-island",
+    "command": [
+      "godot",
+      "--headless",
+      "--path",
+      ".",
+      "--main-pack",
+      "build/web/index.pck",
+      "--script",
+      "tests/cli/IslandProductionPackAudit.gd"
+    ],
+    "passed": true,
+    "exit_code": 0,
+    "seconds": 0.393
+  }
+]

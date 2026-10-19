@@ -1,0 +1,16 @@
+[
+  {
+    "url": "http://127.0.0.1:8069/index.html",
+    "status": 200,
+    "bytes": 1267
+  },
+  {
+    "url": "https://192.168.100.126:8068/index.html",
+    "status": 200,
+    "bytes": 5454
+  },
+  {
+    "check": "HTTPS serves current resource pack",
+    "sha256": "ec84bc77c9bd13ad69a2416a42efd4523710585470d11871a2825150c7a4124e"
+  }
+]

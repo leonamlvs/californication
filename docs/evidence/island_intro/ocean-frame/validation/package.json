@@ -1,0 +1,17 @@
+{
+  "clip_sha256": "3775cdc7a3a680d4ece5ca7578b52e7ad55e4107f8053697421acaf8d4619866",
+  "files": [
+    "index.apple-touch-icon.png",
+    "index.audio.position.worklet.js",
+    "index.audio.worklet.js",
+    "index.html",
+    "index.icon.png",
+    "index.island-intro.mp4",
+    "index.js",
+    "index.pck",
+    "index.png",
+    "index.poster.png",
+    "index.wasm"
+  ],
+  "bytes": 47900121
+}

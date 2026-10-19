@@ -2,10 +2,10 @@
 
 ## Current state
 
-- Scope: the approved [Task 23 island revision](ISLAND_INTRO_PLAN.md), one milestone per request.
+- Scope: the approved [Task 23 island revision](ISLAND_INTRO_PLAN.md), one milestone per request. Current request is the full-screenshot ocean correction; implementation ready for visual review.
 - Baseline revision: `fc03f6ffb2cb1678dd0e9afbe9b184d8f0a88720` (`fix: simplify loading bar fill`). Working tree was clean before 23.V0.
 - Last fully completed milestone: **23.V5 - Production integration** (2026-10-18). V2 was explicitly approved on 2026-10-16. On 2026-10-17 the user explicitly approved visual review 2: **"Approve V4 transition"**. See the [approval record](evidence/island_intro/v4/APPROVAL.md).
-- The normal game now uses the approved video/live island sequence after loading. Production integration, shared input/layout preservation, companion packaging, and regression checks are complete. Actual device validation remains V6.
+- The normal game now uses the video/live island sequence after loading, with the untouched full-frame ocean awaiting review. Production integration, shared input/layout preservation, companion packaging, and regression checks are complete. Actual device validation remains V6.
 - V1 was rebuilt and its native/Web/production checks re-run before V2 edits. V2 import, main startup, Task 23/24, geometry/camera/rotation coverage, native captures, exported browser, and package-isolation checks pass. See [V2 evidence](evidence/island_intro/v2/README.md).
 - Visual reviews 1 and 2 are approved. Visual review 3 and actual phone performance remain pending.
 
@@ -17,7 +17,7 @@
 | 23.V3 | Complete | Packed shore data, periodic ripple map, one opaque material, deterministic clock; eleven CLI/native/package, eight browser, and sixteen rendered checks pass. |
 | 23.V4 | Complete; approved | Eleven CLI/native/package and twelve browser checks pass; actual exported-browser recording preserved. User explicitly approved the transition on 2026-10-17. |
 | 23.V5 | Complete | Production flow, 13 CLI/package checks, exported browser playback/input/retry/focus checks; durable V5 evidence. |
-| 23.V6 | In progress | Android LAN preview prepared; actual device results, measured performance and visual review 3 pending. iPhone unavailable. |
+| 23.V6 | In progress | Android HTTPS startup user-confirmed. Measured performance and visual review 3 pending; iPhone unavailable. |
 
 ## Authoritative sources and durable evidence
 
@@ -323,10 +323,53 @@ TLS support to the shared local server, `--https` on port 8068, and reproducible
 `tools/prepare_island_https.ps1`. Current phone URL is
 **https://192.168.100.126:8068/index.html**. The local seven-day self-signed
 certificate requires a browser exception for this preview. Host-side certificate,
-hostname, HTML and MP4 range checks pass; phone playback remains pending.
+hostname, HTML and MP4 range checks pass; the user subsequently confirmed Android startup ("Great, it's working").
 Keys are ignored under build and are not served or packaged. No runtime game
 or approved asset changes were made. See V6 README and `https-checks.json`.
 
-**Current milestone: 23.V6 - Device validation.** First unfinished criterion: confirm Android Chrome can reach the LAN preview and record its device/browser version. Then capture appearance and measured performance on available devices. iPhone is unavailable; keep that criterion and visual review 3 pending. Do not infer hardware performance from smoke-test timing.
+## Static ocean revision - 2026-10-18
 
-> Read the island plan and handoff, inspect repository changes, and verify V5 recorded checks. V0-V5 are complete; visual reviews 1 and 2 are explicitly approved. Implement only requested V6, beginning with actual target device validation. Preserve the approved presentation, loading, shared input, and frontend behavior. Record measured evidence and any device access limits; obtain visual review 3 explicitly before declaring V6 complete.
+Repository HEAD at start: `64a0912c0eba0f2bfabb89059a1e30d7e3b40f71`; working tree was clean. The user explicitly requested the static-texture-first plan instead of further V6 work. This processed-water implementation was subsequently rejected by the user. It is superseded by the full-screenshot correction below.
+
+- Extracted original native frame 199 (the existing island's source). Supplied frame 0167 is preserved as comparison evidence. Seven ORA layers/individual PNGs include untouched reference, coast guide, cleaned base, extracted waves/mask, blend mask and deep tile. Source pixels are retained outside the land/wave selection; fill uses neighboring source pixels, with no AI generation.
+- `tools/build_ocean_color_texture.py` reproduces the extraction. `art/source/island_intro/ocean-color/README.md` is the artist workflow. Do not regenerate over manual edits.
+- Production `IslandRuntimeOceanProfile.gd`, `ocean.tres`, and `ocean_animated.gdshader` now use three static textures: `ocean-color.png` (960x720), `ocean-color-mask.png` (960x720), `ocean-deep-color.png` (256x256). Color imports are lossless/mipmapped; shader colors have source-color annotations while the mask is data. No palette recoloring, TIME, foam or ripple animation. Existing shore/ripple data and phase interface remain reserved for later wave work.
+- The ocean is still one opaque two-triangle plane. Its near-coast image follows the island; deep texture uses world coordinates. Island mesh/atlas, camera/handoff/controller and loading/input remain unchanged; preservation checks are recorded.
+- Fresh baseline and final thirteen production CLI/export checks pass. Native Compatibility captures and 21 asset/render/preservation checks pass. Browser handoff is recorded from the real export; desktop/portrait/full rotation/close beach/overlap images are preserved. See [the evidence README](evidence/island_intro/ocean-color/README.md) for commands, versions, logs and limitations.
+- Desktop review: **http://127.0.0.1:8069/index.html**, started by `node tools/serve_ocean_color_review.mjs`. Android production export is refreshed at **https://192.168.100.126:8068/index.html**; restart HTTPS server as documented above. The reviewed appearance is now awaiting the user's approval or painting edits.
+
+Known limitation: single-frame wave separation is approximate; faint diffuse variation remains. Hidden land fill uses nearest-water colors. These are editable source layers, not a claim of exact decomposition. Historical V2/V4 approvals do not approve the new sea. V6 measurements and iPhone/visual review 3 remain pending.
+
+## Full-screenshot ocean correction - 2026-10-18
+
+The user explicitly rejected the prior beach/wave extraction and requested a flat
+screenshot proportionally aligned beneath the mesh. Runtime `ocean-frame.png` is
+byte-identical to native frame 199, the existing island's reference. Its complete
+land/beach/cyan/wave content is retained; no cleaning or coastline mask is applied.
+The existing mapping (32 x 24.536174277 units, center zero) aligns it with the mesh.
+Only the rectangular image margin fades into the source deep-water tile. The
+production shader is a static texture mapper; wave effects remain disabled.
+
+Changed runtime: `IslandRuntimeOceanProfile.gd`, `ocean_animated.gdshader`, new
+`assets/ocean-frame.png` and its lossless mipmapped import. Old processed color/mask
+images are excluded in `export_presets.cfg` and checked by the pack audit.
+Task 23 asserts the screenshot binding. The capture fixture accepts an output
+folder; browser capture accepts ISLAND_REVIEW_FOLDER so earlier evidence stays intact.
+No island geometry/atlas, camera curves, clip timing or shared input changes.
+
+Baseline Tasks 23/24 pass. Final thirteen production/import/package checks pass;
+native full-turn/close-up and real browser handoff captures are preserved in
+[evidence/island_intro/ocean-frame](evidence/island_intro/ocean-frame/README.md).
+Source identity, static water and preserved assets are checked by the new review
+finalizer. Review: **http://127.0.0.1:8070/index.html**; Android production export is
+refreshed at **https://192.168.100.126:8068/index.html**. Visual approval is pending.
+The rejected processed-water attempt remains historical evidence only.
+
+### Resume
+
+> Read the full-screenshot review README and this handoff. The full frame now sits
+> beneath the unchanged 3D island; do not cut out the coastline, remove land or
+> separate waves. Review/user texture edits are next. Add wave-only shaders only
+> when requested. Preserve timing, loading/input/frontend behavior. V6 remains
+> incomplete; Android startup is confirmed, phone model/performance and iPhone
+> testing remain pending.

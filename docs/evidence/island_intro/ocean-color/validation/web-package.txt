@@ -1,0 +1,1 @@
+WEB_PACKAGE_PASS files=11 bytes=47797453 zip=F:\Desktop\Projects\In Progress\Godot\californication\build\itch\californication-web.zip

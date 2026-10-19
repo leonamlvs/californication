@@ -78,6 +78,11 @@ func _run() -> void:
 	_assert(not frontend.visible and frontend.active_group_count() == 0, "Obsolete staged geometry remained visible during video intro.")
 	_assert(sequence.profile.camera_profile.video_end > 3.47 and sequence.profile.camera_profile.settle_end < 4.14, "Approved transition profile was not loaded.")
 	_assert(sequence.study.ocean.mesh is PlaneMesh and sequence.study.island_asset != null, "Production island and flat ocean resources were not mounted.")
+	var water_profile: IslandRuntimeOceanProfile = sequence.study.ocean_profile
+	_assert(water_profile.color_plate.get_size() == Vector2(960, 720) and water_profile.deep_texture.get_size() == Vector2(256, 256), "Reference water textures have incorrect dimensions.")
+	_assert(is_zero_approx(water_profile.wave_strength) and is_zero_approx(water_profile.ripple_strength), "Static ocean review enabled wave animation.")
+	_assert(sequence.study.ocean_material.get_shader_parameter("color_plate") == water_profile.color_plate, "Reference ocean texture is not bound to production material.")
+	_assert(water_profile.color_plate.resource_path.ends_with("ocean-frame.png"), "Production must use the untouched full screenshot.")
 	_assert(sequence.poster.visible and not sequence.prompt.visible, "Video first-frame poster or intro prompt state was wrong.")
 	_assert(sequence.player.state in [&"preparing", &"ready", &"playing"], "Runtime video did not begin preparing during loading.")
 	sequence._started = true

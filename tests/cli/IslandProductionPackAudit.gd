@@ -13,13 +13,14 @@ func _initialize() -> void:
 	var required := [
 		"IslandProductionSequence", "island-color", "island.glb", "ocean-shore",
 		"ocean-ripple", "ocean_animated", "live_soft_blur", "island_video.js",
+		"ocean-frame.png", "ocean-deep-color",
 	]
 	var missing: Array[String] = []
 	for name: String in required:
 		if not files.any(func(path: String) -> bool: return name in path):
 			missing.append(name)
 	var forbidden := files.filter(func(path: String) -> bool:
-		return path.ends_with(".ogv") or path.ends_with(".mp4") or path.begins_with("res://dev/") or path.begins_with("res://art/source/")
+		return "ocean-color" in path or path.ends_with(".ogv") or path.ends_with(".mp4") or path.ends_with(".ora") or path.begins_with("res://dev/") or path.begins_with("res://art/source/")
 	)
 	if missing.is_empty() and forbidden.is_empty():
 		print("ISLAND_PRODUCTION_PACK_PASS resources=", files.size(), " runtime scene, flat ocean, video bridge; native/source media excluded")

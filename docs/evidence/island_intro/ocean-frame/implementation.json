@@ -1,0 +1,26 @@
+{
+  "revision": "64a0912c0eba0f2bfabb89059a1e30d7e3b40f71",
+  "source": "docs/evidence/island_intro/v0/reference/original_0199.png",
+  "files": [
+    {
+      "path": "frontend/island/live/assets/ocean-frame.png",
+      "sha256": "36669c2bcfc6f86c4d69c6ce2f83dc6dc61d523a9b8ec8ebc3188814b98cf50e"
+    },
+    {
+      "path": "frontend/island/live/IslandRuntimeOceanProfile.gd",
+      "sha256": "5111d4562d87688165a1d2bc0dc3352792b413fcb9a16e05d6162854a547c86d"
+    },
+    {
+      "path": "frontend/island/live/ocean.tres",
+      "sha256": "3973586a58e5cf601b87f50278a620d8557d7b5f61f80359158e521a6cad9094"
+    },
+    {
+      "path": "frontend/island/live/ocean_animated.gdshader",
+      "sha256": "7be5563e287bc14cf6204adde9f0e5ddd9559f66373542e9241cdcaa77500c9d"
+    },
+    {
+      "path": "export_presets.cfg",
+      "sha256": "c0a2bb52dd063137a599320c3ffe57caf4684544d7789980bf6f43fe30e653c9"
+    }
+  ]
+}

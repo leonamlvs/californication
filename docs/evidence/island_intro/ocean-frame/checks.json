@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Screenshot is byte-identical to original source frame 199",
+    "passed": true,
+    "sha256": "36669c2bcfc6f86c4d69c6ce2f83dc6dc61d523a9b8ec8ebc3188814b98cf50e"
+  },
+  {
+    "name": "Water time does not animate the screenshot",
+    "passed": true
+  },
+  {
+    "name": "Full rotation returns to same alignment",
+    "passed": true,
+    "mean": 5.787037037037037e-05
+  },
+  {
+    "name": "Actual exported-browser handoff captured without runtime errors",
+    "passed": true,
+    "frames": 659
+  },
+  {
+    "name": "Preserved frontend/island/live/assets/island.glb",
+    "passed": true
+  },
+  {
+    "name": "Preserved frontend/island/live/assets/island-color.png",
+    "passed": true
+  },
+  {
+    "name": "Preserved frontend/island/live/transition.tres",
+    "passed": true
+  },
+  {
+    "name": "Preserved frontend/island/live/handoff.tres",
+    "passed": true
+  },
+  {
+    "name": "Preserved frontend/island/live/IslandProductionSequence.gd",
+    "passed": true
+  }
+]

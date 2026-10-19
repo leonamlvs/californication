@@ -1,0 +1,90 @@
+[
+  {
+    "name": "Water time does not change static pixels",
+    "passed": true
+  },
+  {
+    "name": "360 degree return matches",
+    "passed": true,
+    "mean": 5.111882716049383e-05
+  },
+  {
+    "name": "Deep tile edges match",
+    "passed": true
+  },
+  {
+    "name": "Coastal mask has zero outer border",
+    "passed": true
+  },
+  {
+    "name": "Untouched water pixels retain exact source RGB",
+    "passed": true,
+    "pixels": 540241
+  },
+  {
+    "name": "ORA has seven editable layers at source size",
+    "passed": true
+  },
+  {
+    "name": "ORA default merge equals base texture",
+    "passed": true
+  },
+  {
+    "name": "Actual browser composition recorded",
+    "passed": true,
+    "frames": 584,
+    "raw_frames": 584
+  },
+  {
+    "name": "No black overlap sample 3.3033",
+    "passed": true
+  },
+  {
+    "name": "No black overlap sample 3.37",
+    "passed": true
+  },
+  {
+    "name": "No black overlap sample 3.4367",
+    "passed": true
+  },
+  {
+    "name": "No black overlap sample 3.4701",
+    "passed": true
+  },
+  {
+    "name": "No black overlap sample 3.57",
+    "passed": true
+  },
+  {
+    "name": "No black overlap sample 3.7371",
+    "passed": true
+  },
+  {
+    "name": "Preserved frontend/island/live/assets/island.glb",
+    "passed": true
+  },
+  {
+    "name": "Preserved frontend/island/live/assets/island-color.png",
+    "passed": true
+  },
+  {
+    "name": "Preserved frontend/island/live/transition.tres",
+    "passed": true
+  },
+  {
+    "name": "Preserved frontend/island/live/handoff.tres",
+    "passed": true
+  },
+  {
+    "name": "Preserved frontend/island/live/IslandProductionSequence.gd",
+    "passed": true
+  },
+  {
+    "name": "Preserved frontend/island/live/assets/ocean-shore.png",
+    "passed": true
+  },
+  {
+    "name": "Preserved frontend/island/live/assets/ocean-ripple.png",
+    "passed": true
+  }
+]

@@ -1,5 +1,11 @@
 # Production island presentation (23.V5)
 
+Current ocean correction: `assets/ocean-frame.png` is the untouched full video
+frame, including land/beach/waves, aligned beneath the 3D mesh. Its placement is
+controlled by `ocean.tres` map size/center. There is no coastline cutout or wave
+animation. See `docs/evidence/island_intro/ocean-frame/README.md` for review and
+rebuild commands; the earlier processed ocean/ORA is superseded.
+
 Run the normal Godot project for native playback. For Web, run
 `python tools/validate_island_production.py`, then
 `node tools/serve_production_web.mjs` and open http://127.0.0.1:8066/index.html.
